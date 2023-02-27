@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import LoginForm from "../components/LoginForm";
 import { Margin, Padding, FontSize, FontFamily, Color } from "../GlobalStyles";
 
-const PasswordLogin = () => {
+const PasswordLogin = ({navigation}:any) => {
   return (
     <View style={[styles.passwordLogin, styles.nextpreviousSpaceBlock]}>
       <LoginForm />
@@ -19,7 +19,7 @@ const PasswordLogin = () => {
           resizeMode="cover"
           source={require("../assets/iconarrow.png")}
         />
-        <View style={styles.next}>
+        <Pressable onPress={() => navigation.navigate('TermsAndCondition')} style={styles.next}>
           <Image
             style={[
               styles.iconarrow1,
@@ -30,7 +30,8 @@ const PasswordLogin = () => {
             source={require("../assets/iconarrow1.png")}
           />
           <Text style={[styles.login, styles.loginPosition]}>LOGIN</Text>
-        </View>
+        </Pressable>
+        
       </View>
     </View>
   );

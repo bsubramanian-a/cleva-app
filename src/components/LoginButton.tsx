@@ -5,7 +5,7 @@ import { FontSize, FontFamily, Color, Border, Padding } from "../GlobalStyles";
 import {useNavigation} from '@react-navigation/native';
 
 type LoginButtonType = {
-  acceptToContinue?: string;
+  acceptToContinue?: String;
 
   /** Style props */
   loginButtonMarginTop?: number | string;
