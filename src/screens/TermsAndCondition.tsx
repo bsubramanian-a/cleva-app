@@ -4,6 +4,8 @@ import LoginButton from "../components/LoginButton";
 import { Margin, FontSize, FontFamily, Color, Padding } from "../GlobalStyles";
 
 const TermsAndCondition = () => {
+
+  
   return (
     <View style={styles.termsAndCondition}>
       <View style={styles.heading}>
@@ -87,7 +89,7 @@ const TermsAndCondition = () => {
           >{`Cleva & The Cleva Co Pty Ltd (ABN 77 630 503 285) is a Corporate Authorised Representative (CAR No. 123456) of Wealth Trail Pty Ltd (ACN 634 620 956) (Please refer to our website for the AFSL number). `}</Text>
         </Text>
       </Text>
-      <LoginButton acceptToContinue={acceptToContinue} />
+      <LoginButton acceptToContinue={"Accept to continue"} />
     </View>
   );
 };
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     marginTop: Margin.m_2xs,
   },
   aQuickCheck: {
-    marginBlockStart: 0,
+    marginStart: 0,
     marginBlockEnd: 0,
   },
   fromTheLawyers: {

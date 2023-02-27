@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   login: {
-    marginBlockStart: 0,
+    marginStart: 0,
     marginBlockEnd: 0,
   },
   withEmail: {
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
   iconleftarrow: {
     width: 20,
     height: 20,
+    resizeMode: 'cover'
   },
   iconrightarrow: {
     width: "28.17%",
