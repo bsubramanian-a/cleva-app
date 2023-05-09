@@ -1,14 +1,43 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, StyleSheet, View, Image, Pressable } from "react-native";
 import EmailInput from "../components/EmailInput";
 import { Margin, Padding, FontSize, FontFamily, Color } from "../GlobalStyles";
+import actions from "../../actions";
 
 const EmailLogin = ({navigation}:any) => {
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  // useEffect(() => {
+  //   getJournals();
+  // })
+
+  // const getJournals = async() => {
+  //   const res = await actions.getUserData();
+  //   console.log("res", res)
+  // }
+
+  const onVerifyEmail = async () => {
+    setError("");
+    try {
+      const res:any = await actions.verifyEmail({
+        email,
+      });
+      console.log('res==>>>>>', res);
+      if(res?.isUserExist === true){
+        navigation.navigate('PasswordLogin')
+      }else{
+        setError("User doesn't exist, please regster first");
+      }
+    } catch (error) {
+      console.log('error raised', error);
+    }
+  };
+
   return (
     <View style={[styles.emailLogin, styles.emailLoginSpaceBlock]}>
       <View style={styles.heading}>
         <Text style={styles.loginWithEmailContainer}>
-          <Text style={styles.login}>Login</Text>  {'\n'}
+          <Text style={styles.login}>Login</Text>  {'\n'} 
           <Text style={styles.withEmail}>with email</Text>
         </Text>
         <EmailInput
@@ -20,7 +49,11 @@ const EmailLogin = ({navigation}:any) => {
           emailInputPaddingHorizontal={0}
           emailInputPaddingVertical={18}
           emailInputMarginTop={48}
+          setText={setEmail}
         />
+        {error != "" && 
+          <Text>{error}</Text>
+        }
       </View>
       <View
         style={[styles.nextprevious, styles.mt120, styles.emailLoginSpaceBlock]}
@@ -30,7 +63,7 @@ const EmailLogin = ({navigation}:any) => {
           resizeMode="cover"
           source={require("../assets/iconarrow.png")}
         />
-        <Pressable onPress={() => navigation.navigate('PasswordLogin')} style={styles.next}>
+        <Pressable onPress={onVerifyEmail} style={styles.next}>
           <Image
             style={styles.iconrightarrow}
             resizeMode="cover"
@@ -117,3 +150,7 @@ const styles = StyleSheet.create({
 });
 
 export default EmailLogin;
+function useQuery(arg0: string, getJournalsQuery: any): { data: any; error: any; isLoading: any; } {
+  throw new Error("Function not implemented.");
+}
+

@@ -8,6 +8,7 @@ import PasswordLogin from '../screens/PasswordLogin';
 import Splash from '../screens/Splash';
 import TermsAndCondition from '../screens/TermsAndCondition';
 import EmailLogin from '../screens/EmailLogin';
+import Goals from '../screens/Goals';
 
 // create a component
 const Authstack = (Stack) => {
@@ -23,6 +24,7 @@ const Authstack = (Stack) => {
             <Stack.Screen name="Splash" component={Splash} />
             <Stack.Screen name="TermsAndCondition" component={TermsAndCondition} />
             <Stack.Screen name="EmailLogin" component={EmailLogin} />
+            <Stack.Screen name="Goals" component={Goals} />
         </Stack.Navigator>
     );
 };

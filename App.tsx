@@ -26,6 +26,8 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import Routes from './src/Navigations/Routes';
 import {NavigationContainer} from '@react-navigation/native';
+import { Provider } from 'react-redux';
+import store from './store';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -40,9 +42,11 @@ function App(): JSX.Element {
   };
 
   return (
-    <NavigationContainer>
-      <Routes />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
+    </Provider>
   );
 }
 

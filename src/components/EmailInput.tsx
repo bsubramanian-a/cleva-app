@@ -14,6 +14,8 @@ type EmailInputType = {
   emailInputPaddingHorizontal?: number | string;
   emailInputPaddingVertical?: number | string;
   emailInputMarginTop?: number | string;
+  setText?:any;
+  isPassword?:boolean;
 };
 
 const getStyleValue = (key: string, value: string | number | undefined) => {
@@ -30,6 +32,8 @@ const EmailInput = ({
   emailInputPaddingHorizontal,
   emailInputPaddingVertical,
   emailInputMarginTop,
+  setText,
+  isPassword
 }: EmailInputType) => {
   const emailInputStyle = useMemo(() => {
     return {
@@ -57,6 +61,8 @@ const EmailInput = ({
       placeholder={emailInputPlaceholder}
       keyboardType="default"
       placeholderTextColor="#aaa9a8"
+      secureTextEntry={isPassword || false}
+      onChangeText={(text) => setText(text)}
     />
   );
 };
