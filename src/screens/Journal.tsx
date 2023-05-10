@@ -1,38 +1,38 @@
 import * as React from "react";
-import { ScrollView, Image, StyleSheet, View, Text } from "react-native";
+import { ScrollView, Image, StyleSheet, View, Text, StatusBar } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import TopHeader from "../components/TopHeader";
 import JournalSlider from "../components/JournalSlider";
 import JournalSlider1 from "../components/JournalSlider1";
 import { Margin, Padding, Border, FontFamily, Color } from "../GlobalStyles";
+import CustomHeader from "../components/CustomHeader";
+import SwipeCard from "../components/SwipeCard";
+import { useSelector } from "react-redux";
 
 const Journal = () => {
+  const journals = useSelector((state:any) => state.data.journals);
+  
+  // const cards = [
+  //   { id: 1, text: 'Card 1', progress: 10 },
+  //   { id: 2, text: 'Card 2', progress: 20 },
+  //   { id: 3, text: 'Card 3', progress: 30 },
+  //   { id: 4, text: 'Card 4', progress: 40 },
+  //   { id: 5, text: 'Card 5', progress: 50 },
+  //   { id: 6, text: 'Card 6', progress: 60 },
+  //   { id: 7, text: 'Card 7', progress: 70 },
+  //   { id: 8, text: 'Card 8', progress: 80 },
+  //   { id: 9, text: 'Card 9', progress: 90 },
+  //   { id: 10, text: 'Card 10', progress: 100 },
+  // ];
+
   return (
     <ScrollView
       style={styles.journal}
-      showsHorizontalScrollIndicator={false}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.journalScrollViewContent}
     >
-      <LinearGradient
-        style={styles.mainvector1Parent}
-        locations={[0, 1]}
-        colors={["rgba(239, 159, 39, 0.08)", "rgba(255, 255, 255, 0)"]}
-        useAngle={true}
-        angle={180}
-      >
-        <Image
-          style={styles.mainvector1Icon}
-          resizeMode="cover"
-          source={require("../assets/mainvector-1.png")}
-        />
-        <TopHeader logo={require("../assets/logo1.png")} />
-      </LinearGradient>
-      <ScrollView
+      <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
+      <CustomHeader name="Journal" type={1}/>
+      <View
         style={styles.frameParent}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.frameScrollViewContent}
       >
         <View style={[styles.frameWrapper, styles.frameSpaceBlock]}>
           <View style={styles.yourJourneyToEmbraceYourWWrapper}>
@@ -42,7 +42,7 @@ const Journal = () => {
             </Text>
           </View>
         </View>
-        <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
+        {/* <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
           <View style={styles.slider2Parent}>
             <JournalSlider />
             <JournalSlider1 />
@@ -66,8 +66,9 @@ const Journal = () => {
               style={[styles.indicator1, styles.ml5, styles.indicator1Layout]}
             />
           </View>
-        </View>
-      </ScrollView>
+        </View> */}
+          <SwipeCard cards={journals}/>
+      </View>
     </ScrollView>
   );
 };
@@ -157,7 +158,6 @@ const styles = StyleSheet.create({
     backgroundColor: Color.white1,
     width: "100%",
     maxWidth: "100%",
-    overflow: "hidden",
     flex: 1,
   },
 });

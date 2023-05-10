@@ -5,21 +5,6 @@ import types from "../types";
 
 const { dispatch } = store
 
-export const getUserData = () => {
-    return new Promise((resolve, reject) => {
-        return apiGet('http://192.168.18.134:3000/journals').then((res) => {
-            console.log("res user",res);
-            dispatch({
-                type: types.JOURNALS,
-                payload: res
-            });
-            resolve(res)
-        }).catch((error) => {
-            reject(error)
-        });
-    });    
-}
-
 export const login = (data:any) => {
     // console.log("login.....", data);
     return new Promise((resolve, reject) => {

@@ -3,6 +3,7 @@ import { Text, StyleSheet, View, Image, Pressable } from "react-native";
 import EmailInput from "../components/EmailInput";
 import { Margin, Padding, FontSize, FontFamily, Color } from "../GlobalStyles";
 import actions from "../../actions";
+import { color } from "react-native-reanimated";
 
 const EmailLogin = ({navigation}:any) => {
   const [email, setEmail] = useState("");
@@ -63,13 +64,13 @@ const EmailLogin = ({navigation}:any) => {
           resizeMode="cover"
           source={require("../assets/iconarrow.png")}
         />
-        <Pressable onPress={onVerifyEmail} style={styles.next}>
+        <Pressable onPress={email != "" ? onVerifyEmail: undefined} style={styles.next}>
           <Image
             style={styles.iconrightarrow}
             resizeMode="cover"
-            source={require("../assets/iconrightarrow.png")}
+            source={email != "" ? require("../assets/iconarrow1.png") : require("../assets/iconrightarrow.png")}
           />
-          <Text style={styles.next1}>NEXT</Text>
+          <Text style={[styles.next1, email != "" && {color: '#000'}]}>NEXT</Text>
         </Pressable>
       </View>
     </View>

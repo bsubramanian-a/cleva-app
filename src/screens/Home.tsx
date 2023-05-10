@@ -1,8 +1,7 @@
-import * as React from "react";
-import { ScrollView, Image, StyleSheet, View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ScrollView, Image, StyleSheet, View, Text, StatusBar } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import TopHeader from "../components/TopHeader";
-import HeroSection from "../components/HeroSection";
 import EditBtn from "../components/EditBtn";
 import AssumptionBtn from "../components/AssumptionBtn";
 import EventCard from "../components/EventCard";
@@ -15,39 +14,78 @@ import {
   Border,
   Padding,
 } from "../GlobalStyles";
+import CustomHeader from "../components/CustomHeader";
+import Tabs from "../components/Tab";
+import Slider from "../components/Slider";
+import actions from "../../actions";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const journals = useSelector((state:any) => state.data.journals);
+  const assets = useSelector((state:any) => state.data.assets);
+  const liabilities = useSelector((state:any) => state.data.liabilities);
+  const [totalAssets, setTotalAssets] = useState<number>();
+  const [totalLiabilities, setTotalLiabilities] = useState<number>();
+  
+  const handleTabPress = (tabNumber:number) => {
+    setActiveTab(tabNumber);
+  };
+
+  useEffect(() => {
+    getDatas();
+  }, [])
+
+  const getDatas = async() => {
+    await actions.getJournals();
+    await actions.getAssets();
+    await actions.getLiabilities();
+  }
+
+  useEffect(() => {
+    setTotalAssets(parseFloat(assets.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2)));
+  }, [assets])
+
+  useEffect(() => {
+    setTotalLiabilities(parseFloat(liabilities.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2)));
+  }, [liabilities])
+
+
+  // const cards = [
+  //   { id: 1, text: 'Card 1', progress: 10 },
+  //   { id: 2, text: 'Card 2', progress: 20 },
+  //   { id: 3, text: 'Card 3', progress: 30 },
+  //   { id: 4, text: 'Card 4', progress: 40 },
+  //   { id: 5, text: 'Card 5', progress: 50 },
+  //   { id: 6, text: 'Card 6', progress: 60 },
+  //   { id: 7, text: 'Card 7', progress: 70 },
+  //   { id: 8, text: 'Card 8', progress: 80 },
+  //   { id: 9, text: 'Card 9', progress: 90 },
+  //   { id: 10, text: 'Card 10', progress: 100 },
+  // ];
+
   return (
-    <ScrollView
+    <View
       style={styles.home}
-      showsHorizontalScrollIndicator={false}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.homeScrollViewContent}
     >
-      <LinearGradient
-        style={styles.mainvector1Parent}
-        locations={[0, 1]}
-        colors={["rgba(239, 159, 39, 0.08)", "rgba(255, 255, 255, 0)"]}
-        useAngle={true}
-        angle={180}
-      >
-        <Image
-          style={styles.mainvector1Icon}
-          resizeMode="cover"
-          source={require("../assets/mainvector-1.png")}
-        />
-        <TopHeader logo={require("../assets/logo1.png")} />
-      </LinearGradient>
+      <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
+      <CustomHeader name="Cleva" type={1}/>
       <ScrollView
         style={styles.herosectionParent}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.frameScrollViewContent}
       >
-        <HeroSection />
+        {/* <HeroSection /> */}
+        {journals?.length > 0 && <Slider items={journals}/>}
         <View style={styles.frameParent}>
           <View style={styles.frameGroup}>
-            <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
+            <Tabs
+              tabs={['Wealth', 'Accounts', 'SOP']}
+              activeTab={activeTab}
+              onTabPress={handleTabPress}
+            />
+            {/* <View style={[styles.frameContainer, styles.frameSpaceBlock]}>
               <View style={styles.wealthParent}>
                 <Text style={styles.wealth}>Wealth</Text>
                 <View style={[styles.frameChild, styles.mt5]} />
@@ -58,11 +96,12 @@ const Home = () => {
               <Text style={[styles.accounts, styles.ml51, styles.seeAllTypo]}>
                 SOP
               </Text>
-            </View>
-            <View
-              style={[styles.frameView, styles.mt30, styles.frameSpaceBlock]}
-            >
-              <View style={[styles.frameParent1, styles.frameSpaceBlock]}>
+            </View> */}
+            {activeTab == 0 &&
+              <View
+                style={[styles.frameView, styles.mt30, styles.frameSpaceBlock]}
+              >
+                <View style={[styles.frameParent1, styles.frameSpaceBlock]}>
                 <View style={styles.frameItemLayout}>
                   <Image
                     style={[styles.frameItem, styles.frameItemLayout]}
@@ -75,7 +114,7 @@ const Home = () => {
                     </Text>
                     <Text style={[styles.text, styles.mt5, styles.textClr]}>
                       <Text style={styles.text1}>$</Text>
-                      <Text style={styles.text2}>64,058</Text>
+                      <Text style={styles.text2}>{(totalAssets - totalLiabilities)?.toFixed(1)}</Text>
                     </Text>
                   </View>
                 </View>
@@ -90,7 +129,7 @@ const Home = () => {
                       </Text>
                       <Text style={[styles.text3, styles.mt7, styles.textClr]}>
                         <Text style={styles.text1}>$</Text>
-                        <Text style={styles.text2}>90.058</Text>
+                        <Text style={styles.text2}>{totalAssets}</Text>
                       </Text>
                     </View>
                   </View>
@@ -102,17 +141,18 @@ const Home = () => {
                       <Text style={styles.seeAllTypo}>Total Liabilities</Text>
                       <Text style={[styles.text3, styles.mt7, styles.textClr]}>
                         <Text style={styles.text1}>$</Text>
-                        <Text style={styles.text2}>26,000</Text>
+                        <Text style={styles.text2}>{totalLiabilities}</Text>
                       </Text>
                     </View>
                   </View>
                 </View>
+                </View>
+                <View style={[styles.editBtnParent, styles.mt28]}>
+                  <EditBtn edit="Edit" />
+                  <AssumptionBtn />
+                </View>
               </View>
-              <View style={[styles.editBtnParent, styles.mt28]}>
-                <EditBtn edit="Edit" />
-                <AssumptionBtn />
-              </View>
-            </View>
+            }
           </View>
           <View style={[styles.frameParent3, styles.mt20]}>
             <View style={styles.frameWrapper}>
@@ -176,28 +216,28 @@ const Home = () => {
           </View>
         </View>
       </ScrollView>
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   mt_12: {
-    marginTop: Margin.m_10xs,
+    marginTop: 12,
   },
   mt5: {
-    marginTop: Margin.m_7xs,
+    marginTop: 5,
   },
   ml51: {
-    marginLeft: Margin.m_7xl,
+    marginLeft: 5,
   },
   mt7: {
-    marginTop: Margin.m_5xs,
+    marginTop: 7,
   },
   ml8: {
-    marginLeft: Margin.m_4xs,
+    marginLeft: 8,
   },
   mt26: {
-    marginTop: Margin.m_2xl,
+    marginTop: 26,
   },
   mt28: {
     marginTop: 28,
@@ -231,58 +271,58 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   seeAllTypo: {
-    fontFamily: FontFamily.outfitRegular,
-    fontSize: FontSize.size_base,
+    fontFamily: FontFamily.openSansRegular,
+    fontSize: FontSize.textMediumBoldText1_size,
   },
   frameItemLayout: {
     height: 130,
     width: 130,
   },
   netWorthClr: {
-    color: Color.darkslategray_100,
+    color: Color.gray_200,
     textAlign: "left",
   },
   textClr: {
-    color: Color.gray_500,
+    color: Color.gray_200,
     textAlign: "left",
   },
   frameInnerLayout: {
     height: 40,
     width: 3,
-    borderRadius: Border.br_2xl,
+    borderRadius: Border.br_md,
   },
   eventsParentFlexBox: {
     width: 350,
     alignItems: "center",
     flexDirection: "row",
   },
-  mainvector1Icon: {
-    width: 164,
-    height: 63,
-    overflow: "hidden",
-  },
-  mainvector1Parent: {
-    backgroundColor: "transparent",
-    alignSelf: "stretch",
-  },
+  // mainvector1Icon: {
+  //   width: 164,
+  //   height: 63,
+  //   overflow: "hidden",
+  // },
+  // mainvector1Parent: {
+  //   backgroundColor: "transparent",
+  //   alignSelf: "stretch",
+  // },
   wealth: {
     fontWeight: "500",
-    fontFamily: FontFamily.outfitMedium,
+    fontFamily: FontFamily.openSansRegular,
     textAlign: "left",
-    color: Color.orange_100,
-    fontSize: FontSize.size_base,
+    color: Color.goldenrod,
+    fontSize: FontSize.size_sm,
   },
   frameChild: {
-    backgroundColor: Color.orange_100,
+    backgroundColor: Color.goldenrod,
     width: 20,
     height: 3,
-    borderRadius: Border.br_2xl,
+    borderRadius: Border.br_md,
   },
   wealthParent: {
     justifyContent: "center",
   },
   accounts: {
-    color: Color.gray_100,
+    color: Color.gray_200,
     textAlign: "left",
   },
   frameContainer: {
@@ -300,19 +340,19 @@ const styles = StyleSheet.create({
   },
   netWorth: {
     fontSize: FontSize.size_sm,
-    fontFamily: FontFamily.poppinsRegular,
+    fontFamily: FontFamily.openSansRegular,
   },
   text1: {
     fontStyle: "italic",
-    fontFamily: FontFamily.sourceSerifProBoldItalic,
+    fontFamily: FontFamily.openSansBold,
     fontWeight: "700",
   },
   text2: {
-    fontFamily: FontFamily.sourceSerifProBold,
+    fontFamily: FontFamily.openSansBold,
     fontWeight: "700",
   },
   text: {
-    fontSize: 19,
+    fontSize: 15,
   },
   netWorthParent: {
     top: 43,
@@ -321,10 +361,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   frameInner: {
-    backgroundColor: Color.goldenrod_100,
+    backgroundColor: Color.goldenrod,
   },
   text3: {
-    fontSize: FontSize.size_2xl,
+    fontSize: FontSize.size_sm,
   },
   rectangleParent: {
     alignItems: "center",
@@ -353,7 +393,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_sm,
   },
   frameGroup: {
-    borderRadius: Border.br_sm,
+    borderRadius: 16,
     shadowColor: "rgba(32, 34, 36, 0.08)",
     shadowOffset: {
       width: 0,
@@ -371,16 +411,15 @@ const styles = StyleSheet.create({
     backgroundColor: Color.white1,
   },
   events: {
-    fontSize: FontSize.size_3xl,
+    fontSize: FontSize.size_lg,
     fontWeight: "600",
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontFamily: FontFamily.openSansRegular,
     color: Color.black,
     textAlign: "left",
   },
   seeAll: {
-    textDecoration: "underline",
     textAlign: "right",
-    color: Color.orange_100,
+    color: Color.goldenrod,
   },
   eventsParent: {
     justifyContent: "space-between",
@@ -396,7 +435,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   frameParent: {
-    padding: Padding.p_lg,
+    padding: Padding.p_md,
     alignSelf: "stretch",
   },
   herosectionParent: {

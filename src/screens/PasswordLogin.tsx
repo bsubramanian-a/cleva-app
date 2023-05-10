@@ -24,10 +24,10 @@ const PasswordLogin = ({navigation}:any) => {
         if(res?.status == 403){
           setError(res?.message);
         }else{
-          navigation.navigate('Goals')
+          // navigation.navigate('Goals')
         }
       }else{
-        navigation.navigate('Goals')
+        // navigation.navigate('Goals')
       }
     } catch (error) {
       console.log('error raised', error);
@@ -52,7 +52,7 @@ const PasswordLogin = ({navigation}:any) => {
           resizeMode="cover"
           source={require("../assets/iconarrow.png")}
         />
-        <Pressable onPress={onLogin} style={styles.next}>
+        <Pressable onPress={password != "" ? onLogin : undefined} style={styles.next}>
           <Image
             style={[
               styles.iconarrow1,
@@ -60,9 +60,9 @@ const PasswordLogin = ({navigation}:any) => {
               styles.iconarrowLayout,
             ]}
             resizeMode="cover"
-            source={require("../assets/iconarrow1.png")}
+            source={password != "" ? require("../assets/iconarrow1.png") : require("../assets/iconrightarrow.png")}
           />
-          <Text style={[styles.login, styles.loginPosition]}>LOGIN</Text>
+          <Text style={[styles.login, styles.loginPosition, password != "" && {color: '#000'}]}>LOGIN</Text>
         </Pressable>
         
       </View>
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     fontWeight: "600",
     fontFamily: FontFamily.textMediumBoldText1,
-    color: Color.dark1,
+    color: '#aaa9a8',
     textAlign: "right",
   },
   next: {

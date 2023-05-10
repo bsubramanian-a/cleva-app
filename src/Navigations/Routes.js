@@ -3,19 +3,19 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Authstack from './Authstack';
 import Mainstack from './Mainstack';
 import { useSelector } from 'react-redux';
-// import { createDrawerNavigator } from '@react-navigation/drawer';
+import { acc } from 'react-native-reanimated';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Routes = () => {
+  const access_token = useSelector((state) => state.auth.access_token);
+  // console.log("route access token", access_token);
   const Stack = createStackNavigator();
-  // const Drawer = createDrawerNavigator();
+  const Drawer = createDrawerNavigator();
 
   return (    
-    // <>
-    //   {!!userData && userData?.access_token ? Mainstack(Drawer, userData?.user?.new_status == 1 ? 'HomeNormal' : 'HomeNewUser')
-    //               : Authstack(Stack)
-    //           }
-    // </>
-    Authstack(Stack)
+    <>
+      {!!access_token && access_token ? Mainstack(Drawer) : Authstack(Stack)}
+    </>
   );
 };
 

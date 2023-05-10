@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, StyleSheet, Image, View, ImageBackground } from "react-native";
+import { Text, StyleSheet, Image, View, ImageBackground, Dimensions } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import {
   Margin,
@@ -10,7 +10,7 @@ import {
   FontFamily,
 } from "../GlobalStyles";
 
-const HeroSection = () => {
+const HeroSection = ({item}:any) => {
   return (
     <View style={styles.herosection}>
       <ImageBackground
@@ -28,7 +28,7 @@ const HeroSection = () => {
           >
             <Text style={styles.getStarted}>Get Started</Text>
             <View style={[styles.chaptergroup, styles.getchapgroupFlexBox]}>
-              <Text style={styles.chapter1}>Chapter 1</Text>
+              <Text style={styles.chapter1}>{item?.Name}</Text>
               <Image
                 style={[styles.vuesaxlineararrowCircleRigIcon, styles.ml6]}
                 resizeMode="cover"
@@ -48,11 +48,11 @@ const HeroSection = () => {
             <Text style={[styles.yourProgress, styles.textTypo]}>
               Your Progress
             </Text>
-            <Text style={[styles.text, styles.textTypo]}>47%</Text>
+            <Text style={[styles.text, styles.textTypo]}>{item?.progress || 40}%</Text>
           </View>
           <View style={[styles.rectangleParent, styles.mt10]}>
-            <View style={[styles.groupChild, styles.groupPosition]} />
-            <View style={[styles.groupItem, styles.groupPosition]} />
+            {/* <View style={[styles.groupChild, styles.groupPosition]} /> */}
+            <View style={[styles.groupItem, styles.groupPosition, {width: item?.progress ? (((Dimensions.get('window').width - 107) * 0.01) * item?.progress) : 40 }]} />
           </View>
         </LinearGradient>
       </ImageBackground>
@@ -79,7 +79,7 @@ const HeroSection = () => {
 
 const styles = StyleSheet.create({
   ml6: {
-    marginLeft: Margin.m_6xs,
+    marginLeft: 4,
   },
   mt10: {
     marginTop: Margin.m_2xs,
@@ -88,9 +88,9 @@ const styles = StyleSheet.create({
     marginLeft: Margin.m_7xs,
   },
   getchapgroupSpaceBlock: {
-    paddingTop: Padding.p_5xs,
-    overflow: "hidden",
-    alignSelf: "stretch",
+    // paddingTop: Padding.p_5xs,
+    // overflow: "hidden",
+    // alignSelf: "stretch",
   },
   getchapgroupFlexBox: {
     flexDirection: "row",
@@ -134,14 +134,18 @@ const styles = StyleSheet.create({
   },
   chaptergroup: {
     justifyContent: "center",
+    alignItems: 'center'
   },
   getchapgroup: {
-    borderRadius: Border.br_lg,
-    backgroundColor: Color.gray_600,
-    paddingLeft: Padding.p_xl,
+    borderRadius: Border.br_md,
+    backgroundColor: '#FFFFFF33',
+    paddingLeft: Padding.p_md,
     paddingRight: Padding.p_md,
-    paddingBottom: Padding.p_5xs,
+    marginHorizontal: 10,
+    paddingVertical: 8,
+    marginTop: 10,
     justifyContent: "space-between",
+    alignItems: 'center'
   },
   getchapgroupWrapper: {
     padding: Padding.p_5xs,
@@ -172,16 +176,17 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   progressgroupParent: {
-    height: 60,
+    height: 200,
     paddingHorizontal: Padding.p_md,
     paddingBottom: Padding.p_md,
     backgroundColor: "transparent",
-    borderRadius: Border.br_sm,
-    paddingTop: Padding.p_5xs,
+    borderRadius: 10,
+    paddingTop: 0,
+    width: '100%'
   },
   sliderIcon: {
-    height: 220,
-    minHeight: 204,
+    height: 500,
+    minHeight: 270,
     justifyContent: "space-between",
     overflow: "hidden",
     borderRadius: Border.br_sm,

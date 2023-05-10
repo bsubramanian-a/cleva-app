@@ -6,13 +6,11 @@ import LoginSignup from '../screens/LoginSignup';
 import LoginSignup1 from '../screens/LoginSignup1';
 import PasswordLogin from '../screens/PasswordLogin';
 import Splash from '../screens/Splash';
-import TermsAndCondition from '../screens/TermsAndCondition';
 import EmailLogin from '../screens/EmailLogin';
-import Goals from '../screens/Goals';
 
 // create a component
 const Authstack = (Stack) => {
-    console.log("auth stack")
+    // console.log("auth stack")
     return (
         <Stack.Navigator screenOptions={{
             headerShown: false
@@ -22,9 +20,7 @@ const Authstack = (Stack) => {
             <Stack.Screen name="LoginSignup1" component={LoginSignup1} />
             <Stack.Screen name="PasswordLogin" component={PasswordLogin} />
             <Stack.Screen name="Splash" component={Splash} />
-            <Stack.Screen name="TermsAndCondition" component={TermsAndCondition} />
             <Stack.Screen name="EmailLogin" component={EmailLogin} />
-            <Stack.Screen name="Goals" component={Goals} />
         </Stack.Navigator>
     );
 };

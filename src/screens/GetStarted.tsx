@@ -6,6 +6,7 @@ import {
   View,
   ImageBackground,
   Text,
+  StatusBar,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import HeaderBack from "../components/HeaderBack";
@@ -18,37 +19,40 @@ import {
   FontSize,
   FontFamily,
 } from "../GlobalStyles";
+import CustomHeader from "../components/CustomHeader";
+import Tabs from "../components/Tab";
+import { useEffect, useState } from "react";
+import { Pressable } from "react-native";
+import { useSelector } from "react-redux";
+import actions from "../../actions";
 
 const GetStarted = () => {
+  const exercises = useSelector((state:any) => state.data.exercises);
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleTabPress = (tabNumber:number) => {
+    setActiveTab(tabNumber);
+  };
+
+  useEffect(() => {
+    getExercises();
+  }, [])
+
+  const getExercises = async() => {
+    await actions.getExercises();
+  }
+  
   return (
-    <ScrollView
+    <View
       style={styles.getStarted}
-      showsHorizontalScrollIndicator={false}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.getStartedScrollViewContent}
     >
-      <LinearGradient
-        style={styles.header}
-        locations={[0, 1]}
-        colors={["rgba(239, 159, 39, 0.08)", "rgba(255, 255, 255, 0)"]}
-        useAngle={true}
-        angle={180}
-      >
-        <Image
-          style={styles.mainvector1Icon}
-          resizeMode="cover"
-          source={require("../assets/mainvector-1.png")}
-        />
-        <HeaderBack
-          vuesaxlineararrowLeft={require("../assets/vuesaxlineararrowleft.png")}
-          getStarted="Get Started"
-        />
-      </LinearGradient>
+      <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
+      <CustomHeader name="Get Started" type={2}/>
       <ScrollView
         style={styles.videoSectionParent}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.frameScrollViewContent}
+        contentContainerStyle={styles.getStartedScrollViewContent}
       >
         <View style={styles.videoSection}>
           <ImageBackground
@@ -65,247 +69,97 @@ const GetStarted = () => {
             </View>
           </ImageBackground>
         </View>
-        <View style={styles.startedTab}>
-          <Text style={styles.summary} />
-          <View style={[styles.summary, styles.ml40]} />
-          <Text style={[styles.summary, styles.ml40]} />
-        </View>
-        <View style={styles.excercisesParent}>
-          <View style={styles.excercises}>
-            <View style={styles.excercise1}>
-              <View style={styles.frameParent}>
-                <View style={[styles.wrapper, styles.wrapperLayout]}>
-                  <Text style={[styles.text, styles.textClr]}>
-                    <Text style={styles.text1}>#</Text>
-                    <Text style={styles.text2Typo}>1</Text>
-                  </Text>
-                </View>
-                <Text
-                  style={[
-                    styles.earlyHappyMemory,
-                    styles.ml10,
-                    styles.text2Typo,
-                    styles.textClr,
-                  ]}
-                >
-                  Early Happy Memory
-                </Text>
-              </View>
-              <LinearGradient
-                style={styles.vectorWrapper}
-                locations={[0, 1]}
-                colors={["#fbb142", "#f6a326"]}
-                useAngle={true}
-                angle={180}
-              >
-                <Image
-                  style={styles.vectorIcon}
-                  resizeMode="cover"
-                  source={require("../assets/vector.png")}
-                />
-              </LinearGradient>
-            </View>
-            <View style={[styles.excercise1, styles.mt15]}>
-              <View style={styles.frameParent}>
-                <View style={[styles.wrapper, styles.wrapperLayout]}>
-                  <Text style={[styles.text, styles.textClr]}>
-                    <Text style={styles.text1}>#</Text>
-                    <Text style={styles.text2Typo}>2</Text>
-                  </Text>
-                </View>
-                <Text
-                  style={[
-                    styles.earlyHappyMemory,
-                    styles.ml10,
-                    styles.text2Typo,
-                    styles.textClr,
-                  ]}
-                >
-                  Early Happy Memory
-                </Text>
-              </View>
-              <LinearGradient
-                style={styles.vectorWrapper}
-                locations={[0, 1]}
-                colors={["#fbb142", "#f6a326"]}
-                useAngle={true}
-                angle={180}
-              >
-                <Image
-                  style={styles.vectorIcon}
-                  resizeMode="cover"
-                  source={require("../assets/vector.png")}
-                />
-              </LinearGradient>
-            </View>
-            <View style={[styles.excercise1, styles.mt15]}>
-              <View style={styles.frameParent}>
-                <View style={[styles.wrapper, styles.wrapperLayout]}>
-                  <Text style={[styles.text, styles.textClr]}>
-                    <Text style={styles.text1}>#</Text>
-                    <Text style={styles.text2Typo}>3</Text>
-                  </Text>
-                </View>
-                <Text
-                  style={[
-                    styles.earlyHappyMemory,
-                    styles.ml10,
-                    styles.text2Typo,
-                    styles.textClr,
-                  ]}
-                >
-                  Making Sense of My Life Story
-                </Text>
-              </View>
-              <LinearGradient
-                style={styles.vectorWrapper}
-                locations={[0, 1]}
-                colors={["#fbb142", "#f6a326"]}
-                useAngle={true}
-                angle={180}
-              >
-                <Image
-                  style={styles.vectorIcon}
-                  resizeMode="cover"
-                  source={require("../assets/vector.png")}
-                />
-              </LinearGradient>
-            </View>
-            <View style={[styles.excercise1, styles.mt15]}>
-              <View style={styles.frameParent}>
-                <View style={[styles.wrapper, styles.wrapperLayout]}>
-                  <Text style={[styles.text, styles.textClr]}>
-                    <Text style={styles.text1}>#</Text>
-                    <Text style={styles.text2Typo}>4</Text>
-                  </Text>
-                </View>
-                <Text
-                  style={[
-                    styles.earlyHappyMemory,
-                    styles.ml10,
-                    styles.text2Typo,
-                    styles.textClr,
-                  ]}
-                >
-                  Identifying my not enoughness
-                </Text>
-              </View>
-              <LinearGradient
-                style={styles.vectorWrapper}
-                locations={[0, 1]}
-                colors={["rgba(251, 177, 66, 0.1)", "rgba(246, 163, 38, 0.1)"]}
-                useAngle={true}
-                angle={180}
-              >
-                <Image
-                  style={styles.groupIcon}
-                  resizeMode="cover"
-                  source={require("../assets/group.png")}
-                />
-              </LinearGradient>
-            </View>
-            <View style={[styles.excercise5, styles.mt15]}>
-              <View style={styles.frameParent}>
-                <View style={[styles.wrapper2, styles.wrapperLayout]}>
-                  <Text style={[styles.text, styles.textClr]}>
-                    <Text style={styles.text1}>#</Text>
-                    <Text style={styles.text2Typo}>5</Text>
-                  </Text>
-                </View>
-                <Text
-                  style={[
-                    styles.earlyHappyMemory,
-                    styles.ml10,
-                    styles.text2Typo,
-                    styles.textClr,
-                  ]}
-                >
-                  Creating My Mojo Mantras
-                </Text>
-              </View>
-              <LinearGradient
-                style={styles.vectorWrapper}
-                locations={[0, 1]}
-                colors={["rgba(251, 177, 66, 0.1)", "rgba(246, 163, 38, 0.1)"]}
-                useAngle={true}
-                angle={180}
-              >
-                <Image
-                  style={styles.vuesaxboldlockIcon}
-                  resizeMode="cover"
-                  source={require("../assets/vuesaxboldlock.png")}
-                />
-              </LinearGradient>
-            </View>
-            <View style={[styles.excercise5, styles.mt15]}>
-              <View style={styles.frameParent}>
-                <View style={[styles.wrapper2, styles.wrapperLayout]}>
-                  <Text style={[styles.text, styles.textClr]}>
-                    <Text style={styles.text1}>#</Text>
-                    <Text style={styles.text2Typo}>6</Text>
-                  </Text>
-                </View>
-                <Text
-                  style={[
-                    styles.earlyHappyMemory,
-                    styles.ml10,
-                    styles.text2Typo,
-                    styles.textClr,
-                  ]}
-                >
-                  My Mojo Mantra
-                </Text>
-              </View>
-              <LinearGradient
-                style={styles.vectorWrapper}
-                locations={[0, 1]}
-                colors={["rgba(251, 177, 66, 0.1)", "rgba(246, 163, 38, 0.1)"]}
-                useAngle={true}
-                angle={180}
-              >
-                <Image
-                  style={styles.vuesaxboldlockIcon}
-                  resizeMode="cover"
-                  source={require("../assets/vuesaxboldlock.png")}
-                />
-              </LinearGradient>
-            </View>
-          </View>
-          <LinearGradient
-            style={[styles.bottom, styles.mt_70, styles.bottomFlexBox]}
-            locations={[0, 1]}
-            colors={["rgba(255, 255, 255, 0)", "rgba(239, 159, 39, 0.09)"]}
-            useAngle={true}
-            angle={180}
-          >
-            <EditBtn
-              pressablePaddingHorizontal={57}
-              pressablePaddingVertical={12}
-              edit="Continue"
-              editFontSize={16}
-            />
-          </LinearGradient>
-        </View>
+
+        <Tabs
+          tabs={['Summary', 'Exercise', 'Advice']}
+          activeTab={activeTab}
+          onTabPress={handleTabPress}
+        />
+   
+        {activeTab == 1 && 
+          <>
+            {
+              exercises?.length > 0 ?
+                <View style={styles.excercisesParent}>
+                  <View style={styles.excercises}>
+                    {
+                      exercises?.map((exercise:any, index:any) => {
+                        return(
+                          <View style={styles.excercise1}>
+                            <View style={styles.frameParent}>
+                              <View style={[styles.wrapper, styles.wrapperLayout]}>
+                                <Text style={[styles.text, styles.textClr]}>
+                                  <Text style={styles.text1}>#{index + 1}</Text>
+                                </Text>
+                              </View>
+                              <Text
+                                style={[
+                                  styles.earlyHappyMemory,
+                                  styles.ml10,
+                                  styles.text2Typo,
+                                  styles.textClr,
+                                ]}
+                              >
+                                {exercise?.Name}
+                              </Text>
+                            </View>
+                            <LinearGradient
+                              style={styles.vectorWrapper}
+                              locations={[0, 1]}
+                              colors={["#fbb142", "#f6a326"]}
+                              useAngle={true}
+                              angle={180}
+                            >
+                              <Image
+                                style={styles.vectorIcon}
+                                resizeMode="cover"
+                                source={require("../assets/vector.png")}
+                              />
+                            </LinearGradient>
+                          </View>
+                        )
+                      })
+                    }
+                  </View>
+                  <LinearGradient
+                    style={[styles.bottom, styles.bottomFlexBox]}
+                    locations={[0, 1]}
+                    colors={["#fbb142", "#f6a326"]}
+                    useAngle={true}
+                    angle={180}
+                  >
+                    <Pressable>
+                      <Text style={{color: "#fff"}}>Continue</Text>
+                    </Pressable>
+                  </LinearGradient>
+                </View> :
+              <Text>No exercise found</Text>
+            }
+          </>
+        }
+        {activeTab == 0 &&
+          <></>
+        } 
+        {activeTab == 2 &&
+          <></>
+        } 
       </ScrollView>
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   mt_12: {
-    marginTop: Margin.m_10xs,
+    marginTop: Margin.m_2xs,
   },
   ml40: {
-    marginLeft: Margin.m_5xl,
+    marginLeft: Margin.m_sm,
   },
   ml10: {
     marginLeft: Margin.m_2xs,
   },
   mt15: {
     marginTop: Margin.m_md,
-  },
-  mt_70: {
-    marginTop: -70,
   },
   frameScrollViewContent: {
     flexDirection: "column",
@@ -319,11 +173,9 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   wrapperLayout: {
-    paddingVertical: Padding.p_5xs,
-    paddingHorizontal: Padding.p_4xs,
-    height: 40,
-    width: 40,
-    borderRadius: Border.br_2xs,
+    paddingVertical: Padding.p_2xs,
+    paddingHorizontal: Padding.p_2xs,
+    borderRadius: 12,
     borderWidth: 1,
     borderStyle: "solid",
     justifyContent: "center",
@@ -332,10 +184,10 @@ const styles = StyleSheet.create({
   },
   textClr: {
     color: Color.black,
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
   },
   text2Typo: {
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontFamily: FontFamily.openSansRegular,
     fontWeight: "600",
   },
   mainvector1Icon: {
@@ -348,14 +200,14 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   frameChild: {
-    borderRadius: Border.br_4xs,
+    borderRadius: 12,
     height: 15,
     width: 14,
   },
   polygonWrapper: {
-    borderRadius: Border.br_lg,
-    backgroundColor: Color.gray_600,
-    padding: Padding.p_3xs,
+    borderRadius: 12,
+    backgroundColor: Color.gray_200,
+    padding: Padding.p_2xs,
     flexDirection: "row",
     overflow: "hidden",
   },
@@ -363,13 +215,13 @@ const styles = StyleSheet.create({
     height: 200,
     padding: Padding.p_lg,
     flexDirection: "row",
-    borderRadius: Border.br_sm,
+    borderRadius: 12,
     justifyContent: "center",
     alignSelf: "stretch",
   },
   videoSection: {
     paddingTop: Padding.p_lg,
-    paddingBottom: Padding.p_6xs,
+    paddingBottom: Padding.p_2xs,
     paddingHorizontal: Padding.p_lg,
     alignSelf: "stretch",
   },
@@ -378,7 +230,7 @@ const styles = StyleSheet.create({
   },
   startedTab: {
     paddingHorizontal: Padding.p_md,
-    paddingTop: Padding.p_6xs,
+    paddingTop: Padding.p_md,
     flexDirection: "row",
     alignSelf: "stretch",
     overflow: "hidden",
@@ -386,13 +238,13 @@ const styles = StyleSheet.create({
   text1: {
     fontStyle: "italic",
     fontWeight: "300",
-    fontFamily: FontFamily.sourceSerifProLightItalic,
+    fontFamily: FontFamily.openSansRegular,
   },
   text: {
     textAlign: "center",
   },
   wrapper: {
-    backgroundColor: Color.floralwhite,
+    backgroundColor: '#FFECCF',
     borderColor: "#ffeccf",
   },
   earlyHappyMemory: {
@@ -410,10 +262,10 @@ const styles = StyleSheet.create({
   vectorWrapper: {
     width: 26,
     height: 26,
-    padding: Padding.p_5xs,
+    padding: Padding.p_2xs,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: Border.br_sm,
+    borderRadius: 13,
     backgroundColor: "transparent",
     overflow: "hidden",
   },
@@ -427,10 +279,10 @@ const styles = StyleSheet.create({
     elevation: 40,
     shadowOpacity: 1,
     justifyContent: "space-between",
-    padding: Padding.p_5xs,
+    padding: 0,
     alignItems: "center",
     flexDirection: "row",
-    borderRadius: Border.br_sm,
+    borderRadius: 12,
     alignSelf: "stretch",
     overflow: "hidden",
     backgroundColor: Color.white1,
@@ -448,15 +300,15 @@ const styles = StyleSheet.create({
     width: 14,
   },
   excercise5: {
-    backgroundColor: Color.whitesmoke_200,
+    backgroundColor: Color.whitesmoke,
     borderColor: "#f0f0f0",
     borderWidth: 1,
     borderStyle: "solid",
     justifyContent: "space-between",
-    padding: Padding.p_5xs,
+    padding: Padding.p_2xs,
     alignItems: "center",
     flexDirection: "row",
-    borderRadius: Border.br_sm,
+    borderRadius: 12,
     alignSelf: "stretch",
     overflow: "hidden",
   },
@@ -464,13 +316,18 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_sm,
     width: 390,
     paddingHorizontal: Padding.p_lg,
+    minHeight: 300
   },
   bottom: {
-    paddingHorizontal: Padding.p_5xs,
-    paddingTop: Padding.p_7xs,
-    paddingBottom: Padding.p_lg,
-    width: 390,
+    paddingHorizontal: Padding.p_2xs,
+    paddingTop: Padding.p_2xs,
+    paddingBottom: Padding.p_2xs,
+    width: 180,
+    borderRadius: 60,
     backgroundColor: "transparent",
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 20
   },
   excercisesParent: {
     alignSelf: "stretch",
