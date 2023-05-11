@@ -9,9 +9,9 @@ import {
   Padding,
 } from "../GlobalStyles";
 
-const AssumptionBtn = () => {
+const AssumptionBtn = ({navigation}:any) => {
   return (
-    <Pressable style={styles.assumptionBtn}>
+    <Pressable style={styles.assumptionBtn} onPress={() => navigation.navigate('WealthAssets')}>
       <Text style={styles.seeAssumptions}>See Assumptions</Text>
       <Image
         style={[styles.vuesaxlineararrowRightIcon, styles.ml6]}
@@ -27,16 +27,18 @@ const styles = StyleSheet.create({
     marginLeft: Margin.m_6xs,
   },
   seeAssumptions: {
-    fontSize: FontSize.size_sm,
+    fontSize: 14,
     lineHeight: 20,
     fontWeight: "600",
     fontFamily: FontFamily.openSansRegular,
-    color: Color.goldenrod,
+    color: '#EF9F27',
     textAlign: "center",
+    marginRight: 6
   },
   vuesaxlineararrowRightIcon: {
     width: 18,
     height: 18,
+    marginTop: 2
   },
   assumptionBtn: {
     borderRadius: Border.br_md,
@@ -46,9 +48,10 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     flexDirection: "row",
     paddingHorizontal: Padding.p_md,
-    paddingVertical: 7,
+    paddingVertical: 8,
     alignItems: "center",
     justifyContent: "center",
+    width: '100%'
   },
 });
 

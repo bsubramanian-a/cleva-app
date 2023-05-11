@@ -91,9 +91,11 @@ const styles = StyleSheet.create({
   login: {
     marginStart: 0,
     marginBlockEnd: 0,
+    fontFamily: FontFamily.sourceSerifPro,
   },
   withEmail: {
     margin: Margin.m_3xs,
+    fontFamily: FontFamily.sourceSerifPro,
   },
   loginWithEmailContainer: {
     fontSize: FontSize.size_lg,

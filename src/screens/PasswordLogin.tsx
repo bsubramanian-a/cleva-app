@@ -11,7 +11,7 @@ const PasswordLogin = ({navigation}:any) => {
   const email = useSelector((state:any) => state.auth.email);
   
   const onLogin = async () => {
-    console.log("password", password, "email", email)
+    // console.log("password", password, "email", email)
     setError("");
     try {
       const res:any = await actions.login({
@@ -37,6 +37,7 @@ const PasswordLogin = ({navigation}:any) => {
   return (
     <View style={[styles.passwordLogin, styles.nextpreviousSpaceBlock]}>
       <LoginForm setText={setPassword}/>
+
       {error != "" && 
           <Text>{error}</Text>
       }

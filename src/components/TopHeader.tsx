@@ -1,12 +1,15 @@
 import * as React from "react";
-import { StyleSheet, View, Image, ImageSourcePropType, Text } from "react-native";
+import { StyleSheet, View, Image, ImageSourcePropType, Text, Pressable } from "react-native";
 import { Margin, Color, Border, Padding } from "../GlobalStyles";
+import { useNavigation } from "@react-navigation/native";
 
 type TopHeaderType = {
   title?: any;
 };
 
 const TopHeader = ({ title }: TopHeaderType) => {
+  const navigation:any = useNavigation();
+  
   return (
     <View style={[styles.topMenu, styles.menuFlexBox1]}>
       <View style={[styles.menu, styles.menuFlexBox]}>
@@ -16,7 +19,7 @@ const TopHeader = ({ title }: TopHeaderType) => {
           <View style={[styles.groupInner, styles.groupLayout]} />
         </View>
       </View>
-      <Text style={{fontSize: 28, fontWeight: "bold"}}>{title}</Text>
+      <Text style={{fontSize: 20, fontWeight: "bold"}}>{title}</Text>
       <View style={[styles.menuGroup, styles.menuFlexBox1]}>
         <View style={[styles.vuesaxlinearaddWrapper, styles.menuFlexBox]}>
           <Image
@@ -25,11 +28,13 @@ const TopHeader = ({ title }: TopHeaderType) => {
             source={require("../assets/vuesaxlinearadd.png")}
           />
         </View>
-        <Image
-          style={[styles.menuGroupChild, styles.ml8]}
-          resizeMode="cover"
-          source={require("../assets/ellipse-584.png")}
-        />
+        <Pressable onPress={() => navigation.navigate('Profile')}>
+          <Image
+            style={[styles.menuGroupChild, styles.ml8]}
+            resizeMode="cover"
+            source={require("../assets/ellipse-584.png")}
+          />
+        </Pressable>
       </View>
     </View>
   );
@@ -82,8 +87,8 @@ const styles = StyleSheet.create({
     height: 25,
   },
   vuesaxlinearaddIcon: {
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
   },
   vuesaxlinearaddWrapper: {
     borderStyle: "solid",
@@ -94,8 +99,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: Color.cadetblue,
     borderRadius: Border.br_md,
-    width: 42,
-    height: 42
+    width: 40,
+    height: 40
   },
   menuGroupChild: {
     width: 40,

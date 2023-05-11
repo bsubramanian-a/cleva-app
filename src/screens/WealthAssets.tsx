@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ScrollView, Image, StyleSheet, View, Text } from "react-native";
+import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Pressable } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import HeaderBack from "../components/HeaderBack";
 import AssetsWealth from "../components/AssetsWealth";
@@ -12,61 +12,85 @@ import {
   Color,
   FontSize,
 } from "../GlobalStyles";
+import WealthTab from "../components/WealthTab";
+import { useState } from "react";
+import CustomHeader from "../components/CustomHeader";
+import { useSelector } from "react-redux";
 
 const WealthAssets = () => {
+  const assets = useSelector((state:any) => state.data.assets);
+  const liabilities = useSelector((state:any) => state.data.liabilities);
+  const [activeTab, setActiveTab] = useState(0);
+  
+  const handleTabPress = (tabNumber:number) => {
+    setActiveTab(tabNumber);
+  };
+
   return (
-    <ScrollView
+    <View
       style={styles.wealthAssets}
-      showsHorizontalScrollIndicator={false}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.wealthAssetsContent}
     >
-      <LinearGradient
-        style={styles.header}
-        locations={[0, 1]}
-        colors={["rgba(239, 159, 39, 0.08)", "rgba(255, 255, 255, 0)"]}
-        useAngle={true}
-        angle={180}
-      >
-        <Image
-          style={styles.mainvector1Icon}
-          resizeMode="cover"
-          source={require("../assets/mainvector-1.png")}
-        />
-        <HeaderBack
-          vuesaxlineararrowLeft={require("../assets/vuesaxlineararrowleft.png")}
-          pageHeadingMarginLeft={72}
-          getStarted="Your Wealth"
-        />
-      </LinearGradient>
+      <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
+      <CustomHeader name="Your Wealth" type={2}/>
       <ScrollView
         style={styles.wealthTabParent}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.frameScrollViewContent}
       >
-        <View style={styles.wealthTab}>
-          <View style={styles.tabbar}>
-            <View style={[styles.tab1, styles.tabFlexBox, styles.tabFlexBox1]}>
-              <Text style={styles.assets}>Assets</Text>
-            </View>
-            <View style={[styles.tab2, styles.tabFlexBox, styles.tabFlexBox1]}>
-              <Text style={styles.liabilities}>Liabilities</Text>
-            </View>
-          </View>
-        </View>
+       <WealthTab tabs={['Assets', 'Liabilities']}
+          activeTab={activeTab}
+          onTabPress={handleTabPress}/>
         <View style={styles.advicecontainer}>
-          <AssetsWealth />
+          {
+            activeTab == 0 ? 
+              <AssetsWealth datas={assets}/>
+            :
+            <AssetsWealth datas={liabilities}/>
+          }
         </View>
-        <View style={[styles.bottom, styles.tabFlexBox]}>
-          <IconEditBtn />
-        </View>
+        <LinearGradient
+          style={[styles.bottom, styles.bottomFlexBox]}
+          locations={[0, 1]}
+          colors={["#fbb142", "#f6a326"]}
+          useAngle={true}
+          angle={180}
+        >
+          <Pressable style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Image
+              style={styles.vuesaxlinearedit2Icon}
+              resizeMode="cover"
+              source={require("../assets/vuesaxlinearedit2.png")}
+            />
+            <Text style={[styles.edit, styles.ml4]}>Edit</Text>
+          </Pressable>
+        </LinearGradient>
       </ScrollView>
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  ml4: {
+    marginLeft: 4,
+  },
+  vuesaxlinearedit2Icon: {
+    width: 18,
+    height: 18,
+  },
+  edit: {
+    fontSize: FontSize.textMediumBoldText1_size,
+    lineHeight: 20,
+    fontWeight: "600",
+    fontFamily: FontFamily.openSansRegular,
+    color: Color.white1,
+    textAlign: "center",
+  },
+  bottomFlexBox: {
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden",
+  },
   mt_12: {
     marginTop: Margin.m_10xs,
   },
@@ -118,8 +142,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_7xl,
   },
   tabbar: {
-    borderRadius: Border.br_sm,
-    shadowColor: "rgba(32, 34, 36, 0.08)",
+    borderRadius: 16,
+    shadowColor: "rgba(32, 34, 36, 0.5)",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -147,12 +171,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_lg,
     paddingBottom: Padding.p_sm,
     alignSelf: "stretch",
+    borderRadius: 16,
+    shadowColor: "rgba(32, 34, 36, 0.5)",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowRadius: 15,
+    elevation: 40,
+    shadowOpacity: 0.04,
+    borderColor: "#ffeccf",
+    borderWidth: 1,
+    borderStyle: "solid",
+    backgroundColor: Color.white1,
+    marginHorizontal: 24
   },
   bottom: {
-    width: 390,
-    paddingHorizontal: Padding.p_5xs,
-    paddingTop: Padding.p_5xs,
-    paddingBottom: Padding.p_lg,
+    width: 180,
+    paddingHorizontal: 5,
+    paddingVertical: 14,
+    alignSelf: 'center',
+    borderRadius: 60,
+    marginTop: 28
   },
   wealthTabParent: {
     alignSelf: "stretch",

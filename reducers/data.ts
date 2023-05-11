@@ -28,6 +28,8 @@ const data = (state = initialState, action:any) => {
             return {...state, liabilities: data};
         case types.PROFILE:
             return {...state, profile: data};
+        case types.LOGOUT:
+            return {...initialState};
         default:
             return state;
     }  

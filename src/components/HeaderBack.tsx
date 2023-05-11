@@ -6,12 +6,14 @@ import {
   View,
   Text,
   ImageSourcePropType,
+  Pressable,
 } from "react-native";
 import { Border, Color, Padding, FontSize, FontFamily } from "../GlobalStyles";
 
 type HeaderBackType = {
   vuesaxlineararrowLeft?: ImageSourcePropType;
   getStarted?: string;
+  goBack?:Function;
 
   /** Style props */
   pageHeadingMarginLeft?: number | string;
@@ -26,6 +28,7 @@ const HeaderBack = ({
   vuesaxlineararrowLeft,
   pageHeadingMarginLeft,
   getStarted,
+  goBack
 }: HeaderBackType) => {
   const pageHeadingStyle = useMemo(() => {
     return {
@@ -35,13 +38,13 @@ const HeaderBack = ({
 
   return (
     <View style={[styles.topMenu, styles.mt_12, styles.topMenuFlexBox]}>
-      <View style={styles.menu}>
+      <Pressable style={styles.menu} onPress={goBack}>
         <Image
           style={styles.vuesaxlineararrowLeftIcon}
           resizeMode="cover"
           source={vuesaxlineararrowLeft}
         />
-      </View>
+      </Pressable>
       <View
         style={[
           styles.pageHeading,
@@ -77,7 +80,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   getStarted: {
-    fontSize: FontSize.size_4xl,
+    fontSize: 20,
     fontWeight: "600",
     fontFamily: FontFamily.sourceSerifProSemibold,
     color: Color.black,

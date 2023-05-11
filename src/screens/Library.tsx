@@ -1,33 +1,19 @@
 import * as React from "react";
-import { ScrollView, Image, StyleSheet, View, Text } from "react-native";
+import { ScrollView, Image, StyleSheet, View, Text, StatusBar } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import TopHeader from "../components/TopHeader";
 import CardL1 from "../components/CardL1";
 import CardLib from "../components/CardLib";
 import { Margin, FontSize, FontFamily, Color, Padding } from "../GlobalStyles";
+import CustomHeader from "../components/CustomHeader";
 
 const Library = () => {
   return (
-    <ScrollView
+    <View
       style={styles.library}
-      showsHorizontalScrollIndicator={false}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.libraryScrollViewContent}
     >
-      <LinearGradient
-        style={styles.mainvector1Parent}
-        locations={[0, 1]}
-        colors={["rgba(239, 159, 39, 0.08)", "rgba(255, 255, 255, 0)"]}
-        useAngle={true}
-        angle={180}
-      >
-        <Image
-          style={styles.mainvector1Icon}
-          resizeMode="cover"
-          source={require("../assets/mainvector-1.png")}
-        />
-        <TopHeader logo={require("../assets/logo.png")} />
-      </LinearGradient>
+      <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
+      <CustomHeader name="Library" type={1}/>
       <ScrollView
         style={styles.frameParent}
         showsHorizontalScrollIndicator={false}
@@ -41,13 +27,21 @@ const Library = () => {
               <Text style={styles.seeAll}>See All</Text>
             </View>
           </View>
-          <View style={[styles.thank1Parent, styles.mt9]}>
-            <CardL1 frame510={require("../assets/frame-510.png")} />
-            <CardL1
-              thank1MarginLeft={14}
-              frame510={require("../assets/frame-5101.png")}
-            />
-          </View>
+          <ScrollView
+            style={styles.frameParent}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.frameScrollViewContent}
+          >
+            <View style={[styles.thank1Parent, styles.mt9]}>
+              <CardL1 frame510={require("../assets/frame-510.png")} />
+              <CardL1
+                thank1MarginLeft={14}
+                frame510={require("../assets/frame-5101.png")}
+              />
+            </View>
+          </ScrollView>
         </View>
         <View style={[styles.frameGroup, styles.mt20]}>
           <View style={styles.frameWrapper}>
@@ -56,22 +50,30 @@ const Library = () => {
               <Text style={styles.seeAll}>See All</Text>
             </View>
           </View>
-          <View style={[styles.thank1Parent, styles.mt9]}>
-            <CardLib
-              frame510={require("../assets/frame-5102.png")}
-              calendar={require("../assets/calendar.png")}
-            />
-            <CardLib
-              mojo1MarginLeft={14}
-              frame510={require("../assets/frame-5102.png")}
-              calendar={require("../assets/calendar.png")}
-            />
-            <CardLib
-              mojo1MarginLeft={14}
-              frame510={require("../assets/frame-5104.png")}
-              calendar={require("../assets/calendar4.png")}
-            />
-          </View>
+          <ScrollView
+            style={styles.frameParent}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.frameScrollViewContent}
+          >
+            <View style={[styles.thank1Parent, styles.mt9]}>
+              <CardLib
+                frame510={require("../assets/frame-5102.png")}
+                calendar={require("../assets/calendar.png")}
+              />
+              <CardLib
+                mojo1MarginLeft={14}
+                frame510={require("../assets/frame-5102.png")}
+                calendar={require("../assets/calendar.png")}
+              />
+              <CardLib
+                mojo1MarginLeft={14}
+                frame510={require("../assets/frame-5104.png")}
+                calendar={require("../assets/calendar.png")}
+              />
+            </View>
+          </ScrollView>
         </View>
         <View style={[styles.frameGroup, styles.mt20]}>
           <View style={styles.frameWrapper}>
@@ -80,40 +82,48 @@ const Library = () => {
               <Text style={styles.seeAll}>See All</Text>
             </View>
           </View>
-          <View style={[styles.thank1Parent, styles.mt9]}>
-            <CardLib
-              frame510={require("../assets/frame-5102.png")}
-              calendar={require("../assets/calendar.png")}
-            />
-            <CardLib
-              mojo1MarginLeft={14}
-              frame510={require("../assets/frame-5102.png")}
-              calendar={require("../assets/calendar.png")}
-            />
-            <CardLib
-              mojo1MarginLeft={14}
-              frame510={require("../assets/frame-5104.png")}
-              calendar={require("../assets/calendar4.png")}
-            />
-          </View>
+          <ScrollView
+            style={styles.frameParent}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.frameScrollViewContent}
+          >
+            <View style={[styles.thank1Parent, styles.mt9]}>
+              <CardLib
+                frame510={require("../assets/frame-5102.png")}
+                calendar={require("../assets/calendar.png")}
+              />
+              <CardLib
+                mojo1MarginLeft={14}
+                frame510={require("../assets/frame-5102.png")}
+                calendar={require("../assets/calendar.png")}
+              />
+              <CardLib
+                mojo1MarginLeft={14}
+                frame510={require("../assets/frame-5104.png")}
+                calendar={require("../assets/calendar.png")}
+              />
+            </View>
+          </ScrollView>
         </View>
       </ScrollView>
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   mt_12: {
-    marginTop: Margin.m_10xs,
+    marginTop: 12,
   },
   ml14: {
     marginLeft: Margin.m_sm,
   },
   mt9: {
-    marginTop: Margin.m_3xs,
+    marginTop: 9,
   },
   mt20: {
-    marginTop: Margin.m_lg,
+    marginTop: 20,
   },
   frameScrollViewContent: {
     flexDirection: "column",
@@ -131,18 +141,19 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   thankGodYou: {
-    fontSize: FontSize.size_3xl,
-    fontWeight: "600",
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontSize: 18,
+    fontWeight: "500",
+    fontFamily: FontFamily.textMediumBoldText1,
     color: Color.black,
     textAlign: "left",
   },
   seeAll: {
-    fontSize: FontSize.size_base,
+    fontSize: 14,
     textDecoration: "underline",
-    fontFamily: FontFamily.outfitRegular,
-    color: Color.orange_100,
+    fontFamily: FontFamily.openSansRegular,
+    color: '#EF9F27',
     textAlign: "right",
+    fontWeight: '400'
   },
   thankGodYouAskedThatParent: {
     width: 350,
@@ -161,7 +172,9 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   frameParent: {
-    padding: Padding.p_lg,
+    padding: 25,
+    paddingHorizontal: 16,
+    paddingTop: 10,
     alignSelf: "stretch",
     flex: 1,
   },

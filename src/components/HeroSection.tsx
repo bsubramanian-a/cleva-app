@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, StyleSheet, Image, View, ImageBackground, Dimensions } from "react-native";
+import { Text, StyleSheet, Image, View, ImageBackground, Dimensions, Pressable } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import {
   Margin,
@@ -9,10 +9,13 @@ import {
   Border,
   FontFamily,
 } from "../GlobalStyles";
+import { useNavigation } from "@react-navigation/native";
 
 const HeroSection = ({item}:any) => {
+  const navigation:any = useNavigation(); 
+
   return (
-    <View style={styles.herosection}>
+    <Pressable style={styles.herosection} onPress={() => navigation.navigate('GetStarted')}>
       <ImageBackground
         style={styles.sliderIcon}
         resizeMode="cover"
@@ -51,7 +54,7 @@ const HeroSection = ({item}:any) => {
             <Text style={[styles.text, styles.textTypo]}>{item?.progress || 40}%</Text>
           </View>
           <View style={[styles.rectangleParent, styles.mt10]}>
-            {/* <View style={[styles.groupChild, styles.groupPosition]} /> */}
+            <View style={[styles.groupChild, styles.groupPosition, {backgroundColor: '#ffffff30', width: Dimensions.get('window').width - 118}]} />
             <View style={[styles.groupItem, styles.groupPosition, {width: item?.progress ? (((Dimensions.get('window').width - 107) * 0.01) * item?.progress) : 40 }]} />
           </View>
         </LinearGradient>
@@ -73,7 +76,7 @@ const HeroSection = ({item}:any) => {
           style={[styles.indicator1, styles.ml5, styles.indicator1Layout]}
         />
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   mt10: {
-    marginTop: Margin.m_2xs,
+    marginTop: 8,
   },
   ml5: {
     marginLeft: Margin.m_7xs,
@@ -98,11 +101,11 @@ const styles = StyleSheet.create({
   },
   textTypo: {
     fontWeight: "700",
-    fontSize: FontSize.size_base,
+    fontSize: 14,
     color: Color.white1,
   },
   groupPosition: {
-    borderRadius: Border.br_2xl,
+    borderRadius: 20,
     left: 0,
     top: 0,
     position: "absolute",
@@ -115,14 +118,14 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   getStarted: {
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: 16,
     fontWeight: "900",
     fontFamily: FontFamily.sourceSerifProBlack,
     textAlign: "left",
     color: Color.white1,
   },
   chapter1: {
-    fontSize: FontSize.size_sm,
+    fontSize: 12,
     fontWeight: "500",
     fontFamily: FontFamily.outfitMedium,
     textAlign: "right",
@@ -138,7 +141,7 @@ const styles = StyleSheet.create({
   },
   getchapgroup: {
     borderRadius: Border.br_md,
-    backgroundColor: '#FFFFFF33',
+    backgroundColor: '#FFFFFF40',
     paddingLeft: Padding.p_md,
     paddingRight: Padding.p_md,
     marginHorizontal: 10,
@@ -169,14 +172,14 @@ const styles = StyleSheet.create({
   },
   groupItem: {
     backgroundColor: Color.white1,
-    width: 174,
+    // width: 174,
   },
   rectangleParent: {
     height: 6,
     alignSelf: "stretch",
   },
   progressgroupParent: {
-    height: 200,
+    // height: 200,
     paddingHorizontal: Padding.p_md,
     paddingBottom: Padding.p_md,
     backgroundColor: "transparent",
@@ -185,13 +188,14 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   sliderIcon: {
-    height: 500,
-    minHeight: 270,
+    height: 350,
+    minHeight: 350,
+    width: Dimensions.get('window').width - 80,
     justifyContent: "space-between",
     overflow: "hidden",
-    borderRadius: Border.br_sm,
+    borderRadius: 16,
     alignItems: "center",
-    alignSelf: "stretch",
+    // alignSelf: "stretch",
   },
   indicator1: {
     backgroundColor: Color.goldenrod_200,

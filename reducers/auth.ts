@@ -2,7 +2,7 @@ import types from "../types";
 
 const initialState = {
     email: {},
-    access_token: ""
+    userData: ""
 };
 
 const auth = (state = initialState, action:any) => {
@@ -12,7 +12,9 @@ const auth = (state = initialState, action:any) => {
         case types.EMAIL:
             return {...state, email: data};
         case types.ACCESS_TOKEN:
-            return {...state, access_token: data};
+            return {...state, userData: data};
+        case types.LOGOUT:
+            return {...initialState};
         default:
             return state;
     }  

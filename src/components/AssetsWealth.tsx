@@ -9,56 +9,22 @@ import {
   Border,
 } from "../GlobalStyles";
 
-const AssetsWealth = () => {
+const AssetsWealth = ({datas}:any) => {
+  const total = parseFloat(datas.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2))
   return (
     <View style={[styles.advice, styles.adviceFlexBox]}>
       <View style={styles.assetsview}>
-        <View style={[styles.myHomeParent, styles.totalviewFlexBox]}>
-          <Text style={styles.myHome}>My Home</Text>
-          <Text style={[styles.text, styles.textTypo]}>$2,400,000</Text>
-        </View>
-        <View style={[styles.assetsviewChild, styles.mt15]} />
-        <View
-          style={[styles.myHomeParent, styles.mt15, styles.totalviewFlexBox]}
-        >
-          <Text style={styles.myHome}>Home Contents</Text>
-          <Text style={[styles.text, styles.textTypo]}>$10,000</Text>
-        </View>
-        <View style={[styles.assetsviewChild, styles.mt15]} />
-        <View
-          style={[styles.myHomeParent, styles.mt15, styles.totalviewFlexBox]}
-        >
-          <Text style={styles.myHome}>Investment Properties</Text>
-          <Text style={[styles.text, styles.textTypo]}>$800,000</Text>
-        </View>
-        <View style={[styles.assetsviewChild, styles.mt15]} />
-        <View
-          style={[styles.myHomeParent, styles.mt15, styles.totalviewFlexBox]}
-        >
-          <Text style={styles.myHome}>Superannuation</Text>
-          <Text style={[styles.text, styles.textTypo]}>$800,000</Text>
-        </View>
-        <View style={[styles.assetsviewChild, styles.mt15]} />
-        <View
-          style={[styles.myHomeParent, styles.mt15, styles.totalviewFlexBox]}
-        >
-          <Text style={styles.myHome}>Savings</Text>
-          <Text style={[styles.text, styles.textTypo]}>$56,628</Text>
-        </View>
-        <View style={[styles.assetsviewChild, styles.mt15]} />
-        <View
-          style={[styles.myHomeParent, styles.mt15, styles.totalviewFlexBox]}
-        >
-          <Text style={styles.myHome}>Car</Text>
-          <Text style={[styles.text, styles.textTypo]}>$24,588</Text>
-        </View>
-        <View style={[styles.assetsviewChild, styles.mt15]} />
-        <View
-          style={[styles.myHomeParent, styles.mt15, styles.totalviewFlexBox]}
-        >
-          <Text style={styles.myHome}>Art</Text>
-          <Text style={[styles.text, styles.textTypo]}>$8000</Text>
-        </View>
+        {datas?.map((data:any) => {
+          return(
+            <>
+              <View style={[styles.myHomeParent, styles.totalviewFlexBox]}>
+                <Text style={styles.myHome}>{data?.Name}</Text>
+                <Text style={[styles.text, styles.textTypo]}>${data?.Current_Value}</Text>
+              </View>
+              <View style={[styles.assetsviewChild, styles.mt15, styles.mb15]} />
+            </>
+          )
+        })}
       </View>
       <View
         style={[
@@ -69,7 +35,7 @@ const AssetsWealth = () => {
         ]}
       >
         <Text style={[styles.total, styles.textTypo]}>Total</Text>
-        <Text style={styles.text7}>$4,248,108</Text>
+        <Text style={styles.text7}>${total}</Text>
       </View>
     </View>
   );
@@ -77,14 +43,17 @@ const AssetsWealth = () => {
 
 const styles = StyleSheet.create({
   mt15: {
-    marginTop: Margin.m_md,
+    marginTop: 15,
+  },
+  mb15: {
+    marginBottom: 15,
   },
   mt26: {
-    marginTop: Margin.m_2xl,
+    marginTop: 26,
   },
   adviceFlexBox: {
-    overflow: "hidden",
-    alignSelf: "stretch",
+    // overflow: "hidden",
+    // alignSelf: "stretch",
   },
   totalviewFlexBox: {
     justifyContent: "space-between",
@@ -92,58 +61,66 @@ const styles = StyleSheet.create({
   },
   textTypo: {
     color: Color.black,
-    fontFamily: FontFamily.outfitMedium,
+    fontFamily: FontFamily.textMediumBoldText1,
     fontWeight: "500",
     lineHeight: 22,
   },
   myHome: {
     fontWeight: "300",
-    fontFamily: FontFamily.outfitLight,
-    color: Color.darkslategray_100,
+    fontFamily: FontFamily.openSansRegular,
+    color: '#4B4B4B',
     textAlign: "left",
     lineHeight: 22,
-    fontSize: FontSize.size_base,
+    fontSize: 14,
+    width: '60%'
   },
   text: {
     textAlign: "right",
-    fontSize: FontSize.size_base,
-    color: Color.black,
+    fontWeight: "500",
+    fontFamily: FontFamily.openSansRegular,
+    color: '#000000',
+    lineHeight: 22,
+    fontSize: 14,
   },
   myHomeParent: {
-    width: 305,
+    // width: 305,
   },
   assetsviewChild: {
     borderStyle: "solid",
     borderColor: "#f3f1ee",
     borderTopWidth: 1,
-    width: 306,
+    // width: 306,
     height: 1,
   },
   assetsview: {
-    paddingLeft: Padding.p_9xs,
+    // paddingLeft: 9,
     alignSelf: "stretch",
   },
   total: {
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: 16,
     textAlign: "left",
+    color: '#000000',
+    fontWeight: '500',
   },
   text7: {
-    fontSize: FontSize.size_2xl,
-    color: Color.orange_100,
-    fontFamily: FontFamily.outfitMedium,
+    fontSize: 18,
+    color: '#EF9F27',
+    fontFamily: FontFamily.textMediumBoldText1,
     fontWeight: "500",
     textAlign: "left",
     lineHeight: 22,
   },
   totalview: {
-    borderRadius: Border.br_xs,
-    backgroundColor: Color.orange_200,
-    paddingHorizontal: Padding.p_xl,
+    borderRadius: 12,
+    backgroundColor: 'rgba(239, 159, 39, 0.1)',
+    paddingHorizontal: 16,
     paddingVertical: Padding.p_2xs,
     alignItems: "center",
+    justifyContent: 'space-between',
+    height: 50
   },
   advice: {
-    borderRadius: Border.br_sm,
+    borderRadius: 16,
     backgroundColor: Color.white1,
     shadowColor: "rgba(32, 34, 36, 0.08)",
     shadowOffset: {
@@ -153,7 +130,7 @@ const styles = StyleSheet.create({
     shadowRadius: 40,
     elevation: 40,
     shadowOpacity: 1,
-    padding: Padding.p_lg,
+    paddingTop: Padding.p_lg,
     justifyContent: "center",
   },
 });

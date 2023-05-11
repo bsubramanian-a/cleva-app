@@ -67,7 +67,7 @@ const Journal = () => {
             />
           </View>
         </View> */}
-          <SwipeCard cards={journals}/>
+          {journals?.length > 0 && <SwipeCard cards={journals}/>}
       </View>
     </ScrollView>
   );
@@ -109,17 +109,16 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   yourJourneyTo: {
-    fontSize: 17,
+    fontSize: 16,
     lineHeight: 24,
-    fontWeight: "600",
-    fontFamily: FontFamily.sourceSerifProSemibold,
-    color: Color.gray_500,
+    fontWeight: "500",
+    fontFamily: FontFamily.textMediumBoldText1,
+    color: '#1D2431',
     textAlign: "left",
-    alignSelf: "stretch",
   },
   yourJourneyToEmbraceYourWWrapper: {
-    borderRadius: Border.br_sm,
-    backgroundColor: Color.floralwhite,
+    borderRadius: 16,
+    backgroundColor: '#FFF9F1',
     borderStyle: "solid",
     borderColor: "#ffeccf",
     borderWidth: 1,
@@ -128,7 +127,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   frameWrapper: {
-    paddingTop: Padding.p_lg,
+    paddingTop: 0,
     paddingBottom: Padding.p_6xs,
   },
   slider2Parent: {

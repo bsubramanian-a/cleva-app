@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
   },
   loginOrSignupParent: {
     alignSelf: "stretch",
+    marginBottom: 42
   },
   loginsignup: {
     backgroundColor: Color.whitesmoke,

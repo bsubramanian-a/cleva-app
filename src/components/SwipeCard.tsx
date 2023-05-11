@@ -48,7 +48,7 @@ const SwipeCard = ({cards}:any) => {
       />
     </View>
   );
-};
+}; 
 
 const styles = StyleSheet.create({
   container: {

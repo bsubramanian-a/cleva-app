@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ScrollView, Image, StyleSheet, View, Text } from "react-native";
+import { ScrollView, Image, StyleSheet, View, Text, StatusBar } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import ProfileHeader from "../components/ProfileHeader";
 import {
@@ -10,29 +10,15 @@ import {
   FontFamily,
   FontSize,
 } from "../GlobalStyles";
+import CustomHeader from "../components/CustomHeader";
 
 const Profile = () => {
   return (
-    <ScrollView
+    <View
       style={styles.profile}
-      showsHorizontalScrollIndicator={false}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.profileScrollViewContent}
     >
-      <LinearGradient
-        style={styles.header}
-        locations={[0, 1]}
-        colors={["rgba(239, 159, 39, 0.08)", "rgba(255, 255, 255, 0)"]}
-        useAngle={true}
-        angle={180}
-      >
-        <Image
-          style={styles.mainvector1Icon}
-          resizeMode="cover"
-          source={require("../assets/mainvector-1.png")}
-        />
-        <ProfileHeader />
-      </LinearGradient>
+      <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
+      <CustomHeader name="Profile" type={3}/>
       <ScrollView
         style={styles.userdetailsParent}
         showsHorizontalScrollIndicator={false}
@@ -173,7 +159,7 @@ const Profile = () => {
           </View>
         </View>
         <View style={[styles.options, styles.optionsSpaceBlock]}>
-          <View style={[styles.excercise1, styles.frameParentFlexBox]}>
+          <View style={[styles.excercise1, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
                 <Image
@@ -200,7 +186,7 @@ const Profile = () => {
             />
           </View>
           <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox]}
+            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
           >
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
@@ -228,7 +214,7 @@ const Profile = () => {
             />
           </View>
           <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox]}
+            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
           >
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
@@ -256,7 +242,7 @@ const Profile = () => {
             />
           </View>
           <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox]}
+            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
           >
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
@@ -284,7 +270,7 @@ const Profile = () => {
             />
           </View>
           <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox]}
+            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
           >
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
@@ -312,7 +298,7 @@ const Profile = () => {
             />
           </View>
           <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox]}
+            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
           >
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
@@ -340,7 +326,7 @@ const Profile = () => {
             />
           </View>
           <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox]}
+            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
           >
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
@@ -368,7 +354,7 @@ const Profile = () => {
             />
           </View>
           <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox]}
+            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
           >
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
@@ -396,7 +382,7 @@ const Profile = () => {
             />
           </View>
           <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox]}
+            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
           >
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
@@ -422,7 +408,7 @@ const Profile = () => {
             />
           </View>
           <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox]}
+            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
           >
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
@@ -449,31 +435,48 @@ const Profile = () => {
           </View>
         </View>
       </ScrollView>
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  aboutCard:{
+    padding: 10,
+    borderRadius: 16,
+    shadowOpacity: 1,
+    elevation: 40,
+    shadowRadius: 40,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowColor: "rgba(32, 34, 36, 0.5)",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    alignSelf: "stretch",
+    overflow: "hidden",
+    backgroundColor: Color.white1,
+  },
   mt_12: {
-    marginTop: Margin.m_10xs,
+    marginTop: 12,
   },
   ml_11: {
     marginLeft: -11,
   },
   mt26: {
-    marginTop: Margin.m_2xl,
+    marginTop: 26,
   },
   ml6: {
-    marginLeft: Margin.m_6xs,
+    marginLeft: 6,
   },
   mt15: {
-    marginTop: Margin.m_md,
+    marginTop: 15,
   },
   mt25: {
     marginTop: 25,
   },
   mt5: {
-    marginTop: Margin.m_7xs,
+    marginTop: 5,
   },
   ml10: {
     marginLeft: Margin.m_2xs,
@@ -496,30 +499,33 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
-    shadowColor: "rgba(32, 34, 36, 0.08)",
-    borderRadius: Border.br_sm,
+    shadowColor: "rgba(32, 34, 36, 0.5)",
+    borderRadius: 16,
     alignItems: "center",
     paddingHorizontal: Padding.p_lg,
     alignSelf: "stretch",
     overflow: "hidden",
     backgroundColor: Color.white1,
+    marginTop: 20
   },
   wrapperLayout: {
     justifyContent: "center",
     height: 104,
     width: 104,
-    borderRadius: Border.br_xl,
-    padding: Padding.p_5xs,
+    borderRadius: 52,
+    padding: 5,
     alignItems: "center",
     overflow: "hidden",
   },
   mTypo: {
     textAlign: "left",
-    fontFamily: FontFamily.sourceSerifProSemibold,
-    fontWeight: "600",
+    fontFamily: FontFamily.textMediumBoldText1,
+    fontWeight: "500",
+    color: '#FBB142',
   },
   danFleurClr: {
     color: Color.black,
+    fontWeight: '500',
     textAlign: "left",
   },
   childBorder: {
@@ -529,6 +535,7 @@ const styles = StyleSheet.create({
   frameParentFlexBox: {
     justifyContent: "space-between",
     flexDirection: "row",
+    width: '100%'
   },
   stKildaRdTypo: {
     textAlign: "right",
@@ -556,7 +563,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   drWrapper: {
-    backgroundColor: Color.orange_100,
+    backgroundColor: '#EF9F27',
   },
   frWrapper: {
     backgroundColor: "#9755b6",
@@ -565,7 +572,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   danFleur: {
-    fontSize: FontSize.size_3xl,
+    fontSize: 18,
   },
   users: {
     alignItems: "center",
@@ -582,9 +589,9 @@ const styles = StyleSheet.create({
   },
   email: {
     fontWeight: "300",
-    fontFamily: FontFamily.outfitLight,
-    color: Color.darkslategray_100,
-    fontSize: FontSize.size_base,
+    fontFamily: FontFamily.openSansRegular,
+    color: '#4B4B4B',
+    fontSize: 14,
     textAlign: "left",
     lineHeight: 22,
   },
@@ -594,6 +601,7 @@ const styles = StyleSheet.create({
   },
   frameParent: {
     alignSelf: "stretch",
+    alignItems: 'flex-start'
   },
   stKildaRd: {
     width: 170,
@@ -607,8 +615,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   m: {
-    fontSize: FontSize.size_5xl,
     color: Color.goldenrod_100,
+    fontSize: 22
   },
   mParent: {
     alignItems: "center",
@@ -620,9 +628,8 @@ const styles = StyleSheet.create({
   },
   frameParent1: {
     width: 318,
-    paddingLeft: Padding.p_2xl,
-    paddingRight: Padding.p_xl,
     alignItems: "center",
+    justifyContent: 'space-between'
   },
   advice1: {
     paddingVertical: Padding.p_2xs,
@@ -636,7 +643,7 @@ const styles = StyleSheet.create({
     height: 20,
   },
   vuesaxlinearprofileCircleWrapper: {
-    borderRadius: Border.br_2xs,
+    borderRadius: 10,
     backgroundColor: Color.floralwhite,
     borderColor: "#ffeccf",
     borderWidth: 1,
@@ -672,7 +679,7 @@ const styles = StyleSheet.create({
   },
   options: {
     paddingTop: Padding.p_sm,
-    paddingBottom: Padding.p_2xl,
+    paddingBottom: 20,
   },
   userdetailsParent: {
     alignSelf: "stretch",

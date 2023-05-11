@@ -5,24 +5,24 @@ import {
   Border,
   Color,
   Padding,
-  FontSize,
   FontFamily,
 } from "../GlobalStyles";
+import actions from "../../actions";
 
-const ProfileHeader = () => {
+const ProfileHeader = ({name, goBack}:any) => {
   return (
     <View style={[styles.topMenu, styles.mt_12, styles.topMenuFlexBox]}>
-      <View style={styles.menu}>
+      <Pressable style={styles.menu} onPress={goBack}>
         <Image
           style={styles.vuesaxlineararrowLeftIcon}
           resizeMode="cover"
           source={require("../assets/vuesaxlineararrowleft4.png")}
         />
-      </View>
+      </Pressable>
       <View style={[styles.pageHeading, styles.topMenuFlexBox]}>
-        <Text style={styles.profile}>Profile</Text>
+        <Text style={styles.profile}>{name}</Text>
       </View>
-      <Pressable style={[styles.pageHeading, styles.topMenuFlexBox]}>
+      <Pressable style={[styles.pageHeading, styles.topMenuFlexBox]} onPress={actions.logout}>
         <Text style={styles.logout}>Logout</Text>
         <Image
           style={[styles.vuesaxlinearloginIcon, styles.ml5]}
@@ -55,9 +55,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   profile: {
-    fontSize: FontSize.size_4xl,
-    fontWeight: "600",
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontSize: 20,
+    fontWeight: "500",
+    fontFamily: FontFamily.textMediumBoldText1,
     color: Color.black,
     textAlign: "center",
   },
@@ -65,11 +65,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logout: {
-    fontSize: FontSize.size_base,
+    fontSize: 14,
     textDecoration: "underline",
-    fontFamily: FontFamily.outfitRegular,
-    color: Color.orange_100,
+    fontFamily: FontFamily.openSansRegular,
+    color: '#EF9F27',
+    fontWeight: "400",
     textAlign: "right",
+    marginRight: 4
   },
   vuesaxlinearloginIcon: {
     width: 18,

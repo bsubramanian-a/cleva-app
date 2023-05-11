@@ -12,7 +12,7 @@ const LoginBtn = ({onPress}:any) => {
 
 const styles = StyleSheet.create({
   login: {
-    fontSize: FontSize.textMediumBoldText1_size,
+    fontSize: 16,
     fontWeight: "600",
     fontFamily: FontFamily.textMediumBoldText1,
     textAlign: "center",
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     borderRadius: Border.br_md,
     backgroundColor: Color.goldenrod,
-    shadowColor: "#a73f33",
+    // shadowColor: "#a73f33",
     shadowOffset: {
       width: 0,
       height: 4,

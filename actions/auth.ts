@@ -13,7 +13,7 @@ export const login = (data:any) => {
             if(res?.token) 
                 dispatch({
                     type: types.ACCESS_TOKEN,
-                    payload: res?.token
+                    payload: res
                 });
             resolve(res)
         }).catch((error) => {

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Text, StyleSheet, View } from "react-native";
-import EmailInput from "../components/EmailInput";
+import PasswordInput from "./PasswordInput";
 import { Margin, FontSize, FontFamily, Color } from "../GlobalStyles";
 
 const LoginForm = ({setText}:any) => {
@@ -11,7 +11,7 @@ const LoginForm = ({setText}:any) => {
         <Text style={styles.withEmail}>with email</Text>
       </Text>
       <View style={[styles.heading, styles.mt48]}>
-        <EmailInput isPassword={true} setText={setText} emailInputPlaceholder="Password" />
+        <PasswordInput isPassword={true} setText={setText} emailInputPlaceholder="Password" />
         <Text style={[styles.forgetPassword, styles.mt42]}>
           Forget password
         </Text>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   forgetPassword: {
-    fontSize: FontSize.size_sm,
+    fontSize: 15,
     fontFamily: FontFamily.openSansRegular,
     color: Color.cadetblue,
     textAlign: "left",

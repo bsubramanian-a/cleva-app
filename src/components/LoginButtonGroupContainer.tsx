@@ -74,7 +74,7 @@ const LoginButtonGroupContainer = ({
           loginButtonMarginTop="unset"
           acceptToContinue={acceptToContinue}
         />
-        <SignupButton />
+        {/* <SignupButton /> */}
       </View>
     </View>
   );
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   appleLogin: {
     borderRadius: Border.br_md,
     backgroundColor: Color.royalblue,
-    shadowColor: "#e3a99d",
+    // shadowColor: "#e3a99d",
     shadowOffset: {
       width: 0,
       height: 10,

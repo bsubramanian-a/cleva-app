@@ -53,10 +53,10 @@ const EventCard = ({
         source={frame510}
       >
         <View style={styles.jan14Wrapper}>
-          <Text style={styles.jan14}>
+          <View style={styles.jan14}>
             <Text style={styles.jan}>{`Jan `}</Text>
             <Text style={styles.text}>{prop}</Text>
-          </Text>
+          </View>
         </View>
       </ImageBackground>
       <View style={[styles.aMojoMembersMParent, styles.mt13]}>
@@ -82,14 +82,19 @@ const styles = StyleSheet.create({
     marginTop: Margin.m_5xs,
   },
   mt13: {
-    marginTop: Margin.m_xs,
+    marginTop: 10,
   },
   jan: {
-    marginBlockStart: 0,
-    marginBlockEnd: 0,
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '600',
+    textAlign: 'center'
   },
   text: {
-    margin: Margin.m_9xs,
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '600',
+    textAlign: 'center'
   },
   jan14: {
     fontSize: FontSize.size_sm,
@@ -100,13 +105,16 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   jan14Wrapper: {
-    borderRadius: Border.br_xs,
-    backgroundColor: Color.gray_800,
+    borderRadius: 12,
+    backgroundColor: '#EAEAEA99',
     borderStyle: "solid",
     borderColor: "#eaeaea",
     borderWidth: 1,
-    padding: Padding.p_7xs,
+    padding: 5,
     overflow: "hidden",
+    margin: 7,
+    height: 50,
+    textAlign: "center",
   },
   event1Inner: {
     width: 150,
@@ -117,20 +125,22 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_sm,
   },
   aMojoMembers: {
-    fontSize: FontSize.size_lg,
-    fontFamily: FontFamily.sourceSerifProSemibold,
-    color: Color.black,
+    fontSize: 15,
+    fontFamily: FontFamily.textMediumBoldText1,
+    color: '#000',
     textAlign: "left",
-    fontWeight: "600",
+    fontWeight: "bold",
+    marginBottom: 5
   },
   vuesaxlinearclockIcon: {
     width: 16,
     height: 16,
+    marginRight: 3
   },
   pm: {
-    fontSize: FontSize.size_base,
-    fontFamily: FontFamily.outfitRegular,
-    color: Color.darkslategray_100,
+    fontSize: 14,
+    fontFamily: FontFamily.openSansRegular,
+    color: '#4B4B4B',
     textAlign: "left",
   },
   vuesaxlinearclockParent: {
@@ -142,7 +152,7 @@ const styles = StyleSheet.create({
   },
   event1: {
     backgroundColor: Color.white1,
-    shadowColor: "rgba(32, 34, 36, 0.08)",
+    shadowColor: "rgba(32, 34, 36, 0.5)",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -150,11 +160,11 @@ const styles = StyleSheet.create({
     shadowRadius: 40,
     elevation: 40,
     shadowOpacity: 1,
-    paddingHorizontal: Padding.p_9xs,
-    paddingTop: Padding.p_9xs,
-    paddingBottom: Padding.p_sm,
+    paddingHorizontal: 7,
+    paddingTop: 5,
+    paddingBottom: 10,
     overflow: "hidden",
-    borderRadius: Border.br_sm,
+    borderRadius: 16,
   },
 });
 

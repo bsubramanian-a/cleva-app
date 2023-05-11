@@ -57,23 +57,23 @@ const CardL1 = ({ thank1MarginLeft, frame510 }: CardL1Type) => {
 
 const styles = StyleSheet.create({
   ml4: {
-    marginLeft: Margin.m_8xs,
+    marginLeft: 4,
   },
   mt7: {
-    marginTop: Margin.m_5xs,
+    marginTop: 7,
   },
   mt13: {
-    marginTop: Margin.m_xs,
+    marginTop: 13,
   },
   thank1Child: {
     width: 280,
     height: 144,
-    borderRadius: Border.br_sm,
+    borderRadius: 16,
   },
   findingTheBalance: {
-    fontSize: FontSize.size_lg,
+    fontSize: 15,
     fontWeight: "600",
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontFamily: FontFamily.textMediumBoldText1,
     color: Color.black,
     textAlign: "left",
   },
@@ -82,9 +82,10 @@ const styles = StyleSheet.create({
     height: 16,
   },
   friday: {
-    fontSize: FontSize.size_base,
-    fontFamily: FontFamily.outfitRegular,
-    color: Color.darkslategray_100,
+    fontSize: 14,
+    fontFamily: FontFamily.openSansRegular,
+    color: '#4B4B4B',
+    fontWeight: '400',
     textAlign: "left",
   },
   calendarParent: {
@@ -92,11 +93,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   findingTheBalanceBetweenOvParent: {
-    paddingLeft: Padding.p_7xs,
+    paddingLeft: 7,
   },
   thank1: {
     backgroundColor: Color.white1,
-    shadowColor: "rgba(32, 34, 36, 0.08)",
+    shadowColor: "rgba(32, 34, 36, 0.5)",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -105,10 +106,11 @@ const styles = StyleSheet.create({
     elevation: 40,
     shadowOpacity: 1,
     overflow: "hidden",
-    paddingHorizontal: Padding.p_9xs,
+    paddingHorizontal: 5,
     paddingTop: Padding.p_9xs,
     paddingBottom: Padding.p_sm,
-    borderRadius: Border.br_sm,
+    borderRadius: 16,
+    marginRight: 15
   },
 });
 

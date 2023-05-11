@@ -103,6 +103,14 @@ export const getProfile = () => {
     });    
 }
 
+export const logout = () => {
+    dispatch({
+        type: types.LOGOUT,
+        payload: {}
+    });
+}
+
+
 
 
 

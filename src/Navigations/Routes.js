@@ -7,14 +7,14 @@ import { acc } from 'react-native-reanimated';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Routes = () => {
-  const access_token = useSelector((state) => state.auth.access_token);
-  // console.log("route access token", access_token);
+  const userData = useSelector((state) => state.auth.userData);
+  // console.log("route access token", userData?.token);
   const Stack = createStackNavigator();
   const Drawer = createDrawerNavigator();
 
   return (    
     <>
-      {!!access_token && access_token ? Mainstack(Drawer) : Authstack(Stack)}
+      {!!userData && userData?.token ? Mainstack(Drawer, userData) : Authstack(Stack)}
     </>
   );
 };

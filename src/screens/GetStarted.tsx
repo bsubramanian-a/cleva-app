@@ -20,7 +20,7 @@ import {
   FontFamily,
 } from "../GlobalStyles";
 import CustomHeader from "../components/CustomHeader";
-import Tabs from "../components/Tab";
+import ChapterTab from "../components/ChapterTab";
 import { useEffect, useState } from "react";
 import { Pressable } from "react-native";
 import { useSelector } from "react-redux";
@@ -28,6 +28,10 @@ import actions from "../../actions";
 
 const GetStarted = () => {
   const exercises = useSelector((state:any) => state.data.exercises);
+  const summary = useSelector((state:any) => state.data.summary);
+  const advices = useSelector((state:any) => state.data.advices);
+  // console.log("summary", summary);
+  // console.log("advices", advices);
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabPress = (tabNumber:number) => {
@@ -35,11 +39,13 @@ const GetStarted = () => {
   };
 
   useEffect(() => {
-    getExercises();
+    getDatas();
   }, [])
 
-  const getExercises = async() => {
+  const getDatas = async() => {
     await actions.getExercises();
+    await actions.getSummary();
+    await actions.getAdvices();
   }
   
   return (
@@ -70,7 +76,7 @@ const GetStarted = () => {
           </ImageBackground>
         </View>
 
-        <Tabs
+        <ChapterTab
           tabs={['Summary', 'Exercise', 'Advice']}
           activeTab={activeTab}
           onTabPress={handleTabPress}
@@ -121,34 +127,158 @@ const GetStarted = () => {
                       })
                     }
                   </View>
-                  <LinearGradient
-                    style={[styles.bottom, styles.bottomFlexBox]}
-                    locations={[0, 1]}
-                    colors={["#fbb142", "#f6a326"]}
-                    useAngle={true}
-                    angle={180}
-                  >
-                    <Pressable>
-                      <Text style={{color: "#fff"}}>Continue</Text>
-                    </Pressable>
-                  </LinearGradient>
                 </View> :
               <Text>No exercise found</Text>
             }
           </>
         }
         {activeTab == 0 &&
-          <></>
+          <View style={[styles.summary1, {paddingHorizontal: 16, paddingVertical: 20}]}>
+             <Text
+                style={[
+                  styles.loremIpsumIs,
+                  styles.myExercisesTypo,
+                ]}
+            >
+              {summary[0]?.Summary_Content}
+            </Text>
+          </View>
         } 
         {activeTab == 2 &&
-          <></>
+          <View style={[styles.advicetab, styles.summary1]}>
+            <View style={[styles.advicecontainer]}>
+              <Text style={[styles.adviceAssignedBy, styles.summaryTypo]}>
+                Advice Assigned by Coach
+              </Text> 
+              <View
+                style={[styles.advice2, styles.advice2Layout, styles.adviceBg]}
+              >
+                <View style={[styles.advice1Parent, styles.mt10]}>
+                  {
+                    advices?.length > 0 ?
+                      <>
+                        {advices?.map((advice:any) => {
+                          if(advice?.Recommendation_Description){
+                            return(
+                              <View style={styles.advice11}>
+                                <View style={styles.dot1Wrapper}>
+                                  <View style={styles.dot1} />
+                                </View>
+                                <Text style={[styles.loremIpsumIs, styles.ml5, {marginBottom: 14}]}>
+                                  {advice?.Recommendation_Description}
+                                </Text>
+                              </View>
+                            )
+                          }
+                        })}
+                      </>
+                      :
+                      <Text>No advice found</Text>
+                  }
+                </View>
+              </View>
+            </View>
+          </View>
         } 
       </ScrollView>
+      {(activeTab == 1 || activeTab == 2) &&  
+        <LinearGradient
+          style={[styles.bottom, styles.bottomFlexBox]}
+          locations={[0, 1]}
+          colors={["#fbb142", "#f6a326"]}
+          useAngle={true}
+          angle={180}
+        >
+          <Pressable>
+            <Text style={{color: "#fff"}}>Continue</Text>
+          </Pressable>
+        </LinearGradient>
+      }
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  ml5: {
+    marginLeft: 5,
+  },
+  mt14: {
+    marginTop: Margin.m_sm,
+  },
+  dot1: {
+    borderRadius: Border.br_md,
+    height: 8,
+    width: 8,
+    justifyContent: "space-between",
+    backgroundColor: Color.goldenrod,
+    overflow: "hidden",
+    marginTop: 6
+  },
+  dot1Wrapper: {
+    paddingHorizontal: 0,
+    paddingVertical: 1,
+    flexDirection: "row",
+  },
+  mt10: {
+    marginTop: 10,
+  },
+  summaryTypo: {
+    color: Color.black,
+    textAlign: "left",
+    fontFamily: FontFamily.openSansRegular,
+  },
+  adviceAssignedBy: {
+    fontSize: FontSize.textMediumBoldText1_size,
+    textAlign: "left",
+  },
+  adviceBg: {
+    backgroundColor: Color.white1,
+  },
+  advice2Layout: {
+    borderRadius: Border.br_md,
+    alignSelf: "stretch",
+  },
+  advice11: {
+    // width: 324,
+    flexDirection: "row",
+  },
+  advice1Parent: {
+    paddingBottom: Padding.p_2xs,
+  },
+  advice2: {
+    shadowColor: "rgba(32, 34, 36, 0.08)",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowRadius: 40,
+    elevation: 40,
+    shadowOpacity: 1,
+    paddingLeft: 4,
+    paddingTop: 2,
+    paddingRight: 4,
+    paddingBottom: Padding.p_2xs,
+    justifyContent: "center",
+    // overflow: "hidden",
+  },
+  advicecontainer: {
+    paddingVertical: 4,
+    paddingHorizontal: 4,
+  },
+  advicetab: {
+    alignSelf: "stretch",
+  },
+  myExercisesTypo: {
+    textAlign: "left",
+    fontSize: FontSize.size_sm,
+  },
+  loremIpsumIs: {
+    lineHeight: 22,
+    fontWeight: "300",
+    fontFamily: FontFamily.openSansRegular,
+    fontSize: 14,
+    color: '#4B4B4B',
+  },
   mt_12: {
     marginTop: Margin.m_2xs,
   },
@@ -184,7 +314,8 @@ const styles = StyleSheet.create({
   },
   textClr: {
     color: Color.black,
-    fontSize: FontSize.textMediumBoldText1_size,
+    fontSize: 14,
+    fontWeight: '600'
   },
   text2Typo: {
     fontFamily: FontFamily.openSansRegular,
@@ -236,15 +367,15 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   text1: {
-    fontStyle: "italic",
-    fontWeight: "300",
-    fontFamily: FontFamily.openSansRegular,
+    fontWeight: "500",
+    fontSize: 14,
+    fontFamily: FontFamily.textMediumBoldText1,
   },
   text: {
     textAlign: "center",
   },
   wrapper: {
-    backgroundColor: '#FFECCF',
+    backgroundColor: '#FFF9F1',
     borderColor: "#ffeccf",
   },
   earlyHappyMemory: {
@@ -270,7 +401,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   excercise1: {
-    shadowColor: "rgba(32, 34, 36, 0.08)",
+    shadowColor: "rgba(32, 34, 36, 0.5)",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -279,13 +410,35 @@ const styles = StyleSheet.create({
     elevation: 40,
     shadowOpacity: 1,
     justifyContent: "space-between",
-    padding: 0,
+    padding: 10,
     alignItems: "center",
     flexDirection: "row",
     borderRadius: 12,
     alignSelf: "stretch",
     overflow: "hidden",
     backgroundColor: Color.white1,
+    height: 60
+  },
+  summary1: {
+    shadowColor: "rgba(32, 34, 36, 0.8)",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowRadius: 40,
+    elevation: 20,
+    shadowOpacity: 1,
+    justifyContent: "space-between",
+    padding: 10,
+    alignItems: "center",
+    flexDirection: "row",
+    borderRadius: 12,
+    alignSelf: "stretch",
+    overflow: "hidden",
+    backgroundColor: Color.white1,
+    marginTop: 20,
+    marginBottom: 50,
+    marginHorizontal: Padding.p_lg,
   },
   groupIcon: {
     height: 16,
@@ -316,7 +469,6 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_sm,
     width: 390,
     paddingHorizontal: Padding.p_lg,
-    minHeight: 300
   },
   bottom: {
     paddingHorizontal: Padding.p_2xs,

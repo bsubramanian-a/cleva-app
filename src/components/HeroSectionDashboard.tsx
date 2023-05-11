@@ -21,7 +21,7 @@ const HeroSectionDashboard = ({item}:any) => {
                 resizeMode="cover"
                 source={require("../assets/frame481.png")}
             >
-                <View style={styles.getchapgroupWrapper}>
+              <View style={styles.getchapgroupWrapper}>
                 <View
                     style={[
                     styles.getchapgroup,
@@ -39,42 +39,34 @@ const HeroSectionDashboard = ({item}:any) => {
                     />
                     </View>
                 </View>
-                </View>
-                <LinearGradient
+              </View>
+              <LinearGradient
                 style={[styles.progressgroupParent, styles.getchapgroupSpaceBlock]}
                 locations={[0, 1]}
                 colors={["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.83)"]}
                 useAngle={true}
                 angle={180}
-                >
+              >
                 <View style={[styles.progressgroup, styles.getchapgroupFlexBox]}>
                     <Text style={[styles.yourProgress, styles.textTypo]}>
-                    Your Progress
+                      Your Progress
                     </Text>
                     <Text style={[styles.text, styles.textTypo]}>{item?.progress || 40}%</Text>
                 </View>
-                <View style={[styles.rectangleParent, styles.mt10]}>
-                    {/* <View style={[styles.groupChild, styles.groupPosition]} /> */}
-                    <View style={[styles.groupItem, styles.groupPosition, {width: item?.progress ? (((Dimensions.get('window').width - 107) * 0.01) * item?.progress) : 40 }]} />
+                <View style={[styles.rectangleParent]}>
+                  <View style={[styles.groupItem, styles.groupPosition, {backgroundColor: '#ffffff30', width: Dimensions.get('window').width - 107}]} />
+                  <View style={[styles.groupItem, styles.groupPosition, {width: item?.progress ? (((Dimensions.get('window').width - 107) * 0.01) * item?.progress) : 40 }]} />
                 </View>
-                </LinearGradient>
+              </LinearGradient>
             </ImageBackground> 
             <View
                 style={[styles.chaptergroup, styles.mt10, styles.getchapgroupFlexBox]}
             >
                 <View style={[styles.indicator1, styles.indicator1Layout]} />
-                <View
-                style={[styles.indicator1, styles.ml5, styles.indicator1Layout]}
-                />
-                <View
-                style={[styles.indicatoractive, styles.ml5, styles.indicator1Layout]}
-                />
-                <View
-                style={[styles.indicator1, styles.ml5, styles.indicator1Layout]}
-                />
-                <View
-                style={[styles.indicator1, styles.ml5, styles.indicator1Layout]}
-                />
+                <View style={[styles.indicator1, styles.ml5, styles.indicator1Layout]}/>
+                <View style={[styles.indicatoractive, styles.ml5, styles.indicator1Layout]}/>
+                <View style={[styles.indicator1, styles.ml5, styles.indicator1Layout]} />
+                <View style={[styles.indicator1, styles.ml5, styles.indicator1Layout]}/>
             </View>
         </Pressable>
     );
@@ -101,11 +93,11 @@ const styles = StyleSheet.create({
   },
   textTypo: {
     fontWeight: "700",
-    fontSize: FontSize.size_base,
+    fontSize: 14,
     color: Color.white1,
   },
   groupPosition: {
-    borderRadius: Border.br_2xl,
+    borderRadius: 20,
     left: 0,
     top: 0,
     position: "absolute",
@@ -118,14 +110,14 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   getStarted: {
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: 16,
     fontWeight: "900",
     fontFamily: FontFamily.sourceSerifProBlack,
     textAlign: "left",
     color: Color.white1,
   },
   chapter1: {
-    fontSize: FontSize.size_sm,
+    fontSize: 12,
     fontWeight: "500",
     fontFamily: FontFamily.outfitMedium,
     textAlign: "right",
@@ -141,7 +133,7 @@ const styles = StyleSheet.create({
   },
   getchapgroup: {
     borderRadius: Border.br_md,
-    backgroundColor: '#FFFFFF33',
+    backgroundColor: '#FFFFFF40',
     paddingLeft: Padding.p_md,
     paddingRight: Padding.p_md,
     marginHorizontal: 10,
@@ -177,6 +169,7 @@ const styles = StyleSheet.create({
   rectangleParent: {
     height: 6,
     alignSelf: "stretch",
+    marginTop: 8
   },
   progressgroupParent: {
     // height: 200,
@@ -188,12 +181,12 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   sliderIcon: {
-    height: 270,
-    minHeight: 270,
+    height: 220,
+    minHeight: 220,
     width: Dimensions.get('window').width - 64,
     justifyContent: "space-between",
     overflow: "hidden",
-    borderRadius: Border.br_sm,
+    borderRadius: 16,
     alignItems: "center",
     alignSelf: "stretch",
   },

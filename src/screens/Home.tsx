@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Image, StyleSheet, View, Text, StatusBar } from "react-native";
+import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Dimensions } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import TopHeader from "../components/TopHeader";
 import EditBtn from "../components/EditBtn";
@@ -19,14 +19,17 @@ import Tabs from "../components/Tab";
 import Slider from "../components/Slider";
 import actions from "../../actions";
 import { useSelector } from "react-redux";
+import CircleProgressBar from "../components/CircleProgressBar";
+import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
+  const navigation:any = useNavigation();
   const [activeTab, setActiveTab] = useState(0);
   const journals = useSelector((state:any) => state.data.journals);
   const assets = useSelector((state:any) => state.data.assets);
   const liabilities = useSelector((state:any) => state.data.liabilities);
-  const [totalAssets, setTotalAssets] = useState<number>();
-  const [totalLiabilities, setTotalLiabilities] = useState<number>();
+  const [totalAssets, setTotalAssets] = useState<number>(0);
+  const [totalLiabilities, setTotalLiabilities] = useState<number>(0);
   
   const handleTabPress = (tabNumber:number) => {
     setActiveTab(tabNumber);
@@ -43,11 +46,15 @@ const Home = () => {
   }
 
   useEffect(() => {
-    setTotalAssets(parseFloat(assets.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2)));
+    if(assets?.length > 0){
+      setTotalAssets(parseFloat(assets.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2)));
+    }
   }, [assets])
 
   useEffect(() => {
-    setTotalLiabilities(parseFloat(liabilities.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2)));
+    if(liabilities?.length > 0){
+      setTotalLiabilities(parseFloat(liabilities.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2)));
+    }
   }, [liabilities])
 
 
@@ -103,12 +110,16 @@ const Home = () => {
               >
                 <View style={[styles.frameParent1, styles.frameSpaceBlock]}>
                 <View style={styles.frameItemLayout}>
-                  <Image
-                    style={[styles.frameItem, styles.frameItemLayout]}
-                    resizeMode="cover"
-                    source={require("../assets/group-1000004305.png")}
+                  <CircleProgressBar
+                    progress1={(totalAssets / (totalAssets + totalLiabilities))}
+                    progress2={(totalLiabilities / (totalAssets + totalLiabilities))}
+                    radius={65}
+                    strokeWidth={8}
+                    color1={'#944C9F'}
+                    color2={'#EF9F27'}
+                    netWorth={(totalAssets - totalLiabilities)?.toFixed(1)}
                   />
-                  <View style={styles.netWorthParent}>
+                  {/* <View style={styles.netWorthParent}>
                     <Text style={[styles.netWorth, styles.netWorthClr]}>
                       Net Worth
                     </Text>
@@ -116,7 +127,7 @@ const Home = () => {
                       <Text style={styles.text1}>$</Text>
                       <Text style={styles.text2}>{(totalAssets - totalLiabilities)?.toFixed(1)}</Text>
                     </Text>
-                  </View>
+                  </View> */}
                 </View>
                 <View style={styles.wealthParent}>
                   <View style={styles.rectangleParent}>
@@ -148,8 +159,12 @@ const Home = () => {
                 </View>
                 </View>
                 <View style={[styles.editBtnParent, styles.mt28]}>
-                  <EditBtn edit="Edit" />
-                  <AssumptionBtn />
+                  <View style={{width: ((Dimensions.get('window').width - 75) / 100) * 35}}>
+                    <EditBtn edit="Edit" />
+                  </View>
+                  <View style={{width: ((Dimensions.get('window').width - 75) / 100) * 60}}>
+                    <AssumptionBtn navigation={navigation} />
+                  </View>
                 </View>
               </View>
             }
@@ -158,7 +173,7 @@ const Home = () => {
             <View style={styles.frameWrapper}>
               <View style={[styles.eventsParent, styles.eventsParentFlexBox]}>
                 <Text style={styles.events}>Events</Text>
-                <Text style={[styles.seeAll, styles.seeAllTypo]}>See All</Text>
+                <Text style={[styles.seeAll]}>See All</Text>
               </View>
             </View>
             <ScrollView
@@ -186,11 +201,11 @@ const Home = () => {
                 frame510={require("../assets/frame-5104.png")}
                 prop="15"
                 pM="7:00 PM"
-                vuesaxlinearclock={require("../assets/vuesaxlinearclock2.png")}
+                vuesaxlinearclock={require("../assets/vuesaxlinearclock.png")}
               />
             </ScrollView>
           </View>
-          <View style={[styles.frameParent3, styles.mt20]}>
+          <View style={[styles.frameParent3, styles.mt20, {marginBottom: 20}]}>
             <View style={styles.frameWrapper}>
               <View style={styles.eventsParentFlexBox}>
                 <Text style={styles.events}>Recommended For You</Text>
@@ -210,7 +225,7 @@ const Home = () => {
               <RecommededCard
                 recommeded1MarginLeft={14}
                 frame510={require("../assets/frame-5109.png")}
-                vuesaxlineararrowRight={require("../assets/vuesaxlineararrowright2.png")}
+                vuesaxlineararrowRight={require("../assets/vuesaxlineararrowright.png")}
               />
             </ScrollView>
           </View>
@@ -258,7 +273,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   mt20: {
-    marginTop: Margin.m_lg,
+    marginTop: 20,
   },
   frameScrollViewContent: {
     flexDirection: "column",
@@ -272,14 +287,16 @@ const styles = StyleSheet.create({
   },
   seeAllTypo: {
     fontFamily: FontFamily.openSansRegular,
-    fontSize: FontSize.textMediumBoldText1_size,
+    color: '#4b4b4b',
+    fontSize: 14,
   },
   frameItemLayout: {
     height: 130,
     width: 130,
   },
   netWorthClr: {
-    color: Color.gray_200,
+    color: '#4b4b4b',
+    fontSize: 14,
     textAlign: "left",
   },
   textClr: {
@@ -295,6 +312,7 @@ const styles = StyleSheet.create({
     width: 350,
     alignItems: "center",
     flexDirection: "row",
+    marginBottom: 14
   },
   // mainvector1Icon: {
   //   width: 164,
@@ -345,11 +363,15 @@ const styles = StyleSheet.create({
   text1: {
     fontStyle: "italic",
     fontFamily: FontFamily.openSansBold,
-    fontWeight: "700",
+    fontWeight: "bold",
+    color: '#262627',
+    fontSize: 16
   },
   text2: {
     fontFamily: FontFamily.openSansBold,
-    fontWeight: "700",
+    fontWeight: "bold",
+    color: '#262627',
+    fontSize: 16
   },
   text: {
     fontSize: 15,
@@ -394,14 +416,14 @@ const styles = StyleSheet.create({
   },
   frameGroup: {
     borderRadius: 16,
-    shadowColor: "rgba(32, 34, 36, 0.08)",
+    shadowColor: "rgba(32, 34, 36, 0.5)",
     shadowOffset: {
       width: 0,
       height: 4,
     },
-    shadowRadius: 40,
+    shadowRadius: 15,
     elevation: 40,
-    shadowOpacity: 1,
+    shadowOpacity: 0.04,
     borderColor: "#ffeccf",
     borderWidth: 1,
     paddingHorizontal: 0,
@@ -411,18 +433,21 @@ const styles = StyleSheet.create({
     backgroundColor: Color.white1,
   },
   events: {
-    fontSize: FontSize.size_lg,
-    fontWeight: "600",
+    fontSize: 18,
+    fontWeight: "bold",
     fontFamily: FontFamily.openSansRegular,
     color: Color.black,
     textAlign: "left",
   },
   seeAll: {
     textAlign: "right",
-    color: Color.goldenrod,
+    color: '#EF9F27',
+    fontFamily: FontFamily.openSansRegular,
+    fontSize: 14,
   },
   eventsParent: {
     justifyContent: "space-between",
+    marginBottom: 14
   },
   frameWrapper: {
     alignSelf: "stretch",

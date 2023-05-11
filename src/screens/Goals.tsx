@@ -1,16 +1,14 @@
 import * as React from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View, StatusBar } from "react-native";
 import LoginButton from "../components/LoginButton";
 import { Margin, FontSize, FontFamily, Color, Padding } from "../GlobalStyles";
+import CustomHeader from "../components/CustomHeader";
 
 const Goals = () => {  
   return (
-    <View style={styles.termsAndCondition}>
-      <View style={styles.heading}>
-        <Text style={styles.aQuickCheckContainer}>
-          <Text style={styles.aQuickCheck}>Goals</Text>
-        </Text>
-      </View>
+    <View>
+      <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
+      <CustomHeader name="Goals" type={1}/>
     </View>
   );
 };

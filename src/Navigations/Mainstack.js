@@ -109,7 +109,7 @@ const CustomTabBar = ({ state, descriptors, navigation, images }) => {
     );
 };
 
-const Tabs = () => {
+const Tabs = ({userData}) => {
     const images = {
         Home: {
             active: require('../assets/tabs/home-f.png'),
@@ -134,7 +134,7 @@ const Tabs = () => {
     };
 
     return(
-        <Tab.Navigator tabBar={props => <CustomTabBar {...props} images={images} />} screenOptions={{headerShown:false}}>
+        <Tab.Navigator tabBar={props => <CustomTabBar {...props} images={images} />} screenOptions={{headerShown:false}}  initialRouteName={userData?.status === 'login' ? 'Home' : 'Goals'}>
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Journal" component={Journal} />
             <Tab.Screen name="Goals" component={Goals} /> 
@@ -145,11 +145,13 @@ const Tabs = () => {
 }
 
 // create a component
-const Mainstack = (Drawer) => {
+const Mainstack = (Drawer, userData) => {
     return (
         <Drawer.Navigator useLegacyImplementation='true' initialRouteName={"Tab"} backBehavior="history" drawerPosition="right" openByDefault={false} drawerWidth={200} screenOptions={{headerShown: false}}>    
             <Drawer.Screen name="TermsAndCondition" component={TermsAndCondition} />
-            <Drawer.Screen name="Tab" component={Tabs} />
+            <Drawer.Screen name="Tab">
+                {props => <Tabs {...props} userData={userData} />}
+            </Drawer.Screen>
             <Drawer.Screen name="GetStarted" component={GetStarted} />
             <Drawer.Screen name="Profile" component={Profile} />
             <Drawer.Screen name="WealthAssets" component={WealthAssets} />

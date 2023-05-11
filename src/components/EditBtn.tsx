@@ -68,7 +68,7 @@ const EditBtn = ({
 
 const styles = StyleSheet.create({
   edit: {
-    fontSize: FontSize.size_sm,
+    fontSize: 14,
     lineHeight: 20,
     fontWeight: "600",
     fontFamily: FontFamily.openSansRegular,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   editBtn: {
     height: 38,
-    width: 110,
+    width: '100%',
     borderRadius: 60
   },
 });

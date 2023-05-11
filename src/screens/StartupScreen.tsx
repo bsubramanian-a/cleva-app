@@ -29,7 +29,7 @@ const StartupScreen = ({navigation}:any) => {
 
 const styles = StyleSheet.create({
   mt22: {
-    marginTop: 22,
+    marginTop: 2,
   },
   mt72: {
     marginTop: Margin.m_xl,
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     color: Color.dark1,
     textAlign: "left",
     alignSelf: "stretch",
+    marginBottom: 50
   },
   logotextParent: {
     alignSelf: "stretch",

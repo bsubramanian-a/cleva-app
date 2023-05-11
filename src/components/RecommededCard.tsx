@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     marginTop: Margin.m_5xs,
   },
   mt13: {
-    marginTop: Margin.m_xs,
+    marginTop: 13,
   },
   recommeded1Bg: {
     overflow: "hidden",
@@ -80,19 +80,20 @@ const styles = StyleSheet.create({
   recommeded1Child: {
     width: 280,
     height: 144,
-    borderRadius: Border.br_sm,
+    borderRadius: 16,
   },
   tedLasso: {
-    fontSize: FontSize.size_lg,
-    fontWeight: "600",
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontSize: 15,
+    fontWeight: "500",
+    fontFamily: FontFamily.textMediumBoldText1,
     color: Color.black,
     textAlign: "left",
+    marginBottom: 7
   },
   appleTv: {
-    fontSize: FontSize.size_base,
-    fontFamily: FontFamily.outfitRegular,
-    color: Color.darkslategray_100,
+    fontSize: 14,
+    fontFamily: FontFamily.openSansRegular,
+    color: '#4B4B4B',
     textAlign: "left",
   },
   vuesaxlineararrowRightIcon: {
@@ -100,23 +101,23 @@ const styles = StyleSheet.create({
     height: 18,
   },
   vuesaxlineararrowRightWrapper: {
-    borderRadius: Border.br_2xs,
+    borderRadius: 10,
     borderStyle: "solid",
     borderColor: "#ef9f27",
     borderWidth: 1,
-    paddingHorizontal: Padding.p_4xs,
-    paddingVertical: Padding.p_6xs,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
   },
   frameParent: {
     alignSelf: "stretch",
     flexDirection: "row",
-    paddingLeft: Padding.p_7xs,
-    paddingRight: Padding.p_4xs,
+    paddingLeft: 7,
+    paddingRight: 7,
     alignItems: "center",
     justifyContent: "space-between",
   },
   recommeded1: {
-    shadowColor: "rgba(32, 34, 36, 0.08)",
+    shadowColor: "rgba(32, 34, 36, 0.5)",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -124,10 +125,10 @@ const styles = StyleSheet.create({
     shadowRadius: 40,
     elevation: 40,
     shadowOpacity: 1,
-    paddingHorizontal: Padding.p_9xs,
-    paddingTop: Padding.p_9xs,
-    paddingBottom: Padding.p_sm,
-    borderRadius: Border.br_sm,
+    paddingHorizontal: 5,
+    paddingTop: 5,
+    paddingBottom: 10,
+    borderRadius: 16,
   },
 });
 

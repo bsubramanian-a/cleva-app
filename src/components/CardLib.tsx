@@ -56,23 +56,23 @@ const CardLib = ({ mojo1MarginLeft, frame510, calendar }: CardLibType) => {
 
 const styles = StyleSheet.create({
   ml4: {
-    marginLeft: Margin.m_8xs,
+    marginLeft: 4,
   },
   mt7: {
-    marginTop: Margin.m_5xs,
+    marginTop: 7,
   },
   mt13: {
-    marginTop: Margin.m_xs,
+    marginTop: 13,
   },
   mojo1Child: {
-    width: 150,
+    width: "100%",
     height: 144,
-    borderRadius: Border.br_sm,
+    borderRadius: 16,
   },
   thePowerOf: {
-    fontSize: FontSize.size_lg,
-    fontWeight: "600",
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontSize: 18,
+    fontWeight: "500",
+    fontFamily: FontFamily.textMediumBoldText1,
     color: Color.black,
     textAlign: "left",
   },
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
   mojo1: {
     backgroundColor: Color.white1,
-    shadowColor: "rgba(32, 34, 36, 0.08)",
+    shadowColor: "rgba(32, 34, 36, 0.5)",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -104,10 +104,10 @@ const styles = StyleSheet.create({
     elevation: 40,
     shadowOpacity: 1,
     overflow: "hidden",
-    paddingHorizontal: Padding.p_9xs,
-    paddingTop: Padding.p_9xs,
-    paddingBottom: Padding.p_sm,
-    borderRadius: Border.br_sm,
+    borderRadius: 16,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
+    paddingBottom: 10
   },
 });
 
