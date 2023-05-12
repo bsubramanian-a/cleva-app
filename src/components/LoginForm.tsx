@@ -39,13 +39,13 @@ const styles = StyleSheet.create({
   },
   loginWithEmailContainer: {
     fontSize: FontSize.size_lg,
-    fontFamily: FontFamily.sourceSerifPro,
+    // fontFamily: FontFamily.sourceSerifPro,
     color: Color.dark1,
     textAlign: "left",
   },
   forgetPassword: {
     fontSize: 15,
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     color: Color.cadetblue,
     textAlign: "left",
   },

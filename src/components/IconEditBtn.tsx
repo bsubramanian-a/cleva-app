@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.textMediumBoldText_size,
     lineHeight: 20,
     fontWeight: "600",
-    fontFamily: FontFamily.outfitSemibold,
+    // fontFamily: FontFamily.outfitSemibold,
     color: Color.white1,
     textAlign: "center",
   },

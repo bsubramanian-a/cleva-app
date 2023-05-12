@@ -519,7 +519,7 @@ const styles = StyleSheet.create({
   },
   mTypo: {
     textAlign: "left",
-    fontFamily: FontFamily.textMediumBoldText1,
+    // fontFamily: FontFamily.textMediumBoldText1,
     fontWeight: "500",
     color: '#FBB142',
   },
@@ -539,7 +539,7 @@ const styles = StyleSheet.create({
   },
   stKildaRdTypo: {
     textAlign: "right",
-    fontFamily: FontFamily.outfitMedium,
+    // fontFamily: FontFamily.outfitMedium,
     fontWeight: "500",
     fontSize: FontSize.size_base,
     color: Color.black,
@@ -558,7 +558,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_6xl,
     color: Color.white1,
     textAlign: "center",
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    // fontFamily: FontFamily.sourceSerifProSemibold,
     fontWeight: "600",
     lineHeight: 22,
   },
@@ -589,7 +589,7 @@ const styles = StyleSheet.create({
   },
   email: {
     fontWeight: "300",
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     color: '#4B4B4B',
     fontSize: 14,
     textAlign: "left",

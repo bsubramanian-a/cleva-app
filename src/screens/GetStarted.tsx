@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
   summaryTypo: {
     color: Color.black,
     textAlign: "left",
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
   },
   adviceAssignedBy: {
     fontSize: FontSize.textMediumBoldText1_size,
@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
   loremIpsumIs: {
     lineHeight: 22,
     fontWeight: "300",
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     fontSize: 14,
     color: '#4B4B4B',
   },
@@ -323,7 +323,7 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   text2Typo: {
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     fontWeight: "600",
   },
   mainvector1Icon: {
@@ -374,7 +374,7 @@ const styles = StyleSheet.create({
   text1: {
     fontWeight: "500",
     fontSize: 14,
-    fontFamily: FontFamily.textMediumBoldText1,
+    // fontFamily: FontFamily.textMediumBoldText1,
   },
   text: {
     textAlign: "center",

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   wealthSorted: {
     fontSize: FontSize.size_5xl,
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     color: Color.dark,
     textAlign: "left",
     alignSelf: "stretch",

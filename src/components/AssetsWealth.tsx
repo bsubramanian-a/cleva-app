@@ -61,13 +61,13 @@ const styles = StyleSheet.create({
   },
   textTypo: {
     color: Color.black,
-    fontFamily: FontFamily.textMediumBoldText1,
+    // fontFamily: FontFamily.textMediumBoldText1,
     fontWeight: "500",
     lineHeight: 22,
   },
   myHome: {
     fontWeight: "300",
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     color: '#4B4B4B',
     textAlign: "left",
     lineHeight: 22,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "right",
     fontWeight: "500",
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     color: '#000000',
     lineHeight: 22,
     fontSize: 14,
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   text7: {
     fontSize: 18,
     color: '#EF9F27',
-    fontFamily: FontFamily.textMediumBoldText1,
+    // fontFamily: FontFamily.textMediumBoldText1,
     fontWeight: "500",
     textAlign: "left",
     lineHeight: 22,

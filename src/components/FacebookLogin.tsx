@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.textMediumBoldText_size,
     lineHeight: 22,
     fontWeight: "600",
-    fontFamily: FontFamily.textMediumBoldText,
+    // fontFamily: FontFamily.textMediumBoldText,
     textAlign: "left",
     color: Color.white1,
   },

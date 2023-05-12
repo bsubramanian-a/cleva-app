@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
   },
   loginOrSignupContainer: {
     fontSize: FontSize.size_lg,
-    fontFamily: FontFamily.sourceSerifPro,
+    // fontFamily: FontFamily.sourceSerifPro,
     color: Color.dark1,
     textAlign: "left",
   },
   weRecommendUsingContainer: {
     fontSize: FontSize.textMediumBoldText1_size,
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     color: Color.black,
     textAlign: "left",
   },

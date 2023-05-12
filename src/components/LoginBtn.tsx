@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   login: {
     fontSize: 16,
     fontWeight: "600",
-    fontFamily: FontFamily.textMediumBoldText1,
+    // fontFamily: FontFamily.textMediumBoldText1,
     textAlign: "center",
     color: Color.dark1,
   },

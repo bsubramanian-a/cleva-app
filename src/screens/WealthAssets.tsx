@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.textMediumBoldText1_size,
     lineHeight: 20,
     fontWeight: "600",
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     color: Color.white1,
     textAlign: "center",
   },
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   assets: {
     fontWeight: "500",
-    fontFamily: FontFamily.outfitMedium,
+    // fontFamily: FontFamily.outfitMedium,
     color: Color.orange_100,
     textAlign: "left",
     fontSize: FontSize.textMediumBoldText_size,
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_9xl,
   },
   liabilities: {
-    fontFamily: FontFamily.outfitRegular,
+    // fontFamily: FontFamily.outfitRegular,
     color: Color.black,
     textAlign: "center",
     fontSize: FontSize.textMediumBoldText_size,
