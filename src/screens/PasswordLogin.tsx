@@ -4,14 +4,16 @@ import LoginForm from "../components/LoginForm";
 import { Margin, Padding, FontSize, FontFamily, Color } from "../GlobalStyles";
 import actions from "../../actions";
 import { useSelector } from "react-redux";
+import Loader from "../components/Loader";
 
 const PasswordLogin = ({navigation}:any) => {
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const email = useSelector((state:any) => state.auth.email);
   
   const onLogin = async () => {
-    // console.log("password", password, "email", email)
+    setLoading(true);
     setError("");
     try {
       const res:any = await actions.login({
@@ -29,18 +31,18 @@ const PasswordLogin = ({navigation}:any) => {
       }else{
         // navigation.navigate('Goals')
       }
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.log('error raised', error);
     }
   };
   
   return (
     <View style={[styles.passwordLogin, styles.nextpreviousSpaceBlock]}>
-      <LoginForm setText={setPassword}/>
+      <Loader visible={loading} />
+      <LoginForm setText={setPassword} error={error}/>
 
-      {error != "" && 
-          <Text>{error}</Text>
-      }
       <View
         style={[
           styles.nextprevious,
@@ -48,11 +50,14 @@ const PasswordLogin = ({navigation}:any) => {
           styles.nextpreviousSpaceBlock,
         ]}
       >
-        <Image
-          style={styles.iconarrowLayout}
-          resizeMode="cover"
-          source={require("../assets/iconarrow.png")}
-        />
+        <Pressable onPress={() => navigation.navigate('EmailLogin')}>
+          <Image
+            style={styles.iconarrowLayout}
+            resizeMode="cover"
+            source={require("../assets/iconarrow.png")}
+          />
+        </Pressable>
+       
         <Pressable onPress={password != "" ? onLogin : undefined} style={styles.next}>
           <Image
             style={[

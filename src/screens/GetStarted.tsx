@@ -25,8 +25,10 @@ import { useEffect, useState } from "react";
 import { Pressable } from "react-native";
 import { useSelector } from "react-redux";
 import actions from "../../actions";
+import Loader from "../components/Loader";
 
 const GetStarted = () => {
+  const [loading, setLoading] = useState(false);
   const exercises = useSelector((state:any) => state.data.exercises);
   const summary = useSelector((state:any) => state.data.summary);
   const advices = useSelector((state:any) => state.data.advices);
@@ -43,9 +45,11 @@ const GetStarted = () => {
   }, [])
 
   const getDatas = async() => {
+    setLoading(true);
     await actions.getExercises();
     await actions.getSummary();
     await actions.getAdvices();
+    setLoading(false);
   }
   
   return (
@@ -54,6 +58,7 @@ const GetStarted = () => {
     >
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
       <CustomHeader name="Get Started" type={2}/>
+      <Loader visible={loading} />
       <ScrollView
         style={styles.videoSectionParent}
         showsHorizontalScrollIndicator={false}

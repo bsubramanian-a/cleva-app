@@ -3,9 +3,10 @@ import { Text, StyleSheet, View, Image, Pressable } from "react-native";
 import EmailInput from "../components/EmailInput";
 import { Margin, Padding, FontSize, FontFamily, Color } from "../GlobalStyles";
 import actions from "../../actions";
-import { color } from "react-native-reanimated";
+import Loader from "../components/Loader";
 
 const EmailLogin = ({navigation}:any) => {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   // useEffect(() => {
@@ -18,6 +19,7 @@ const EmailLogin = ({navigation}:any) => {
   // }
 
   const onVerifyEmail = async () => {
+    setLoading(true);
     setError("");
     try {
       const res:any = await actions.verifyEmail({
@@ -27,15 +29,18 @@ const EmailLogin = ({navigation}:any) => {
       if(res?.isUserExist === true){
         navigation.navigate('PasswordLogin')
       }else{
-        setError("User doesn't exist, please regster first");
+        setError("User doesn't exist, please register first");
       }
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.log('error raised', error);
     }
   };
 
   return (
     <View style={[styles.emailLogin, styles.emailLoginSpaceBlock]}>
+      <Loader visible={loading} />
       <View style={styles.heading}>
         <Text style={styles.loginWithEmailContainer}>
           <Text style={styles.login}>Login</Text>  {'\n'} 
@@ -53,7 +58,7 @@ const EmailLogin = ({navigation}:any) => {
           setText={setEmail}
         />
         {error != "" && 
-          <Text>{error}</Text>
+          <Text style={{color: 'red'}}>{error}</Text>
         }
       </View>
       <View

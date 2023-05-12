@@ -19,7 +19,7 @@ const TopHeader = ({ title }: TopHeaderType) => {
           <View style={[styles.groupInner, styles.groupLayout]} />
         </View>
       </View>
-      <Text style={{fontSize: 20, fontWeight: "bold"}}>{title}</Text>
+      <Text style={{fontSize: 20, fontWeight: "bold", color: "#000"}}>{title}</Text>
       <View style={[styles.menuGroup, styles.menuFlexBox1]}>
         <View style={[styles.vuesaxlinearaddWrapper, styles.menuFlexBox]}>
           <Image

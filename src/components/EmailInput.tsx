@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     paddingRight: Padding.p_xs,
     paddingBottom: Padding.p_sm,
     justifyContent: "space-between",
+    color: '#000'
   },
 });
 

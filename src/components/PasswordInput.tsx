@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     paddingVertical: 10,
+    color: '#000'
   },
   eyeIconContainer: {
     padding: 10,

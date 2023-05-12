@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Image, Text } from 'react-native';
+import { View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TermsAndCondition from '../screens/TermsAndCondition';
 import Goals from '../screens/Goals';
@@ -17,7 +17,7 @@ const Tab = createBottomTabNavigator();
 
 const CustomTabBar = ({ state, descriptors, navigation, images }) => {
     return (
-      <View style={{ flexDirection: 'row', position: 'relative', bottom: 0, backgroundColor: '#fff' }}>
+      <View style={ styles.tabBar }>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
           const isFocused = state.index === index;
@@ -158,6 +158,25 @@ const Mainstack = (Drawer, userData) => {
         </Drawer.Navigator>
     );
 };
+
+const styles = StyleSheet.create({
+    tabBar: {
+        flexDirection: 'row', 
+        position: 'relative', 
+        bottom: 0, 
+        backgroundColor: '#fff',
+        shadowColor: "rgba(32, 34, 36, 1)",
+        shadowOffset: {
+          width: 0,
+          height: 4,
+        },
+        shadowRadius: 15,
+        elevation: 40,
+        shadowOpacity: 1,
+        borderColor: "#ffeccf",
+        borderWidth: 1,
+    }
+});
 
 //make this component available to the app
 export default Mainstack;

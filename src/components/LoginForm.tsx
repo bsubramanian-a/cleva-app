@@ -3,7 +3,7 @@ import { Text, StyleSheet, View } from "react-native";
 import PasswordInput from "./PasswordInput";
 import { Margin, FontSize, FontFamily, Color } from "../GlobalStyles";
 
-const LoginForm = ({setText}:any) => {
+const LoginForm = ({setText, error}:any) => {
   return (
     <View style={styles.heading}>
       <Text style={styles.loginWithEmailContainer}>
@@ -12,6 +12,9 @@ const LoginForm = ({setText}:any) => {
       </Text>
       <View style={[styles.heading, styles.mt48]}>
         <PasswordInput isPassword={true} setText={setText} emailInputPlaceholder="Password" />
+        {error != "" && 
+          <Text style={{color: 'red'}}>{error}</Text>
+        }
         <Text style={[styles.forgetPassword, styles.mt42]}>
           Forget password
         </Text>
