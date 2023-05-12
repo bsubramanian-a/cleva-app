@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ScrollView, Image, StyleSheet, View, Text, StatusBar } from "react-native";
+import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Pressable } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import ProfileHeader from "../components/ProfileHeader";
 import {
@@ -11,31 +11,75 @@ import {
   FontSize,
 } from "../GlobalStyles";
 import CustomHeader from "../components/CustomHeader";
+import actions from "../../actions";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import Loader from "../components/Loader";
 
 const Profile = () => {
+  const [loading, setLoading] = useState(false);
+  const profile = useSelector((state:any) => state.data.profile);
+  const assets = useSelector((state:any) => state.data.assets);
+  const liabilities = useSelector((state:any) => state.data.liabilities);
+  const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
+
+  const getProfile = async() => {
+    setLoading(true);
+    await actions.getProfile();
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    getProfile();
+  }, [])
+
+  useEffect(() => {
+    let totalAssets = 0;
+    let totalLiabilities = 0;
+
+    if(assets?.length > 0){
+      totalAssets = parseFloat(assets.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2));
+    }
+
+    if(liabilities?.length > 0){
+      totalLiabilities = parseFloat(liabilities.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2));
+    }
+
+    setTotalNetWorth(parseFloat((totalAssets - totalLiabilities)?.toFixed(1)));
+  }, [assets, liabilities])
+
+  const formatDate = (dateString:string) => {
+    const date = new Date(dateString);
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const formattedDate = `${date.getDate()}/${month}/${date.getFullYear()}`;
+    return formattedDate;
+  }  
+
   return (
     <View
       style={styles.profile}
     >
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
       <CustomHeader name="Profile" type={3}/>
+      <Loader visible={loading} />
       <ScrollView
         style={styles.userdetailsParent}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.frameScrollViewContent}
       >
+        {/* <Pressable onPress={getProfile}><Text>get profile</Text></Pressable> */}
         <View style={[styles.userdetails, styles.optionsSpaceBlock]}>
           <View style={[styles.advice, styles.adviceShadowBox]}>
             <View style={styles.users}>
               <View style={styles.loginuser}>
                 <View style={[styles.drWrapper, styles.wrapperLayout]}>
-                  <Text style={styles.dr}>DR</Text>
+                  <Text style={styles.dr}></Text>
                 </View>
                 <View
                   style={[styles.frWrapper, styles.ml_11, styles.wrapperLayout]}
                 >
-                  <Text style={styles.dr}>FR</Text>
+                  <Text style={styles.dr}>{profile?.length > 0 && (profile[0]?.First_Name?.charAt(0)+profile[0]?.Last_Name?.charAt(0))}</Text>
                 </View>
               </View>
               <Text
@@ -45,7 +89,7 @@ const Profile = () => {
                   styles.mTypo,
                   styles.danFleurClr,
                 ]}
-              >{`Dan & Fleur Rake Household`}</Text>
+              >{profile[0]?.First_Name} {profile[0]?.Last_Name}</Text>
             </View>
             <View style={[styles.assetsview, styles.mt25]}>
               <View style={[styles.assetsviewChild, styles.childBorder]} />
@@ -64,7 +108,7 @@ const Profile = () => {
                   />
                   <Text style={[styles.email, styles.ml6]}>Email</Text>
                 </View>
-                <Text style={styles.stKildaRdTypo}>member@test.com.au</Text>
+                <Text style={styles.stKildaRdTypo}>{profile?.length > 0 && profile[0]?.Email}</Text>
               </View>
               <View
                 style={[
@@ -88,7 +132,7 @@ const Profile = () => {
                   />
                   <Text style={[styles.email, styles.ml6]}>Phone</Text>
                 </View>
-                <Text style={styles.stKildaRdTypo}>+1 0404123456</Text>
+                <Text style={styles.stKildaRdTypo}>{profile?.length > 0 && profile[0]?.Phone}</Text>
               </View>
               <View
                 style={[
@@ -112,7 +156,10 @@ const Profile = () => {
                   />
                   <Text style={[styles.email, styles.ml6]}>Member Since</Text>
                 </View>
-                <Text style={styles.stKildaRdTypo}>01/01/2012</Text>
+                
+                <Text style={styles.stKildaRdTypo}>
+                  {profile?.length > 0 && formatDate(profile[0]?.Created_Time)}
+                </Text>
               </View>
               <View
                 style={[
@@ -137,7 +184,35 @@ const Profile = () => {
                   <Text style={[styles.email, styles.ml6]}>Address</Text>
                 </View>
                 <Text style={[styles.stKildaRd, styles.stKildaRdTypo]}>
-                  623 St Kilda Rd Melbourne Vic 3004
+                  {profile?.length > 0 && (
+                    <>
+                      {profile[0]?.Mailing_Street && (
+                        <>
+                          {profile[0]?.Mailing_Street}
+                          {profile[0]?.Mailing_City && ","}
+                        </>
+                      )}
+                      {profile[0]?.Mailing_City && (
+                        <>
+                          {profile[0]?.Mailing_City}
+                          {profile[0]?.Mailing_State && ","}
+                        </>
+                      )}
+                      {profile[0]?.Mailing_State && (
+                        <>
+                          {profile[0]?.Mailing_State}
+                          {profile[0]?.Mailing_Zip && ","}
+                        </>
+                      )}
+                      {profile[0]?.Mailing_Zip && (
+                        <>
+                          {profile[0]?.Mailing_Zip}
+                          {profile[0]?.Mailing_Country && ","}
+                        </>
+                      )}
+                      {profile[0]?.Mailing_Country && profile[0]?.Mailing_Country}
+                    </>
+                  )}
                 </Text>
               </View>
             </View>
@@ -145,7 +220,7 @@ const Profile = () => {
           <View style={[styles.advice1, styles.mt15, styles.adviceShadowBox]}>
             <View style={[styles.frameParent1, styles.frameParentFlexBox]}>
               <View style={styles.mParent}>
-                <Text style={[styles.m, styles.mTypo]}>$1.8 M</Text>
+                <Text style={[styles.m, styles.mTypo]}>${totalNetWorth}</Text>
                 <Text style={[styles.email, styles.mt5]}>
                   Current Net Wealth
                 </Text>
@@ -544,6 +619,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_base,
     color: Color.black,
     lineHeight: 22,
+    width: '60%'
   },
   mainvector1Icon: {
     width: 164,
