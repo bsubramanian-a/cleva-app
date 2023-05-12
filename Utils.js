@@ -6,13 +6,12 @@ import store from './store';
 const { dispatch, getState } = store;
  
 export async function getHeaders() {
-	let userData = await AsyncStorage.getItem('userData');
-	//console.log();
+	const state = getState();
+	const userData = state.auth.userData;
+	
 	if (userData) {
-		userData = JSON.parse(userData);
-		//console.log(userData.access_token, 'header')
 		return {
-			authorization: `Bearer ${userData.access_token}`,
+			authorization: `Bearer ${userData.token}`,
 		};
 	}
 	return {};

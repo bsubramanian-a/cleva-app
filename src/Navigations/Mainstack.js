@@ -12,6 +12,7 @@ import LinearGradient from "react-native-linear-gradient";
 import GetStarted from '../screens/GetStarted';
 import Profile from '../screens/Profile';
 import WealthAssets from '../screens/WealthAssets';
+import SOP from '../screens/SOP';
 
 const Tab = createBottomTabNavigator();
 
@@ -155,6 +156,7 @@ const Mainstack = (Drawer, userData) => {
             <Drawer.Screen name="GetStarted" component={GetStarted} />
             <Drawer.Screen name="Profile" component={Profile} />
             <Drawer.Screen name="WealthAssets" component={WealthAssets} />
+            <Drawer.Screen name="SOP" component={SOP} />
         </Drawer.Navigator>
     );
 };

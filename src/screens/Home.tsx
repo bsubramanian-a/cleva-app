@@ -32,7 +32,13 @@ const Home = () => {
   const [totalLiabilities, setTotalLiabilities] = useState<number>(0);
   
   const handleTabPress = (tabNumber:number) => {
-    setActiveTab(tabNumber);
+    if(tabNumber != 0){
+      if(tabNumber == 1){
+        navigation.navigate('Profile');
+      }else{
+        navigation.navigate('SOP');
+      }
+    }
   };
 
   useEffect(() => {
