@@ -12,14 +12,18 @@ import {
 } from "../GlobalStyles";
 import CustomHeader from "../components/CustomHeader";
 import actions from "../../actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Loader from "../components/Loader";
 
 const Profile = () => {
+  const [loading, setLoading] = useState(false);
   const profile = useSelector((state:any) => state.data.profile);
 
   const getProfile = async() => {
+    setLoading(true);
     await actions.getProfile();
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -39,6 +43,7 @@ const Profile = () => {
     >
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
       <CustomHeader name="Profile" type={3}/>
+      <Loader visible={loading} />
       <ScrollView
         style={styles.userdetailsParent}
         showsHorizontalScrollIndicator={false}
