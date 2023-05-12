@@ -19,6 +19,9 @@ import Loader from "../components/Loader";
 const Profile = () => {
   const [loading, setLoading] = useState(false);
   const profile = useSelector((state:any) => state.data.profile);
+  const assets = useSelector((state:any) => state.data.assets);
+  const liabilities = useSelector((state:any) => state.data.liabilities);
+  const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
 
   const getProfile = async() => {
     setLoading(true);
@@ -29,6 +32,21 @@ const Profile = () => {
   useEffect(() => {
     getProfile();
   }, [])
+
+  useEffect(() => {
+    let totalAssets = 0;
+    let totalLiabilities = 0;
+
+    if(assets?.length > 0){
+      totalAssets = parseFloat(assets.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2));
+    }
+
+    if(liabilities?.length > 0){
+      totalLiabilities = parseFloat(liabilities.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2));
+    }
+
+    setTotalNetWorth(parseFloat((totalAssets - totalLiabilities)?.toFixed(1)));
+  }, [assets, liabilities])
 
   const formatDate = (dateString:string) => {
     const date = new Date(dateString);
@@ -202,7 +220,7 @@ const Profile = () => {
           <View style={[styles.advice1, styles.mt15, styles.adviceShadowBox]}>
             <View style={[styles.frameParent1, styles.frameParentFlexBox]}>
               <View style={styles.mParent}>
-                <Text style={[styles.m, styles.mTypo]}>$1.8 M</Text>
+                <Text style={[styles.m, styles.mTypo]}>${totalNetWorth}</Text>
                 <Text style={[styles.email, styles.mt5]}>
                   Current Net Wealth
                 </Text>
