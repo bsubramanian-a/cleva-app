@@ -85,14 +85,14 @@ const styles = StyleSheet.create({
   tedLasso: {
     fontSize: 15,
     fontWeight: "500",
-    fontFamily: FontFamily.textMediumBoldText1,
+    // fontFamily: FontFamily.textMediumBoldText1,
     color: Color.black,
     textAlign: "left",
     marginBottom: 7
   },
   appleTv: {
     fontSize: 14,
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     color: '#4B4B4B',
     textAlign: "left",
   },

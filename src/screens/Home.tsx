@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   seeAllTypo: {
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     color: '#4b4b4b',
     fontSize: 14,
   },
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
   // },
   wealth: {
     fontWeight: "500",
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     textAlign: "left",
     color: Color.goldenrod,
     fontSize: FontSize.size_sm,
@@ -364,17 +364,17 @@ const styles = StyleSheet.create({
   },
   netWorth: {
     fontSize: FontSize.size_sm,
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
   },
   text1: {
     fontStyle: "italic",
-    fontFamily: FontFamily.openSansBold,
+    // fontFamily: FontFamily.openSansBold,
     fontWeight: "bold",
     color: '#262627',
     fontSize: 16
   },
   text2: {
-    fontFamily: FontFamily.openSansBold,
+    // fontFamily: FontFamily.openSansBold,
     fontWeight: "bold",
     color: '#262627',
     fontSize: 16
@@ -441,14 +441,14 @@ const styles = StyleSheet.create({
   events: {
     fontSize: 18,
     fontWeight: "bold",
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     color: Color.black,
     textAlign: "left",
   },
   seeAll: {
     textAlign: "right",
     color: '#EF9F27',
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     fontSize: 14,
   },
   eventsParent: {

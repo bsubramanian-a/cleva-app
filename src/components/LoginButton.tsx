@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.textMediumBoldText1_size,
     lineHeight: 22,
     fontWeight: "600",
-    fontFamily: FontFamily.textMediumBoldText1,
+    // fontFamily: FontFamily.textMediumBoldText1,
     textAlign: "center",
     color: Color.dark1,
   },

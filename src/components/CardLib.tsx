@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   thePowerOf: {
     fontSize: 18,
     fontWeight: "500",
-    fontFamily: FontFamily.textMediumBoldText1,
+    // fontFamily: FontFamily.textMediumBoldText1,
     color: Color.black,
     textAlign: "left",
   },
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   jan2023: {
     fontSize: FontSize.size_base,
-    fontFamily: FontFamily.outfitRegular,
+    // fontFamily: FontFamily.outfitRegular,
     color: Color.darkslategray_100,
     textAlign: "left",
   },

@@ -95,13 +95,13 @@ const styles = StyleSheet.create({
   },
   mTypo: {
     color: Color.black,
-    fontFamily: FontFamily.outfitMedium,
+    // fontFamily: FontFamily.outfitMedium,
     fontWeight: "500",
     lineHeight: 22,
   },
   mortgageOnMy: {
     fontWeight: "300",
-    fontFamily: FontFamily.outfitLight,
+    // fontFamily: FontFamily.outfitLight,
     color: Color.darkslategray_100,
     textAlign: "left",
     lineHeight: 22,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   text3: {
     fontSize: FontSize.size_2xl,
     color: Color.orange_100,
-    fontFamily: FontFamily.outfitMedium,
+    // fontFamily: FontFamily.outfitMedium,
     fontWeight: "500",
     textAlign: "left",
     lineHeight: 22,

@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     flex: 1,
     lineHeight: 22,
     fontWeight: "600",
-    fontFamily: FontFamily.textMediumBoldText1,
+    // fontFamily: FontFamily.textMediumBoldText1,
     textAlign: "left",
     fontSize: FontSize.textMediumBoldText1_size,
     color: Color.white1,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   or: {
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     color: Color.black,
     textAlign: "center",
     fontSize: FontSize.textMediumBoldText1_size,
