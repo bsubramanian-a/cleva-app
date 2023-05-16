@@ -16,8 +16,10 @@ import WealthTab from "../components/WealthTab";
 import { useState } from "react";
 import CustomHeader from "../components/CustomHeader";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 const WealthAssets = () => {
+  const navigation:any = useNavigation();
   const assets = useSelector((state:any) => state.data.assets);
   const liabilities = useSelector((state:any) => state.data.liabilities);
   const [activeTab, setActiveTab] = useState(0);
@@ -46,7 +48,7 @@ const WealthAssets = () => {
             activeTab == 0 ? 
               <AssetsWealth datas={assets}/>
             :
-            <AssetsWealth datas={liabilities}/>
+              <AssetsWealth datas={liabilities}/>
           }
         </View>
         <LinearGradient
@@ -56,7 +58,7 @@ const WealthAssets = () => {
           useAngle={true}
           angle={180}
         >
-          <Pressable style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={() => navigation.navigate('EditWealth', {type: activeTab == 0 ? 'asset' : 'liability'})}>
             <Image
               style={styles.vuesaxlinearedit2Icon}
               resizeMode="cover"

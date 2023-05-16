@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Text,
   StatusBar,
+  Dimensions,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import HeaderBack from "../components/HeaderBack";
@@ -26,6 +27,7 @@ import { Pressable } from "react-native";
 import { useSelector } from "react-redux";
 import actions from "../../actions";
 import Loader from "../components/Loader";
+import VideoPlayer from "../components/VideoPlayer";
 
 const GetStarted = () => {
   const [loading, setLoading] = useState(false);
@@ -41,7 +43,12 @@ const GetStarted = () => {
   };
 
   useEffect(() => {
-    getDatas();
+    try{
+      getDatas();
+    }catch(err){
+      console.log("err", err);
+      setLoading(false);
+    }
   }, [])
 
   const getDatas = async() => {
@@ -59,14 +66,14 @@ const GetStarted = () => {
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
       <CustomHeader name="Get Started" type={2}/>
       <Loader visible={loading} />
+  
       <ScrollView
         style={styles.videoSectionParent}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.getStartedScrollViewContent}
       >
-        <View style={styles.videoSection}>
-          <ImageBackground
+          {/* <ImageBackground
             style={[styles.videoSectionInner, styles.bottomFlexBox]}
             resizeMode="cover"
             source={require("../assets/frame526.png")}
@@ -78,7 +85,9 @@ const GetStarted = () => {
                 source={require("../assets/polygon-2.png")}
               />
             </View>
-          </ImageBackground>
+          </ImageBackground> */}
+        <View style={styles.videoSection}>
+          <VideoPlayer sourceUri={'https://download.samplelib.com/mp4/sample-5s.mp4'} />
         </View>
 
         <ChapterTab
@@ -360,6 +369,9 @@ const styles = StyleSheet.create({
     paddingBottom: Padding.p_2xs,
     paddingHorizontal: Padding.p_lg,
     alignSelf: "stretch",
+    justifyContent: 'center',
+    borderRadius: 16,
+    overflow: 'hidden'
   },
   summary: {
     display: "none",
