@@ -15,8 +15,10 @@ import actions from "../../actions";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../components/Loader";
+import AccordionContainer from "../components/AccordionContainer";
 
 const Profile = () => {
+  const [accordion, setAccordion] = useState<any>([]);
   const [loading, setLoading] = useState(false);
   const profile = useSelector((state:any) => state.data.profile);
   const assets = useSelector((state:any) => state.data.assets);
@@ -27,6 +29,31 @@ const Profile = () => {
     setLoading(true);
     await actions.getProfile();
     setLoading(false);
+  }
+
+  useEffect(() => {
+    setAccordions();
+  }, [profile])
+
+  const setAccordions = () => {
+    setAccordion([
+      {
+        title: 'About Us',
+        icon: require("../assets/vuesaxlinearprofilecircle.png"),
+        items: [
+          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'First Name', value: profile[0]?.First_Name },
+          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Last Name', value: profile[0]?.Last_Name },
+          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Preferred Name', value: profile[0]?.Preferred_1st_Name },
+          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Sex', value: profile[0]?.Sex_Description },
+          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Date of Birth', value: profile[0]?.Date_of_Birth },
+          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Marital Status', value: profile[0]?.Marital_Status },
+          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Mobile Phone', value: profile[0]?.Mobile },
+          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Email', value: profile[0]?.Email },
+          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Status of Health', value: '' },
+          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Smoker', value: '' },
+        ],
+      }
+    ])
   }
 
   useEffect(() => {
@@ -233,6 +260,7 @@ const Profile = () => {
             </View>
           </View>
         </View>
+        <AccordionContainer accordions={accordion} />
         <View style={[styles.options, styles.optionsSpaceBlock]}>
           <View style={[styles.excercise1, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>

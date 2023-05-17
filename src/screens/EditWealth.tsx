@@ -11,20 +11,54 @@ import CustomHeader from "../components/CustomHeader";
 import { useSelector } from "react-redux";
 import CTextInput from "../components/CTextInput";
 import { useEffect, useState } from "react";
+import actions from "../../actions";
+import Loader from "../components/Loader";
+import { useNavigation } from "@react-navigation/native";
 
 const EditWealth = ({route}:any) => {
+    const navigation = useNavigation();
+    const [loading, setLoading] = useState(false);
     const { type } = route.params;
-    const [datas, setDatas] = useState([]);
+    const [datas, setDatas] = useState<any>([]);
     const assets = useSelector((state:any) => state.data.assets);
+    // console.log("assets", assets);
     const liabilities = useSelector((state:any) => state.data.liabilities);
 
     useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            // Cleanup function to stop the video and reset the state
+            if(type == 'asset'){
+                setDatas(assets);
+            }else{
+                setDatas(liabilities);
+            }
+        });
+
+        // Return the function to unsubscribe from the event so it gets removed on unmount
+        return unsubscribe;
+    }, [navigation, type, assets, liabilities]);
+
+    const updateWealth = async() => {
+        setLoading(true);
+        await actions.updateWealth(datas);
+
         if(type == 'asset'){
-            setDatas(assets);
+            await actions.getAssets();
         }else{
-            setDatas(liabilities);
+            await actions.getLiabilities();
         }
-    }, [type])
+        setLoading(false);
+    }
+
+    const updateState = (value:any, id:any) => {
+        const updatedDatas = datas.map((item:any) => {
+          if (item.id == id) {
+            return { ...item, Current_Value: value };
+          }
+          return item;
+        });
+        setDatas(updatedDatas);
+    }
 
     return (
         <View
@@ -39,9 +73,10 @@ const EditWealth = ({route}:any) => {
             contentContainerStyle={styles.frameScrollViewContent}
         >
             <View style={styles.advicecontainer}>
+                <Loader visible={loading} />
                 {datas?.map((data:any, index:any) => {
                     return(
-                        <CTextInput key={index.toString()} label={data.Name} defaultValue={data?.Current_Value?.toString()} />
+                        <CTextInput key={index.toString()} label={data.Name} defaultValue={data?.Current_Value?.toString()} id={data?.id} updateState={updateState}/>
                     )
                 })}
             </View>
@@ -52,9 +87,9 @@ const EditWealth = ({route}:any) => {
             useAngle={true}
             angle={180}
             >
-            <Pressable style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={[styles.edit, styles.ml4]}>Save</Text>
-            </Pressable>
+                <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={updateWealth}>
+                    <Text style={[styles.edit, styles.ml4]}>Save</Text>
+                </Pressable>
             </LinearGradient>
         </ScrollView>
         </View>

@@ -1,41 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet, Text } from 'react-native';
+import { View, TextInput, StyleSheet, Text, Image } from 'react-native';
 import { FontFamily } from '../GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
 
-const CTextInput = ({ label, defaultValue, ...props }: any) => {
+const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, icon="", ...props }: any) => {
+  // console.log("defaultValue.......", defaultValue, id)
   const navigation = useNavigation();
   const [inputValue, setInputValue] = useState(defaultValue);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      setInputValue(defaultValue);
-    });
-
-    return unsubscribe;
-}, [navigation]);
+    setInputValue(defaultValue);
+  }, [defaultValue])
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
+      <View style={{flexDirection: 'row', gap: 3, alignItems: 'center'}}>
+        {icon && 
+          <Image
+            style={styles.vuesaxlinearprofileCircleIcon}
+            resizeMode="cover"
+            source={icon}
+          />
+        }
+        <Text style={styles.label}>{label}</Text>
+      </View>
       <TextInput
-        keyboardType="numeric"
+        keyboardType= {isNumOnly ? "numeric" : "default"}
         style={styles.input}
-        value={inputValue}
+        defaultValue={inputValue}
         {...props}
-        onKeyPress={(text) => console.log("keypress", text)}
+        // onKeyPress={(text) => console.log("keypress", text)}
         onChangeText={(text) => {
-          // Remove non-numeric characters except '.'
-          const newText = text.replace(/[^0-9.]/g, '');
-          // Allow only one decimal point
-          const decimalCount = newText.split('.').length - 1;
-          if (decimalCount > 1) {
-            const parts = newText.split('.');
-            const integerPart = parts[0];
-            const decimalPart = parts.slice(1).join('');
-            setInputValue(`${integerPart}.${decimalPart}`);
-          } else {
-            setInputValue(newText);
+          // console.log("isNumOnly", isNumOnly, text);
+          if(isNumOnly){
+            // Remove non-numeric characters except '.'
+            const newText = text.replace(/[^0-9.]/g, '');
+            // Allow only one decimal point
+            const decimalCount = newText.split('.').length - 1;
+            if (decimalCount > 1) {
+              const parts = newText.split('.');
+              const integerPart = parts[0];
+              const decimalPart = parts.slice(1).join('');
+              setInputValue(`${integerPart}.${decimalPart}`);
+              updateState(`${integerPart}.${decimalPart}`, id);
+            } else {
+              setInputValue(newText);
+              updateState(newText, id);
+            }
+          }else{
+            updateState(text, id);
           }
         }}
       />
@@ -44,6 +57,10 @@ const CTextInput = ({ label, defaultValue, ...props }: any) => {
 };
 
 const styles = StyleSheet.create({
+  vuesaxlinearprofileCircleIcon: {
+    width: 13,
+    height: 13,
+  },
   container: {
     marginTop: 20,
     flex: 1,

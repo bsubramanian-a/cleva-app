@@ -1,4 +1,4 @@
-import { apiGet, apiPost, clearUserData, setUserData, apiPostFormData, apiDelete } from "../Utils"
+import { apiGet, apiPost, clearUserData, setUserData, apiPostFormData, apiDelete, apiPut } from "../Utils"
 import { JOURNALS, EXERCISES, SUMMARY, ADVICE, ASSETS, LIABILITIES, PROFILE } from "../urls";
 import store from "../store";
 import types from "../types";
@@ -101,6 +101,26 @@ export const getProfile = () => {
             reject(error)
         });
     });    
+}
+
+export const updateWealth = (data:any) => {
+    return new Promise((resolve, reject) => {
+        return apiPut(ASSETS, data).then((res) => {  
+            resolve(res)
+        }).catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+export const updateProfile = (data:any) => {
+    return new Promise((resolve, reject) => {
+        return apiPut(PROFILE, data).then((res) => {  
+            resolve(res)
+        }).catch((error) => {
+            reject(error)
+        })
+    })
 }
 
 export const logout = () => {
