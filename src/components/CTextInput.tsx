@@ -82,6 +82,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     marginTop: 4,
     width: '100%',
+    color: '#000',
+    fontWeight: '600'
   },
 });
 

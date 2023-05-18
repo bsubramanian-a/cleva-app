@@ -46,6 +46,7 @@ const Home = () => {
   }, [])
 
   const getDatas = async() => {
+    await actions.getProfile();
     await actions.getJournals();
     await actions.getAssets();
     await actions.getLiabilities();

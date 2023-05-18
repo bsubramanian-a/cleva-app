@@ -13,7 +13,7 @@ const CustomDatePicker = ({ defaultValue, onValueChange }: any) => {
   };
 
   const openDatePicker = () => {
-    setOpen(true);
+    setOpen(!open);
   };
 
   const closeDatePicker = () => {
@@ -29,10 +29,10 @@ const CustomDatePicker = ({ defaultValue, onValueChange }: any) => {
     <View>
       <TouchableOpacity onPress={openDatePicker}>
          <View style={styles.dtpStyle}>
-          <Text>{formattedDate}</Text>
+          <Text style={{ fontSize: 14, color: '#000', fontWeight: '600' }}>{formattedDate}</Text>
         </View>
       </TouchableOpacity>
-      {Platform.OS === 'ios' && (
+      {/* {Platform.OS === 'ios' && ( */}
         <Modal visible={open} transparent animationType="slide">
           <View style={styles.modalContainer}>
             <View style={styles.pickerContainer}>
@@ -46,22 +46,22 @@ const CustomDatePicker = ({ defaultValue, onValueChange }: any) => {
             </View>
           </View>
         </Modal>
-      )}
-      {Platform.OS === 'android' && open && (
-        <DatePicker
+      {/* )} */}
+      {/* {Platform.OS === 'android' && open && ( */}
+        {/* <DatePicker
           date={selectedDate}
           onDateChange={handleDateChange}
           mode="date"
           onConfirm={(date) => {
             setOpen(false)
             handleDateChange(date)
-        }}
-        onCancel={() => {
+          }}
+          onCancel={() => {
             setOpen(false)
-        }}
+          }}
           maximumDate={today}
-        />
-      )}
+        /> */}
+      {/* )} */}
     </View>
   );
 };

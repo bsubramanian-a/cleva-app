@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import actions from "../../actions";
 import Loader from "../components/Loader";
 import { useNavigation } from "@react-navigation/native";
+import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
 
 const EditWealth = ({route}:any) => {
     const navigation = useNavigation();
@@ -47,6 +48,12 @@ const EditWealth = ({route}:any) => {
         }else{
             await actions.getLiabilities();
         }
+        console.log("show message")
+        showMessage({
+            message: 'Success',
+            description: 'Wealth updated successfully',
+            type: 'success',
+        });
         setLoading(false);
     }
 
@@ -66,6 +73,7 @@ const EditWealth = ({route}:any) => {
         >
         <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
         <CustomHeader name="Your Wealth" type={2}/>
+        <FlashMessage position="top" />
         <ScrollView
             style={styles.wealthTabParent}
             showsHorizontalScrollIndicator={false}

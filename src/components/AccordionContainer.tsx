@@ -77,12 +77,21 @@ const Accordion = ({ title, subHeading, items, activeAccordion, setActiveAccordi
                         </Pressable>
                     </View>
                     {items.map((item:any, index:any) => (
-                        <AccordionItem
-                            key={index.toString()}
-                            icon={item.icon}
-                            name={item.name}
-                            value={item.value}
-                        />
+                        <>
+                            <AccordionItem
+                                key={index.toString()}
+                                icon={item.icon}
+                                name={item.name}
+                                value={item.value}
+                            />
+                            <View
+                                style={[
+                                styles.assetsviewChild,
+                                styles.mt15,
+                                styles.childBorder,
+                                ]}
+                            />
+                        </>
                     ))}
                 </View>
             )}
@@ -116,6 +125,18 @@ const AccordionContainer = ({ accordions }:any) => {
 export default AccordionContainer;
 
 const styles = StyleSheet.create({
+    assetsviewChild: {
+        borderTopWidth: 1,
+        width: "100%",
+        height: 1,
+    },
+    mt15: {
+        marginTop: 15,
+    },
+    childBorder: {
+        borderColor: "#f3f1ee",
+        borderStyle: "solid",
+    },
     lineStyle:{
         marginVertical: 10,
         height: 1,
@@ -240,7 +261,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 5,
+        // marginBottom: 5,
         width: '100%',
         padding: 10
     },
@@ -254,8 +275,10 @@ const styles = StyleSheet.create({
     },
     name: {
         marginRight: 10,
+        color: '#4B4B4B'
     },
     value: {
         fontWeight: 'bold',
+        color: '#000'
     },
 });

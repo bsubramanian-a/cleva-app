@@ -17,6 +17,7 @@ import Loader from "../components/Loader";
 import { useNavigation } from "@react-navigation/native";
 import DropdownComponent from "../components/DropdownComponent";
 import CustomDatePicker from "../components/CustomDatepicker";
+import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
 
 const EditProfile = ({}:any) => {
     const navigation = useNavigation();
@@ -57,6 +58,12 @@ const EditProfile = ({}:any) => {
         await actions.updateProfile([updatedData]);
 
         await actions.getProfile();
+
+        showMessage({
+            message: 'Success',
+            description: 'Profile updated successfully',
+            type: 'success',
+        });
         setLoading(false);
     }
 
@@ -81,6 +88,7 @@ const EditProfile = ({}:any) => {
         <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
         <CustomHeader name="Edit Details" type={3}/>
         <Loader visible={loading} />
+        <FlashMessage position="top" />
         <ScrollView
             style={styles.wealthTabParent}
             showsHorizontalScrollIndicator={false}
