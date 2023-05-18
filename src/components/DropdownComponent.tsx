@@ -11,6 +11,8 @@ const DropdownComponent = ({ values, defaultValue, onValueChange }:any) => {
         style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
         data={values}
         value={value}
+        selectedTextStyle={{ fontSize: 14 }}
+        placeholderStyle={{ fontSize: 14 }}
         onChange={item => {
             setValue(item.value);
             setIsFocus(false);
@@ -24,10 +26,10 @@ const DropdownComponent = ({ values, defaultValue, onValueChange }:any) => {
 
 const styles = StyleSheet.create({
     dropdown: {
-        height: 50,
-        borderColor: 'gray',
-        borderWidth: 0.5,
-        borderRadius: 8,
+        height: 44,
+        borderColor: "#DEDEDE",
+        borderWidth: 1,
+        borderRadius: 12,
         paddingHorizontal: 8,
     },
 });

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity, Platform, Modal, Button, StyleSheet, Text } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { format } from 'date-fns';
 
@@ -16,6 +16,10 @@ const CustomDatePicker = ({ defaultValue, onValueChange }: any) => {
     setOpen(true);
   };
 
+  const closeDatePicker = () => {
+    setOpen(false);
+  };
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -24,9 +28,26 @@ const CustomDatePicker = ({ defaultValue, onValueChange }: any) => {
   return (
     <View>
       <TouchableOpacity onPress={openDatePicker}>
-        <TextInput value={formattedDate} editable={false} />
+         <View style={styles.dtpStyle}>
+          <Text>{formattedDate}</Text>
+        </View>
       </TouchableOpacity>
-      {open && (
+      {Platform.OS === 'ios' && (
+        <Modal visible={open} transparent animationType="slide">
+          <View style={styles.modalContainer}>
+            <View style={styles.pickerContainer}>
+              <DatePicker
+                date={selectedDate}
+                onDateChange={handleDateChange}
+                mode="date"
+                maximumDate={today}
+              />
+              <Button title="Close" onPress={closeDatePicker} />
+            </View>
+          </View>
+        </Modal>
+      )}
+      {Platform.OS === 'android' && open && (
         <DatePicker
           date={selectedDate}
           onDateChange={handleDateChange}
@@ -44,5 +65,27 @@ const CustomDatePicker = ({ defaultValue, onValueChange }: any) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  dtpStyle: {
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#DEDEDE',
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    marginTop: 4,
+    width: '100%',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  pickerContainer: {
+    backgroundColor: 'white',
+    padding: 16,
+    alignItems: 'center',
+  },
+});
 
 export default CustomDatePicker;

@@ -9,8 +9,8 @@ const AccordionItem = ({ icon, name, value }:any) => {
     <View style={styles.itemContainer}>
         <View style={styles.itemContent}>
             <Image
-                style={styles.vuesaxlinearprofileCircleIcon}
-                resizeMode="cover"
+                style={styles.vuesaxlinearprofileCircle}
+                resizeMode="contain"
                 source={icon}
             />
             <Text style={styles.name}>{name}</Text>
@@ -20,7 +20,7 @@ const AccordionItem = ({ icon, name, value }:any) => {
   );
 };
 
-const Accordion = ({ title, items, activeAccordion, setActiveAccordion, icon, navigation }:any) => {
+const Accordion = ({ title, subHeading, items, activeAccordion, setActiveAccordion, icon, navigation }:any) => {
     const isActive = activeAccordion === title;
 
     const toggleAccordion = () => {
@@ -65,13 +65,14 @@ const Accordion = ({ title, items, activeAccordion, setActiveAccordion, icon, na
             </TouchableOpacity>
             {isActive && (
                 <View>
+                    <View style={styles.lineStyle}></View>
                     <View style={styles.editRow}>
-                        <Text style={styles.subHeading}>User</Text>
-                        <Pressable style={{flexDirection: 'row', alignItems: 'center', backgroundColor: '#fbb142', width: 30, height: 30, borderRadius: 4, padding: 3, justifyContent: 'center'}} onPress={editProfile}>
+                        <Text style={styles.subHeading}>{subHeading}</Text>
+                        <Pressable onPress={editProfile}>
                             <Image
-                                style={styles.vuesaxlinearprofileCircleIcon}
+                                style={styles.vuesaxlinearedit}
                                 resizeMode="cover"
-                                source={require('../assets/vuesaxlinearedit2.png')}
+                                source={require('../assets/edit.png')}
                             />
                         </Pressable>
                     </View>
@@ -100,6 +101,7 @@ const AccordionContainer = ({ accordions }:any) => {
         <Accordion
           key={index.toString()}
           title={accordion.title}
+          subHeading={accordion.subHeading}
           items={accordion.items}
           icon={accordion?.icon}
           activeAccordion={activeAccordion}
@@ -114,6 +116,14 @@ const AccordionContainer = ({ accordions }:any) => {
 export default AccordionContainer;
 
 const styles = StyleSheet.create({
+    lineStyle:{
+        marginVertical: 10,
+        height: 1,
+        width: "100%",
+        borderColor: "#F3F1EE",
+        borderWidth: 1,
+        borderStyle: "solid"
+    },
     editRow:{
         flexDirection: 'row',
         alignItems: 'center',
@@ -121,14 +131,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     subHeading:{
-
+        color: "#FBB142",
+        fontSize: 14,
+        fontWeight: "600"
     },
     accordionContainer:{
-        paddingHorizontal: 30,
+        borderWidth: 1,
+        borderRadius: 16,
+        borderColor: "#eaeaea",
+        marginHorizontal: 30,
         marginTop : 20
     },
     excercise1: {
-        padding: 5,
         justifyContent: "space-between",
         alignItems: "center",
         shadowOpacity: 1,
@@ -139,7 +153,6 @@ const styles = StyleSheet.create({
             height: 4,
         },
         shadowColor: "rgba(32, 34, 36, 0.08)",
-        borderRadius: Border.br_md,
         alignSelf: "stretch",
         overflow: "hidden",
         backgroundColor: Color.white1,
@@ -147,7 +160,7 @@ const styles = StyleSheet.create({
     frameParentFlexBox: {
         justifyContent: "space-between",
         flexDirection: "row",
-        width: '100%'
+        // width: '100%'
     },
     aboutCard:{
         padding: 10,
@@ -170,19 +183,26 @@ const styles = StyleSheet.create({
     },
     vuesaxlinearprofileCircleWrapper: {
         borderRadius: 10,
-        backgroundColor: Color.white1,
+        backgroundColor: "#FFF9F1",
         borderColor: "#ffeccf",
         borderWidth: 1,
         width: 40,
         height: 40,
-        paddingHorizontal: 4,
-        paddingVertical: 5,
         borderStyle: "solid",
         justifyContent: "center",
         alignItems: "center",
         overflow: "hidden",
     },
     vuesaxlinearprofileCircleIcon: {
+        width: 20,
+        height: 20,
+    },
+    vuesaxlinearprofileCircle: {
+        width: 20,
+        height: 20,
+        marginRight: 9
+    },
+    vuesaxlinearedit: {
         width: 20,
         height: 20,
     },

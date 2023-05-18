@@ -38,19 +38,20 @@ const Profile = () => {
   const setAccordions = () => {
     setAccordion([
       {
-        title: 'About Us',
+        title: 'About You',
+        subHeading: profile[0]?.Preferred_1st_Name,
         icon: require("../assets/vuesaxlinearprofilecircle.png"),
         items: [
-          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'First Name', value: profile[0]?.First_Name },
-          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Last Name', value: profile[0]?.Last_Name },
-          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Preferred Name', value: profile[0]?.Preferred_1st_Name },
-          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Sex', value: profile[0]?.Sex_Description },
-          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Date of Birth', value: profile[0]?.Date_of_Birth },
-          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Marital Status', value: profile[0]?.Marital_Status },
-          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Mobile Phone', value: profile[0]?.Mobile },
-          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Email', value: profile[0]?.Email },
-          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Status of Health', value: '' },
-          { icon: require("../assets/vuesaxlinearprofilecircle.png"), name: 'Smoker', value: '' },
+          { icon: require("../assets/profile.png"), name: 'First Name', value: profile[0]?.First_Name },
+          { icon: require("../assets/profile.png"), name: 'Last Name', value: profile[0]?.Last_Name },
+          { icon: require("../assets/profile.png"), name: 'Preferred Name', value: profile[0]?.Preferred_1st_Name },
+          { icon: require("../assets/sex.png"), name: 'Sex', value: profile[0]?.Sex_Description },
+          { icon: require("../assets/dob.png"), name: 'Date of Birth', value: profile[0]?.Date_of_Birth },
+          { icon: require("../assets/mstatus.png"), name: 'Marital Status', value: profile[0]?.Marital_Status },
+          { icon: require("../assets/contact.png"), name: 'Mobile Phone', value: profile[0]?.Mobile },
+          { icon: require("../assets/vuesaxlinearsms.png"), name: 'Email', value: profile[0]?.Email },
+          { icon: require("../assets/shealth.png"), name: 'Status of Health', value: '' },
+          { icon: require("../assets/smoker.png"), name: 'Smoker', value: '' },
         ],
       }
     ])
@@ -100,11 +101,11 @@ const Profile = () => {
           <View style={[styles.advice, styles.adviceShadowBox]}>
             <View style={styles.users}>
               <View style={styles.loginuser}>
-                <View style={[styles.drWrapper, styles.wrapperLayout]}>
+                {/* <View style={[styles.drWrapper, styles.wrapperLayout]}>
                   <Text style={styles.dr}></Text>
-                </View>
+                </View> */}
                 <View
-                  style={[styles.frWrapper, styles.ml_11, styles.wrapperLayout]}
+                  style={[styles.frWrapper, styles.wrapperLayout]}
                 >
                   <Text style={styles.dr}>{profile?.length > 0 && (profile[0]?.First_Name?.charAt(0)+profile[0]?.Last_Name?.charAt(0))}</Text>
                 </View>
@@ -262,7 +263,7 @@ const Profile = () => {
         </View>
         <AccordionContainer accordions={accordion} />
         <View style={[styles.options, styles.optionsSpaceBlock]}>
-          <View style={[styles.excercise1, styles.frameParentFlexBox, styles.aboutCard]}>
+          {/* <View style={[styles.excercise1, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
                 <Image
@@ -287,10 +288,8 @@ const Profile = () => {
               resizeMode="cover"
               source={require("../assets/vuesaxlineararrowcircledown.png")}
             />
-          </View>
-          <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
-          >
+          </View> */}
+          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
                 <Image
@@ -316,9 +315,7 @@ const Profile = () => {
               source={require("../assets/vuesaxlineararrowcircledown.png")}
             />
           </View>
-          <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
-          >
+          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
                 <Image
@@ -344,9 +341,7 @@ const Profile = () => {
               source={require("../assets/vuesaxlineararrowcircledown.png")}
             />
           </View>
-          <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
-          >
+          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
                 <Image
@@ -372,9 +367,7 @@ const Profile = () => {
               source={require("../assets/vuesaxlineararrowcircledown.png")}
             />
           </View>
-          <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
-          >
+          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
                 <Image
@@ -400,9 +393,7 @@ const Profile = () => {
               source={require("../assets/vuesaxlineararrowcircledown.png")}
             />
           </View>
-          <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
-          >
+          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
                 <Image
@@ -428,9 +419,7 @@ const Profile = () => {
               source={require("../assets/vuesaxlineararrowcircledown.png")}
             />
           </View>
-          <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
-          >
+          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
                 <Image
@@ -456,9 +445,7 @@ const Profile = () => {
               source={require("../assets/vuesaxlineararrowcircledown.png")}
             />
           </View>
-          <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
-          >
+          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
                 <Image
@@ -484,9 +471,7 @@ const Profile = () => {
               source={require("../assets/vuesaxlineararrowcircledown.png")}
             />
           </View>
-          <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
-          >
+          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
                 <Image
@@ -510,9 +495,7 @@ const Profile = () => {
               source={require("../assets/vuesaxlineararrowcircledown.png")}
             />
           </View>
-          <View
-            style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}
-          >
+          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
                 <Image
@@ -562,9 +545,6 @@ const styles = StyleSheet.create({
   },
   mt_12: {
     marginTop: 12,
-  },
-  ml_11: {
-    marginLeft: -11,
   },
   mt26: {
     marginTop: 26,
@@ -684,7 +664,7 @@ const styles = StyleSheet.create({
   },
   assetsviewChild: {
     borderTopWidth: 1,
-    width: 306,
+    width: "100%",
     height: 1,
   },
   vuesaxlinearsmsIcon: {
@@ -714,6 +694,8 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   advice: {
+    borderWidth: 1,
+    borderColor: "#eaeaea",
     paddingTop: 28,
     paddingBottom: Padding.p_lg,
     alignItems: "center",
@@ -736,6 +718,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   advice1: {
+    borderWidth: 1,
+    borderColor: "#eaeaea",
     paddingVertical: Padding.p_2xs,
     alignItems: "center",
   },
@@ -765,6 +749,8 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   excercise1: {
+    borderWidth: 1,
+    borderColor: "#eaeaea",
     padding: Padding.p_5xs,
     justifyContent: "space-between",
     alignItems: "center",

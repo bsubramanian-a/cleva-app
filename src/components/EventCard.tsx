@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Image,
   ImageSourcePropType,
+  Platform,
 } from "react-native";
 import {
   Margin,
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
     padding: 5,
     overflow: "hidden",
     margin: 7,
-    height: 50,
+    height: 48,
     textAlign: "center",
   },
   event1Inner: {
@@ -122,7 +123,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     padding: Padding.p_7xs,
     flexDirection: "row",
-    borderRadius: Border.br_sm,
+    borderRadius: 16,
+    overflow: "hidden"
   },
   aMojoMembers: {
     fontSize: 15,
@@ -151,20 +153,23 @@ const styles = StyleSheet.create({
     paddingLeft: Padding.p_7xs,
   },
   event1: {
-    backgroundColor: Color.white1,
-    shadowColor: "rgba(32, 34, 36, 0.5)",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowRadius: 40,
-    elevation: 40,
-    shadowOpacity: 1,
+    backgroundColor: "#fff",
     paddingHorizontal: 7,
     paddingTop: 5,
     paddingBottom: 10,
     overflow: "hidden",
     borderRadius: 16,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'rgba(32, 34, 36, 0.5)',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 40,
+      },
+      android: {
+        elevation: 40,
+      },
+    }),
   },
 });
 

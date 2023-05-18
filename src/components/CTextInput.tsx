@@ -58,8 +58,9 @@ const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, ic
 
 const styles = StyleSheet.create({
   vuesaxlinearprofileCircleIcon: {
-    width: 13,
-    height: 13,
+    width: 16,
+    height: 16,
+    marginRight: 4,
   },
   container: {
     marginTop: 20,
@@ -67,17 +68,17 @@ const styles = StyleSheet.create({
   },
   label: {
     fontWeight: '300',
-    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.openSansRegular,
     color: '#4B4B4B',
     textAlign: 'left',
     lineHeight: 22,
     fontSize: 14,
   },
   input: {
-    borderRadius: 11,
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#4B4B4B',
-    paddingVertical: 8,
+    borderColor: '#DEDEDE',
+    paddingVertical: 12,
     paddingHorizontal: 12,
     marginTop: 4,
     width: '100%',

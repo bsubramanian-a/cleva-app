@@ -2,14 +2,16 @@ import * as React from "react";
 import { StyleSheet, View, Image, ImageSourcePropType, Text, Pressable } from "react-native";
 import { Margin, Color, Border, Padding } from "../GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
 type TopHeaderType = {
   title?: any;
 };
 
 const TopHeader = ({ title }: TopHeaderType) => {
-  const navigation:any = useNavigation();
-  
+  const profile = useSelector((state:any) => state.data.profile);
+  const navigation: any = useNavigation();
+
   return (
     <View style={[styles.topMenu, styles.menuFlexBox1]}>
       <View style={[styles.menu, styles.menuFlexBox]}>
@@ -19,7 +21,7 @@ const TopHeader = ({ title }: TopHeaderType) => {
           <View style={[styles.groupInner, styles.groupLayout]} />
         </View>
       </View>
-      <Text style={{fontSize: 20, fontWeight: "bold", color: "#000"}}>{title}</Text>
+      <Text style={{ fontSize: 20, fontWeight: "bold", color: "#000" }}>{title}</Text>
       <View style={[styles.menuGroup, styles.menuFlexBox1]}>
         <View style={[styles.vuesaxlinearaddWrapper, styles.menuFlexBox]}>
           <Image
@@ -28,12 +30,8 @@ const TopHeader = ({ title }: TopHeaderType) => {
             source={require("../assets/vuesaxlinearadd.png")}
           />
         </View>
-        <Pressable onPress={() => navigation.navigate('Profile')}>
-          <Image
-            style={[styles.menuGroupChild, styles.ml8]}
-            resizeMode="cover"
-            source={require("../assets/ellipse-584.png")}
-          />
+        <Pressable style={[styles.frWrapper, styles.wrapperLayout]} onPress={() => navigation.navigate('Profile')}>
+          <Text style={styles.dr}>{profile?.length > 0 && (profile[0]?.First_Name?.charAt(0) + profile[0]?.Last_Name?.charAt(0))}</Text>
         </Pressable>
       </View>
     </View>
@@ -53,7 +51,22 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: '#FEF7F5',
     borderRadius: Border.br_md,
+    height: 40,
+    width: 40,
     alignItems: "center",
+  },
+  frWrapper: {
+    backgroundColor: "#9755b6",
+  },
+  wrapperLayout: {
+    justifyContent: "center",
+    width: 40,
+    height: 40,
+    marginLeft: 4,
+    borderRadius: 52,
+    padding: 5,
+    alignItems: "center",
+    overflow: "hidden",
   },
   groupLayout: {
     height: 2,

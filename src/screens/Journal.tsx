@@ -1,9 +1,5 @@
 import * as React from "react";
 import { ScrollView, Image, StyleSheet, View, Text, StatusBar } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import TopHeader from "../components/TopHeader";
-import JournalSlider from "../components/JournalSlider";
-import JournalSlider1 from "../components/JournalSlider1";
 import { Margin, Padding, Border, FontFamily, Color } from "../GlobalStyles";
 import CustomHeader from "../components/CustomHeader";
 import SwipeCard from "../components/SwipeCard";
@@ -11,19 +7,6 @@ import { useSelector } from "react-redux";
 
 const Journal = () => {
   const journals = useSelector((state:any) => state.data.journals);
-  
-  // const cards = [
-  //   { id: 1, text: 'Card 1', progress: 10 },
-  //   { id: 2, text: 'Card 2', progress: 20 },
-  //   { id: 3, text: 'Card 3', progress: 30 },
-  //   { id: 4, text: 'Card 4', progress: 40 },
-  //   { id: 5, text: 'Card 5', progress: 50 },
-  //   { id: 6, text: 'Card 6', progress: 60 },
-  //   { id: 7, text: 'Card 7', progress: 70 },
-  //   { id: 8, text: 'Card 8', progress: 80 },
-  //   { id: 9, text: 'Card 9', progress: 90 },
-  //   { id: 10, text: 'Card 10', progress: 100 },
-  // ];
 
   return (
     <ScrollView
