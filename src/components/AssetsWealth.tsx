@@ -120,6 +120,9 @@ const styles = StyleSheet.create({
     height: 50
   },
   advice: {
+    width: "100%",
+    paddingHorizontal: Padding.p_lg,
+    paddingBottom: Padding.p_sm,
     borderRadius: 16,
     backgroundColor: Color.white1,
     shadowColor: "rgba(32, 34, 36, 0.08)",

@@ -167,7 +167,7 @@ const Home = () => {
                 </View>
                 <View style={[styles.editBtnParent, styles.mt28]}>
                   <View style={{width: ((Dimensions.get('window').width - 75) / 100) * 35}}>
-                    <EditBtn edit="Edit" />
+                    <EditBtn navigation={navigation} edit="Edit" />
                   </View>
                   <View style={{width: ((Dimensions.get('window').width - 75) / 100) * 60}}>
                     <AssumptionBtn navigation={navigation} />

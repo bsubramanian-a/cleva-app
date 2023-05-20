@@ -14,6 +14,7 @@ type EditBtnType = {
   editBtnHeight?: number | string;
   editBtnPaddingHorizontal?: number | string;
   editBtnPaddingVertical?: number | string;
+  navigation: any;
 };
 
 const getStyleValue = (key: string, value: string | number | undefined) => {
@@ -29,6 +30,7 @@ const EditBtn = ({
   editBtnHeight,
   editBtnPaddingHorizontal,
   editBtnPaddingVertical,
+  navigation
 }: EditBtnType) => {
   const pressableStyle = useMemo(() => {
     return {
@@ -59,7 +61,7 @@ const EditBtn = ({
       useAngle={true}
       angle={180}
     >
-      <Pressable style={[styles.pressable, pressableStyle]}>
+      <Pressable style={[styles.pressable, pressableStyle]} onPress={() => navigation.navigate('WealthAssets')}>
         <Text style={[styles.edit, editStyle]}>{edit}</Text>
       </Pressable>
     </LinearGradient>

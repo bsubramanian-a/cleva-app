@@ -170,8 +170,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   advicecontainer: {
-    paddingHorizontal: Padding.p_lg,
-    paddingBottom: Padding.p_sm,
     alignSelf: "stretch",
     borderRadius: 16,
     shadowColor: "rgba(32, 34, 36, 0.5)",
