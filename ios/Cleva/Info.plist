@@ -24,6 +24,28 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+    <key>UIAppFonts</key>
+    <array>
+      <string>Open_Sans_bold.ttf</string>
+      <string>Open_Sans_regular.ttf</string>
+      <string>Open_Sans_semibold.ttf</string>
+      <string>Open_Sans.ttf</string>
+      <string>Outfit_bold.ttf</string>
+      <string>Outfit_light.ttf</string>
+      <string>Outfit_medium.ttf</string>
+      <string>Outfit_regular.ttf</string>
+      <string>Outfit_semibold.ttf</string>
+      <string>Outfit.ttf</string>
+      <string>Poppins_regular.ttf</string>
+      <string>Poppins.ttf</string>
+      <string>Source_Serif_Pro_black.ttf</string>
+      <string>Source_Serif_Pro_bold_italic.ttf</string>
+      <string>Source_Serif_Pro_bold.ttf</string>
+      <string>Source_Serif_Pro_light_italic.ttf</string>
+      <string>Source_Serif_Pro_regular.ttf</string>
+      <string>Source_Serif_Pro_semibold.ttf</string>
+      <string>Source_Serif_Pro.ttf</string>
+    </array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>

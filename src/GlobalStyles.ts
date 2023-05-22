@@ -1,7 +1,7 @@
 /* fonts */
 export const FontFamily = {
   textMediumBoldText1: "Open Sans_semibold",
-  openSansRegular: "Open Sans_regular",
+  openSansRegular: "Open Sans",
   sourceSerifPro: "Source Serif Pro",
   openSansBold: "Open Sans_bold",
 };

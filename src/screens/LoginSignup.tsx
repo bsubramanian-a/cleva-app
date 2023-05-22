@@ -14,9 +14,9 @@ const LoginSignup = ({navigation}:any) => {
     >
       <View style={styles.loginOrSignupParent}>
         <Text style={styles.loginOrSignupContainer}>
-          <Text style={styles.loginOr}>Login or</Text>
+          <Text style={styles.loginOr}>Login or
           {'\n'}
-          <Text style={styles.signup}>signup</Text>
+          signup</Text>
         </Text>
         <Text style={[styles.weRecommendUsingContainer, styles.mt33]}>
           We recommend using Google or
@@ -50,28 +50,31 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
   },
   loginOr: {
-    marginBlockStart: 0,
+    marginStart: 0,
     marginBlockEnd: 0,
+    fontWeight: "400",
   },
   signup: {
     margin: Margin.m_3xs,
+    fontWeight: "300",
   },
   loginOrSignupContainer: {
     fontSize: FontSize.size_lg,
-    // fontFamily: FontFamily.sourceSerifPro,
+    fontFamily: FontFamily.sourceSerifPro,
     color: Color.dark1,
     textAlign: "left",
   },
   weRecommendUsingContainer: {
-    fontSize: FontSize.textMediumBoldText1_size,
-    // fontFamily: FontFamily.openSansRegular,
-    color: Color.black,
+    fontSize: 16,
+    fontFamily: FontFamily.openSansRegular,
+    color: "#273242",
+    fontWeight: "400",
     textAlign: "left",
     marginBottom: 10
   },
   loginOrSignupParent: {
     alignSelf: "stretch",
-    marginBottom: 42
+    marginVertical: 42
   },
   loginsignup: {
     backgroundColor: Color.whitesmoke,

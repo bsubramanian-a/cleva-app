@@ -31,18 +31,18 @@ const SwipeCard = ({cards}:any) => {
         stackSize={2}
         stackSeparation={15}
         cardVerticalMargin={30}
-        overlayLabels={{
-          left: {
-            title: 'NOPE',
-            element: (
-              <Icon name="times-circle" size={80} color="#E5566D" />
-            ),
-          },
-          right: {
-            title: 'LIKE',
-            element: <Icon name="heart" size={80} color="#4CCC93" />,
-          },
-        }}
+        // overlayLabels={{
+        //   left: {
+        //     title: 'NOPE',
+        //     element: (
+        //       <Icon name="times-circle" size={80} color="#E5566D" />
+        //     ),
+        //   },
+        //   right: {
+        //     title: 'LIKE',
+        //     element: <Icon name="heart" size={80} color="#4CCC93" />,
+        //   },
+        // }}
         animateOverlayLabelsOpacity
         animateCardOpacity
       />

@@ -96,15 +96,15 @@ const styles = StyleSheet.create({
   login: {
     marginStart: 0,
     marginBlockEnd: 0,
-    // fontFamily: FontFamily.sourceSerifPro,
+    fontFamily: FontFamily.sourceSerifPro,
   },
   withEmail: {
     margin: Margin.m_3xs,
-    // fontFamily: FontFamily.sourceSerifPro,
+    fontFamily: FontFamily.sourceSerifPro,
   },
   loginWithEmailContainer: {
     fontSize: FontSize.size_lg,
-    // fontFamily: FontFamily.sourceSerifPro,
+    fontFamily: FontFamily.sourceSerifPro,
     color: Color.dark1,
     textAlign: "left",
   },
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   next1: {
     top: 0,
     left: 0,
-    fontSize: FontSize.textMediumBoldText1_size,
+    // fontSize: FontSize.textMediumBoldText1_size,
     lineHeight: 22,
     fontWeight: "600",
     // fontFamily: FontFamily.textMediumBoldText1,
