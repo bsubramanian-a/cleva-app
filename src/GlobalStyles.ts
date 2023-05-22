@@ -1,16 +1,3 @@
-// /* fonts */
-// export const FontFamily = {
-//   textMediumBoldText1: "Open Sans",
-//   openSansRegular: "Open Sans",
-//   sourceSerifPro: "Source Serif Pro",
-//   openSansBold: "Open Sans",
-//   outfitMedium: "Outfit",
-//   outfitRegular: "Outfit",
-//   outfitSemibold: "Outfit",
-//   outfitBold: "Outfit",
-//   outfitLight: "Outfit",
-// };
-
 import { Platform } from 'react-native';
 
 const fontNames = Platform.select({
