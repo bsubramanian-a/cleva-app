@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
         fontSize: FontSize.textMediumBoldText1_size,
         lineHeight: 20,
         fontWeight: "600",
-        // fontFamily: FontFamily.openSansRegular,
+        fontFamily: FontFamily.openSansRegular,
         color: Color.white1,
         textAlign: "center",
     },

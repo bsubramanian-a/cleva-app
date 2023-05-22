@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   earlyHappyMemory: {
     fontSize: FontSize.size_4xl,
     fontWeight: "600",
-    // fontFamily: FontFamily.sourceSerifProSemibold,
+    fontFamily: FontFamily.sourceSerifProSemibold,
     color: Color.black,
     textAlign: "center",
   },

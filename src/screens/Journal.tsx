@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     fontWeight: "500",
-    // fontFamily: FontFamily.textMediumBoldText1,
+    fontFamily: FontFamily.textMediumBoldText1,
     color: '#1D2431',
     textAlign: "left",
   },

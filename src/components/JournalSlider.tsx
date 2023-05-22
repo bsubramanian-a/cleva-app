@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   whoAmITypo: {
     textAlign: "left",
-    // fontFamily: FontFamily.sourceSerifProBold,
+    fontFamily: FontFamily.sourceSerifProBold,
   },
   textTypo: {
     fontSize: FontSize.size_base,
@@ -79,12 +79,12 @@ const styles = StyleSheet.create({
     color: Color.white1,
     fontWeight: "700",
     textAlign: "left",
-    // fontFamily: FontFamily.sourceSerifProBold,
+    fontFamily: FontFamily.sourceSerifProBold,
   },
   chapter1: {
     fontSize: FontSize.size_sm,
     fontWeight: "500",
-    // fontFamily: FontFamily.outfitMedium,
+    fontFamily: FontFamily.outfitMedium,
     textAlign: "right",
     color: Color.white1,
   },
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   text: {
-    // fontFamily: FontFamily.outfitBold,
+    fontFamily: FontFamily.outfitBold,
     textAlign: "right",
   },
   progressgroup: {

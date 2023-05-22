@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
     fontWeight: "600",
-    // fontFamily: FontFamily.openSansRegular,
+    fontFamily: FontFamily.openSansRegular,
     color: Color.white1,
     textAlign: "center",
   },

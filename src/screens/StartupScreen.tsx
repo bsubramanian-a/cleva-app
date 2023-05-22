@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   wealthSorted: {
     fontSize: 24,
-    // fontFamily: FontFamily.openSansRegular,
+    fontFamily: FontFamily.openSansRegular,
     color: Color.dark1,
     textAlign: "left",
     alignSelf: "stretch",

@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     // fontSize: FontSize.textMediumBoldText1_size,
     lineHeight: 22,
     fontWeight: "600",
-    // fontFamily: FontFamily.textMediumBoldText1,
+    fontFamily: FontFamily.textMediumBoldText1,
     color: "#aaa9a8",
     textAlign: "right",
     position: "absolute",

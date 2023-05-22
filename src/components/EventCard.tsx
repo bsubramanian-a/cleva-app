@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   jan14: {
     fontSize: FontSize.size_sm,
     lineHeight: 16,
-    // fontFamily: FontFamily.outfitSemibold,
+    fontFamily: FontFamily.outfitSemibold,
     color: Color.white1,
     textAlign: "center",
     fontWeight: "600",
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   aMojoMembers: {
     fontSize: 15,
-    // fontFamily: FontFamily.textMediumBoldText1,
+    fontFamily: FontFamily.textMediumBoldText1,
     color: '#000',
     textAlign: "left",
     fontWeight: "bold",
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   pm: {
     fontSize: 14,
-    // fontFamily: FontFamily.openSansRegular,
+    fontFamily: FontFamily.openSansRegular,
     color: '#4B4B4B',
     textAlign: "left",
   },

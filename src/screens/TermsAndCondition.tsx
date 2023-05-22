@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   aQuickCheckContainer: {
     fontSize: FontSize.size_lg,
-    // fontFamily: FontFamily.sourceSerifPro,
+    fontFamily: FontFamily.sourceSerifPro,
     color: Color.dark1,
     textAlign: "left",
   },
@@ -115,11 +115,11 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   beforeYouGet: {
-    // fontFamily: FontFamily.openSansRegular,
+    fontFamily: FontFamily.openSansRegular,
   },
   whatToKnow: {
     fontWeight: "700",
-    // fontFamily: FontFamily.openSansBold,
+    fontFamily: FontFamily.openSansBold,
   },
   beforeYouGetContainer: {
     fontSize: FontSize.textMediumBoldText1_size,

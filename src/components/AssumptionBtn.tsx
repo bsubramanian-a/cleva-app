@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
     fontWeight: "600",
-    // fontFamily: FontFamily.openSansRegular,
+    fontFamily: FontFamily.openSansRegular,
     color: '#EF9F27',
     textAlign: "center",
     marginRight: 6

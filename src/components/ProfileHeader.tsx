@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   profile: {
     fontSize: 20,
     fontWeight: "500",
-    // fontFamily: FontFamily.textMediumBoldText1,
+    fontFamily: FontFamily.textMediumBoldText1,
     color: Color.black,
     textAlign: "center",
   },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   logout: {
     fontSize: 14,
     textDecoration: "underline",
-    // fontFamily: FontFamily.openSansRegular,
+    fontFamily: FontFamily.openSansRegular,
     color: '#EF9F27',
     fontWeight: "400",
     textAlign: "right",

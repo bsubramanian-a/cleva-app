@@ -143,14 +143,14 @@ const styles = StyleSheet.create({
   thankGodYou: {
     fontSize: 18,
     fontWeight: "500",
-    // fontFamily: FontFamily.textMediumBoldText1,
+    fontFamily: FontFamily.textMediumBoldText1,
     color: Color.black,
     textAlign: "left",
   },
   seeAll: {
     fontSize: 14,
     textDecoration: "underline",
-    // fontFamily: FontFamily.openSansRegular,
+    fontFamily: FontFamily.openSansRegular,
     color: '#EF9F27',
     textAlign: "right",
     fontWeight: '400'

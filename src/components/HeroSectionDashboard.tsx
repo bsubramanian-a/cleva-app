@@ -112,14 +112,14 @@ const styles = StyleSheet.create({
   getStarted: {
     fontSize: 16,
     fontWeight: "900",
-    // fontFamily: FontFamily.sourceSerifProBlack,
+    fontFamily: FontFamily.sourceSerifPro,
     textAlign: "left",
     color: Color.white1,
   },
   chapter1: {
     fontSize: 12,
     fontWeight: "500",
-    // fontFamily: FontFamily.outfitMedium,
+    fontFamily: FontFamily.outfitMedium,
     textAlign: "right",
     color: Color.white1,
   },
@@ -147,11 +147,11 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   yourProgress: {
-    // fontFamily: FontFamily.sourceSerifProBold,
+    fontFamily: FontFamily.sourceSerifProBold,
     textAlign: "left",
   },
   text: {
-    // fontFamily: FontFamily.outfitBold,
+    fontFamily: FontFamily.outfitBold,
     textAlign: "right",
   },
   progressgroup: {

@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   findingTheBalance: {
     fontSize: 15,
     fontWeight: "600",
-    // fontFamily: FontFamily.textMediumBoldText1,
+    fontFamily: FontFamily.textMediumBoldText1,
     color: Color.black,
     textAlign: "left",
   },
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   friday: {
     fontSize: 14,
-    // fontFamily: FontFamily.openSansRegular,
+    fontFamily: FontFamily.openSansRegular,
     color: '#4B4B4B',
     fontWeight: '400',
     textAlign: "left",

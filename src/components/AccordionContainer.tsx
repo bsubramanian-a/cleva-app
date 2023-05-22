@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, Image, StyleSheet, Pressable } from 'react-native';
 import { Border, Color, FontSize, Margin, Padding } from '../GlobalStyles';
 import LinearGradient from 'react-native-linear-gradient';
+import { FontFamily } from '../GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
 
 const AccordionItem = ({ icon, name, value }:any) => {
@@ -236,7 +237,7 @@ const styles = StyleSheet.create({
     },
     mTypo: {
         textAlign: "left",
-        // fontFamily: FontFamily.textMediumBoldText1,
+        fontFamily: FontFamily.textMediumBoldText1,
         fontWeight: "500",
         color: '#FBB142',
     },

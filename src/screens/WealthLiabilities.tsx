@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
   assets: {
     fontWeight: "500",
-    // fontFamily: FontFamily.outfitMedium,
+    fontFamily: FontFamily.outfitMedium,
     color: Color.black,
     textAlign: "left",
     fontSize: FontSize.textMediumBoldText_size,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_9xl,
   },
   liabilities: {
-    // fontFamily: FontFamily.outfitRegular,
+    fontFamily: FontFamily.outfitRegular,
     color: Color.orange_100,
     textAlign: "center",
     fontSize: FontSize.textMediumBoldText_size,

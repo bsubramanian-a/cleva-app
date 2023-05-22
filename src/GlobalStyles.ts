@@ -1,9 +1,14 @@
 /* fonts */
 export const FontFamily = {
-  textMediumBoldText1: "Open Sans_semibold",
+  textMediumBoldText1: "Open Sans",
   openSansRegular: "Open Sans",
   sourceSerifPro: "Source Serif Pro",
-  openSansBold: "Open Sans_bold",
+  openSansBold: "Open Sans",
+  outfitMedium: "Outfit",
+  outfitRegular: "Outfit",
+  outfitSemibold: "Outfit",
+  outfitBold: "Outfit",
+  outfitLight: "Outfit",
 };
 /* font sizes */
 export const FontSize = {

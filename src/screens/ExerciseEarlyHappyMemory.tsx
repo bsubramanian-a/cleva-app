@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   summaryTypo: {
     color: Color.black,
     textAlign: "left",
-    // fontFamily: FontFamily.outfitRegular,
+    fontFamily: FontFamily.outfitRegular,
   },
   mainvector1Icon: {
     width: 164,
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   },
   myExercises: {
     color: Color.orange_100,
-    // fontFamily: FontFamily.outfitRegular,
+    fontFamily: FontFamily.outfitRegular,
     textAlign: "left",
   },
   frameItem: {
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
   loremIpsumIs: {
     lineHeight: 22,
     fontWeight: "300",
-    // fontFamily: FontFamily.outfitLight,
+    fontFamily: FontFamily.outfitLight,
     color: Color.darkslategray_100,
     width: 318,
   },

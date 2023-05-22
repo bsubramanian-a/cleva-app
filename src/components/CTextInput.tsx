@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontWeight: '300',
-    // fontFamily: FontFamily.openSansRegular,
+    fontFamily: FontFamily.openSansRegular,
     color: '#4B4B4B',
     textAlign: 'left',
     lineHeight: 22,
