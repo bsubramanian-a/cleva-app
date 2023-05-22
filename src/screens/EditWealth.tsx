@@ -74,6 +74,7 @@ const EditWealth = ({route}:any) => {
         <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
         <CustomHeader name="Your Wealth" type={2}/>
         <FlashMessage position="top" />
+        <Loader visible={loading} />
         <ScrollView
             style={styles.wealthTabParent}
             showsHorizontalScrollIndicator={false}
@@ -81,7 +82,6 @@ const EditWealth = ({route}:any) => {
             contentContainerStyle={styles.frameScrollViewContent}
         >
             <View style={styles.advicecontainer}>
-                <Loader visible={loading} />
                 {datas?.map((data:any, index:any) => {
                     return(
                         <CTextInput key={index.toString()} label={data.Name} defaultValue={data?.Current_Value?.toString()} id={data?.id} updateState={updateState}/>
