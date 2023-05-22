@@ -237,13 +237,13 @@ const styles = StyleSheet.create({
     },
     mTypo: {
         textAlign: "left",
-        fontFamily: FontFamily.textMediumBoldText1,
-        fontWeight: "500",
+        fontFamily: FontFamily.sourceSerifPro,
+        fontWeight: "600",
         color: '#FBB142',
     },
     danFleurClr: {
         color: Color.black,
-        fontWeight: '500',
+        fontWeight: '700',
         textAlign: "left",
     },
     vuesaxlinearsmsIcon: {
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
         height: 18,
     },
     container: {
-        marginBottom: 10,
+        // marginBottom: 10,
     },
     title: {
         fontSize: 18,

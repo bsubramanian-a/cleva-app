@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View, Image, ImageSourcePropType, Text, Pressable } from "react-native";
-import { Margin, Color, Border, Padding } from "../GlobalStyles";
+import { Margin, Color, Border, Padding, FontFamily } from "../GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
@@ -21,7 +21,11 @@ const TopHeader = ({ title }: TopHeaderType) => {
           <View style={[styles.groupInner, styles.groupLayout]} />
         </View>
       </View>
-      <Text style={{ fontSize: 20, fontWeight: "bold", color: "#000" }}>{title}</Text>
+      {title != 'Cleva' && <Text style={styles.headerTitle}>{title}</Text>}
+      {title == 'Cleva' &&  <Image
+        resizeMode="cover"
+        source={require("../assets/logo.png")}
+      />}
       <View style={[styles.menuGroup, styles.menuFlexBox1]}>
         <View style={[styles.vuesaxlinearaddWrapper, styles.menuFlexBox]}>
           <Image
@@ -39,6 +43,12 @@ const TopHeader = ({ title }: TopHeaderType) => {
 };
 
 const styles = StyleSheet.create({
+  headerTitle: {
+    fontSize: 20, 
+    fontWeight: "bold", 
+    color: "#000",
+    fontFamily: FontFamily.sourceSerifPro,
+  },
   ml8: {
     marginLeft: 12,
   },

@@ -602,13 +602,13 @@ const styles = StyleSheet.create({
   },
   mTypo: {
     textAlign: "left",
-    fontFamily: FontFamily.textMediumBoldText1,
+    fontFamily: FontFamily.sourceSerifPro,
     fontWeight: "500",
     color: '#FBB142',
   },
   danFleurClr: {
     color: Color.black,
-    fontWeight: '500',
+    fontWeight: '700',
     textAlign: "left",
   },
   childBorder: {
@@ -657,6 +657,7 @@ const styles = StyleSheet.create({
   },
   danFleur: {
     fontSize: 18,
+    fontFamily: FontFamily.sourceSerifPro
   },
   users: {
     alignItems: "center",
