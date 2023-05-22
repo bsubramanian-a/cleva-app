@@ -440,9 +440,9 @@ const styles = StyleSheet.create({
     backgroundColor: Color.white1,
   },
   events: {
-    fontSize: 18,
-    fontWeight: "bold",
-    fontFamily: FontFamily.openSansRegular,
+    fontSize: 20,
+    fontWeight: "600",
+    fontFamily: FontFamily.sourceSerifPro,
     color: Color.black,
     textAlign: "left",
   },

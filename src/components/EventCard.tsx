@@ -89,12 +89,14 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 12,
     fontWeight: '600',
+    fontFamily: FontFamily.outfitSemibold,
     textAlign: 'center'
   },
   text: {
     color: '#fff',
     fontSize: 12,
     fontWeight: '600',
+    fontFamily: FontFamily.outfitSemibold,
     textAlign: 'center'
   },
   jan14: {
@@ -127,12 +129,12 @@ const styles = StyleSheet.create({
     overflow: "hidden"
   },
   aMojoMembers: {
-    fontSize: 15,
-    fontFamily: FontFamily.textMediumBoldText1,
+    fontSize: 16,
+    fontFamily: FontFamily.sourceSerifPro,
     color: '#000',
     textAlign: "left",
     fontWeight: "bold",
-    marginBottom: 5
+    marginBottom: 7
   },
   vuesaxlinearclockIcon: {
     width: 16,
@@ -141,7 +143,8 @@ const styles = StyleSheet.create({
   },
   pm: {
     fontSize: 14,
-    fontFamily: FontFamily.openSansRegular,
+    fontFamily: FontFamily.outfitRegular,
+    fontWeight: "400",
     color: '#4B4B4B',
     textAlign: "left",
   },

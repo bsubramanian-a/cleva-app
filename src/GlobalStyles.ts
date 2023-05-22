@@ -1,15 +1,50 @@
+// /* fonts */
+// export const FontFamily = {
+//   textMediumBoldText1: "Open Sans",
+//   openSansRegular: "Open Sans",
+//   sourceSerifPro: "Source Serif Pro",
+//   openSansBold: "Open Sans",
+//   outfitMedium: "Outfit",
+//   outfitRegular: "Outfit",
+//   outfitSemibold: "Outfit",
+//   outfitBold: "Outfit",
+//   outfitLight: "Outfit",
+// };
+
+import { Platform } from 'react-native';
+
+const fontNames = Platform.select({
+  ios: {
+    textMediumBoldText1: "Open Sans",
+    openSansRegular: "Open Sans",
+    sourceSerifPro: "Source Serif Pro",
+    openSansBold: "Open Sans",
+    outfitMedium: "Outfit",
+    outfitRegular: "Outfit",
+    outfitSemibold: "Outfit",
+    outfitBold: "Outfit",
+    outfitLight: "Outfit",
+    // Add more iOS font entries here
+  },
+  android: {
+    textMediumBoldText1: "Open_Sans",
+    openSansRegular: "Open_Sans",
+    sourceSerifPro: "Source_Serif_Pro",
+    openSansBold: "Open_Sans",
+    outfitMedium: "Outfit",
+    outfitRegular: "Outfit",
+    outfitSemibold: "Outfit",
+    outfitBold: "Outfit",
+    outfitLight: "Outfit",
+    // Add more Android font entries here
+  },
+});
+
 /* fonts */
 export const FontFamily = {
-  textMediumBoldText1: "Open Sans",
-  openSansRegular: "Open Sans",
-  sourceSerifPro: "Source Serif Pro",
-  openSansBold: "Open Sans",
-  outfitMedium: "Outfit",
-  outfitRegular: "Outfit",
-  outfitSemibold: "Outfit",
-  outfitBold: "Outfit",
-  outfitLight: "Outfit",
+ ...fontNames
 };
+
 /* font sizes */
 export const FontSize = {
   size_sm: 15,
