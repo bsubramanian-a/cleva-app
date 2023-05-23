@@ -21,6 +21,7 @@ import actions from "../../actions";
 import { useSelector } from "react-redux";
 import CircleProgressBar from "../components/CircleProgressBar";
 import { useNavigation } from "@react-navigation/native";
+import Loader from "../components/Loader";
 
 const Home = () => {
   const navigation:any = useNavigation();
@@ -30,6 +31,7 @@ const Home = () => {
   const liabilities = useSelector((state:any) => state.data.liabilities);
   const [totalAssets, setTotalAssets] = useState<number>(0);
   const [totalLiabilities, setTotalLiabilities] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
   
   const handleTabPress = (tabNumber:number) => {
     if(tabNumber != 0){
@@ -50,6 +52,7 @@ const Home = () => {
     await actions.getJournals();
     await actions.getAssets();
     await actions.getLiabilities();
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -84,6 +87,7 @@ const Home = () => {
     >
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
       <CustomHeader name="Cleva" type={1}/>
+      <Loader visible={loading} />
       <ScrollView
         style={styles.herosectionParent}
         showsHorizontalScrollIndicator={false}

@@ -17,6 +17,7 @@ const DropdownComponent = ({ values, defaultValue, onValueChange }:any) => {
         value={value}
         selectedTextStyle={{ fontSize: 14, color: '#000', fontWeight: '600' }}
         placeholderStyle={{ fontSize: 14, color: '#000', fontWeight: '600' }}
+        itemTextStyle={{ fontSize: 14, color: '#000', fontWeight: '600' }}
         onChange={item => {
             setValue(item.value);
             setIsFocus(false);

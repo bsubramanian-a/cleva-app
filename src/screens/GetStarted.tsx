@@ -154,7 +154,7 @@ const GetStarted = () => {
                   styles.myExercisesTypo,
                 ]}
             >
-              {summary[0]?.Summary_Content}
+              {summary?.length > 0 && summary[0]?.Summary_Content || ""}
             </Text>
           </View>
         } 
