@@ -56,7 +56,7 @@ const Profile = () => {
               { icon: require("../assets/smoker.png"), name: 'Smoker', value: '' },
             ]
           },
-          {
+          profile[0]?.accounts[0]?.Email && {
             subHeading: profile[0]?.accounts[0]?.Preferred_1st_Name,
             item: [
               { icon: require("../assets/profile.png"), name: 'First Name', value: profile[0]?.accounts[0]?.First_Name },
@@ -71,7 +71,7 @@ const Profile = () => {
               { icon: require("../assets/smoker.png"), name: 'Smoker', value: '' },
             ]
           }
-        ],
+        ].filter(obj => obj),
       }
     ])
   }
@@ -123,12 +123,24 @@ const Profile = () => {
                 <View
                   style={[styles.frWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && {marginRight: -5}]}
                 >
-                  <Text style={styles.dr}>{profile?.length > 0 && (profile[0]?.First_Name?.charAt(0)+profile[0]?.Last_Name?.charAt(0))}</Text>
+                  <Text style={styles.dr}>
+                    {profile?.length > 0 && (
+                      (profile[0]?.First_Name && profile[0]?.Last_Name)
+                        ? (profile[0]?.First_Name.charAt(0) + profile[0]?.Last_Name.charAt(0))
+                        : ((profile[0]?.First_Name || profile[0]?.Last_Name) || '').slice(0, 2)
+                    )}
+                  </Text>
                 </View>
                 {
                   profile[0]?.accounts?.length > 0 &&
                     <View style={[styles.drWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && {marginLeft: -5}]}>
-                      <Text style={styles.dr}>{profile[0]?.accounts[0]?.First_Name?.charAt(0) + profile[0]?.accounts[0]?.Last_Name?.charAt(0)}</Text>
+                      <Text style={styles.dr}>
+                        {profile[0]?.accounts?.length > 0 && (
+                          (profile[0]?.accounts[0]?.First_Name && profile[0]?.accounts[0]?.Last_Name)
+                            ? (profile[0]?.accounts[0]?.First_Name.charAt(0) + profile[0]?.accounts[0]?.Last_Name.charAt(0))
+                            : ((profile[0]?.accounts[0]?.First_Name || profile[0]?.accounts[0]?.Last_Name) || '').slice(0, 2)
+                        )}
+                      </Text>
                     </View>
                 }
               </View>

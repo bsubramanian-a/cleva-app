@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
   },
   profile: {
     fontSize: 20,
-    fontWeight: "500",
-    fontFamily: FontFamily.textMediumBoldText1,
+    fontWeight: "700",
+    fontFamily: FontFamily.sourceSerifPro,
     color: Color.black,
     textAlign: "center",
   },

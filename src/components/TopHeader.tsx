@@ -36,11 +36,23 @@ const TopHeader = ({ title }: TopHeaderType) => {
         </View>}
 
         <Pressable style={[styles.frWrapper, styles.wrapperLayout]} onPress={() => navigation.navigate('Profile')}>
-          <Text style={styles.dr}>{profile?.length > 0 && (profile[0]?.First_Name?.charAt(0) + profile[0]?.Last_Name?.charAt(0))}</Text>
+          <Text style={styles.dr}>
+            {profile?.length > 0 && (
+              (profile[0]?.First_Name && profile[0]?.Last_Name)
+                ? (profile[0]?.First_Name.charAt(0) + profile[0]?.Last_Name.charAt(0))
+                : ((profile[0]?.First_Name || profile[0]?.Last_Name) || '').slice(0, 2)
+            )}
+          </Text>
         </Pressable>
 
         {profile[0]?.accounts?.length > 0 && <Pressable style={[styles.drWrapper, styles.wrapperLayout]} onPress={() => navigation.navigate('Profile')}>
-          <Text style={styles.dr}>{profile[0]?.accounts?.length > 0 && profile[0]?.accounts[0]?.First_Name?.charAt(0) + profile[0]?.accounts[0]?.Last_Name?.charAt(0)}</Text>
+          <Text style={styles.dr}>
+            {profile[0]?.accounts?.length > 0 && (
+              (profile[0]?.accounts[0]?.First_Name && profile[0]?.accounts[0]?.Last_Name)
+                ? (profile[0]?.accounts[0]?.First_Name.charAt(0) + profile[0]?.accounts[0]?.Last_Name.charAt(0))
+                : ((profile[0]?.accounts[0]?.First_Name || profile[0]?.accounts[0]?.Last_Name) || '').slice(0, 2)
+            )}
+          </Text>
         </Pressable>}
       </View>
     </View>
