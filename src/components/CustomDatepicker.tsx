@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, TouchableOpacity, Platform, Modal, Button, StyleSheet, Text } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { format } from 'date-fns';
@@ -12,6 +12,10 @@ const CustomDatePicker = ({ defaultValue, onValueChange }: any) => {
     onValueChange(format(date, 'yyyy-MM-dd'));
   };
 
+  useEffect(() =>{
+    setSelectedDate(defaultValue);
+  }, [defaultValue])
+
   const openDatePicker = () => {
     setOpen(!open);
   };
@@ -23,7 +27,7 @@ const CustomDatePicker = ({ defaultValue, onValueChange }: any) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const formattedDate = format(selectedDate, 'yyyy-MM-dd');
+  const formattedDate = selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null;
 
   return (
     <View>
@@ -37,7 +41,7 @@ const CustomDatePicker = ({ defaultValue, onValueChange }: any) => {
           <View style={styles.modalContainer}>
             <View style={styles.pickerContainer}>
               <DatePicker
-                date={selectedDate}
+                date={selectedDate || new Date()}
                 onDateChange={handleDateChange}
                 mode="date"
                 maximumDate={today}

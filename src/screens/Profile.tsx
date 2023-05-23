@@ -39,19 +39,38 @@ const Profile = () => {
     setAccordion([
       {
         title: 'About You',
-        subHeading: profile[0]?.Preferred_1st_Name,
         icon: require("../assets/vuesaxlinearprofilecircle.png"),
         items: [
-          { icon: require("../assets/profile.png"), name: 'First Name', value: profile[0]?.First_Name },
-          { icon: require("../assets/profile.png"), name: 'Last Name', value: profile[0]?.Last_Name },
-          { icon: require("../assets/profile.png"), name: 'Preferred Name', value: profile[0]?.Preferred_1st_Name },
-          { icon: require("../assets/sex.png"), name: 'Sex', value: profile[0]?.Sex_Description },
-          { icon: require("../assets/dob.png"), name: 'Date of Birth', value: profile[0]?.Date_of_Birth },
-          { icon: require("../assets/mstatus.png"), name: 'Marital Status', value: profile[0]?.Marital_Status },
-          { icon: require("../assets/contact.png"), name: 'Mobile Phone', value: profile[0]?.Mobile },
-          { icon: require("../assets/vuesaxlinearsms.png"), name: 'Email', value: profile[0]?.Email },
-          { icon: require("../assets/shealth.png"), name: 'Status of Health', value: '' },
-          { icon: require("../assets/smoker.png"), name: 'Smoker', value: '' },
+          {
+            subHeading: profile[0]?.Preferred_1st_Name,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'First Name', value: profile[0]?.First_Name },
+              { icon: require("../assets/profile.png"), name: 'Last Name', value: profile[0]?.Last_Name },
+              { icon: require("../assets/profile.png"), name: 'Preferred Name', value: profile[0]?.Preferred_1st_Name },
+              { icon: require("../assets/sex.png"), name: 'Sex', value: profile[0]?.Sex_Description },
+              { icon: require("../assets/dob.png"), name: 'Date of Birth', value: profile[0]?.Date_of_Birth },
+              { icon: require("../assets/mstatus.png"), name: 'Marital Status', value: profile[0]?.Marital_Status },
+              { icon: require("../assets/contact.png"), name: 'Mobile Phone', value: profile[0]?.Mobile },
+              { icon: require("../assets/vuesaxlinearsms.png"), name: 'Email', value: profile[0]?.Email },
+              { icon: require("../assets/shealth.png"), name: 'Status of Health', value: '' },
+              { icon: require("../assets/smoker.png"), name: 'Smoker', value: '' },
+            ]
+          },
+          {
+            subHeading: profile[0]?.accounts[0]?.Preferred_1st_Name,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'First Name', value: profile[0]?.accounts[0]?.First_Name },
+              { icon: require("../assets/profile.png"), name: 'Last Name', value: profile[0]?.accounts[0]?.Last_Name },
+              { icon: require("../assets/profile.png"), name: 'Preferred Name', value: profile[0]?.accounts[0]?.Preferred_1st_Name },
+              { icon: require("../assets/sex.png"), name: 'Sex', value: profile[0]?.accounts[0]?.Sex_Description },
+              { icon: require("../assets/dob.png"), name: 'Date of Birth', value: profile[0]?.accounts[0]?.Date_of_Birth },
+              { icon: require("../assets/mstatus.png"), name: 'Marital Status', value: profile[0]?.accounts[0]?.Marital_Status },
+              { icon: require("../assets/contact.png"), name: 'Mobile Phone', value: profile[0]?.accounts[0]?.Mobile },
+              { icon: require("../assets/vuesaxlinearsms.png"), name: 'Email', value: profile[0]?.accounts[0]?.Email },
+              { icon: require("../assets/shealth.png"), name: 'Status of Health', value: '' },
+              { icon: require("../assets/smoker.png"), name: 'Smoker', value: '' },
+            ]
+          }
         ],
       }
     ])
@@ -101,14 +120,17 @@ const Profile = () => {
           <View style={[styles.advice, styles.adviceShadowBox]}>
             <View style={styles.users}>
               <View style={styles.loginuser}>
-                {/* <View style={[styles.drWrapper, styles.wrapperLayout]}>
-                  <Text style={styles.dr}></Text>
-                </View> */}
                 <View
-                  style={[styles.frWrapper, styles.wrapperLayout]}
+                  style={[styles.frWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && {marginRight: -5}]}
                 >
                   <Text style={styles.dr}>{profile?.length > 0 && (profile[0]?.First_Name?.charAt(0)+profile[0]?.Last_Name?.charAt(0))}</Text>
                 </View>
+                {
+                  profile[0]?.accounts?.length > 0 &&
+                    <View style={[styles.drWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && {marginLeft: -5}]}>
+                      <Text style={styles.dr}>{profile[0]?.accounts[0]?.First_Name?.charAt(0) + profile[0]?.accounts[0]?.Last_Name?.charAt(0)}</Text>
+                    </View>
+                }
               </View>
               <Text
                 style={[
@@ -117,7 +139,7 @@ const Profile = () => {
                   styles.mTypo,
                   styles.danFleurClr,
                 ]}
-              >{profile[0]?.First_Name} {profile[0]?.Last_Name}</Text>
+              >{profile[0]?.Account_Name?.name}</Text>
             </View>
             <View style={[styles.assetsview, styles.mt25]}>
               <View style={[styles.assetsviewChild, styles.childBorder]} />

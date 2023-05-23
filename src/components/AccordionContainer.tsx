@@ -5,125 +5,136 @@ import LinearGradient from 'react-native-linear-gradient';
 import { FontFamily } from '../GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
 
-const AccordionItem = ({ icon, name, value }:any) => {
-  return (
-    <View style={styles.itemContainer}>
+const AccordionItem = ({ icon, name, value }: any) => {
+    return (
+      <View style={styles.itemContainer}>
         <View style={styles.itemContent}>
-            <Image
-                style={styles.vuesaxlinearprofileCircle}
-                resizeMode="contain"
-                source={icon}
-            />
-            <Text style={styles.name}>{name}</Text>
+          <Image
+            style={styles.vuesaxlinearprofileCircle}
+            resizeMode="contain"
+            source={icon}
+          />
+          <Text style={styles.name}>{name}</Text>
         </View>
         <Text style={styles.value}>{value}</Text>
-    </View>
-  );
-};
-
-const Accordion = ({ title, subHeading, items, activeAccordion, setActiveAccordion, icon, navigation }:any) => {
+      </View>
+    );
+  };
+  
+  const Accordion = ({
+    title,
+    items,
+    icon,
+    activeAccordion,
+    setActiveAccordion,
+    navigation,
+  }: any) => {
     const isActive = activeAccordion === title;
-
+  
     const toggleAccordion = () => {
-        if (isActive) {
+      if (isActive) {
         setActiveAccordion(null);
-        } else {
+      } else {
         setActiveAccordion(title);
-        }
+      }
     };
-
-    const editProfile = () => {
-        navigation.navigate('EditProfile');
-    }
-
+  
+    const editProfile = (type:string) => {
+      navigation.navigate('EditProfile', {type: type});
+    };
+  
     return (
-        <View style={[styles.container, styles.aboutCard]}>
-            <TouchableOpacity style={[styles.excercise1, styles.frameParentFlexBox]} onPress={toggleAccordion}>
-                <View style={styles.vuesaxlinearsmsParent}>
-                    <View style={styles.vuesaxlinearprofileCircleWrapper}>
-                        <Image
-                            style={styles.vuesaxlinearprofileCircleIcon}
-                            resizeMode="cover"
-                            source={icon}
-                        />
-                    </View>
-                    <Text
-                        style={[
-                            styles.aboutYou,
-                            styles.ml10,
-                            styles.mTypo,
-                            styles.danFleurClr,
-                        ]}
-                    >
-                        {title}
-                    </Text>
-                </View>
-                <Image
-                    style={styles.vuesaxlinearsmsIcon}
-                    resizeMode="cover"
-                    source={require("../assets/vuesaxlineararrowcircledown.png")}
-                />
-            </TouchableOpacity>
-            {isActive && (
-                <View>
-                    <View style={styles.lineStyle}></View>
+      <View style={[styles.container, styles.aboutCard]}>
+        <TouchableOpacity
+          style={[styles.excercise1, styles.frameParentFlexBox]}
+          onPress={toggleAccordion}
+        >
+          <View style={styles.vuesaxlinearsmsParent}>
+            <View style={styles.vuesaxlinearprofileCircleWrapper}>
+              <Image
+                style={styles.vuesaxlinearprofileCircleIcon}
+                resizeMode="cover"
+                source={icon}
+              />
+            </View>
+            <Text
+              style={[
+                styles.aboutYou,
+                styles.ml10,
+                styles.mTypo,
+                styles.danFleurClr,
+              ]}
+            >
+              {title}
+            </Text>
+          </View>
+          <Image
+            style={styles.vuesaxlinearsmsIcon}
+            resizeMode="cover"
+            source={require('../assets/vuesaxlineararrowcircledown.png')}
+          />
+        </TouchableOpacity>
+        {isActive && (
+          <View>
+            {items.map((section: any, index: any) => (
+                <View key={index.toString()}>
+                    {index == 0 && <View style={styles.lineStyle} />}
                     <View style={styles.editRow}>
-                        <Text style={styles.subHeading}>{subHeading}</Text>
-                        <Pressable onPress={editProfile}>
+                        <Text style={styles.subHeading}>{section.subHeading}</Text>
+                        <Pressable onPress={() => editProfile(index == 0 ? 'user1' : 'user2')} style={{marginTop: 5}}>
                             <Image
-                                style={styles.vuesaxlinearedit}
-                                resizeMode="cover"
-                                source={require('../assets/edit.png')}
+                            style={styles.vuesaxlinearedit}
+                            resizeMode="cover"
+                            source={require('../assets/edit.png')}
                             />
                         </Pressable>
                     </View>
-                    {items.map((item:any, index:any) => (
-                        <>
-                            <AccordionItem
-                                key={index.toString()}
-                                icon={item.icon}
-                                name={item.name}
-                                value={item.value}
-                            />
-                            <View
-                                style={[
-                                styles.assetsviewChild,
-                                styles.mt15,
-                                styles.childBorder,
-                                ]}
-                            />
-                        </>
+                    {section.item.map((item: any, itemIndex: any) => (
+                    <React.Fragment key={itemIndex.toString()}>
+                        <AccordionItem
+                        icon={item.icon}
+                        name={item.name}
+                        value={item.value}
+                        />
+                        <View
+                        style={[
+                            styles.assetsviewChild,
+                            styles.mt15,
+                            styles.childBorder,
+                        ]}
+                        />
+                    </React.Fragment>
                     ))}
                 </View>
-            )}
-
-        </View>
+            ))}
+          </View>
+        )}
+      </View>
     );
-};
-
-const AccordionContainer = ({ accordions }:any) => {
-  const [activeAccordion, setActiveAccordion] = useState(null);
-  const navigation = useNavigation();
-
-  return (
-    <View style={styles.accordionContainer}>
-      {accordions.map((accordion:any, index:any) => (
-        <Accordion
-          key={index.toString()}
-          title={accordion.title}
-          subHeading={accordion.subHeading}
-          items={accordion.items}
-          icon={accordion?.icon}
-          activeAccordion={activeAccordion}
-          setActiveAccordion={setActiveAccordion}
-          navigation={navigation}
-        />
-      ))}
-    </View>
-  );
-};
-
-export default AccordionContainer;
+  };
+  
+  const AccordionContainer = ({ accordions }: any) => {
+    const [activeAccordion, setActiveAccordion] = useState(null);
+    const navigation = useNavigation();
+  
+    return (
+      <View style={styles.accordionContainer}>
+        {accordions.map((accordion: any, index: any) => (
+          <Accordion
+            key={index.toString()}
+            title={accordion.title}
+            items={accordion.items}
+            icon={accordion.icon}
+            activeAccordion={activeAccordion}
+            setActiveAccordion={setActiveAccordion}
+            navigation={navigation}
+          />
+        ))}
+      </View>
+    );
+  };
+  
+  export default AccordionContainer;
 
 const styles = StyleSheet.create({
     assetsviewChild: {

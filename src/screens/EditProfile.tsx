@@ -14,20 +14,26 @@ import CTextInput from "../components/CTextInput";
 import { useEffect, useState } from "react";
 import actions from "../../actions";
 import Loader from "../components/Loader";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import DropdownComponent from "../components/DropdownComponent";
 import CustomDatePicker from "../components/CustomDatepicker";
 import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
 
 const EditProfile = ({}:any) => {
     const navigation = useNavigation();
+    const route:any = useRoute();
+    const { type } = route.params;
     const [loading, setLoading] = useState(false);
     const profile = useSelector((state:any) => state.data.profile);
     const [datas, setDatas] = useState<any>(profile);
 
     useEffect(() => {
-        setDatas(profile);
-    }, [profile])
+        if(type == 'user1'){
+            setDatas(profile);
+        }else{
+            setDatas(profile[0]?.accounts);
+        }
+    }, [profile, type])
 
     const updateProfile = async() => {
         const {
@@ -68,7 +74,7 @@ const EditProfile = ({}:any) => {
     }
 
     const updateState = (value: any, label: string) => {
-        console.log("label", label, value);
+        // console.log("label", label, value);
         setDatas((prevDatas: any) => {
           const updatedDatas = prevDatas.map((data: any) => {
             // console.log("data", data[label]);
@@ -97,7 +103,7 @@ const EditProfile = ({}:any) => {
         >
             <View style={styles.advicecontainer}>
                 <View style={[styles.frWrapper, styles.ml_11, styles.wrapperLayout]}>
-                  <Text style={styles.dr}>{profile?.length > 0 && (datas[0]?.First_Name?.charAt(0)+profile[0]?.Last_Name?.charAt(0))}</Text>
+                  <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.First_Name?.charAt(0)+profile[0]?.Last_Name?.charAt(0))}</Text>
                 </View>
                 <View style={{alignItems: 'center', marginVertical: 10}}>
                     <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>{datas[0]?.First_Name} {datas[0]?.Last_Name}</Text>
@@ -119,14 +125,14 @@ const EditProfile = ({}:any) => {
                 {/* <CTextInput icon={require("../assets/vuesaxlinearprofilecircle.png")} key='Date_of_Birth' label='Date of Birth' defaultValue={datas[0]?.Date_of_Birth?.toString()} id='Date_of_Birth' updateState={updateState} isNumOnly={false}/> */}
 
                 <Label label="Date of Birth" icon={require("../assets/dob.png")} />
-                <CustomDatePicker defaultValue={new Date(datas[0]?.Date_of_Birth?.toString())} onValueChange={(value:any) => updateState(value, 'Date_of_Birth')} />
+                <CustomDatePicker defaultValue={datas[0]?.Date_of_Birth && new Date(datas[0]?.Date_of_Birth?.toString())} onValueChange={(value:any) => updateState(value, 'Date_of_Birth')} />
 
                 {/* <CTextInput icon={require("../assets/vuesaxlinearprofilecircle.png")} key='Marital_Status' label='Marital Status' defaultValue={datas[0]?.Marital_Status?.toString()} id='Marital_Status' updateState={updateState} isNumOnly={false}/> */}
 
                 <Label label="Marital Status" icon={require("../assets/mstatus.png")} />
                 <DropdownComponent
                     values={[{ label: 'None', value: '' }, { label: 'Single', value: 'Single' }, { label: 'Relationship Not Married', value: 'Relationship Not Married' }, { label: 'Married', value: 'Married' }]}
-                    defaultValue={datas[0]?.Sex_Description?.toString()}
+                    defaultValue={datas[0]?.Marital_Status?.toString()}
                     onValueChange={(value:any) => updateState(value, 'Marital_Status')}
                 />
 

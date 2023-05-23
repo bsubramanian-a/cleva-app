@@ -27,22 +27,30 @@ const TopHeader = ({ title }: TopHeaderType) => {
         source={require("../assets/logo.png")}
       />}
       <View style={[styles.menuGroup, styles.menuFlexBox1]}>
-        <View style={[styles.vuesaxlinearaddWrapper, styles.menuFlexBox]}>
+        {profile[0]?.accounts?.length == 0 && <View style={[styles.vuesaxlinearaddWrapper, styles.menuFlexBox]}>
           <Image
             style={styles.vuesaxlinearaddIcon}
             resizeMode="cover"
             source={require("../assets/vuesaxlinearadd.png")}
           />
-        </View>
+        </View>}
+
         <Pressable style={[styles.frWrapper, styles.wrapperLayout]} onPress={() => navigation.navigate('Profile')}>
           <Text style={styles.dr}>{profile?.length > 0 && (profile[0]?.First_Name?.charAt(0) + profile[0]?.Last_Name?.charAt(0))}</Text>
         </Pressable>
+
+        {profile[0]?.accounts?.length > 0 && <Pressable style={[styles.drWrapper, styles.wrapperLayout]} onPress={() => navigation.navigate('Profile')}>
+          <Text style={styles.dr}>{profile[0]?.accounts?.length > 0 && profile[0]?.accounts[0]?.First_Name?.charAt(0) + profile[0]?.accounts[0]?.Last_Name?.charAt(0)}</Text>
+        </Pressable>}
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  drWrapper: {
+    backgroundColor: '#EF9F27',
+  },
   headerTitle: {
     fontSize: 20, 
     fontWeight: "bold", 
