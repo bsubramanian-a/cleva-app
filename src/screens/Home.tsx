@@ -38,7 +38,7 @@ const Home = () => {
       if(tabNumber == 1){
         navigation.navigate('Profile');
       }else{
-        navigation.navigate('SOP');
+        navigation.navigate('WealthAssets');
       }
     }
   };
@@ -120,63 +120,63 @@ const Home = () => {
                 style={[styles.frameView, styles.mt30, styles.frameSpaceBlock]}
               >
                 <View style={[styles.frameParent1, styles.frameSpaceBlock]}>
-                <View style={styles.frameItemLayout}>
-                  <CircleProgressBar
-                    progress1={(totalAssets / (totalAssets + totalLiabilities))}
-                    progress2={(totalLiabilities / (totalAssets + totalLiabilities))}
-                    radius={65}
-                    strokeWidth={8}
-                    color1={'#944C9F'}
-                    color2={'#EF9F27'}
-                    netWorth={(totalAssets - totalLiabilities)?.toFixed(1)}
-                  />
-                  {/* <View style={styles.netWorthParent}>
-                    <Text style={[styles.netWorth, styles.netWorthClr]}>
-                      Net Worth
-                    </Text>
-                    <Text style={[styles.text, styles.mt5, styles.textClr]}>
-                      <Text style={styles.text1}>$</Text>
-                      <Text style={styles.text2}>{(totalAssets - totalLiabilities)?.toFixed(1)}</Text>
-                    </Text>
-                  </View> */}
-                </View>
-                <View style={styles.wealthParent}>
-                  <View style={styles.rectangleParent}>
-                    <View
-                      style={[styles.frameInner, styles.frameInnerLayout]}
+                  <View style={[styles.frameItemLayout, {marginTop: 13, marginBottom: 35}]}>
+                    <CircleProgressBar
+                      progress1={(totalAssets / (totalAssets + totalLiabilities))}
+                      progress2={(totalLiabilities / (totalAssets + totalLiabilities))}
+                      radius={90}
+                      strokeWidth={12}
+                      color1={'#944C9F'}
+                      color2={'#EF9F27'}
+                      netWorth={(totalAssets - totalLiabilities)?.toFixed(1)}
                     />
-                    <View style={[styles.wealthParent, styles.ml8]}>
-                      <Text style={[styles.netWorthClr, styles.seeAllTypo]}>
-                        Total assests
+                    {/* <View style={styles.netWorthParent}>
+                      <Text style={[styles.netWorth, styles.netWorthClr]}>
+                        Net Worth
                       </Text>
-                      <Text style={[styles.text3, styles.mt7, styles.textClr]}>
+                      <Text style={[styles.text, styles.mt5, styles.textClr]}>
                         <Text style={styles.text1}>$</Text>
-                        <Text style={styles.text2}>{totalAssets}</Text>
+                        <Text style={styles.text2}>{(totalAssets - totalLiabilities)?.toFixed(1)}</Text>
                       </Text>
+                    </View> */}
+                  </View>
+                  <View style={[styles.wealthParent, styles.totalWealth]}>
+                    <View style={styles.rectangleParent}>
+                      <View
+                        style={[styles.frameInner, styles.frameInnerLayout]}
+                      />
+                      <View style={[styles.wealthParent, styles.ml8]}>
+                        <Text style={[styles.netWorthClr, styles.seeAllTypo]}>
+                          Total assests
+                        </Text>
+                        <Text style={[styles.text3, styles.mt7, styles.textClr]}>
+                          <Text style={styles.text1}>$</Text>
+                          <Text style={styles.text2}>{totalAssets}</Text>
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={[styles.rectangleParent]}>
+                      <View
+                        style={[styles.rectangleView, styles.frameInnerLayout]}
+                      />
+                      <View style={[styles.wealthParent, styles.ml8]}>
+                        <Text style={styles.seeAllTypo}>Total Liabilities</Text>
+                        <Text style={[styles.text3, styles.mt7, styles.textClr]}>
+                          <Text style={styles.text1}>$</Text>
+                          <Text style={styles.text2}>{totalLiabilities}</Text>
+                        </Text>
+                      </View>
                     </View>
                   </View>
-                  <View style={[styles.rectangleParent, styles.mt26]}>
-                    <View
-                      style={[styles.rectangleView, styles.frameInnerLayout]}
-                    />
-                    <View style={[styles.wealthParent, styles.ml8]}>
-                      <Text style={styles.seeAllTypo}>Total Liabilities</Text>
-                      <Text style={[styles.text3, styles.mt7, styles.textClr]}>
-                        <Text style={styles.text1}>$</Text>
-                        <Text style={styles.text2}>{totalLiabilities}</Text>
-                      </Text>
-                    </View>
-                  </View>
                 </View>
-                </View>
-                <View style={[styles.editBtnParent, styles.mt28]}>
+                {/* <View style={[styles.editBtnParent, styles.mt28]}>
                   <View style={{width: ((Dimensions.get('window').width - 75) / 100) * 35}}>
                     <EditBtn navigation={navigation} edit="Edit" />
                   </View>
                   <View style={{width: ((Dimensions.get('window').width - 75) / 100) * 60}}>
                     <AssumptionBtn navigation={navigation} />
                   </View>
-                </View>
+                </View> */}
               </View>
             }
           </View>
@@ -247,6 +247,12 @@ const Home = () => {
 };
 
 const styles = StyleSheet.create({
+  totalWealth:{
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-around',
+    marginTop: 20
+  },
   mt_12: {
     marginTop: 12,
   },
@@ -410,7 +416,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
     justifyContent: "space-between",
     alignItems: "center",
-    flexDirection: "row",
+    flexDirection: "column",
     overflow: "hidden",
     backgroundColor: Color.white1,
   },

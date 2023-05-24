@@ -170,7 +170,7 @@ const Profile = () => {
                   />
                   <Text style={[styles.email, styles.ml6]}>Email</Text>
                 </View>
-                <Text style={styles.stKildaRdTypo}>{profile?.length > 0 && profile[0]?.Email}</Text>
+                <Text style={[styles.stKildaRdTypo, {width: '80%'}]}>{profile?.length > 0 && profile[0]?.Email}</Text>
               </View>
               <View
                 style={[
@@ -619,7 +619,7 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(32, 34, 36, 0.5)",
     borderRadius: 16,
     alignItems: "center",
-    paddingHorizontal: Padding.p_lg,
+    paddingHorizontal: Padding.p_sm,
     alignSelf: "stretch",
     overflow: "hidden",
     backgroundColor: Color.white1,
@@ -661,7 +661,6 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_base,
     color: Color.black,
     lineHeight: 22,
-    width: '60%'
   },
   mainvector1Icon: {
     width: 164,
@@ -748,7 +747,7 @@ const styles = StyleSheet.create({
     height: 51,
   },
   frameParent1: {
-    width: 318,
+    width: '100%',
     alignItems: "center",
     justifyContent: 'space-between'
   },
