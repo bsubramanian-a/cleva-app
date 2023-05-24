@@ -120,12 +120,12 @@ const Home = () => {
                 style={[styles.frameView, styles.mt30, styles.frameSpaceBlock]}
               >
                 <View style={[styles.frameParent1, styles.frameSpaceBlock]}>
-                  <View style={[styles.frameItemLayout, {marginTop: 13, marginBottom: 35}]}>
+                  <View style={[styles.frameItemLayout]}>
                     <CircleProgressBar
                       progress1={(totalAssets / (totalAssets + totalLiabilities))}
                       progress2={(totalLiabilities / (totalAssets + totalLiabilities))}
-                      radius={90}
-                      strokeWidth={12}
+                      radius={((totalAssets - totalLiabilities)?.toFixed(1))?.length * 9}
+                      strokeWidth={14}
                       color1={'#944C9F'}
                       color2={'#EF9F27'}
                       netWorth={(totalAssets - totalLiabilities)?.toFixed(1)}
@@ -308,8 +308,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   frameItemLayout: {
-    height: 130,
-    width: 130,
+    // height: 130,
+    // width: 130,
   },
   netWorthClr: {
     color: '#4b4b4b',
@@ -378,7 +378,6 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.openSansRegular,
   },
   text1: {
-    fontStyle: "italic",
     fontFamily: FontFamily.openSansBold,
     fontWeight: "bold",
     color: '#262627',

@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
       position: 'absolute',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingHorizontal: 12
+      // paddingHorizontal: 12
     },
     netWorthLabel: {
       fontSize: 14,
@@ -58,7 +58,9 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       color: '#262627',
       marginTop: 5,
-      textAlign: 'center'
+      textAlign: 'center',
+      flexWrap: 'nowrap',
+      width: '100%'
     },
 });  
 
