@@ -45,6 +45,7 @@ const CustomDatePicker = ({ defaultValue, onValueChange }: any) => {
                 onDateChange={handleDateChange}
                 mode="date"
                 maximumDate={today}
+                textColor='#000'
               />
               <Button title="Close" onPress={closeDatePicker} />
             </View>
