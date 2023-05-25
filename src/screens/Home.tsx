@@ -151,7 +151,7 @@ const Home = () => {
                         </Text>
                         <Text style={[styles.text3, styles.mt7, styles.textClr]}>
                           <Text style={styles.text1}>$</Text>
-                          <Text style={styles.text2}>{totalAssets}</Text>
+                          <Text style={styles.text2}>{totalAssets?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
                         </Text>
                       </View>
                     </View>
@@ -163,7 +163,7 @@ const Home = () => {
                         <Text style={styles.seeAllTypo}>Total Liabilities</Text>
                         <Text style={[styles.text3, styles.mt7, styles.textClr]}>
                           <Text style={styles.text1}>$</Text>
-                          <Text style={styles.text2}>{totalLiabilities}</Text>
+                          <Text style={styles.text2}>{totalLiabilities?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
                         </Text>
                       </View>
                     </View>
