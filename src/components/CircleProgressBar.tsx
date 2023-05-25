@@ -1,69 +1,70 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { Svg, Circle } from 'react-native-svg';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 const CircleProgressBar = ({ progress1, progress2, radius, strokeWidth, color1, color2, netWorth }:any) => {
-    const circumference = 2 * Math.PI * radius;
-    const progress1Offset = (progress2) * circumference;
-    const progress2Offset = (progress1) * circumference;
-  
-    return (
-      <View style={styles.container}>
-        <Svg width={radius * 2} height={radius * 2}>
-          <Circle
-            cx={radius}
-            cy={radius}
-            r={radius - strokeWidth / 2}
-            stroke={color1}
-            strokeWidth={strokeWidth}
-            fill="none"
-          />
-          <Circle
-            cx={radius}
-            cy={radius}
-            r={radius - strokeWidth / 2}
-            stroke={color2}
-            strokeWidth={strokeWidth}
-            strokeDasharray={`${progress2Offset}, ${progress1Offset}`}
-            strokeLinecap="round"
-            fill="none"
-          />
-        </Svg>
-        <View style={styles.progressTextContainer}>
-          <Text style={styles.netWorthLabel}>Net Worth</Text>
-          <Text style={styles.netWorthValue}>${netWorth}</Text>
-        </View>
-      </View>
-    );
+  const progress1Percentage = progress1 * 100;
+  // const progress2Percentage = progress2 * 100;
+
+  return (
+    <View style={styles.container}>
+      <AnimatedCircularProgress
+        size={radius * 2}
+        width={strokeWidth}
+        fill={progress1Percentage}
+        tintColor={color1}
+        backgroundColor={color2}
+        rotation={0}
+        lineCap="round"
+        arcSweepAngle={360}
+        renderCap={({ center }) => (
+          <View style={[styles.cap, { backgroundColor: color1, left: center.x, top: center.y - strokeWidth / 2,   width: strokeWidth, borderRadius: strokeWidth / 2 }]} />
+        )}
+      >
+        {() => (
+          <View style={styles.netWorthContainer}>
+            <Text style={styles.netWorthLabel}>Net Worth</Text>
+            <Text style={styles.netWorthValue}>{netWorth}</Text>
+          </View>
+        )}
+      </AnimatedCircularProgress>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    progressTextContainer: {
-      position: 'absolute',
-      alignItems: 'center',
-      justifyContent: 'center',
-      // paddingHorizontal: 12
-    },
-    netWorthLabel: {
-      fontSize: 14,
-      color: '#4b4b4b',
-      textAlign: 'center'
-    },
-    netWorthValue: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      color: '#262627',
-      marginTop: 5,
-      textAlign: 'center',
-      flexWrap: 'nowrap',
-      width: '100%'
-    },
-});  
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  progressContainer: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+  },
+  cap: {
+    position: 'absolute',
+  },
+  progressLabel: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  netWorthContainer: {
+    marginTop: 8,
+    alignItems: 'center',
+  },
+  netWorthLabel: {
+    fontSize: 14,
+    color: '#4b4b4b',
+  },
+  netWorthValue: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#262627',
+    marginTop: 5,
+  },
+});
 
 export default CircleProgressBar;
-  
-  
