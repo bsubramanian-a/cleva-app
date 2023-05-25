@@ -29,8 +29,8 @@ const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, ic
         style={styles.input}
         defaultValue={inputValue}
         placeholderTextColor={"#AAA9A8"}
-        autoCapitalize="none"
-        autoCorrect={false}
+        // autoCapitalize="none"
+        // autoCorrect={false}
         {...props}
         // onKeyPress={(text) => console.log("keypress", text)}
         onChangeText={(text) => {
