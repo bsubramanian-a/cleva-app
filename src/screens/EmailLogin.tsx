@@ -4,6 +4,7 @@ import EmailInput from "../components/EmailInput";
 import { Margin, Padding, FontSize, FontFamily, Color } from "../GlobalStyles";
 import actions from "../../actions";
 import Loader from "../components/Loader";
+import CKeyboard from "../components/CKeyboard";
 
 const EmailLogin = ({navigation}:any) => {
   const [loading, setLoading] = useState(false);
@@ -41,11 +42,13 @@ const EmailLogin = ({navigation}:any) => {
   return (
     <View style={[styles.emailLogin, styles.emailLoginSpaceBlock]}>
       <Loader visible={loading} />
+      <CKeyboard>
       <View style={styles.heading}>
         <Text style={styles.loginWithEmailContainer}>
           <Text style={styles.login}>Login</Text>  {'\n'} 
           <Text style={styles.withEmail}>with email</Text>
         </Text>
+        {/* <CKeyboard></CKeyboard> */}
         <EmailInput
           emailInputPlaceholder="Email"
           emailInputPaddingTop="unset"
@@ -62,7 +65,7 @@ const EmailLogin = ({navigation}:any) => {
         }
       </View>
       <View
-        style={[styles.nextprevious, styles.mt120, styles.emailLoginSpaceBlock]}
+        style={[styles.nextprevious, styles.emailLoginSpaceBlock]}
       >
         <Image
           style={styles.iconleftarrow}
@@ -78,6 +81,7 @@ const EmailLogin = ({navigation}:any) => {
           <Text style={[styles.next1, email != "" && {color: '#000'}]}>NEXT</Text>
         </Pressable>
       </View>
+      </CKeyboard>
     </View>
   );
 };
@@ -90,7 +94,7 @@ const styles = StyleSheet.create({
     marginTop: Margin.m_2xl,
   },
   emailLoginSpaceBlock: {
-    paddingBottom: Padding.p_lg,
+    paddingBottom: 12,
     overflow: "hidden",
   },
   login: {
@@ -143,7 +147,7 @@ const styles = StyleSheet.create({
   },
   nextprevious: {
     flexDirection: "row",
-    paddingTop: Padding.p_2xs,
+    // paddingTop: Padding.p_2xs,
     justifyContent: "space-between",
     alignSelf: "stretch",
   },
