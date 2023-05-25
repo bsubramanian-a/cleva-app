@@ -55,7 +55,7 @@ const HeroSection = ({item}:any) => {
           </View>
           <View style={[styles.rectangleParent, styles.mt10]}>
             <View style={[styles.groupChild, styles.groupPosition, {backgroundColor: '#ffffff30', width: Dimensions.get('window').width - 118}]} />
-            <View style={[styles.groupItem, styles.groupPosition, {width: item?.progress ? (((Dimensions.get('window').width - 107) * 0.01) * item?.progress) : 40 }]} />
+            <View style={[styles.groupItem, styles.groupPosition, {width: (((Dimensions.get('window').width - 107) * 0.01) * (item?.progress || 40))}]} />
           </View>
         </LinearGradient>
       </ImageBackground>
