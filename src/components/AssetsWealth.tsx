@@ -19,7 +19,7 @@ const AssetsWealth = ({datas}:any) => {
             <>
               <View style={[styles.myHomeParent, styles.totalviewFlexBox]}>
                 <Text style={styles.myHome}>{data?.Name}</Text>
-                <Text style={[styles.text, styles.textTypo]}>${data?.Current_Value}</Text>
+                <Text style={[styles.text, styles.textTypo]}>${data?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
               </View>
               <View style={[styles.assetsviewChild, styles.mt15, styles.mb15]} />
             </>
@@ -35,7 +35,7 @@ const AssetsWealth = ({datas}:any) => {
         ]}
       >
         <Text style={[styles.total, styles.textTypo]}>Total</Text>
-        <Text style={styles.text7}>${total}</Text>
+        <Text style={styles.text7}>${total?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
       </View>
     </View>
   );

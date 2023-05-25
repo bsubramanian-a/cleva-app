@@ -120,8 +120,8 @@ const Home = () => {
                     {/* <Text>Total Asset= {totalAssets / (totalAssets + totalLiabilities)}</Text>
                     <Text>Total Liabilities= {totalLiabilities / (totalAssets + totalLiabilities)}</Text> */}
                   <CircleProgressBar
-                      progress1={(totalAssets / (totalAssets + totalLiabilities))}
-                      progress2={(totalLiabilities / (totalAssets + totalLiabilities))}
+                      progress1={ totalLiabilities / totalAssets }
+                      total={totalAssets}
                       radius={(totalAssets - totalLiabilities) > 10000 ? (totalAssets - totalLiabilities)?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")?.length * 10 : 60}
                       strokeWidth={14}
                       color1={'#EF9F27'}

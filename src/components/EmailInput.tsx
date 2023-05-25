@@ -63,6 +63,8 @@ const EmailInput = ({
       placeholderTextColor="#aaa9a8"
       secureTextEntry={isPassword || false}
       onChangeText={(text) => setText(text)}
+      autoCorrect={false}
+      autoCapitalize="none"
     />
   );
 };

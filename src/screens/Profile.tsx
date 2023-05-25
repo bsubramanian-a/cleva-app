@@ -282,7 +282,7 @@ const Profile = () => {
           <View style={[styles.advice1, styles.mt15, styles.adviceShadowBox]}>
             <View style={[styles.frameParent1, styles.frameParentFlexBox]}>
               <View style={styles.mParent}>
-                <Text style={[styles.m, styles.mTypo]}>${totalNetWorth}</Text>
+                <Text style={[styles.m, styles.mTypo]}>${totalNetWorth?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
                 <Text style={[styles.email, styles.mt5]}>
                   Current Net Wealth
                 </Text>

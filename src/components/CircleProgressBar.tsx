@@ -2,8 +2,9 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
-const CircleProgressBar = ({ progress1, progress2, radius, strokeWidth, color1, color2, netWorth }:any) => {
+const CircleProgressBar = ({ progress1, total, radius, strokeWidth, color1, color2, netWorth }:any) => {
   const progress1Percentage = progress1 ? progress1 * 100 : 0;
+  console.log("progress1", progress1);
   // const progress2Percentage = progress2 * 100;
 
   return (
@@ -12,8 +13,8 @@ const CircleProgressBar = ({ progress1, progress2, radius, strokeWidth, color1, 
         size={radius * 2}
         width={strokeWidth}
         fill={progress1Percentage}
-        tintColor={color1}
-        backgroundColor={color2}
+        tintColor={color2}
+        backgroundColor={color1}
         rotation={0}
         lineCap="round"
         arcSweepAngle={360}
@@ -24,7 +25,7 @@ const CircleProgressBar = ({ progress1, progress2, radius, strokeWidth, color1, 
         {() => (
           <View style={styles.netWorthContainer}>
             <Text style={styles.netWorthLabel}>Net Worth</Text>
-            <Text style={styles.netWorthValue}>{netWorth}</Text>
+            <Text style={styles.netWorthValue}>${netWorth}</Text>
           </View>
         )}
       </AnimatedCircularProgress>
