@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   },
   nextprevious: {
     flexDirection: "row",
-    // paddingTop: Padding.p_2xs,
+    paddingTop: 24,
     justifyContent: "space-between",
     alignSelf: "stretch",
   },

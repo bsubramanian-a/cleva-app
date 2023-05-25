@@ -62,6 +62,7 @@ const PasswordInput = ({
       <TextInput
         style={styles.input}
         placeholder="Password"
+        placeholderTextColor={"#AAA9A8"}
         secureTextEntry={!isPasswordVisible}
         onChangeText={(text) => setText(text)}
       />

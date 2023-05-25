@@ -4,8 +4,8 @@ import { Svg, Circle } from 'react-native-svg';
 
 const CircleProgressBar = ({ progress1, progress2, radius, strokeWidth, color1, color2, netWorth }:any) => {
     const circumference = 2 * Math.PI * radius;
-    const progress1Offset = (1 - progress1) * circumference;
-    const progress2Offset = (1 - progress2) * circumference;
+    const progress1Offset = (progress2) * circumference;
+    const progress2Offset = (progress1) * circumference;
   
     return (
       <View style={styles.container}>

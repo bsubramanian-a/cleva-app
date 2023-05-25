@@ -121,15 +121,17 @@ const Home = () => {
               >
                 <View style={[styles.frameParent1, styles.frameSpaceBlock]}>
                   <View style={[styles.frameItemLayout]}>
-                    <CircleProgressBar
+                    <Text>Total Asset= {totalAssets / (totalAssets + totalLiabilities)}</Text>
+                    <Text>Total Liabilities= {totalLiabilities / (totalAssets + totalLiabilities)}</Text>
+                  <CircleProgressBar
                       progress1={(totalAssets / (totalAssets + totalLiabilities))}
                       progress2={(totalLiabilities / (totalAssets + totalLiabilities))}
-                      radius={((totalAssets - totalLiabilities)?.toFixed(1))?.length * 9}
+                      radius={(totalAssets - totalLiabilities) > 10000 ? (totalAssets - totalLiabilities)?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")?.length * 9 : 60}
                       strokeWidth={14}
                       color1={'#944C9F'}
                       color2={'#EF9F27'}
-                      netWorth={(totalAssets - totalLiabilities)?.toFixed(1)}
-                    />
+                      netWorth={(totalAssets - totalLiabilities)?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                      />
                     {/* <View style={styles.netWorthParent}>
                       <Text style={[styles.netWorth, styles.netWorthClr]}>
                         Net Worth
