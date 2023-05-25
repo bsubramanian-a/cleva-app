@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 const CircleProgressBar = ({ progress1, progress2, radius, strokeWidth, color1, color2, netWorth }:any) => {
-  const progress1Percentage = progress1 * 100;
+  const progress1Percentage = progress1 ? progress1 * 100 : 0;
   // const progress2Percentage = progress2 * 100;
 
   return (
@@ -56,11 +56,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   netWorthLabel: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#4b4b4b',
   },
   netWorthValue: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#262627',
     marginTop: 5,

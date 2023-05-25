@@ -57,7 +57,7 @@ target 'Cleva' do
   )
 
   # Add the following line to include 'react-native-video'
-  pod 'react-native-video', :path => '../node_modules/react-native-video/react-native-video.podspec'
+  pod 'react-native-video', :path => '../node_modules/react-native-video'
 
   target 'ClevaTests' do
     inherit! :complete

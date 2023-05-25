@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Dimensions } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import TopHeader from "../components/TopHeader";
-import EditBtn from "../components/EditBtn";
-import AssumptionBtn from "../components/AssumptionBtn";
 import EventCard from "../components/EventCard";
 import RecommededCard from "../components/RecommededCard";
 import {
@@ -121,12 +117,12 @@ const Home = () => {
               >
                 <View style={[styles.frameParent1, styles.frameSpaceBlock]}>
                   <View style={[styles.frameItemLayout]}>
-                    <Text>Total Asset= {totalAssets / (totalAssets + totalLiabilities)}</Text>
-                    <Text>Total Liabilities= {totalLiabilities / (totalAssets + totalLiabilities)}</Text>
+                    {/* <Text>Total Asset= {totalAssets / (totalAssets + totalLiabilities)}</Text>
+                    <Text>Total Liabilities= {totalLiabilities / (totalAssets + totalLiabilities)}</Text> */}
                   <CircleProgressBar
                       progress1={(totalAssets / (totalAssets + totalLiabilities))}
                       progress2={(totalLiabilities / (totalAssets + totalLiabilities))}
-                      radius={(totalAssets - totalLiabilities) > 10000 ? (totalAssets - totalLiabilities)?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")?.length * 9 : 60}
+                      radius={(totalAssets - totalLiabilities) > 10000 ? (totalAssets - totalLiabilities)?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")?.length * 10 : 60}
                       strokeWidth={14}
                       color1={'#EF9F27'}
                       color2={'#944C9F'}
