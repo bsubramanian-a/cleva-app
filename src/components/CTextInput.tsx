@@ -49,8 +49,8 @@ const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, ic
         style={styles.input}
         defaultValue={isNumOnly ? inputValue?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : isMobile ? formatMobileNumber(inputValue) : inputValue}
         placeholderTextColor={"#AAA9A8"}
-        autoCapitalize="none"
-        autoCorrect={false}
+        // autoCapitalize="none"
+        // autoCorrect={false}
         {...props}
         onChangeText={(text) => {
           if (isNumOnly) {

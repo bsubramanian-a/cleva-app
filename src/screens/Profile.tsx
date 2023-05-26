@@ -355,7 +355,6 @@ const Profile = () => {
               <Text
                 style={[
                   styles.aboutYou,
-                  styles.ml10,
                   styles.mTypo,
                   styles.danFleurClr,
                 ]}
@@ -381,7 +380,6 @@ const Profile = () => {
               <Text
                 style={[
                   styles.aboutYou,
-                  styles.ml10,
                   styles.mTypo,
                   styles.danFleurClr,
                 ]}
@@ -407,7 +405,6 @@ const Profile = () => {
               <Text
                 style={[
                   styles.aboutYou,
-                  styles.ml10,
                   styles.mTypo,
                   styles.danFleurClr,
                 ]}
@@ -433,7 +430,6 @@ const Profile = () => {
               <Text
                 style={[
                   styles.aboutYou,
-                  styles.ml10,
                   styles.mTypo,
                   styles.danFleurClr,
                 ]}
@@ -459,7 +455,6 @@ const Profile = () => {
               <Text
                 style={[
                   styles.aboutYou,
-                  styles.ml10,
                   styles.mTypo,
                   styles.danFleurClr,
                 ]}
@@ -485,7 +480,6 @@ const Profile = () => {
               <Text
                 style={[
                   styles.aboutYou,
-                  styles.ml10,
                   styles.mTypo,
                   styles.danFleurClr,
                 ]}
@@ -511,7 +505,6 @@ const Profile = () => {
               <Text
                 style={[
                   styles.aboutYou,
-                  styles.ml10,
                   styles.mTypo,
                   styles.danFleurClr,
                 ]}
@@ -537,7 +530,6 @@ const Profile = () => {
               <Text
                 style={[
                   styles.aboutYou,
-                  styles.ml10,
                   styles.mTypo,
                   styles.danFleurClr,
                 ]}
@@ -561,7 +553,6 @@ const Profile = () => {
               <Text
                 style={[
                   styles.aboutYou,
-                  styles.ml10,
                   styles.mTypo,
                   styles.danFleurClr,
                 ]}
@@ -662,12 +653,12 @@ const styles = StyleSheet.create({
   },
   danFleurClr: {
     color: Color.black,
-    fontWeight: '700',
     textAlign: "left",
   },
   childBorder: {
     borderColor: "#f3f1ee",
     borderStyle: "solid",
+    paddingHorizontal: 8,
   },
   frameParentFlexBox: {
     justifyContent: "space-between",
@@ -727,9 +718,9 @@ const styles = StyleSheet.create({
   },
   email: {
     fontWeight: "300",
-    fontFamily: FontFamily.openSansRegular,
-    color: '#4B4B4B',
-    fontSize: 14,
+    fontFamily: FontFamily.outfitLight,
+    color: '#4b4b4b',
+    fontSize: 12,
     textAlign: "left",
     lineHeight: 22,
   },
@@ -756,10 +747,11 @@ const styles = StyleSheet.create({
   },
   m: {
     color: Color.goldenrod_100,
-    fontSize: 22
+    fontSize: 20
   },
   mParent: {
     alignItems: "center",
+    width: "46%"
   },
   frameChild: {
     borderRightWidth: 1,
@@ -769,7 +761,7 @@ const styles = StyleSheet.create({
   frameParent1: {
     width: '100%',
     alignItems: "center",
-    justifyContent: 'space-between'
+    justifyContent: "center",
   },
   advice1: {
     borderWidth: 1,
@@ -799,7 +791,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   aboutYou: {
-    fontSize: FontSize.textMediumBoldText_size,
+    marginLeft: 10,
+    fontSize: 15,
     lineHeight: 24,
   },
   excercise1: {
@@ -822,7 +815,6 @@ const styles = StyleSheet.create({
     backgroundColor: Color.white1,
   },
   options: {
-    // paddingTop: Padding.p_sm,
     paddingBottom: 20,
   },
   userdetailsParent: {
