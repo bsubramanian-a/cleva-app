@@ -669,7 +669,7 @@ const styles = StyleSheet.create({
     textAlign: "right",
     fontFamily: FontFamily.outfitMedium,
     fontWeight: "500",
-    fontSize: FontSize.size_base,
+    fontSize: 13,
     color: Color.black,
     lineHeight: 22,
   },
@@ -794,6 +794,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 15,
     lineHeight: 24,
+    width: "75%",
+    flexWrap: "wrap",
   },
   excercise1: {
     borderWidth: 1,
