@@ -27,7 +27,7 @@ const CustomDatePicker = ({ defaultValue, onValueChange }: any) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const formattedDate = selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null;
+  const formattedDate = selectedDate ? format(selectedDate, 'dd-MM-yyyy') : null;
 
   return (
     <View>

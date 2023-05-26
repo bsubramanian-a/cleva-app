@@ -74,7 +74,7 @@ const EditProfile = ({}:any) => {
     }
 
     const updateState = (value: any, label: string) => {
-        // console.log("label", label, value);
+        console.log("label1233", label, value);
         setDatas((prevDatas: any) => {
           const updatedDatas = prevDatas.map((data: any) => {
             // console.log("data", data[label]);
@@ -85,6 +85,26 @@ const EditProfile = ({}:any) => {
           });
           return updatedDatas;
         });
+    };
+
+    const formatMobileNumber = (mobileNumber:any) => {
+        if(mobileNumber){
+          // Remove all non-digit characters from the mobile number except for the plus sign
+          const digitsOnly = mobileNumber.replace(/[^+\d]/g, '');
+        
+         // Check if the mobile number has a valid length
+          if (digitsOnly.length > 3) {
+            // Format the mobile number in the Australian format
+            let formattedNumber = digitsOnly.replace(/^(\+\d{1,2})/, '$1 ');
+            formattedNumber = formattedNumber.replace(/(\d{3})(?!$)/g, '$1 ');
+            formattedNumber = formattedNumber.trim();
+            formattedNumber = formattedNumber.replace(/ /g, '-');
+            return formattedNumber;
+          }
+        }
+        
+        // Return the original mobile number if it doesn't match the expected format
+        return mobileNumber;
     };
     
     return (
@@ -136,7 +156,7 @@ const EditProfile = ({}:any) => {
                     onValueChange={(value:any) => updateState(value, 'Marital_Status')}
                 />
 
-                <CTextInput icon={require("../assets/contact.png")} key='Mobile' label='Mobile Phone' defaultValue={datas[0]?.Mobile?.toString()} id='Mobile' updateState={updateState} isNumOnly={false}/>
+                <CTextInput isMobile={true} icon={require("../assets/contact.png")} key='Mobile' label='Mobile Phone' defaultValue={formatMobileNumber(datas[0]?.Mobile?.toString())} id='Mobile' updateState={updateState} isNumOnly={false}/>
 
                 <CTextInput icon={require("../assets/vuesaxlinearsms.png")} key='Email' label='Email' defaultValue={datas[0]?.Email?.toString()} id='Email' updateState={updateState} isNumOnly={false}/>
 

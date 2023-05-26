@@ -35,6 +35,26 @@ const Profile = () => {
     setAccordions();
   }, [profile])
 
+  const formatMobileNumber = (mobileNumber:any) => {
+    if(mobileNumber){
+      // Remove all non-digit characters from the mobile number except for the plus sign
+      const digitsOnly = mobileNumber.replace(/[^+\d]/g, '');
+    
+     // Check if the mobile number has a valid length
+      if (digitsOnly.length > 3) {
+        // Format the mobile number in the Australian format
+        let formattedNumber = digitsOnly.replace(/^(\+\d{1,2})/, '$1 ');
+        formattedNumber = formattedNumber.replace(/(\d{3})(?!$)/g, '$1 ');
+        formattedNumber = formattedNumber.trim();
+        formattedNumber = formattedNumber.replace(/ /g, '-');
+        return formattedNumber;
+      }
+    }
+    
+    // Return the original mobile number if it doesn't match the expected format
+    return mobileNumber;
+  };
+  
   const setAccordions = () => {
     setAccordion([
       {
@@ -48,9 +68,9 @@ const Profile = () => {
               { icon: require("../assets/profile.png"), name: 'Last Name', value: profile[0]?.Last_Name },
               { icon: require("../assets/profile.png"), name: 'Preferred Name', value: profile[0]?.Preferred_1st_Name },
               { icon: require("../assets/sex.png"), name: 'Sex', value: profile[0]?.Sex_Description },
-              { icon: require("../assets/dob.png"), name: 'Date of Birth', value: profile[0]?.Date_of_Birth },
+              { icon: require("../assets/dob.png"), name: 'Date of Birth', value: profile[0]?.Date_of_Birth ? formatDate(profile[0]?.Date_of_Birth) : null },
               { icon: require("../assets/mstatus.png"), name: 'Marital Status', value: profile[0]?.Marital_Status },
-              { icon: require("../assets/contact.png"), name: 'Mobile Phone', value: profile[0]?.Mobile },
+              { icon: require("../assets/contact.png"), name: 'Mobile Phone', value: profile[0]?.Mobile ? formatMobileNumber(profile[0]?.Mobile) : null },
               { icon: require("../assets/vuesaxlinearsms.png"), name: 'Email', value: profile[0]?.Email },
               { icon: require("../assets/shealth.png"), name: 'Status of Health', value: '' },
               { icon: require("../assets/smoker.png"), name: 'Smoker', value: '' },
@@ -63,9 +83,9 @@ const Profile = () => {
               { icon: require("../assets/profile.png"), name: 'Last Name', value: profile[0]?.accounts[0]?.Last_Name },
               { icon: require("../assets/profile.png"), name: 'Preferred Name', value: profile[0]?.accounts[0]?.Preferred_1st_Name },
               { icon: require("../assets/sex.png"), name: 'Sex', value: profile[0]?.accounts[0]?.Sex_Description },
-              { icon: require("../assets/dob.png"), name: 'Date of Birth', value: profile[0]?.accounts[0]?.Date_of_Birth },
+              { icon: require("../assets/dob.png"), name: 'Date of Birth', value: profile[0]?.accounts[0]?.Date_of_Birth ? formatDate(profile[0]?.accounts[0]?.Date_of_Birth) : null },
               { icon: require("../assets/mstatus.png"), name: 'Marital Status', value: profile[0]?.accounts[0]?.Marital_Status },
-              { icon: require("../assets/contact.png"), name: 'Mobile Phone', value: profile[0]?.accounts[0]?.Mobile },
+              { icon: require("../assets/contact.png"), name: 'Mobile Phone', value: profile[0]?.accounts[0]?.Mobile ? formatMobileNumber(profile[0]?.accounts[0]?.Mobile) : null},
               { icon: require("../assets/vuesaxlinearsms.png"), name: 'Email', value: profile[0]?.accounts[0]?.Email },
               { icon: require("../assets/shealth.png"), name: 'Status of Health', value: '' },
               { icon: require("../assets/smoker.png"), name: 'Smoker', value: '' },
@@ -802,7 +822,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.white1,
   },
   options: {
-    paddingTop: Padding.p_sm,
+    // paddingTop: Padding.p_sm,
     paddingBottom: 20,
   },
   userdetailsParent: {

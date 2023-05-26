@@ -3,7 +3,7 @@ import { View, TextInput, StyleSheet, Text, Image } from 'react-native';
 import { FontFamily } from '../GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
 
-const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, icon="", ...props }: any) => {
+const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, icon="", isMobile = false, ...props }: any) => {
   // console.log("defaultValue.......", defaultValue, id)
   const navigation = useNavigation();
   const [inputValue, setInputValue] = useState(defaultValue);
@@ -11,6 +11,26 @@ const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, ic
   useEffect(() => {
     setInputValue(defaultValue);
   }, [defaultValue])
+
+  const formatMobileNumber = (mobileNumber:any) => {
+    if(mobileNumber){
+      // Remove all non-digit characters from the mobile number except for the plus sign
+      const digitsOnly = mobileNumber.replace(/[^+\d]/g, '');
+    
+     // Check if the mobile number has a valid length
+      if (digitsOnly.length > 3) {
+        // Format the mobile number in the Australian format
+        let formattedNumber = digitsOnly.replace(/^(\+\d{1,2})/, '$1 ');
+        formattedNumber = formattedNumber.replace(/(\d{3})(?!$)/g, '$1 ');
+        formattedNumber = formattedNumber.trim();
+        formattedNumber = formattedNumber.replace(/ /g, '-');
+        return formattedNumber;
+      }
+    }
+    
+    // Return the original mobile number if it doesn't match the expected format
+    return mobileNumber;
+  };
 
   return (
     <View style={styles.container}>
@@ -25,33 +45,29 @@ const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, ic
         <Text style={styles.label}>{label}</Text>
       </View>
       <TextInput
-        keyboardType= {isNumOnly ? "numeric" : "default"}
+        keyboardType={isNumOnly ? "numeric" : "default"}
         style={styles.input}
-        defaultValue={inputValue}
+        defaultValue={isNumOnly ? inputValue?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : isMobile ? formatMobileNumber(inputValue) : inputValue}
         placeholderTextColor={"#AAA9A8"}
         autoCapitalize="none"
         autoCorrect={false}
         {...props}
-        // onKeyPress={(text) => console.log("keypress", text)}
         onChangeText={(text) => {
-          // console.log("isNumOnly", isNumOnly, text);
-          if(isNumOnly){
-            // Remove non-numeric characters except '.'
-            const newText = text.replace(/[^0-9.]/g, '');
-            // Allow only one decimal point
-            const decimalCount = newText.split('.').length - 1;
-            if (decimalCount > 1) {
-              const parts = newText.split('.');
-              const integerPart = parts[0];
-              const decimalPart = parts.slice(1).join('');
-              setInputValue(`${integerPart}.${decimalPart}`);
-              updateState(`${integerPart}.${decimalPart}`, id);
-            } else {
-              setInputValue(newText);
-              updateState(newText, id);
+          if (isNumOnly) {
+            // Remove non-numeric characters
+            const newText = text.replace(/[^0-9]/g, '');
+            const formattedText = newText.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            setInputValue(formattedText);
+            updateState(newText, id);
+          } else {
+            if(isMobile){
+              const newNum = formatMobileNumber(text);
+
+              setInputValue(newNum);
+              updateState(text ? text?.replace(/-/g, '') : "", id);
+            }else{
+              updateState(text, id);
             }
-          }else{
-            updateState(text, id);
           }
         }}
       />
