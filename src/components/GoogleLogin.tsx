@@ -8,10 +8,64 @@ import {
   Border,
   Padding,
 } from "../GlobalStyles";
+import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin';
+import config from "../../config/config";
+import { useEffect } from "react";
 
 const GoogleLogin = () => {
+  console.log("config", config.googleWebClientId);
+  GoogleSignin.configure({
+    webClientId: config.googleWebClientId,
+    offlineAccess: true, // if you need to access user data while offline
+  });
+  
+  useEffect(() => {
+    // Check if the user is already signed in on component mount
+    GoogleSignin.isSignedIn().then((isSignedIn) => {
+      if (isSignedIn) {
+        // User is signed in, handle your logic here
+      } else {
+        // User is not signed in, handle your logic here
+      }
+    });
+  }, []);
+
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      // User signed in successfully, handle your logic here
+      console.log("userInfo", userInfo);
+    } catch (error:any) {
+        if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+          // User cancelled the sign-in flow
+          console.log('Sign in canceled');
+        }else if (error.code === statusCodes.IN_PROGRESS) {
+        // Sign-in is already in progress
+        console.log('Sign-in is already in progress');
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // Play services are not available
+        console.log('Play services are not available');
+      } else {
+        // Other error occurred
+        console.log('Sign in error: ', error.message);
+      }
+    };
+  }
+
+  const signOut = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      // User signed out successfully, handle your logic here
+      console.log('User signed out');
+    } catch (error) {
+      console.error('Sign out error: ', error);
+    }
+  };
+  
   return (
-    <Pressable style={styles.googleLogin}>
+    <Pressable style={styles.googleLogin} onPress={signIn}>
       <Image
         style={styles.google2Icon}
         resizeMode="cover"
