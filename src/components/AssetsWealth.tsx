@@ -10,7 +10,7 @@ import {
 } from "../GlobalStyles";
 
 const AssetsWealth = ({datas}:any) => {
-  const total = parseFloat(datas.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2))
+  const total = parseFloat(datas?.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2))
   return (
     <View style={[styles.advice, styles.adviceFlexBox]}>
       <View style={styles.assetsview}>
@@ -35,7 +35,7 @@ const AssetsWealth = ({datas}:any) => {
         ]}
       >
         <Text style={[styles.total, styles.textTypo]}>Total</Text>
-        <Text style={styles.text7}>${total?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
+        <Text style={styles.text7}>${!isNaN(total) ? total?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0}</Text>
       </View>
     </View>
   );

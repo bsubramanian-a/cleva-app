@@ -1,5 +1,5 @@
 import { apiGet, apiPost, clearUserData, setUserData, apiPostFormData, apiDelete } from "../Utils"
-import { VERIFY_EMAIL, LOGIN, VERIFY_SOCIAL_EMAIL } from "../urls";
+import { VERIFY_EMAIL, LOGIN, VERIFY_SOCIAL_EMAIL, VERIFY_OTP } from "../urls";
 import store from "../store";
 import types from "../types";
 
@@ -26,6 +26,22 @@ export const verifyEmail = (data:any) => {
     // console.log("verifyEmail.....", data);
     return new Promise((resolve, reject) => {
         return apiPost(VERIFY_EMAIL, data).then((res) => {
+            // console.log("res in verifyEmail action",res);    
+            dispatch({
+                type: types.EMAIL,
+                payload: data?.email
+            });
+            resolve(res)
+        }).catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+export const verifyOTP = (data:any) => {
+    // console.log("verifyEmail.....", data);
+    return new Promise((resolve, reject) => {
+        return apiPost(VERIFY_OTP, data).then((res) => {
             // console.log("res in verifyEmail action",res);    
             dispatch({
                 type: types.EMAIL,

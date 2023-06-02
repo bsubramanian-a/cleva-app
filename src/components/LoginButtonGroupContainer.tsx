@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import GoogleLogin from "../components/GoogleLogin";
 import LoginButton from "../components/LoginButton";
-import SignupButton from "../components/SignupButton";
+import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import {
   Margin,
   FontFamily,
@@ -43,17 +43,41 @@ const LoginButtonGroupContainer = ({
   navigation,
   onVerifyEmail
 }: LoginButtonGroupContainerType) => {
+
   const appleLoginStyle = useMemo(() => {
     return {
       ...getStyleValue("backgroundColor", propBackgroundColor),
     };
   }, [propBackgroundColor]);
 
+  const handleFacebookLogin = async () => {
+    try {
+      // Log in with Facebook
+      const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+
+      if (result.isCancelled) {
+        console.log('Login cancelled');
+      } else {
+        // Get the access token
+        const accessToken = await AccessToken.getCurrentAccessToken();
+
+        if (accessToken) {
+          console.log('Access token:', accessToken.accessToken);
+        } else {
+          console.log('Failed to get access token');
+        }
+      }
+    } catch (error) {
+      console.log('Login failed:', error);
+    }
+  };
+
   return (
     <View style={[styles.buttonGroup, styles.mt72, styles.appleLoginFlexBox]}>
       <View style={styles.socialLogin}>
         <GoogleLogin onVerifyEmail={onVerifyEmail} />
         <Pressable
+         onPress={handleFacebookLogin}
           style={[
             styles.appleLogin,
             styles.mt32,

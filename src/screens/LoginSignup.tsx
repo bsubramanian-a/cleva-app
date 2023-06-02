@@ -19,9 +19,10 @@ const LoginSignup = ({navigation}:any) => {
       });
       console.log('res==>>>>>', res);
       if(res?.isUserExist === true){
-        navigation.navigate('PasswordLogin')
+        // navigation.navigate('PasswordLogin')
       }else{
         setError("User doesn't exist, please register first");
+        actions.logout();
       }
       setLoading(false);
     } catch (error) {

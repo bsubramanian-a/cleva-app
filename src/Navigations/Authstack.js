@@ -7,6 +7,7 @@ import LoginSignup1 from '../screens/LoginSignup1';
 import PasswordLogin from '../screens/PasswordLogin';
 import Splash from '../screens/Splash';
 import EmailLogin from '../screens/EmailLogin';
+import OTPScreen from '../screens/OTPScreen';
 
 // create a component
 const Authstack = (Stack) => {
@@ -21,6 +22,7 @@ const Authstack = (Stack) => {
             <Stack.Screen name="PasswordLogin" component={PasswordLogin} />
             <Stack.Screen name="Splash" component={Splash} />
             <Stack.Screen name="EmailLogin" component={EmailLogin} />
+            <Stack.Screen name="OTPScreen" component={OTPScreen} />
         </Stack.Navigator>
     );
 };

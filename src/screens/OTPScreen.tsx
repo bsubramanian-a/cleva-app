@@ -1,68 +1,64 @@
-import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View, Image, Pressable } from "react-native";
-import EmailInput from "../components/EmailInput";
-import { Margin, Padding, FontSize, FontFamily, Color } from "../GlobalStyles";
-import actions from "../../actions";
-import Loader from "../components/Loader";
-import CKeyboard from "../components/CKeyboard";
+import React, { useState } from 'react';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import OtpInputs from 'react-native-otp-inputs';
+import CKeyboard from '../components/CKeyboard';
+import Loader from '../components/Loader';
+import { Color, FontFamily, FontSize, Margin, Padding } from '../GlobalStyles';
+import actions from '../../actions';
+import { useSelector } from 'react-redux';
 
-const EmailLogin = ({navigation}:any) => {
+const OTPScreen = ({navigation}:any) => {
+  const [otp, setOTP] = useState('');
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  // useEffect(() => {
-  //   getJournals();
-  // })
+  const email = useSelector((state: any) => state.auth.email);
+  
+  const handleOTPTyping = (code:any) => {
+    console.log("handleOTPTyping", code);
+    setOTP(code);
+  };
 
-  // const getJournals = async() => {
-  //   const res = await actions.getUserData();
-  //   console.log("res", res)
-  // }
-
-  const onVerifyEmail = async () => {
+  const otpVerify = async() => {
     setLoading(true);
     setError("");
     try {
-      const res:any = await actions.verifyEmail({
-        email,
+      const res:any = await actions.verifyOTP({
+        otp,
+        email
       });
       console.log('res==>>>>>', res);
-      if(res?.isUserExist === true){
-        navigation.navigate('OTPScreen')
+      if(res?.isCorrect === true){
+        navigation.navigate('PasswordLogin')
       }else{
-        setError("User doesn't exist, please register first");
+        setError(res?.error);
       }
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log('error raised', error);
     }
-  };
+  }
 
   return (
-    <View style={[styles.emailLogin, styles.emailLoginSpaceBlock]}>
+    <View style={styles.container}>
       <Loader visible={loading} />
       <CKeyboard>
         <View style={styles.heading}>
           <Text style={styles.loginWithEmailContainer}>
-            <Text style={styles.login}>Login</Text>  {'\n'} 
-            <Text style={styles.withEmail}>with email</Text>
+            <Text style={styles.login}>Enter the</Text>  {'\n'} 
+            <Text style={styles.login}>OTP</Text>  {'\n'} 
           </Text>
-          {/* <CKeyboard></CKeyboard> */}
-          <EmailInput
-            emailInputPlaceholder="Email"
-            emailInputPaddingTop="unset"
-            emailInputPaddingRight="unset"
-            emailInputPaddingBottom="unset"
-            emailInputJustifyContent="flex-start"
-            emailInputPaddingHorizontal={0}
-            emailInputPaddingVertical={18}
-            emailInputMarginTop={48}
-            setText={setEmail}
-          />
           {error != "" && 
             <Text style={{color: 'red'}}>{error}</Text>
           }
+          <View style={styles.otpContainer}>
+            <OtpInputs
+              handleChange={handleOTPTyping}
+              numberOfInputs={6}
+              autofillFromClipboard={false}
+              inputStyles={styles.inputStyles}
+            />
+          </View>
         </View>
         <View
           style={[styles.nextprevious, styles.emailLoginSpaceBlock]}
@@ -72,13 +68,13 @@ const EmailLogin = ({navigation}:any) => {
             resizeMode="cover"
             source={require("../assets/iconarrow.png")}
           />
-          <Pressable onPress={email != "" ? onVerifyEmail: undefined} style={styles.next}>
+          <Pressable onPress={otp != "" ? otpVerify: undefined} style={styles.next}>
             <Image
               style={styles.iconrightarrow}
               resizeMode="cover"
-              source={email != "" ? require("../assets/iconarrow1.png") : require("../assets/iconrightarrow.png")}
+              source={otp != "" ? require("../assets/iconarrow1.png") : require("../assets/iconrightarrow.png")}
             />
-            <Text style={[styles.next1, email != "" && {color: '#000'}]}>NEXT</Text>
+            <Text style={[styles.next1, otp != "" && {color: '#000'}]}>NEXT</Text>
           </Pressable>
         </View>
       </CKeyboard>
@@ -87,6 +83,28 @@ const EmailLogin = ({navigation}:any) => {
 };
 
 const styles = StyleSheet.create({
+  otpContainer: {
+    width: '80%', // Adjust the width as needed
+    height: 200, // Adjust the height as needed
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  inputStyles: {
+    borderBottomWidth: 2,
+    borderBottomColor: '#ccc',
+    fontSize: 24,
+    width: 40,
+    marginHorizontal: 5,
+    textAlign: 'center',
+  },
   mt48: {
     marginTop: Margin.m_md,
   },
@@ -94,7 +112,7 @@ const styles = StyleSheet.create({
     marginTop: Margin.m_2xl,
   },
   emailLoginSpaceBlock: {
-    paddingBottom: 12,
+    paddingBottom: 25,
     overflow: "hidden",
   },
   login: {
@@ -114,6 +132,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     alignSelf: "stretch",
+    marginTop: 50
   },
   iconleftarrow: {
     width: 20,
@@ -161,8 +180,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EmailLogin;
-function useQuery(arg0: string, getJournalsQuery: any): { data: any; error: any; isLoading: any; } {
-  throw new Error("Function not implemented.");
-}
-
+export default OTPScreen;
