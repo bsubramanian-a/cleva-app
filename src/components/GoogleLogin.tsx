@@ -11,9 +11,10 @@ import {
 import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin';
 import config from "../../config/config";
 import { useEffect } from "react";
+import actions from "../../actions";
 
-const GoogleLogin = () => {
-  console.log("config", config.googleWebClientId);
+const GoogleLogin = ({onVerifyEmail}:any) => {
+  // console.log("config", config.googleWebClientId);
   GoogleSignin.configure({
     webClientId: config.googleWebClientId,
     offlineAccess: true, // if you need to access user data while offline
@@ -24,6 +25,7 @@ const GoogleLogin = () => {
     GoogleSignin.isSignedIn().then((isSignedIn) => {
       if (isSignedIn) {
         // User is signed in, handle your logic here
+        actions.logout();
       } else {
         // User is not signed in, handle your logic here
       }
@@ -35,7 +37,9 @@ const GoogleLogin = () => {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       // User signed in successfully, handle your logic here
-      console.log("userInfo", userInfo);
+      // console.log("userInfo", userInfo?.user?.email);
+      const email = userInfo?.user?.email;
+      onVerifyEmail(email);
     } catch (error:any) {
         if (error.code === statusCodes.SIGN_IN_CANCELLED) {
           // User cancelled the sign-in flow
@@ -52,17 +56,6 @@ const GoogleLogin = () => {
       }
     };
   }
-
-  const signOut = async () => {
-    try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-      // User signed out successfully, handle your logic here
-      console.log('User signed out');
-    } catch (error) {
-      console.error('Sign out error: ', error);
-    }
-  };
   
   return (
     <Pressable style={styles.googleLogin} onPress={signIn}>

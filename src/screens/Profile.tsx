@@ -76,7 +76,7 @@ const Profile = () => {
               { icon: require("../assets/smoker.png"), name: 'Smoker', value: '' },
             ]
           },
-          profile[0]?.accounts[0]?.Email && {
+          profile[0]?.accounts?.length > 0 && profile[0]?.accounts[0]?.Email && {
             subHeading: profile[0]?.accounts[0]?.Preferred_1st_Name,
             item: [
               { icon: require("../assets/profile.png"), name: 'First Name', value: profile[0]?.accounts[0]?.First_Name },

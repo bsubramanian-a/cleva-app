@@ -2,6 +2,7 @@ import { apiGet, apiPost, clearUserData, setUserData, apiPostFormData, apiDelete
 import { JOURNALS, EXERCISES, SUMMARY, ADVICE, ASSETS, LIABILITIES, PROFILE } from "../urls";
 import store from "../store";
 import types from "../types";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 const { dispatch } = store
 
@@ -123,7 +124,19 @@ export const updateProfile = (data:any) => {
     })
 }
 
+const signOut = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      // User signed out successfully, handle your logic here
+      console.log('User signed out');
+    } catch (error) {
+      console.error('Sign out error: ', error);
+    }
+};
+
 export const logout = () => {
+    signOut();
     dispatch({
         type: types.LOGOUT,
         payload: {}

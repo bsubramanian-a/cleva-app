@@ -24,7 +24,8 @@ type LoginButtonGroupContainerType = {
   socialLoginImageUrl?: ImageSourcePropType;
   socialLoginText?: string;
   acceptToContinue?: string;
-
+  navigation:any;
+  onVerifyEmail:Function;
   /** Style props */
   propBackgroundColor?: string;
 };
@@ -39,6 +40,8 @@ const LoginButtonGroupContainer = ({
   socialLoginText,
   propBackgroundColor,
   acceptToContinue,
+  navigation,
+  onVerifyEmail
 }: LoginButtonGroupContainerType) => {
   const appleLoginStyle = useMemo(() => {
     return {
@@ -49,7 +52,7 @@ const LoginButtonGroupContainer = ({
   return (
     <View style={[styles.buttonGroup, styles.mt72, styles.appleLoginFlexBox]}>
       <View style={styles.socialLogin}>
-        <GoogleLogin />
+        <GoogleLogin onVerifyEmail={onVerifyEmail} />
         <Pressable
           style={[
             styles.appleLogin,

@@ -2,9 +2,34 @@ import * as React from "react";
 import { ScrollView, Text, StyleSheet, View } from "react-native";
 import LoginButtonGroupContainer from "../components/LoginButtonGroupContainer";
 import { Margin, FontSize, FontFamily, Color } from "../GlobalStyles";
+import { useState } from "react";
+import actions from "../../actions";
+import Loader from "../components/Loader";
 
 const LoginSignup = ({navigation}:any) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   
+  const onVerifyEmail = async (email:string) => {
+    setLoading(true);
+    setError("");
+    try {
+      const res:any = await actions.verifySocialEmail({
+        email,
+      });
+      console.log('res==>>>>>', res);
+      if(res?.isUserExist === true){
+        navigation.navigate('PasswordLogin')
+      }else{
+        setError("User doesn't exist, please register first");
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log('error raised', error);
+    }
+  };
+
   return (
     <ScrollView
       style={styles.loginsignup}
@@ -12,6 +37,10 @@ const LoginSignup = ({navigation}:any) => {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.loginSignupScrollViewContent}
     >
+      <Loader visible={loading} />
+      {error != "" && 
+        <Text style={{color: 'red'}}>{error}</Text>
+      }
       <View style={styles.loginOrSignupParent}>
         <Text style={styles.loginOrSignupContainer}>
           <Text style={styles.loginOr}>Login or
@@ -31,6 +60,7 @@ const LoginSignup = ({navigation}:any) => {
         propBackgroundColor="#2e54d9"
         acceptToContinue="Login with email"
         navigation={navigation}
+        onVerifyEmail={onVerifyEmail}
       />
     </ScrollView>
   );

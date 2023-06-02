@@ -1,5 +1,5 @@
 import { apiGet, apiPost, clearUserData, setUserData, apiPostFormData, apiDelete } from "../Utils"
-import { VERIFY_EMAIL, LOGIN } from "../urls";
+import { VERIFY_EMAIL, LOGIN, VERIFY_SOCIAL_EMAIL } from "../urls";
 import store from "../store";
 import types from "../types";
 
@@ -31,6 +31,21 @@ export const verifyEmail = (data:any) => {
                 type: types.EMAIL,
                 payload: data?.email
             });
+            resolve(res)
+        }).catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+export const verifySocialEmail = (data:any) => {
+    return new Promise((resolve, reject) => {
+        return apiPost(VERIFY_SOCIAL_EMAIL, data).then((res) => { 
+            if(res?.token) 
+                dispatch({
+                    type: types.ACCESS_TOKEN,
+                    payload: res
+                });
             resolve(res)
         }).catch((error) => {
             reject(error)
