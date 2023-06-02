@@ -124,14 +124,29 @@ export const updateProfile = (data:any) => {
     })
 }
 
-const signOut = async () => {
+export const isSignedIn = async () => {
     try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-      // User signed out successfully, handle your logic here
-      console.log('User signed out');
+      const isSignedIn = await GoogleSignin.isSignedIn();
+      return isSignedIn;
     } catch (error) {
-      console.error('Sign out error: ', error);
+      console.error('Sign-in status error: ', error);
+      return false;
+    }
+};
+
+export const signOut = async () => {
+    try {
+        const isUserSignedIn = await isSignedIn();
+    
+        if (isUserSignedIn) {
+          await GoogleSignin.revokeAccess();
+          await GoogleSignin.signOut();
+          console.log('User signed out');
+        } else {
+          console.log('User is not signed in');
+        }
+    } catch (error) {
+        console.error('Sign out error: ', error);
     }
 };
 

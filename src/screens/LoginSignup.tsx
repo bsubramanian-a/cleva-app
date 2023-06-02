@@ -18,7 +18,7 @@ const LoginSignup = ({navigation}:any) => {
         email,
       });
       console.log('res==>>>>>', res);
-      if(res?.isUserExist === true){
+      if(res?.status){
         // navigation.navigate('PasswordLogin')
       }else{
         setError("User doesn't exist, please register first");
