@@ -16,65 +16,74 @@ import Loader from "../components/Loader";
 import { useNavigation } from "@react-navigation/native";
 import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
 
-const EditWealth = ({route}:any) => {
+const AddWealth = ({route}:any) => {
     const navigation = useNavigation();
     const [loading, setLoading] = useState(false);
+    const [name, setName] = useState("");
+    const [value, setValue] = useState("");
     const { type } = route.params;
-    const [datas, setDatas] = useState<any>([]);
-    const assets = useSelector((state:any) => state.data.assets);
-    // console.log("assets", assets);
-    const liabilities = useSelector((state:any) => state.data.liabilities);
 
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            // Cleanup function to stop the video and reset the state
-            if(type == 'asset'){
-                setDatas(assets);
-            }else{
-                setDatas(liabilities);
-            }
-        });
-
-        // Return the function to unsubscribe from the event so it gets removed on unmount
-        return unsubscribe;
-    }, [navigation, type, assets, liabilities]);
-
-    const updateWealth = async() => {
+    const addWealth = async() => {
         setLoading(true);
-        await actions.updateWealth(datas);
 
-        if(type == 'asset'){
-            await actions.getAssets();
-        }else{
-            await actions.getLiabilities();
+        let data = {
+            "Current_Value": value,
+            "Name": name
         }
 
-        showMessage({
-            message: 'Success',
-            description: 'Wealth updated successfully',
-            type: 'success',
-        });
+        if(type == 'asset'){
+            const res:any = await actions.addAsset(data);
+
+            if(res?.data?.length > 0 && res?.data[0]?.code == "SUCCESS"){
+                showMessage({
+                    message: 'Success',
+                    description: 'Asset added successfully',
+                    type: 'success',
+                });
+
+                setName("");
+                setValue("");
+
+                await actions.getAssets();
+            }else{
+                showMessage({
+                    message: 'Failed',
+                    description: 'Asset creation failed, please try again later!',
+                    type: 'danger',
+                });
+            }
+        }else{
+            const res:any = await actions.addLiability(data);
+
+            if(res?.data?.length > 0 && res?.data[0]?.code == "SUCCESS"){
+                showMessage({
+                    message: 'Success',
+                    description: 'Liability added successfully',
+                    type: 'success',
+                });
+
+                setName("");
+                setValue("");
+
+                await actions.getLiabilities();
+            }else{
+                showMessage({
+                    message: 'Failed',
+                    description: 'Liability creation failed, please try again later!',
+                    type: 'danger',
+                });
+            }
+        }
+
         setLoading(false);
     }
 
     const updateState = (value:any, id:any) => {
-        const updatedDatas = datas.map((item:any) => {
-          if (item.id == id) {
-            return { ...item, Current_Value: value };
-          }
-          return item;
-        });
-        setDatas(updatedDatas);
-    }
-
-    const updateNameState = (value:any, id:any) => {
-        const updatedDatas = datas.map((item:any) => {
-          if (item.id == id) {
-            return { ...item, Name: value };
-          }
-          return item;
-        });
-        setDatas(updatedDatas);
+       if(id == 1){
+        setName(value);
+       }else{
+        setValue(value);
+       }
     }
 
     return (
@@ -92,14 +101,8 @@ const EditWealth = ({route}:any) => {
             contentContainerStyle={styles.frameScrollViewContent}
         >
             <View style={styles.advicecontainer}>
-                {datas?.map((data:any, index:any) => {
-                    return(
-                        <View key={index.toString()} style={{borderBottomWidth: 1, paddingBottom: 15}}>
-                            <CTextInput label="Name" id={data?.id} isNumOnly={false} updateState={updateNameState} defaultValue={data?.Name}/>
-                            <CTextInput label="Value" defaultValue={data?.Current_Value?.toString()} id={data?.id} updateState={updateState}/>
-                        </View>
-                    )
-                })}
+                <CTextInput isNumOnly={false} label={type == 'asset' ? 'Asset Name' : 'Liability Name'} id="1" updateState={updateState} defaultValue={name}/>
+                <CTextInput label={type == 'asset' ? 'Asset Value' : 'Liability Value'} id="2" updateState={updateState} defaultValue={value}/>
             </View>
             <LinearGradient
             style={[styles.bottom, styles.bottomFlexBox]}
@@ -108,7 +111,7 @@ const EditWealth = ({route}:any) => {
             useAngle={true}
             angle={180}
             >
-                <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={updateWealth}>
+                <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={addWealth}>
                     <Text style={[styles.edit, styles.ml4]}>Save</Text>
                 </Pressable>
             </LinearGradient>
@@ -183,4 +186,4 @@ const styles = StyleSheet.create({
     },    
 });
 
-export default EditWealth;
+export default AddWealth;

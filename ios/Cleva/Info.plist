@@ -80,12 +80,12 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fbYOUR_FACEBOOK_APP_ID</string>
+				<string>fb1005676287534165</string>
 			</array>
 		</dict>
 	</array>
 	<key>FacebookAppID</key>
-	<string>YOUR_FACEBOOK_APP_ID</string>
+	<string>1005676287534165</string>
 	<key>FacebookDisplayName</key>
 	<string>Cleva</string>
 </dict>

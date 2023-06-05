@@ -1,16 +1,56 @@
 import * as React from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View, Image, Pressable } from "react-native";
 import {
-  Margin,
   Color,
   FontFamily,
   FontSize,
   Padding,
-  Border,
 } from "../GlobalStyles";
+import DeletePopup from "./DeletePopup";
+import { useState } from "react";
+import actions from "../../actions";
+import { showMessage } from "react-native-flash-message";
 
-const AssetsWealth = ({datas}:any) => {
+const AssetsWealth = ({datas, loading, setLoading, type}:any) => {
+  const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
   const total = parseFloat(datas?.reduce((sum:number, item:any) => sum + item.Current_Value, 0)?.toFixed(2))
+
+  const handleDelete = async(id:any) => {
+    setDeleteModalVisible(false);
+    setLoading(true);
+    let deletedRes:any;
+    if(type == 'asset'){
+      deletedRes = await actions.deleteAsset(id);
+    }else{
+      deletedRes = await actions.deleteLiability(id);
+    }
+
+    if(deletedRes?.data?.length > 0 && deletedRes?.data[0]?.code == "SUCCESS"){
+      if(type == 'asset'){
+        await actions.getAssets();
+      }else{
+        await actions.getLiabilities();
+      }
+
+      showMessage({
+        message: 'Success',
+        description: 'Asset deleted successfully',
+        type: 'success',
+      });
+    }else{
+      showMessage({
+        message: 'Failed',
+        description: 'Asset deleted successfully',
+        type: 'danger',
+      });
+    }
+    setLoading(false);
+  };
+
+  const handleCancel = () => {
+    setDeleteModalVisible(false);
+  };
+
   return (
     <View style={[styles.advice, styles.adviceFlexBox]}>
       <View style={styles.assetsview}>
@@ -20,7 +60,22 @@ const AssetsWealth = ({datas}:any) => {
               <View style={[styles.myHomeParent, styles.totalviewFlexBox]}>
                 <Text style={styles.myHome}>{data?.Name}</Text>
                 <Text style={[styles.text, styles.textTypo]}>${data?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
+                <Pressable style={{flexDirection: 'row', alignItems: 'center', width: 20}} onPress={() => setDeleteModalVisible(data.id)}>
+                  <Image
+                    style={styles.vuesaxlinearedit2Icon}
+                    resizeMode="cover"
+                    source={require("../assets/vuesaxlineardanger.png")}
+                  />
+                </Pressable>
               </View>
+              <DeletePopup
+                key={data.id}
+                isVisible={isDeleteModalVisible === data.id}
+                onDelete={handleDelete}
+                onCancel={handleCancel}
+                id={data.id}
+              />
+
               <View style={[styles.assetsviewChild, styles.mt15, styles.mb15]} />
             </>
           )
@@ -42,6 +97,21 @@ const AssetsWealth = ({datas}:any) => {
 };
 
 const styles = StyleSheet.create({
+  ml4: {
+    marginLeft: 4,
+  },
+  vuesaxlinearedit2Icon: {
+    width: 18,
+    height: 18,
+  },
+  edit: {
+    fontSize: FontSize.textMediumBoldText1_size,
+    lineHeight: 20,
+    fontWeight: "600",
+    fontFamily: FontFamily.openSansRegular,
+    color: Color.white1,
+    textAlign: "center",
+  },
   mt15: {
     marginTop: 15,
   },
@@ -58,6 +128,7 @@ const styles = StyleSheet.create({
   totalviewFlexBox: {
     justifyContent: "space-between",
     flexDirection: "row",
+    alignItems: 'center'
   },
   textTypo: {
     color: Color.black,
