@@ -97,9 +97,82 @@ const Profile = () => {
       {
         title: 'Dependants',
         icon: require("../assets/vuesaxlineardata.png"),
-        items: profile[0]?.dependants?.length > 0 && profile[0]?.dependants,
+        items: [
+          profile[0]?.dependants?.length >= 1 && {
+            subHeading: profile[0]?.dependants[0]?.Name,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'First Name', value: profile[0]?.dependants[0]?.Name },
+              { icon: require("../assets/profile.png"), name: 'Age', value: ageInYears(profile[0]?.dependants[0]?.DOB) },
+              { icon: require("../assets/profile.png"), name: 'Dependant Until', value: profile[0]?.dependants[0]?.Dependant_Until2 },
+              { icon: require("../assets/profile.png"), name: 'Dependant Of', value: profile[0]?.dependants[0]?.Dependant_of?.name },
+            ]
+          },
+          profile[0]?.dependants?.length >= 2 && {
+            subHeading: profile[0]?.dependants[1]?.Name,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'First Name', value: profile[0]?.dependants[1]?.Name },
+              { icon: require("../assets/profile.png"), name: 'Age', value: ageInYears(profile[0]?.dependants[1]?.DOB) },
+              { icon: require("../assets/profile.png"), name: 'Dependant Until', value: profile[0]?.dependants[1]?.Dependant_Until2 },
+              { icon: require("../assets/profile.png"), name: 'Dependant Of', value: profile[0]?.dependants[1]?.Dependant_of?.name },
+            ]
+          }
+        ].filter(obj => obj)
+      },
+      {
+        title: 'Employment Details',
+        icon: require("../assets/vuesaxlineardata.png"),
+        items: [
+          profile[0]?.employmentDetails?.length >= 1 && {
+            subHeading: profile[0]?.employmentDetails[0]?.Client_Name?.name,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'Occupation', value: profile[0]?.employmentDetails[0]?.Occupation },
+              { icon: require("../assets/profile.png"), name: 'Job Title', value: profile[0]?.employmentDetails[0]?.Job_Title },
+              { icon: require("../assets/profile.png"), name: 'Employer', value: profile[0]?.employmentDetails[0]?.Name },
+              { icon: require("../assets/profile.png"), name: 'Status', value: profile[0]?.employmentDetails[0]?.Status },
+              { icon: require("../assets/profile.png"), name: 'Salary', value: profile[0]?.employmentDetails[0]?.Salary_ex_Super },
+              { icon: require("../assets/profile.png"), name: 'Super', value: (profile[0]?.employmentDetails[0]?.Super || 0)+"%"},
+              { icon: require("../assets/profile.png"), name: 'Employment Start Date', value: profile[0]?.employmentDetails[0]?.Employment_Start_Date ? formatDate(profile[0]?.employmentDetails[0]?.Employment_Start_Date) : null },
+              { icon: require("../assets/profile.png"), name: 'Leave Entitlements', value: (profile[0]?.employmentDetails[0]?.Annual + profile[0]?.employmentDetails[0]?.Sick + profile[0]?.employmentDetails[0]?.Long_Service) + " Days" },
+              { icon: require("../assets/profile.png"), name: 'Annual Leave', value: (profile[0]?.employmentDetails[0]?.Annual) + " Days" },
+              { icon: require("../assets/profile.png"), name: 'Sick Leave', value: (profile[0]?.employmentDetails[0]?.Sick) + " Days" },
+              { icon: require("../assets/profile.png"), name: 'Long Service Leave', value: (profile[0]?.employmentDetails[0]?.Long_Service) + " Days" },
+              { icon: require("../assets/profile.png"), name: 'Is there likely any changes in the next 6-12 months?', value: profile[0]?.employmentDetails[0]?.Multi_Line_1 },
+            ]
+          },
+          profile[0]?.employmentDetails?.length >= 2 && {
+            subHeading: profile[0]?.employmentDetails[1]?.Client_Name?.name,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'Occupation', value: profile[0]?.employmentDetails[1]?.Occupation },
+              { icon: require("../assets/profile.png"), name: 'Job Title', value: profile[0]?.employmentDetails[1]?.Job_Title },
+              { icon: require("../assets/profile.png"), name: 'Employer', value: profile[0]?.employmentDetails[1]?.Name },
+              { icon: require("../assets/profile.png"), name: 'Status', value: profile[0]?.employmentDetails[1]?.Status },
+              { icon: require("../assets/profile.png"), name: 'Salary', value: profile[0]?.employmentDetails[1]?.Salary_ex_Super },
+              { icon: require("../assets/profile.png"), name: 'Super', value: (profile[0]?.employmentDetails[1]?.Super || 0)+"%"},
+              { icon: require("../assets/profile.png"), name: 'Employment Start Date', value: profile[0]?.employmentDetails[1]?.Employment_Start_Date ? formatDate(profile[0]?.employmentDetails[1]?.Employment_Start_Date) : null },
+              { icon: require("../assets/profile.png"), name: 'Leave Entitlements', value: (profile[0]?.employmentDetails[1]?.Annual + profile[0]?.employmentDetails[1]?.Sick + profile[0]?.employmentDetails[1]?.Long_Service) + " Days" },
+              { icon: require("../assets/profile.png"), name: 'Annual Leave', value: (profile[0]?.employmentDetails[1]?.Annual) + " Days" },
+              { icon: require("../assets/profile.png"), name: 'Sick Leave', value: (profile[0]?.employmentDetails[1]?.Sick) + " Days" },
+              { icon: require("../assets/profile.png"), name: 'Long Service Leave', value: (profile[0]?.employmentDetails[1]?.Long_Service) + " Days" },
+              { icon: require("../assets/profile.png"), name: 'Is there likely any changes in the next 6-12 months?', value: profile[0]?.employmentDetails[1]?.Multi_Line_1 },
+            ]
+          }
+        ].filter(obj => obj)
       },
     ])
+  }
+
+  const ageInYears = (date:string) => {
+    if(date){
+      const birthdate:any = new Date(date);
+      const currentDate:any = new Date();
+  
+      const ageInMilliseconds = currentDate - birthdate;
+      const ageInYears = Math.floor(ageInMilliseconds / (365.25 * 24 * 60 * 60 * 1000));
+  
+      return ageInYears + ' Years';
+    }
+
+    return null;
   }
 
   useEffect(() => {
@@ -323,56 +396,6 @@ const Profile = () => {
         </View>
         <AccordionContainer accordions={accordion} />
         <View style={[styles.options, styles.optionsSpaceBlock]}>         
-          {/* <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
-            <View style={styles.vuesaxlinearsmsParent}>
-              <View style={styles.vuesaxlinearprofileCircleWrapper}>
-                <Image
-                  style={styles.vuesaxlinearprofileCircleIcon}
-                  resizeMode="cover"
-                  source={require("../assets/vuesaxlineardata.png")}
-                />
-              </View>
-              <Text
-                style={[
-                  styles.aboutYou,
-                  styles.mTypo,
-                  styles.danFleurClr,
-                ]}
-              >
-                Dependants
-              </Text>
-            </View>
-            <Image
-              style={styles.vuesaxlinearsmsIcon}
-              resizeMode="cover"
-              source={require("../assets/vuesaxlineararrowcircledown.png")}
-            />
-          </View> */}
-          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
-            <View style={styles.vuesaxlinearsmsParent}>
-              <View style={styles.vuesaxlinearprofileCircleWrapper}>
-                <Image
-                  style={styles.vuesaxlinearprofileCircleIcon}
-                  resizeMode="cover"
-                  source={require("../assets/vuesaxlineartaguser.png")}
-                />
-              </View>
-              <Text
-                style={[
-                  styles.aboutYou,
-                  styles.mTypo,
-                  styles.danFleurClr,
-                ]}
-              >
-                Employment Details
-              </Text>
-            </View>
-            <Image
-              style={styles.vuesaxlinearsmsIcon}
-              resizeMode="cover"
-              source={require("../assets/vuesaxlineararrowcircledown.png")}
-            />
-          </View>
           <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
