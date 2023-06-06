@@ -93,6 +93,7 @@ export const getLiabilities = () => {
 export const getProfile = () => {
     return new Promise((resolve, reject) => {
         return apiGet(PROFILE).then((res) => {
+            console.log("response from action1", res);
             dispatch({
                 type: types.PROFILE,
                 payload: res.data

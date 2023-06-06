@@ -32,6 +32,7 @@ const Profile = () => {
   }
 
   useEffect(() => {
+    console.log(profile);
     setAccordions();
   }, [profile])
 
@@ -92,7 +93,12 @@ const Profile = () => {
             ]
           }
         ].filter(obj => obj),
-      }
+      },
+      {
+        title: 'Dependants',
+        icon: require("../assets/vuesaxlineardata.png"),
+        items: profile[0]?.dependants?.length > 0 && profile[0]?.dependants,
+      },
     ])
   }
 
@@ -316,34 +322,8 @@ const Profile = () => {
           </View>
         </View>
         <AccordionContainer accordions={accordion} />
-        <View style={[styles.options, styles.optionsSpaceBlock]}>
-          {/* <View style={[styles.excercise1, styles.frameParentFlexBox, styles.aboutCard]}>
-            <View style={styles.vuesaxlinearsmsParent}>
-              <View style={styles.vuesaxlinearprofileCircleWrapper}>
-                <Image
-                  style={styles.vuesaxlinearprofileCircleIcon}
-                  resizeMode="cover"
-                  source={require("../assets/vuesaxlinearprofilecircle.png")}
-                />
-              </View>
-              <Text
-                style={[
-                  styles.aboutYou,
-                  styles.ml10,
-                  styles.mTypo,
-                  styles.danFleurClr,
-                ]}
-              >
-                About You
-              </Text>
-            </View>
-            <Image
-              style={styles.vuesaxlinearsmsIcon}
-              resizeMode="cover"
-              source={require("../assets/vuesaxlineararrowcircledown.png")}
-            />
-          </View> */}
-          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
+        <View style={[styles.options, styles.optionsSpaceBlock]}>         
+          {/* <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
                 <Image
@@ -367,7 +347,7 @@ const Profile = () => {
               resizeMode="cover"
               source={require("../assets/vuesaxlineararrowcircledown.png")}
             />
-          </View>
+          </View> */}
           <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
             <View style={styles.vuesaxlinearsmsParent}>
               <View style={styles.vuesaxlinearprofileCircleWrapper}>
@@ -564,6 +544,7 @@ const Profile = () => {
               source={require("../assets/vuesaxlineararrowcircledown.png")}
             />
           </View>
+
         </View>
       </ScrollView>
     </View>

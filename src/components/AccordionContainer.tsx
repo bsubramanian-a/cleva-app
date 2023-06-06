@@ -88,11 +88,13 @@ const Accordion = ({
                   />
                 </Pressable>
               </View>
-              {section.item.map((item: any, itemIndex: any) => (
-                <React.Fragment key={itemIndex.toString()}>
+              {section.item.map((item: any, itemIndex: any) => {
+                const currentIcon = "../assets/profile.png";
+                const currentLabel = "Date Of Birth";
+                return (<React.Fragment key={itemIndex.toString()}>
                   <AccordionItem
-                    icon={item.icon}
-                    name={item.name}
+                    icon={require(currentIcon)}
+                    name={currentLabel}
                     value={item.value}
                   />
                   <View
@@ -102,8 +104,8 @@ const Accordion = ({
                       styles.childBorder,
                     ]}
                   />
-                </React.Fragment>
-              ))}
+                </React.Fragment>)
+              })}
             </View>
           ))}
         </View>
@@ -117,7 +119,7 @@ const AccordionContainer = ({ accordions }: any) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.accordionContainer}>
+    <View style={styles.accordionContainer}>    
       {accordions.map((accordion: any, index: any) => (
         <Accordion
           key={index.toString()}
@@ -172,7 +174,8 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderColor: "#eaeaea",
     marginHorizontal: 30,
-    marginTop: 20
+    marginTop: 20,
+    paddingBottom: 20
   },
   excercise1: {
     justifyContent: "space-between",
@@ -208,6 +211,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     overflow: "hidden",
     backgroundColor: Color.white1,
+    marginBottom:10,
   },
   vuesaxlinearsmsParent: {
     flexDirection: "row",
