@@ -15,6 +15,7 @@ import WealthAssets from '../screens/WealthAssets';
 import SOP from '../screens/SOP';
 import EditWealth from '../screens/EditWealth';
 import EditProfile from '../screens/EditProfile';
+import AddWealth from '../screens/AddWealth';
 
 const Tab = createBottomTabNavigator();
 
@@ -160,6 +161,7 @@ const Mainstack = (Drawer, userData) => {
             <Drawer.Screen name="WealthAssets" component={WealthAssets} />
             <Drawer.Screen name="SOP" component={SOP} />
             <Drawer.Screen name="EditWealth" component={EditWealth} />
+            <Drawer.Screen name="AddWealth" component={AddWealth} />
             <Drawer.Screen name="EditProfile" component={EditProfile} />
         </Drawer.Navigator>
     );

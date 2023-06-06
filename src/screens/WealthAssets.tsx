@@ -17,12 +17,14 @@ import { useState } from "react";
 import CustomHeader from "../components/CustomHeader";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import Loader from "../components/Loader";
 
 const WealthAssets = () => {
   const navigation:any = useNavigation();
   const assets = useSelector((state:any) => state.data.assets);
   const liabilities = useSelector((state:any) => state.data.liabilities);
   const [activeTab, setActiveTab] = useState(0);
+  const [loading, setLoading] = useState(false);
   
   const handleTabPress = (tabNumber:number) => {
     setActiveTab(tabNumber);
@@ -32,6 +34,7 @@ const WealthAssets = () => {
     <View
       style={styles.wealthAssets}
     >
+      <Loader visible={loading} /> 
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
       <CustomHeader name="Your Wealth" type={2}/>
       <ScrollView
@@ -46,33 +49,57 @@ const WealthAssets = () => {
         <View style={styles.advicecontainer}>
           {
             activeTab == 0 ? 
-              <AssetsWealth datas={assets}/>
+              <AssetsWealth setLoading={setLoading} loading={loading} datas={assets} type="asset"/>
             :
-              <AssetsWealth datas={liabilities}/>
+              <AssetsWealth setLoading={setLoading} loading={loading} datas={liabilities} type="liability"/>
           }
         </View>
-        <LinearGradient
-          style={[styles.bottom, styles.bottomFlexBox]}
-          locations={[0, 1]}
-          colors={["#fbb142", "#f6a326"]}
-          useAngle={true}
-          angle={180}
-        >
-          <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={() => navigation.navigate('EditWealth', {type: activeTab == 0 ? 'asset' : 'liability'})}>
-            <Image
-              style={styles.vuesaxlinearedit2Icon}
-              resizeMode="cover"
-              source={require("../assets/vuesaxlinearedit2.png")}
-            />
-            <Text style={[styles.edit, styles.ml4]}>Edit</Text>
-          </Pressable>
-        </LinearGradient>
+        <View style={styles.buttonContainer}>
+          <LinearGradient
+            style={[styles.bottom, styles.bottomFlexBox]}
+            locations={[0, 1]}
+            colors={["#fbb142", "#f6a326"]}
+            useAngle={true}
+            angle={180}
+          >
+            <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={() => navigation.navigate('AddWealth', {type: activeTab == 0 ? 'asset' : 'liability'})}>
+              <Image
+                style={styles.vuesaxlinearedit2Icon}
+                resizeMode="cover"
+                source={require("../assets/vuesaxlinearedit2.png")}
+              />
+              <Text style={[styles.edit, styles.ml4]}>Add</Text>
+            </Pressable>
+          </LinearGradient>
+
+          <LinearGradient
+            style={[styles.bottom, styles.bottomFlexBox]}
+            locations={[0, 1]}
+            colors={["#fbb142", "#f6a326"]}
+            useAngle={true}
+            angle={180}
+          >
+            <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={() => navigation.navigate('EditWealth', {type: activeTab == 0 ? 'asset' : 'liability'})}>
+              <Image
+                style={styles.vuesaxlinearedit2Icon}
+                resizeMode="cover"
+                source={require("../assets/vuesaxlinearedit2.png")}
+              />
+              <Text style={[styles.edit, styles.ml4]}>Edit</Text>
+            </Pressable>
+          </LinearGradient>
+        </View>
       </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  buttonContainer:{
+    flexDirection: "row",
+    justifyContent: 'center',
+    gap: 7
+  },
   ml4: {
     marginLeft: 4,
   },

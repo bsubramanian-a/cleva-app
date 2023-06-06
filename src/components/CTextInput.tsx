@@ -42,7 +42,7 @@ const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, ic
             source={icon}
           />
         }
-        <Text style={styles.label}>{label}</Text>
+        {label && <Text style={styles.label}>{label}</Text>}
       </View>
       <TextInput
         keyboardType={isNumOnly ? "numeric" : "default"}

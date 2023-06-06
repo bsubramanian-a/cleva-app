@@ -1,5 +1,5 @@
 import { apiGet, apiPost, clearUserData, setUserData, apiPostFormData, apiDelete, apiPut } from "../Utils"
-import { JOURNALS, EXERCISES, SUMMARY, ADVICE, ASSETS, LIABILITIES, PROFILE } from "../urls";
+import { JOURNALS, EXERCISES, SUMMARY, ADVICE, ASSETS, LIABILITIES, PROFILE, ADD_ASSET, ADD_LIABILITY, DELETE_ASSET, DELETE_LIABILITY } from "../urls";
 import store from "../store";
 import types from "../types";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
@@ -108,6 +108,46 @@ export const getProfile = () => {
 export const updateWealth = (data:any) => {
     return new Promise((resolve, reject) => {
         return apiPut(ASSETS, data).then((res) => {  
+            resolve(res)
+        }).catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+export const addAsset = (data:any) => {
+    return new Promise((resolve, reject) => {
+        return apiPost(ADD_ASSET, data).then((res) => {  
+            resolve(res)
+        }).catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+export const deleteAsset = (id:any) => {
+    return new Promise((resolve, reject) => {
+        return apiDelete(DELETE_ASSET+'/'+id).then((res) => {  
+            resolve(res)
+        }).catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+export const addLiability = (data:any) => {
+    return new Promise((resolve, reject) => {
+        return apiPost(ADD_LIABILITY, data).then((res) => {  
+            resolve(res)
+        }).catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+export const deleteLiability = (id:any) => {
+    return new Promise((resolve, reject) => {
+        return apiDelete(DELETE_LIABILITY+'/'+id).then((res) => {  
             resolve(res)
         }).catch((error) => {
             reject(error)

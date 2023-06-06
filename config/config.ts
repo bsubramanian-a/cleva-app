@@ -1,4 +1,4 @@
 export default {
-    googleWebClientId: '57269709344-7k3140625g260ubdj279puk4p54unvjn.apps.googleusercontent.com',
+    googleWebClientId: '443739967199-vv658asdk6o4knp9ulf70gt6pqgo3lo2.apps.googleusercontent.com',
 };
   

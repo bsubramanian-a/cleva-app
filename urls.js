@@ -15,3 +15,7 @@ export const ADVICE = getApiURL('advice');
 export const ASSETS = getApiURL('assets');
 export const LIABILITIES = getApiURL('liabilities');
 export const PROFILE = getApiURL('profile');
+export const ADD_LIABILITY = getApiURL('liability');
+export const ADD_ASSET = getApiURL('asset');
+export const DELETE_LIABILITY = getApiURL('liability');
+export const DELETE_ASSET = getApiURL('asset');

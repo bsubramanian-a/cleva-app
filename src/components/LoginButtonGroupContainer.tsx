@@ -53,8 +53,8 @@ const LoginButtonGroupContainer = ({
   const handleFacebookLogin = async () => {
     try {
       // Log in with Facebook
-      const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-
+      const result = await LoginManager.logInWithPermissions(['public_profile']);
+      console.log("facebook login result", result);
       if (result.isCancelled) {
         console.log('Login cancelled');
       } else {
