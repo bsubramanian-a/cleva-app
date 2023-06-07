@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Pressable } from "react-native";
+import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Pressable, Dimensions } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import ProfileHeader from "../components/ProfileHeader";
 import {
@@ -16,6 +16,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import AccordionContainer from "../components/AccordionContainer";
+
+const screenWidth = Dimensions.get('window').width;
 
 const Profile = () => {
   const [accordion, setAccordion] = useState<any>([]);
@@ -55,12 +57,28 @@ const Profile = () => {
     // Return the original mobile number if it doesn't match the expected format
     return mobileNumber;
   };
+
+  const EmployChoiceComponent = ({ age, price }: { age: any, price: any }) => {
+    return (
+      <View style={styles.viewEmployChoiceComponent}>
+        <Text style={styles.textEmployChoiceComponent} ellipsizeMode="tail">
+          Dan, you’d like to retire or have the choice of whether you work by{' '}
+          <Text style={styles.boldText}>{age}</Text> (approx.). You’d like to have approx.{' '}
+          <Text style={styles.boldText}>
+            ${price?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          </Text>{' '}
+          (in today's dollars) to sustain your lifestyle.
+        </Text>
+      </View>
+    );
+  };  
   
   const setAccordions = () => {
     setAccordion([
       {
         title: 'About You',
         icon: require("../assets/vuesaxlinearprofilecircle.png"),
+        link: 'EditProfile',
         items: [
           {
             subHeading: profile[0]?.Preferred_1st_Name,
@@ -97,21 +115,24 @@ const Profile = () => {
       {
         title: 'Dependants',
         icon: require("../assets/vuesaxlineardata.png"),
+        link: 'EditDependants',
         items: [
           profile[0]?.dependants?.length >= 1 && {
             subHeading: profile[0]?.dependants[0]?.Name,
+            id: profile[0]?.dependants[0]?.id,
             item: [
               { icon: require("../assets/profile.png"), name: 'First Name', value: profile[0]?.dependants[0]?.Name },
-              { icon: require("../assets/profile.png"), name: 'Age', value: ageInYears(profile[0]?.dependants[0]?.DOB) },
+              { icon: require("../assets/profile.png"), name: 'Age', value: profile[0]?.dependants[0]?.Age + " Years" },
               { icon: require("../assets/profile.png"), name: 'Dependant Until', value: profile[0]?.dependants[0]?.Dependant_Until2 },
               { icon: require("../assets/profile.png"), name: 'Dependant Of', value: profile[0]?.dependants[0]?.Dependant_of?.name },
             ]
           },
           profile[0]?.dependants?.length >= 2 && {
             subHeading: profile[0]?.dependants[1]?.Name,
+            id: profile[0]?.dependants[1]?.id,
             item: [
               { icon: require("../assets/profile.png"), name: 'First Name', value: profile[0]?.dependants[1]?.Name },
-              { icon: require("../assets/profile.png"), name: 'Age', value: ageInYears(profile[0]?.dependants[1]?.DOB) },
+              { icon: require("../assets/profile.png"), name: 'Age', value: profile[0]?.dependants[1]?.Age + " Years" },
               { icon: require("../assets/profile.png"), name: 'Dependant Until', value: profile[0]?.dependants[1]?.Dependant_Until2 },
               { icon: require("../assets/profile.png"), name: 'Dependant Of', value: profile[0]?.dependants[1]?.Dependant_of?.name },
             ]
@@ -121,9 +142,11 @@ const Profile = () => {
       {
         title: 'Employment Details',
         icon: require("../assets/vuesaxlineardata.png"),
+        link: 'EditEmployment',
         items: [
           profile[0]?.employmentDetails?.length >= 1 && {
             subHeading: profile[0]?.employmentDetails[0]?.Client_Name?.name,
+            id: profile[0]?.employmentDetails[0]?.id,
             item: [
               { icon: require("../assets/profile.png"), name: 'Occupation', value: profile[0]?.employmentDetails[0]?.Occupation },
               { icon: require("../assets/profile.png"), name: 'Job Title', value: profile[0]?.employmentDetails[0]?.Job_Title },
@@ -136,11 +159,12 @@ const Profile = () => {
               { icon: require("../assets/profile.png"), name: 'Annual Leave', value: (profile[0]?.employmentDetails[0]?.Annual) + " Days" },
               { icon: require("../assets/profile.png"), name: 'Sick Leave', value: (profile[0]?.employmentDetails[0]?.Sick) + " Days" },
               { icon: require("../assets/profile.png"), name: 'Long Service Leave', value: (profile[0]?.employmentDetails[0]?.Long_Service) + " Days" },
-              { icon: require("../assets/profile.png"), name: 'Is there likely any changes in the next 6-12 months?', value: profile[0]?.employmentDetails[0]?.Multi_Line_1 },
+              { icon: require("../assets/profile.png"), name: 'Is there likely any changes in the next 6-12 months?', value: (profile[0]?.employmentDetails[0]?.Any_changes_planned_next_6_12mths ? "Yes" : "No") + ", " + profile[0]?.employmentDetails[0]?.Multi_Line_1 },
             ]
           },
           profile[0]?.employmentDetails?.length >= 2 && {
             subHeading: profile[0]?.employmentDetails[1]?.Client_Name?.name,
+            id: profile[0]?.employmentDetails[0]?.id,
             item: [
               { icon: require("../assets/profile.png"), name: 'Occupation', value: profile[0]?.employmentDetails[1]?.Occupation },
               { icon: require("../assets/profile.png"), name: 'Job Title', value: profile[0]?.employmentDetails[1]?.Job_Title },
@@ -154,6 +178,124 @@ const Profile = () => {
               { icon: require("../assets/profile.png"), name: 'Sick Leave', value: (profile[0]?.employmentDetails[1]?.Sick) + " Days" },
               { icon: require("../assets/profile.png"), name: 'Long Service Leave', value: (profile[0]?.employmentDetails[1]?.Long_Service) + " Days" },
               { icon: require("../assets/profile.png"), name: 'Is there likely any changes in the next 6-12 months?', value: profile[0]?.employmentDetails[1]?.Multi_Line_1 },
+            ]
+          }
+        ].filter(obj => obj)
+      },
+      {
+        title: 'Expenses',
+        icon: require("../assets/vuesaxlineardata.png"),
+        link: 'EditExpenses',
+        items: [
+          profile[0]?.expenses?.length > 0 && {
+            subHeading: profile[0]?.expenses[0]?.Household?.name,
+            id: profile[0]?.expenses[0]?.id,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'Gas', value: `$${profile[0]?.expenses[0]?.Gas_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Electricity', value: `$${profile[0]?.expenses[0]?.Electricity_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Water', value: `$${profile[0]?.expenses[0]?.Water_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Home/Contents Insurance', value: `$${profile[0]?.expenses[0]?.Home_Contents_Insurance_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Car Insurance', value: `$${profile[0]?.expenses[0]?.Car_Insurance_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Private Health Insurance', value: `$${profile[0]?.expenses[0]?.Private_Health_Insurance_p_a}` },
+            ]
+          },
+          {
+            subHeading: "Loan Repayments",
+            id: profile[0]?.expenses[0]?.id,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'Home', value: `$${profile[0]?.expenses[0]?.Home_Loan}` },
+              { icon: require("../assets/profile.png"), name: 'Investment Property', value: `$${profile[0]?.expenses[0]?.Investment_Property_Loan_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Other Investment', value: `$${profile[0]?.expenses[0]?.Other_Investment_Loan_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Personal', value: `$${profile[0]?.expenses[0]?.Personal_Loan_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Credit Cards', value: `$${profile[0]?.expenses[0]?.Credit_Cards_per_month}` },
+              { icon: require("../assets/profile.png"), name: 'Other Expenses',  value: `$${profile[0]?.expenses[0]?.Other_Expenses_p_a}\n${profile[0]?.expenses[0]?.Multi_Line_1}` },
+            ]
+          }
+        ].filter(obj => obj)
+      },
+      {
+        title: 'Employment Choice/Retirement',
+        icon: require("../assets/vuesaxlineardata.png"),
+        link: 'EditRetirement',
+        items: [
+          {
+            subHeading: profile[0]?.Preferred_1st_Name,
+            id: profile[0]?.id,
+            item: [
+              { icon: "", name: '', value: <EmployChoiceComponent age={profile[0]?.Choice_Retirement_Target_Age} price={profile[0]?.Choice_Retirement_Target_Income_p_a} />},
+            ]
+          },
+          profile[0]?.accounts?.length > 0 && profile[0]?.accounts[0]?.Email && {
+            subHeading: profile[0]?.accounts[0]?.Preferred_1st_Name,
+            id: profile[0]?.accounts[0]?.id,
+            item: [
+              { icon: "", name: '', value: <EmployChoiceComponent age={profile[0]?.accounts[0]?.Choice_Retirement_Target_Age} price={profile[0]?.accounts[0]?.Choice_Retirement_Target_Income_p_a} />},
+            ]
+          }
+        ].filter(obj => obj)
+      },
+      {
+        title: 'Estate Plan',
+        icon: require("../assets/vuesaxlineardata.png"),
+        link: 'EditEstate',
+        items: [
+          profile[0]?.dependants?.length >= 1 && {
+            subHeading: profile[0]?.dependants[0]?.Name,
+            id: profile[0]?.dependants[0]?.id,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'Do you have a beneficiary for your super fund?', value: profile[0]?.Super_Fund_Beneficiary?.includes('Yes') ? "Yes, " + profile[0]?.If_Yes_Beneficiary_Name_s : "No" },
+              { icon: require("../assets/profile.png"), name: 'Do you have a Will?\nIs it current?', value: `${profile[0]?.Do_you_have_a_Will}\n${profile[0]?.Is_it_up_to_date}` },
+              { icon: require("../assets/profile.png"), name: 'Location of Will', value:profile[0]?.Location_of_Will },
+              { icon: require("../assets/profile.png"), name: 'Executor of Will', value: profile[0]?.Executor_of_the_Will },
+              { icon: require("../assets/profile.png"), name: 'Do you have a POA?', value: profile[0]?.Do_you_have_a_POA[0] },
+            ]
+          },
+          profile[0]?.dependants?.length >= 2 && profile[0]?.accounts?.length > 0 && profile[0]?.accounts[0]?.Email && {
+            subHeading: profile[0]?.dependants[1]?.Name,
+            id: profile[0]?.dependants[1]?.id,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'Do you have a beneficiary for your super fund?', value: profile[0]?.accounts[0]?.Super_Fund_Beneficiary?.includes('Yes') ? "Yes, " + profile[0]?.accounts[0]?.If_Yes_Beneficiary_Name_s : "No" },
+              { icon: require("../assets/profile.png"), name: 'Do you have a Will?\nIs it current?', value: `${profile[0]?.Do_you_have_a_Will}\n${profile[0]?.accounts[0]?.Is_it_up_to_date}` },
+              { icon: require("../assets/profile.png"), name: 'Location of Will', value:profile[0]?.accounts[0]?.Location_of_Will },
+              { icon: require("../assets/profile.png"), name: 'Executor of Will', value: profile[0]?.accounts[0]?.Executor_of_the_Will },
+              { icon: require("../assets/profile.png"), name: 'Do you have a POA?', value: profile[0]?.accounts[0]?.Do_you_have_a_POA[0] },
+            ]
+          }
+        ].filter(obj => obj)
+      },
+      {
+        title: 'Insurance Needs Analysis',
+        icon: require("../assets/vuesaxlineardata.png"),
+        link: 'EditInsurance',
+        items: [
+          profile[0]?.insurance?.length >= 1 && {
+            subHeading: profile[0]?.insurance[0]?.Client_Name?.name,
+            id: profile[0]?.insurance[0]?.Client_Name?.id,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'Total Liabilities', value: "$"+profile[0]?.insurance[0]?.Total_Liabilities },
+              { icon: require("../assets/profile.png"), name: 'Allowance for Children/Education', value: "$"+profile[0]?.insurance[0]?.Child_Edu_Allowance },
+              { icon: require("../assets/profile.png"), name: 'Replace Income p.a.', value: "$"+profile[0]?.insurance[0]?.Replace_Income_p_a },
+              { icon: require("../assets/profile.png"), name: 'Number of years', value: profile[0]?.insurance[0]?.Number_of_Income_Yrs },
+              { icon: require("../assets/profile.png"), name: 'Allowance for Medical', value: "$"+profile[0]?.insurance[0]?.Allowance_Medical },
+              { icon: require("../assets/profile.png"), name: 'Allowance for funeral', value: "$"+profile[0]?.insurance[0]?.Allowance_Funeral },
+              { icon: require("../assets/profile.png"), name: 'Allowance for Emergency', value: "$"+profile[0]?.insurance[0]?.Allowance_Emergency },
+              { icon: require("../assets/profile.png"), name: 'Allowance for House Modifications', value: "$"+profile[0]?.insurance[0]?.Allowance_Home_Mods },
+              { icon: require("../assets/profile.png"), name: 'Other Income', value: "$"+`${profile[0]?.insurance[0]?.Other_Allowances_Consideration}\n${profile[0]?.insurance[0]?.Multi_Line_1}` }
+            ]
+          },
+          profile[0]?.insurance?.length >= 2 && {
+            subHeading: profile[0]?.insurance[1]?.Client_Name?.name,
+            id: profile[0]?.insurance[1]?.Client_Name?.id,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'Total Liabilities', value: "$"+profile[0]?.insurance[1]?.Total_Liabilities },
+              { icon: require("../assets/profile.png"), name: 'Allowance for Children/Education', value: "$"+profile[0]?.insurance[1]?.Child_Edu_Allowance },
+              { icon: require("../assets/profile.png"), name: 'Replace Income p.a.', value: "$"+profile[0]?.insurance[1]?.Replace_Income_p_a },
+              { icon: require("../assets/profile.png"), name: 'Number of years', value: profile[0]?.insurance[1]?.Number_of_Income_Yrs },
+              { icon: require("../assets/profile.png"), name: 'Allowance for Medical', value: "$"+profile[0]?.insurance[1]?.Allowance_Medical },
+              { icon: require("../assets/profile.png"), name: 'Allowance for funeral', value: "$"+profile[0]?.insurance[1]?.Allowance_Funeral },
+              { icon: require("../assets/profile.png"), name: 'Allowance for Emergency', value: "$"+profile[0]?.insurance[1]?.Allowance_Emergency },
+              { icon: require("../assets/profile.png"), name: 'Allowance for House Modifications', value: "$"+profile[0]?.insurance[1]?.Allowance_Home_Mods },
+              { icon: require("../assets/profile.png"), name: 'Other Income', value: `$${profile[0]?.insurance[1]?.Other_Allowances_Consideration}\n${profile[0]?.insurance[1]?.Multi_Line_1}` }
             ]
           }
         ].filter(obj => obj)
@@ -427,106 +569,6 @@ const Profile = () => {
                 <Image
                   style={styles.vuesaxlinearprofileCircleIcon}
                   resizeMode="cover"
-                  source={require("../assets/vuesaxlinearreceiptitem.png")}
-                />
-              </View>
-              <Text
-                style={[
-                  styles.aboutYou,
-                  styles.mTypo,
-                  styles.danFleurClr,
-                ]}
-              >
-                Expenses
-              </Text>
-            </View>
-            <Image
-              style={styles.vuesaxlinearsmsIcon}
-              resizeMode="cover"
-              source={require("../assets/vuesaxlineararrowcircledown.png")}
-            />
-          </View>
-          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
-            <View style={styles.vuesaxlinearsmsParent}>
-              <View style={styles.vuesaxlinearprofileCircleWrapper}>
-                <Image
-                  style={styles.vuesaxlinearprofileCircleIcon}
-                  resizeMode="cover"
-                  source={require("../assets/vuesaxlinearpeople.png")}
-                />
-              </View>
-              <Text
-                style={[
-                  styles.aboutYou,
-                  styles.mTypo,
-                  styles.danFleurClr,
-                ]}
-              >
-                Employment Choice/Retirement
-              </Text>
-            </View>
-            <Image
-              style={styles.vuesaxlinearsmsIcon}
-              resizeMode="cover"
-              source={require("../assets/vuesaxlineararrowcircledown.png")}
-            />
-          </View>
-          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
-            <View style={styles.vuesaxlinearsmsParent}>
-              <View style={styles.vuesaxlinearprofileCircleWrapper}>
-                <Image
-                  style={styles.vuesaxlinearprofileCircleIcon}
-                  resizeMode="cover"
-                  source={require("../assets/vuesaxlineartask.png")}
-                />
-              </View>
-              <Text
-                style={[
-                  styles.aboutYou,
-                  styles.mTypo,
-                  styles.danFleurClr,
-                ]}
-              >
-                Estate Plan
-              </Text>
-            </View>
-            <Image
-              style={styles.vuesaxlinearsmsIcon}
-              resizeMode="cover"
-              source={require("../assets/vuesaxlineararrowcircledown.png")}
-            />
-          </View>
-          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
-            <View style={styles.vuesaxlinearsmsParent}>
-              <View style={styles.vuesaxlinearprofileCircleWrapper}>
-                <Image
-                  style={styles.vuesaxlinearprofileCircleIcon}
-                  resizeMode="cover"
-                  source={require("../assets/vuesaxlinearshieldtick.png")}
-                />
-              </View>
-              <Text
-                style={[
-                  styles.aboutYou,
-                  styles.mTypo,
-                  styles.danFleurClr,
-                ]}
-              >
-                Insurance Needs Analysis
-              </Text>
-            </View>
-            <Image
-              style={styles.vuesaxlinearsmsIcon}
-              resizeMode="cover"
-              source={require("../assets/vuesaxlineararrowcircledown.png")}
-            />
-          </View>
-          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
-            <View style={styles.vuesaxlinearsmsParent}>
-              <View style={styles.vuesaxlinearprofileCircleWrapper}>
-                <Image
-                  style={styles.vuesaxlinearprofileCircleIcon}
-                  resizeMode="cover"
                   source={require("../assets/vuesaxlineardanger.png")}
                 />
               </View>
@@ -575,6 +617,17 @@ const Profile = () => {
 };
 
 const styles = StyleSheet.create({
+  viewEmployChoiceComponent: {
+    width: screenWidth - 75,
+    paddingHorizontal: 10
+  },
+  textEmployChoiceComponent: {
+    flexWrap: 'wrap'
+  },
+  boldText: {
+    fontWeight: 'bold',
+    color: '#000'
+  },
   aboutCard:{
     padding: 10,
     borderRadius: 16,

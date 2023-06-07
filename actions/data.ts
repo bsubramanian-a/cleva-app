@@ -1,5 +1,5 @@
 import { apiGet, apiPost, clearUserData, setUserData, apiPostFormData, apiDelete, apiPut } from "../Utils"
-import { JOURNALS, EXERCISES, SUMMARY, ADVICE, ASSETS, LIABILITIES, PROFILE, ADD_ASSET, ADD_LIABILITY, DELETE_ASSET, DELETE_LIABILITY } from "../urls";
+import { JOURNALS, EXERCISES, SUMMARY, ADVICE, ASSETS, LIABILITIES, PROFILE, ADD_ASSET, ADD_LIABILITY, DELETE_ASSET, DELETE_LIABILITY, DEPENDANT, EMPLOYMENT, ESTATE, EXPENSES, INCOME, INSURANCE, RETIREMENT } from "../urls";
 import store from "../store";
 import types from "../types";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
@@ -158,6 +158,16 @@ export const deleteLiability = (id:any) => {
 export const updateProfile = (data:any) => {
     return new Promise((resolve, reject) => {
         return apiPut(PROFILE, data).then((res) => {  
+            resolve(res)
+        }).catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+export const updateOtherProfileDetails = (data:any, url:string) => {
+    return new Promise((resolve, reject) => {
+        return apiPut(url, data).then((res) => {  
             resolve(res)
         }).catch((error) => {
             reject(error)

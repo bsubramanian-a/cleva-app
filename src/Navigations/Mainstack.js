@@ -16,6 +16,13 @@ import SOP from '../screens/SOP';
 import EditWealth from '../screens/EditWealth';
 import EditProfile from '../screens/EditProfile';
 import AddWealth from '../screens/AddWealth';
+import EditDependants from '../screens/EditDependants';
+import EditEmployment from '../screens/EditEmployment';
+import EditEstate from '../screens/EditEstate';
+import EditExpenses from '../screens/EditExpenses';
+import EditIncome from '../screens/EditIncome';
+import EditInsurance from '../screens/EditInsurance';
+import EditRetirement from '../screens/EditRetirement';
 
 const Tab = createBottomTabNavigator();
 
@@ -163,6 +170,13 @@ const Mainstack = (Drawer, userData) => {
             <Drawer.Screen name="EditWealth" component={EditWealth} />
             <Drawer.Screen name="AddWealth" component={AddWealth} />
             <Drawer.Screen name="EditProfile" component={EditProfile} />
+            <Drawer.Screen name="EditDependants" component={EditDependants} />
+            <Drawer.Screen name="EditEmployment" component={EditEmployment} />
+            <Drawer.Screen name="EditEstate" component={EditEstate} />
+            <Drawer.Screen name="EditExpenses" component={EditExpenses} />
+            <Drawer.Screen name="EditIncome" component={EditIncome} />
+            <Drawer.Screen name="EditInsurance" component={EditInsurance} />
+            <Drawer.Screen name="EditRetirement" component={EditRetirement} />
         </Drawer.Navigator>
     );
 };

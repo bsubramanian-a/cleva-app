@@ -8,15 +8,20 @@ import { useNavigation } from '@react-navigation/native';
 const AccordionItem = ({ icon, name, value }: any) => {
   return (
     <View style={styles.itemContainer}>
-      <View style={styles.itemContent}>
-        <Image
-          style={styles.vuesaxlinearprofileCircle}
-          resizeMode="contain"
-          source={icon}
-        />
-        <Text style={styles.name}>{name}</Text>
-      </View>
-      <Text style={styles.value}>{value}</Text>
+      {name && 
+        <View style={styles.itemContent}>
+          {icon && <Image
+            style={styles.vuesaxlinearprofileCircle}
+            resizeMode="contain"
+            source={icon}
+          />}
+          <Text style={styles.name}>{name}</Text>
+        </View>}
+        {typeof value === 'object' ? (
+          value
+        ) : (
+          <Text style={styles.value}>{value}</Text>
+        )}
     </View>
   );
 };
@@ -28,6 +33,7 @@ const Accordion = ({
   activeAccordion,
   setActiveAccordion,
   navigation,
+  link
 }: any) => {
   const isActive = activeAccordion === title;
 
@@ -39,8 +45,8 @@ const Accordion = ({
     }
   };
 
-  const editProfile = (type: string) => {
-    navigation.navigate('EditProfile', { type: type });
+  const editProfile = (type: string, id:any) => {
+    navigation.navigate(link, { type, id });
   };
 
   return (
@@ -80,7 +86,7 @@ const Accordion = ({
               {index == 0 && <View style={styles.lineStyle} />}
               <View style={styles.editRow}>
                 <Text style={styles.subHeading}>{section.subHeading}</Text>
-                <Pressable onPress={() => editProfile(index == 0 ? 'user1' : 'user2')} style={{ marginTop: 5 }}>
+                <Pressable onPress={() => editProfile((index == 0 ? 'user1' : 'user2'), section?.id)} style={{ marginTop: 5 }}>
                   <Image
                     style={styles.vuesaxlinearedit}
                     resizeMode="cover"
@@ -124,6 +130,7 @@ const AccordionContainer = ({ accordions }: any) => {
           title={accordion.title}
           items={accordion.items}
           icon={accordion.icon}
+          link={accordion?.link}
           activeAccordion={activeAccordion}
           setActiveAccordion={setActiveAccordion}
           navigation={navigation}
