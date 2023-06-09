@@ -31,14 +31,17 @@ const EditEmployment = ({}:any) => {
     const [checkboxValue, setCheckboxValue] = useState(null);
 
     const handleCheckboxChange = (newValue:any) => {
-      setCheckboxValue(newValue);
-      updateState(newValue, "Any_changes_planned_next_6_12mths");
+        setCheckboxValue(newValue);
+        updateState(newValue, "Any_changes_planned_next_6_12mths");
     };
 
     useEffect(() => {
        const data = profile[0]?.employmentDetails?.find((dp:any) => dp?.id == id);
 
-       if(data) setDatas([data]);
+        if(data) {
+            setDatas([data]);
+            setCheckboxValue(data?.Any_changes_planned_next_6_12mths)
+        }
     }, [profile, id])
 
     const updateProfile = async() => {
@@ -53,10 +56,12 @@ const EditEmployment = ({}:any) => {
             Long_Service,
             Annual,
             Sick,
-            Multi_Line_1
+            Multi_Line_1,
+            Any_changes_planned_next_6_12mths
         } = datas[0];
         
         const updatedData = {
+            id,
             Occupation,
             Job_Title,
             Name,
@@ -67,10 +72,13 @@ const EditEmployment = ({}:any) => {
             Long_Service,
             Annual,
             Sick,
-            Multi_Line_1
+            Multi_Line_1,
+            Any_changes_planned_next_6_12mths
         };
 
         setLoading(true);
+
+        console.log("updatedData", updatedData);
 
         await actions.updateOtherProfileDetails([updatedData], EMPLOYMENT);
 

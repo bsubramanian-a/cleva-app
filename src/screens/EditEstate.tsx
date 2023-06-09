@@ -53,40 +53,30 @@ const EditEstate = ({}:any) => {
 
     const updateProfile = async() => {
         const {
-            Gas_p_a,
-            Electricity_p_a,
-            Water_p_a,
-            Home_Contents_Insurance_p_a,
-            Car_Insurance_p_a,
-            Private_Health_Insurance_p_a,
-            Home_Loan,
-            Investment_Property_Loan_p_a,
-            Other_Investment_Loan_p_a,
-            Personal_Loan_p_a,
-            Credit_Cards_per_month,
-            Other_Expenses_p_a,
-            Multi_Line_1
+            Email,
+            Super_Fund_Beneficiary,
+            If_Yes_Beneficiary_Name_s,
+            Do_you_have_a_Will,
+            Is_it_up_to_date,
+            Location_of_Will,
+            Do_you_have_a_POA,
+            Executor_of_the_Will
         } = datas[0];
         
         const updatedData = {
-            Gas_p_a,
-            Electricity_p_a,
-            Water_p_a,
-            Home_Contents_Insurance_p_a,
-            Car_Insurance_p_a,
-            Private_Health_Insurance_p_a,
-            Home_Loan,
-            Investment_Property_Loan_p_a,
-            Other_Investment_Loan_p_a,
-            Personal_Loan_p_a,
-            Credit_Cards_per_month,
-            Other_Expenses_p_a,
-            Multi_Line_1
+            Email,
+            Super_Fund_Beneficiary,
+            If_Yes_Beneficiary_Name_s,
+            Do_you_have_a_Will,
+            Is_it_up_to_date,
+            Location_of_Will,
+            Do_you_have_a_POA,
+            Executor_of_the_Will
         };
 
         setLoading(true);
 
-        await actions.updateOtherProfileDetails([updatedData], EXPENSES);
+        await actions.updateProfile([updatedData]);
 
         await actions.getProfile();
 
@@ -103,6 +93,18 @@ const EditEstate = ({}:any) => {
           const updatedDatas = prevDatas.map((data: any) => {
             if (label in data) {
               return { ...data, [label]: value };
+            }
+            return data;
+          });
+          return updatedDatas;
+        });
+    };
+
+    const updatePOAState = (value: any, label: string) => {
+        setDatas((prevDatas: any) => {
+          const updatedDatas = prevDatas.map((data: any) => {
+            if (label in data) {
+              return { ...data, [label]: [value] };
             }
             return data;
           });
@@ -140,7 +142,7 @@ const EditEstate = ({}:any) => {
                     onValueChange={(value:any) => updateState(value, 'Super_Fund_Beneficiary')}
                 />
 
-                <CTextInput icon={require("../assets/profile.png")} key='If_Yes_Beneficiary_Name_s' label='If Yes, Beneficiary Name' defaultValue={datas[0]?.If_Yes_Beneficiary_Name_s?.toString()} id='If_Yes_Beneficiary_Name_s' updateState={updateState} isNumOnly={true}/>
+                <CTextInput icon={require("../assets/profile.png")} key='If_Yes_Beneficiary_Name_s' label='If Yes, Beneficiary Name' defaultValue={datas[0]?.If_Yes_Beneficiary_Name_s?.toString()} id='If_Yes_Beneficiary_Name_s' updateState={updateState} isNumOnly={false}/>
 
                 <DualCheckbox
                     label="Do you have a Will?"
@@ -154,15 +156,15 @@ const EditEstate = ({}:any) => {
                     onChange={handleCurrentCheckboxChange}
                 />
 
-                <CTextInput icon={require("../assets/profile.png")} key='Location_of_Will' label='Location of Will?' defaultValue={datas[0]?.Location_of_Will?.toString()} id='Location_of_Will' updateState={updateState} isNumOnly={true}/>
+                <CTextInput icon={require("../assets/profile.png")} key='Location_of_Will' label='Location of Will?' defaultValue={datas[0]?.Location_of_Will?.toString()} id='Location_of_Will' updateState={updateState} isNumOnly={false}/>
 
-                {/* <CTextInput icon={require("../assets/profile.png")} key='Credit_Cards_per_month' label='Credit Cards' defaultValue={datas[0]?.Credit_Cards_per_month?.toString()} id='Credit_Cards_per_month' updateState={updateState} isNumOnly={true}/> */}
+                <CTextInput icon={require("../assets/profile.png")} key='Executor_of_the_Will' label='Executor of Will' defaultValue={datas[0]?.Executor_of_the_Will?.toString()} id='Executor_of_the_Will' updateState={updateState} isNumOnly={false}/>
 
                 <Label label="Do you have a POA?" icon={require("../assets/sex.png")} />
                 <DropdownComponent
                     values={[{ label: 'No', value: 'No' }, { label: 'Yes - Medical', value: 'Yes - Medical' }, { label: 'Yes - Guardianship', value: 'Yes - Guardianship' }, { label: 'Yes - Other', value: 'Yes - Other' }, { label: 'Yes - Enduring', value: 'Yes - Enduring' }]}
                     defaultValue={datas[0]?.Do_you_have_a_POA[0]?.toString()}
-                    onValueChange={(value:any) => updateState(value, 'Sex_Description')}
+                    onValueChange={(value:any) => updatePOAState(value, 'Do_you_have_a_POA')}
                 />
             </View>
             <LinearGradient

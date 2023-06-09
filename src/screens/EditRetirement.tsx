@@ -38,18 +38,20 @@ const EditRetirement = ({}:any) => {
 
     const updateProfile = async() => {
         const {
+            Email,
             Choice_Retirement_Target_Age,
-            Choice_Retirement_Target_Income_p_a
+            Choice_Retirement_Target_Income_p_a,
         } = datas[0];
         
         const updatedData = {
+            Email,
             Choice_Retirement_Target_Age,
             Choice_Retirement_Target_Income_p_a
         };
 
         setLoading(true);
 
-        await actions.updateOtherProfileDetails([updatedData], RETIREMENT);
+        await actions.updateProfile([updatedData]);
 
         await actions.getProfile();
 
@@ -99,7 +101,7 @@ const EditRetirement = ({}:any) => {
                 </View>
                 
                 <View style={styles.container}>
-                    <Text style={styles.label}>{datas[0]?.First_Name}, you'd like to retire or have choice of whether you work by <CTextInput key='Gas_p_a' label='' defaultValue={datas[0]?.Choice_Retirement_Target_Age?.toString()} id='Gas_p_a' updateState={updateState} isNumOnly={true} placeholder="age (retirement)"/>(approx). You'd like to have approx. <CTextInput key='Gas_p_a' label='' defaultValue={datas[0]?.Choice_Retirement_Target_Income_p_a?.toString()} id='Gas_p_a' updateState={updateState} isNumOnly={true} placeholder="$[00,000]"/>(in today's dollars) to sustain your lifestyle.</Text>
+                    <Text style={styles.label}>{datas[0]?.First_Name}, you'd like to retire or have choice of whether you work by <CTextInput key='Choice_Retirement_Target_Age' label='' defaultValue={datas[0]?.Choice_Retirement_Target_Age?.toString()} id='Choice_Retirement_Target_Age' updateState={updateState} isNumOnly={true} placeholder="age (retirement)"/>(approx). You'd like to have approx. <CTextInput key='Choice_Retirement_Target_Income_p_a' label='' defaultValue={datas[0]?.Choice_Retirement_Target_Income_p_a?.toString()} id='Choice_Retirement_Target_Income_p_a' updateState={updateState} isNumOnly={true} placeholder="$[00,000]"/>(in today's dollars) to sustain your lifestyle.</Text>
                 </View>
             </View>
             <LinearGradient

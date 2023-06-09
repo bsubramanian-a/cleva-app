@@ -32,17 +32,24 @@ const EditInsurance = ({}:any) => {
 
     const handleOtherCheckboxChange = (newValue:any) => {
         setOtherCheckboxValue(newValue);
-        updateState(newValue, "Other_Allowances_Consideration");
     };
 
     useEffect(() => {
         const data = profile[0]?.insurance?.find((dp:any) => dp?.Client_Name.id == id);
  
-        if(data) setDatas([data]);
+        if(data) {
+            setDatas([data]);
+            if(data?.Other_Allowances_Consideration && data?.Other_Allowances_Consideration != "" && data?.Other_Allowances_Consideration != 0){
+                setOtherCheckboxValue(true);
+            }else{
+                setOtherCheckboxValue(false);
+            }
+        }
      }, [profile, id])
 
     const updateProfile = async() => {
         const {
+            id,
             Total_Liabilities,
             Child_Edu_Allowance,
             Replace_Income_p_a,
@@ -56,6 +63,7 @@ const EditInsurance = ({}:any) => {
         } = datas[0];
         
         const updatedData = {
+            id,
             Total_Liabilities,
             Child_Edu_Allowance,
             Replace_Income_p_a,
@@ -64,7 +72,7 @@ const EditInsurance = ({}:any) => {
             Allowance_Funeral,
             Allowance_Emergency,
             Allowance_Home_Mods,
-            Other_Allowances_Consideration,
+            Other_Allowances_Consideration : otherheckboxValue ? Other_Allowances_Consideration : null,
             Multi_Line_1,
         };
 
@@ -139,7 +147,9 @@ const EditInsurance = ({}:any) => {
                         onChange={handleOtherCheckboxChange}
                     />
 
-                    <CTextInput isTextArea={true} key='Multi_Line_1' label='' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={true} placeholder="Other income details write here..."/>
+                    { otherheckboxValue &&  <CTextInput icon={require("../assets/profile.png")} key='Other_Allowances_Consideration' label='Other' defaultValue={datas[0]?.Other_Allowances_Consideration?.toString()} id='Other_Allowances_Consideration' updateState={updateState} isNumOnly={true}/> }
+
+                    <CTextInput isTextArea={true} key='Multi_Line_1' label='' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} placeholder="Other income details write here..."/>
                 </View>
             <LinearGradient
             style={[styles.bottom, styles.bottomFlexBox]}

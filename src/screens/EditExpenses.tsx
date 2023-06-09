@@ -29,7 +29,7 @@ const EditExpenses = ({}:any) => {
     const [loading, setLoading] = useState(false);
     const profile = useSelector((state:any) => state?.data?.profile);
     const [datas, setDatas] = useState<any>([]);
-    const [checkboxValue, setCheckboxValue] = useState(null);
+    const [checkboxValue, setCheckboxValue] = useState(false);
 
     const handleCheckboxChange = (newValue:any) => {
       setCheckboxValue(newValue);
@@ -39,7 +39,14 @@ const EditExpenses = ({}:any) => {
     useEffect(() => {
        const data = profile[0]?.expenses?.find((dp:any) => dp?.id == id);
 
-       if(data) setDatas([data]);
+        if(data) {
+            setDatas([data]);
+            if(data?.Other_Expenses_p_a && data?.Other_Expenses_p_a != "" && data?.Other_Expenses_p_a != 0){
+                setCheckboxValue(true);
+            }else{
+                setCheckboxValue(false);
+            }
+        };
     }, [profile, id])
 
     const updateProfile = async() => {
@@ -60,6 +67,7 @@ const EditExpenses = ({}:any) => {
         } = datas[0];
         
         const updatedData = {
+            id,
             Gas_p_a,
             Electricity_p_a,
             Water_p_a,
@@ -71,7 +79,7 @@ const EditExpenses = ({}:any) => {
             Other_Investment_Loan_p_a,
             Personal_Loan_p_a,
             Credit_Cards_per_month,
-            Other_Expenses_p_a,
+            Other_Expenses_p_a : !checkboxValue ? null : Other_Expenses_p_a,
             Multi_Line_1
         };
 
@@ -149,13 +157,17 @@ const EditExpenses = ({}:any) => {
 
                 <CTextInput icon={require("../assets/profile.png")} key='Credit_Cards_per_month' label='Credit Cards' defaultValue={datas[0]?.Credit_Cards_per_month?.toString()} id='Credit_Cards_per_month' updateState={updateState} isNumOnly={true}/>
 
-                {/* <DualCheckbox
+                <DualCheckbox
                     label="Other Expenses"
                     value={checkboxValue}
                     onChange={handleCheckboxChange}
-                /> */}
+                />
 
-                <CTextInput icon={require("../assets/profile.png")} key='Multi_Line_1' label='Long Service Leave' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true}/>
+                { checkboxValue &&
+                    <CTextInput icon={require("../assets/profile.png")} key='Other_Expenses_p_a' label='Other Expenses' defaultValue={datas[0]?.Other_Expenses_p_a?.toString()} id='Other_Expenses_p_a' updateState={updateState} isNumOnly={false} isTextArea={true}/>
+                }
+
+                <CTextInput icon={require("../assets/profile.png")} key='Multi_Line_1' label='' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true}/>
             </View>
             <LinearGradient
             style={[styles.bottom, styles.bottomFlexBox]}

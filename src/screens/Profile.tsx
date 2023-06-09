@@ -58,11 +58,11 @@ const Profile = () => {
     return mobileNumber;
   };
 
-  const EmployChoiceComponent = ({ age, price }: { age: any, price: any }) => {
+  const EmployChoiceComponent = ({ age, price, firstname }: { age: any, price: any, firstname:string }) => {
     return (
       <View style={styles.viewEmployChoiceComponent}>
         <Text style={styles.textEmployChoiceComponent} ellipsizeMode="tail">
-          Dan, you’d like to retire or have the choice of whether you work by{' '}
+          {firstname}, you’d like to retire or have the choice of whether you work by{' '}
           <Text style={styles.boldText}>{age}</Text> (approx.). You’d like to have approx.{' '}
           <Text style={styles.boldText}>
             ${price?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -116,28 +116,18 @@ const Profile = () => {
         title: 'Dependants',
         icon: require("../assets/vuesaxlineardata.png"),
         link: 'EditDependants',
-        items: [
-          profile[0]?.dependants?.length >= 1 && {
-            subHeading: profile[0]?.dependants[0]?.Name,
-            id: profile[0]?.dependants[0]?.id,
+        items: profile[0]?.dependants?.map((dependant:any) => {
+          return {
+            subHeading: dependant?.Name,
+            id: dependant?.id,
             item: [
-              { icon: require("../assets/profile.png"), name: 'First Name', value: profile[0]?.dependants[0]?.Name },
-              { icon: require("../assets/profile.png"), name: 'Age', value: profile[0]?.dependants[0]?.Age + " Years" },
-              { icon: require("../assets/profile.png"), name: 'Dependant Until', value: profile[0]?.dependants[0]?.Dependant_Until2 },
-              { icon: require("../assets/profile.png"), name: 'Dependant Of', value: profile[0]?.dependants[0]?.Dependant_of?.name },
+              { icon: require("../assets/profile.png"), name: 'First Name', value: dependant?.Name },
+              { icon: require("../assets/profile.png"), name: 'Age', value: dependant?.Age + " Years" },
+              { icon: require("../assets/profile.png"), name: 'Dependant Until', value: dependant?.Dependant_Until2 },
+              { icon: require("../assets/profile.png"), name: 'Dependant Of', value: dependant?.Dependant_of_Person?.name },
             ]
-          },
-          profile[0]?.dependants?.length >= 2 && {
-            subHeading: profile[0]?.dependants[1]?.Name,
-            id: profile[0]?.dependants[1]?.id,
-            item: [
-              { icon: require("../assets/profile.png"), name: 'First Name', value: profile[0]?.dependants[1]?.Name },
-              { icon: require("../assets/profile.png"), name: 'Age', value: profile[0]?.dependants[1]?.Age + " Years" },
-              { icon: require("../assets/profile.png"), name: 'Dependant Until', value: profile[0]?.dependants[1]?.Dependant_Until2 },
-              { icon: require("../assets/profile.png"), name: 'Dependant Of', value: profile[0]?.dependants[1]?.Dependant_of?.name },
-            ]
-          }
-        ].filter(obj => obj)
+          };
+        }).filter((obj:any) => obj)
       },
       {
         title: 'Employment Details',
@@ -155,7 +145,7 @@ const Profile = () => {
               { icon: require("../assets/profile.png"), name: 'Salary', value: profile[0]?.employmentDetails[0]?.Salary_ex_Super },
               { icon: require("../assets/profile.png"), name: 'Super', value: (profile[0]?.employmentDetails[0]?.Super || 0)+"%"},
               { icon: require("../assets/profile.png"), name: 'Employment Start Date', value: profile[0]?.employmentDetails[0]?.Employment_Start_Date ? formatDate(profile[0]?.employmentDetails[0]?.Employment_Start_Date) : null },
-              { icon: require("../assets/profile.png"), name: 'Leave Entitlements', value: (profile[0]?.employmentDetails[0]?.Annual + profile[0]?.employmentDetails[0]?.Sick + profile[0]?.employmentDetails[0]?.Long_Service) + " Days" },
+              { name: 'Leave Entitlements', value: "" },
               { icon: require("../assets/profile.png"), name: 'Annual Leave', value: (profile[0]?.employmentDetails[0]?.Annual) + " Days" },
               { icon: require("../assets/profile.png"), name: 'Sick Leave', value: (profile[0]?.employmentDetails[0]?.Sick) + " Days" },
               { icon: require("../assets/profile.png"), name: 'Long Service Leave', value: (profile[0]?.employmentDetails[0]?.Long_Service) + " Days" },
@@ -173,7 +163,7 @@ const Profile = () => {
               { icon: require("../assets/profile.png"), name: 'Salary', value: profile[0]?.employmentDetails[1]?.Salary_ex_Super },
               { icon: require("../assets/profile.png"), name: 'Super', value: (profile[0]?.employmentDetails[1]?.Super || 0)+"%"},
               { icon: require("../assets/profile.png"), name: 'Employment Start Date', value: profile[0]?.employmentDetails[1]?.Employment_Start_Date ? formatDate(profile[0]?.employmentDetails[1]?.Employment_Start_Date) : null },
-              { icon: require("../assets/profile.png"), name: 'Leave Entitlements', value: (profile[0]?.employmentDetails[1]?.Annual + profile[0]?.employmentDetails[1]?.Sick + profile[0]?.employmentDetails[1]?.Long_Service) + " Days" },
+              { name: 'Leave Entitlements', value: "" },
               { icon: require("../assets/profile.png"), name: 'Annual Leave', value: (profile[0]?.employmentDetails[1]?.Annual) + " Days" },
               { icon: require("../assets/profile.png"), name: 'Sick Leave', value: (profile[0]?.employmentDetails[1]?.Sick) + " Days" },
               { icon: require("../assets/profile.png"), name: 'Long Service Leave', value: (profile[0]?.employmentDetails[1]?.Long_Service) + " Days" },
@@ -222,14 +212,14 @@ const Profile = () => {
             subHeading: profile[0]?.Preferred_1st_Name,
             id: profile[0]?.id,
             item: [
-              { icon: "", name: '', value: <EmployChoiceComponent age={profile[0]?.Choice_Retirement_Target_Age} price={profile[0]?.Choice_Retirement_Target_Income_p_a} />},
+              { icon: "", name: '', value: <EmployChoiceComponent firstname={profile[0]?.First_Name} age={profile[0]?.Choice_Retirement_Target_Age} price={profile[0]?.Choice_Retirement_Target_Income_p_a} />},
             ]
           },
           profile[0]?.accounts?.length > 0 && profile[0]?.accounts[0]?.Email && {
             subHeading: profile[0]?.accounts[0]?.Preferred_1st_Name,
             id: profile[0]?.accounts[0]?.id,
             item: [
-              { icon: "", name: '', value: <EmployChoiceComponent age={profile[0]?.accounts[0]?.Choice_Retirement_Target_Age} price={profile[0]?.accounts[0]?.Choice_Retirement_Target_Income_p_a} />},
+              { icon: "", name: '', value: <EmployChoiceComponent firstname={profile[0]?.accounts[0]?.First_Name} age={profile[0]?.accounts[0]?.Choice_Retirement_Target_Age} price={profile[0]?.accounts[0]?.Choice_Retirement_Target_Income_p_a} />},
             ]
           }
         ].filter(obj => obj)
@@ -280,7 +270,7 @@ const Profile = () => {
               { icon: require("../assets/profile.png"), name: 'Allowance for funeral', value: "$"+profile[0]?.insurance[0]?.Allowance_Funeral },
               { icon: require("../assets/profile.png"), name: 'Allowance for Emergency', value: "$"+profile[0]?.insurance[0]?.Allowance_Emergency },
               { icon: require("../assets/profile.png"), name: 'Allowance for House Modifications', value: "$"+profile[0]?.insurance[0]?.Allowance_Home_Mods },
-              { icon: require("../assets/profile.png"), name: 'Other Income', value: "$"+`${profile[0]?.insurance[0]?.Other_Allowances_Consideration}\n${profile[0]?.insurance[0]?.Multi_Line_1}` }
+              { icon: require("../assets/profile.png"), name: 'Other Income', value: "$"+`${profile[0]?.insurance[0]?.Other_Allowances_Consideration || 0}\n${profile[0]?.insurance[0]?.Multi_Line_1}` }
             ]
           },
           profile[0]?.insurance?.length >= 2 && {

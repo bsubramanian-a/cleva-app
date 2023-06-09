@@ -16,7 +16,6 @@ import actions from "../../actions";
 import Loader from "../components/Loader";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import DropdownComponent from "../components/DropdownComponent";
-import CustomDatePicker from "../components/CustomDatepicker";
 import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
 import { DEPENDANT } from "../../urls";
 
@@ -36,16 +35,22 @@ const EditDependants = ({}:any) => {
 
     const updateProfile = async() => {
         const {
+            id,
             Name,
             Age,
-            Dependant_Until2
+            Dependant_Until2,
+            Dependant_of_Person
         } = datas[0];
         
         const updatedData = {
+            id,
             Name,
             Age,
-            Dependant_Until2
+            Dependant_Until2,
+            Dependant_of_Person
         };
+
+        console.log("updatedData", updatedData);
 
         setLoading(true);
         
@@ -73,23 +78,38 @@ const EditDependants = ({}:any) => {
         });
     };
 
-    const formatMobileNumber = (mobileNumber:any) => {
-        if(mobileNumber){
-          // Remove all non-digit characters from the mobile number except for the plus sign
-          const digitsOnly = mobileNumber.replace(/[^+\d]/g, '');
-        
-         // Check if the mobile number has a valid length
-          if (digitsOnly.length > 3) {
-            // Format the mobile number in the Australian format
-            let formattedNumber = digitsOnly.replace(/^(\+\d{1,2})/, '$1 ');
-            formattedNumber = formattedNumber.replace(/(\d{3})(?!$)/g, '$1 ');
-            formattedNumber = formattedNumber.trim();
-            formattedNumber = formattedNumber.replace(/ /g, '-');
-            return formattedNumber;
-          }
+    const updateSelectState = (value: any, label: string) => {
+        let foundUser = null;
+        for (const prof of profile) {
+            if (prof.id === value) {
+                foundUser = prof;
+                break;
+            }
+            for (const account of prof.accounts) {
+                if (account.id === value) {
+                    foundUser = account;
+                break;
+                }
+            }
+            if (foundUser) {
+                break;
+            }
         }
-        
-        return mobileNumber;
+
+        let newValue = {
+            "name": foundUser?.First_Name + " " + foundUser?.Last_Name,
+            "id": value
+        }
+
+        setDatas((prevDatas: any) => {
+          const updatedDatas = prevDatas.map((data: any) => {
+            if (label in data) {
+              return { ...data, [label]: newValue };
+            }
+            return data;
+          });
+          return updatedDatas;
+        });
     };
     
     return (
@@ -118,8 +138,15 @@ const EditDependants = ({}:any) => {
                 <CTextInput icon={require("../assets/profile.png")} key='Name' label='First Name' defaultValue={datas[0]?.Name?.toString()} id='Name' updateState={updateState} isNumOnly={false}/>
 
                 <CTextInput icon={require("../assets/profile.png")} key='Age' label='Age' defaultValue={datas[0]?.Age?.toString()} id='Age' updateState={updateState} isNumOnly={true}/>
-
+                
                 <CTextInput icon={require("../assets/profile.png")} key='Dependant_Until2' label='Dependant until:' defaultValue={datas[0]?.Dependant_Until2?.toString()} id='Dependant_Until2' updateState={updateState} isNumOnly={false}/>
+
+                <Label label="Dependant Of:" icon={require("../assets/mstatus.png")} />
+                <DropdownComponent
+                    values={[{ label: 'None', value: '' }, { label: profile[0]?.First_Name + " " + profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: profile[0]?.accounts[0]?.First_Name + " " + profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
+                    defaultValue={datas[0]?.Dependant_of_Person?.id?.toString()}
+                    onValueChange={(value:any) => updateSelectState(value, 'Dependant_of_Person')}
+                />
             </View>
             <LinearGradient
             style={[styles.bottom, styles.bottomFlexBox]}

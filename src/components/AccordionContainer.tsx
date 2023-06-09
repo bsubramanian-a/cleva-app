@@ -20,7 +20,7 @@ const AccordionItem = ({ icon, name, value }: any) => {
         {typeof value === 'object' ? (
           value
         ) : (
-          <Text style={styles.value}>{value}</Text>
+          <Text style={styles.value}>{value || ""}</Text>
         )}
     </View>
   );

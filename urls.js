@@ -24,5 +24,5 @@ export const EMPLOYMENT = getApiURL('employment');
 export const ESTATE = getApiURL('estate');
 export const EXPENSES = getApiURL('expenses');
 export const INCOME = getApiURL('income');
-export const INSURANCE = getApiURL('insurance');
+export const INSURANCE = getApiURL('ina');
 export const RETIREMENT = getApiURL('retirement');
