@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
     message: {
         marginBottom: 16,
-        fontSize: 18,
+        fontSize: 14,
         fontWeight: 'bold',
         textAlign: 'center',
     },
@@ -50,9 +50,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         marginBottom: 8,
     },
+    buttonCancel: {
+        backgroundColor: "FBB142",
+        borderRadius: 4,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        marginBottom: 8,
+    },
     buttonText: {
         color: 'white',
-        fontSize: 16,
+        fontSize: 12,
         fontWeight: 'bold',
         textAlign: 'center',
     },

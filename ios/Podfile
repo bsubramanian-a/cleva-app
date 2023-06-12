@@ -58,6 +58,7 @@ target 'Cleva' do
 
   # Add the following line to include 'react-native-video'
   pod 'react-native-video', :path => '../node_modules/react-native-video'
+  pod 'GoogleSignIn'
 
   target 'ClevaTests' do
     inherit! :complete

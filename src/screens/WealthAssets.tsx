@@ -66,7 +66,7 @@ const WealthAssets = () => {
               <Image
                 style={styles.vuesaxlinearedit2Icon}
                 resizeMode="cover"
-                source={require("../assets/vuesaxlinearedit2.png")}
+                source={require("../assets/add.png")}
               />
               <Text style={[styles.edit, styles.ml4]}>Add</Text>
             </Pressable>
@@ -96,6 +96,7 @@ const WealthAssets = () => {
 
 const styles = StyleSheet.create({
   buttonContainer:{
+    paddingHorizontal: 20,
     flexDirection: "row",
     justifyContent: 'center',
     gap: 7
@@ -214,7 +215,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 24
   },
   bottom: {
-    width: 180,
+    width: "48%",
     paddingHorizontal: 5,
     paddingVertical: 14,
     alignSelf: 'center',

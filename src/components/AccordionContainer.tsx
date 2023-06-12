@@ -175,9 +175,6 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   accordionContainer: {
-    borderWidth: 1,
-    borderRadius: 16,
-    borderColor: "#eaeaea",
     marginHorizontal: 30,
     marginTop: 20
   },
@@ -215,6 +212,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     overflow: "hidden",
     backgroundColor: Color.white1,
+    borderWidth: 1,
+    borderColor: "#eaeaea",
   },
   vuesaxlinearsmsParent: {
     flexDirection: "row",
@@ -268,7 +267,7 @@ const styles = StyleSheet.create({
     height: 18,
   },
   container: {
-    // marginBottom: 10,
+    marginBottom: 15,
   },
   title: {
     fontSize: 18,

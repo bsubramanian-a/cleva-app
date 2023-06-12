@@ -127,13 +127,13 @@ const EditEmployment = ({}:any) => {
                     <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>{datas[0]?.Name}</Text>
                 </View>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Occupation' label='Occupation' defaultValue={datas[0]?.Occupation?.toString()} id='Occupation' updateState={updateState} isNumOnly={false}/>
+                <CTextInput icon={require("../assets/briefcase.png")} key='Occupation' label='Occupation' defaultValue={datas[0]?.Occupation?.toString()} id='Occupation' updateState={updateState} isNumOnly={false}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Job_Title' label='Job Title' defaultValue={datas[0]?.Job_Title?.toString()} id='Job_Title' updateState={updateState} isNumOnly={false}/>
+                <CTextInput icon={require("../assets/personalcard.png")} key='Job_Title' label='Job Title' defaultValue={datas[0]?.Job_Title?.toString()} id='Job_Title' updateState={updateState} isNumOnly={false}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Name' label='Employer' defaultValue={datas[0]?.Name?.toString()} id='Name' updateState={updateState} isNumOnly={false}/>
+                <CTextInput icon={require("../assets/tag-user.png")} key='Name' label='Employer' defaultValue={datas[0]?.Name?.toString()} id='Name' updateState={updateState} isNumOnly={false}/>
 
-                <Label label="Status" icon={require("../assets/mstatus.png")} />
+                <Label label="Status" icon={require("../assets/cd.png")} />
                 <DropdownComponent
                     values={[{ label: 'None', value: '' }, { label: 'Full Time', value: 'Full Time' }, { label: 'Part Time', value: 'Part Time' }, { label: 'Casual', value: 'Casual' }, { label: 'Self Employed', value: 'Self Employed' }]}
                     defaultValue={datas[0]?.Status?.toString()}
@@ -141,18 +141,18 @@ const EditEmployment = ({}:any) => {
                 />
 
                 <View style={{flexDirection: 'row', justifyContent: 'space-between', gap: 12}}>
-                    <CTextInput icon={require("../assets/profile.png")} key='Salary_ex_Super' label='Salary' defaultValue={datas[0]?.Salary_ex_Super?.toString()} id='Salary_ex_Super' updateState={updateState} isNumOnly={true}/>
-                    <CTextInput icon={require("../assets/profile.png")} key='Super' label='Super' defaultValue={datas[0]?.Super?.toString()} id='Super' updateState={updateState} isNumOnly={true}/>
+                    <CTextInput icon={require("../assets/wallet.png")} key='Salary_ex_Super' label='Salary' defaultValue={datas[0]?.Salary_ex_Super?.toString()} id='Salary_ex_Super' updateState={updateState} isNumOnly={true}/>
+                    <CTextInput icon={require("../assets/discount-circle.png")} key='Super' label='Super' defaultValue={datas[0]?.Super?.toString()} id='Super' updateState={updateState} isNumOnly={true}/>
                 </View>
 
-                <Label label="Employment Start Date" icon={require("../assets/dob.png")} />
+                <Label label="Employment Start Date" icon={require("../assets/calendar.png")} />
                 <CustomDatePicker defaultValue={datas[0]?.Employment_Start_Date && new Date(datas[0]?.Employment_Start_Date?.toString())} onValueChange={(value:any) => updateState(value, 'Employment_Start_Date')} />
 
-                <CTextInput icon={require("../assets/profile.png")} key='Annual' label='Annual Leave' defaultValue={datas[0]?.Annual?.toString()} id='Annual' updateState={updateState} isNumOnly={true}/>
+                <CTextInput icon={require("../assets/calendar.png")} key='Annual' label='Annual Leave' defaultValue={datas[0]?.Annual?.toString()} id='Annual' updateState={updateState} isNumOnly={true}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Sick' label='Sick Leave' defaultValue={datas[0]?.Sick?.toString()} id='Sick' updateState={updateState} isNumOnly={true}/>
+                <CTextInput icon={require("../assets/sick.png")} key='Sick' label='Sick Leave' defaultValue={datas[0]?.Sick?.toString()} id='Sick' updateState={updateState} isNumOnly={true}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Long_Service' label='Long Service Leave' defaultValue={datas[0]?.Long_Service?.toString()} id='Long_Service' updateState={updateState} isNumOnly={true}/>
+                <CTextInput icon={require("../assets/calendar.png")} key='Long_Service' label='Long Service Leave' defaultValue={datas[0]?.Long_Service?.toString()} id='Long_Service' updateState={updateState} isNumOnly={true}/>
 
                 <DualCheckbox
                     label="Is there likely any changes in the next 6-12 months?"
@@ -160,7 +160,7 @@ const EditEmployment = ({}:any) => {
                     onChange={handleCheckboxChange}
                 />
 
-                <CTextInput icon={require("../assets/profile.png")} key='Multi_Line_1' label='Long Service Leave' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true}/>
+                <CTextInput icon={require("../assets/document-text.png")} key='Multi_Line_1' label='Long Service Leave' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true}/>
             </View>
             <LinearGradient
             style={[styles.bottom, styles.bottomFlexBox]}

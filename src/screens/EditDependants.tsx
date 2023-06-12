@@ -137,11 +137,11 @@ const EditDependants = ({}:any) => {
 
                 <CTextInput icon={require("../assets/profile.png")} key='Name' label='First Name' defaultValue={datas[0]?.Name?.toString()} id='Name' updateState={updateState} isNumOnly={false}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Age' label='Age' defaultValue={datas[0]?.Age?.toString()} id='Age' updateState={updateState} isNumOnly={true}/>
+                <CTextInput icon={require("../assets/dob.png")} key='Age' label='Age' defaultValue={datas[0]?.Age?.toString()} id='Age' updateState={updateState} isNumOnly={true}/>
                 
-                <CTextInput icon={require("../assets/profile.png")} key='Dependant_Until2' label='Dependant until:' defaultValue={datas[0]?.Dependant_Until2?.toString()} id='Dependant_Until2' updateState={updateState} isNumOnly={false}/>
+                <CTextInput icon={require("../assets/hierarchy.png")} key='Dependant_Until2' label='Dependant until:' defaultValue={datas[0]?.Dependant_Until2?.toString()} id='Dependant_Until2' updateState={updateState} isNumOnly={false}/>
 
-                <Label label="Dependant Of:" icon={require("../assets/mstatus.png")} />
+                <Label label="Dependant Of:" icon={require("../assets/hierarchy.png")} />
                 <DropdownComponent
                     values={[{ label: 'None', value: '' }, { label: profile[0]?.First_Name + " " + profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: profile[0]?.accounts[0]?.First_Name + " " + profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
                     defaultValue={datas[0]?.Dependant_of_Person?.id?.toString()}

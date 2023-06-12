@@ -14,6 +14,7 @@
 		1689A46EFC0A3F150788807F /* libPods-Cleva.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BFBF4AC0AA21066C6A4E2E /* libPods-Cleva.a */; };
 		67E6CF29CCB6EA751D457737 /* libPods-Cleva-ClevaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4FBF684A4BB1EE4C937934B /* libPods-Cleva-ClevaTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		FC3606612A36EE8B008BF688 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC3606602A36EE8B008BF688 /* GoogleService-Info.plist */; };
 		FC94E2F12A1B580E0040480E /* Outfit_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC94E2DE2A1B58070040480E /* Outfit_light.ttf */; };
 		FC94E2F22A1B580E0040480E /* Open_Sans_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC94E2DF2A1B58070040480E /* Open_Sans_bold.ttf */; };
 		FC94E2F32A1B580E0040480E /* Outfit_semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC94E2E02A1B58070040480E /* Outfit_semibold.ttf */; };
@@ -63,6 +64,7 @@
 		C26EADD65951E4B3C3E37761 /* Pods-Cleva-ClevaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cleva-ClevaTests.release.xcconfig"; path = "Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EE8B45915BB2BC4A0385EEC4 /* Pods-Cleva-ClevaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cleva-ClevaTests.debug.xcconfig"; path = "Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FC3606602A36EE8B008BF688 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FC94E2DE2A1B58070040480E /* Outfit_light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Outfit_light.ttf; sourceTree = "<group>"; };
 		FC94E2DF2A1B58070040480E /* Open_Sans_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Open_Sans_bold.ttf; sourceTree = "<group>"; };
 		FC94E2E02A1B58070040480E /* Outfit_semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Outfit_semibold.ttf; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				FC3606602A36EE8B008BF688 /* GoogleService-Info.plist */,
 				FC94E3042A1B58240040480E /* Fonts */,
 				13B07FAE1A68108700A75B9A /* Cleva */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -327,6 +330,7 @@
 				FC94E2F92A1B580E0040480E /* Source_Serif_Pro_black.ttf in Resources */,
 				FC94E2F62A1B580E0040480E /* Source_Serif_Pro_bold.ttf in Resources */,
 				FC94E2FD2A1B580E0040480E /* Source_Serif_Pro_semibold.ttf in Resources */,
+				FC3606612A36EE8B008BF688 /* GoogleService-Info.plist in Resources */,
 				FC94E2F82A1B580E0040480E /* Open_Sans_regular.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -575,7 +579,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GQUUG4N798;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Cleva/Info.plist;
@@ -612,7 +616,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = GQUUG4N798;
 				INFOPLIST_FILE = Cleva/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Cleva;

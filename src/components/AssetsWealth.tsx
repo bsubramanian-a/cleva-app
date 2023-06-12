@@ -64,7 +64,7 @@ const AssetsWealth = ({datas, loading, setLoading, type}:any) => {
                   <Image
                     style={styles.vuesaxlinearedit2Icon}
                     resizeMode="cover"
-                    source={require("../assets/vuesaxlineardanger.png")}
+                    source={require("../assets/delete.png")}
                   />
                 </Pressable>
               </View>
@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   vuesaxlinearedit2Icon: {
-    width: 18,
-    height: 18,
+    width: 20,
+    height: 20,
   },
   edit: {
     fontSize: FontSize.textMediumBoldText1_size,

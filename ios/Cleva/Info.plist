@@ -20,34 +20,29 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>2ol3ogqp6tg07flu9pn4o6kdsa856vv-991769937344</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>1005676287534165</string>
+	<key>FacebookDisplayName</key>
+	<string>Cleva</string>
+	<key>GIDClientID</key>
+	<string>443739967199-vv658asdk6o4knp9ulf70gt6pqgo3lo2.apps.googleusercontent.com</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-    <key>ITSAppUsesNonExemptEncryption</key>
-    <false/>
-    <key>UIAppFonts</key>
-    <array>
-      <string>Open_Sans_bold.ttf</string>
-      <string>Open_Sans_regular.ttf</string>
-      <string>Open_Sans_semibold.ttf</string>
-      <string>Open_Sans.ttf</string>
-      <string>Outfit_bold.ttf</string>
-      <string>Outfit_light.ttf</string>
-      <string>Outfit_medium.ttf</string>
-      <string>Outfit_regular.ttf</string>
-      <string>Outfit_semibold.ttf</string>
-      <string>Outfit.ttf</string>
-      <string>Poppins_regular.ttf</string>
-      <string>Poppins.ttf</string>
-      <string>Source_Serif_Pro_black.ttf</string>
-      <string>Source_Serif_Pro_bold_italic.ttf</string>
-      <string>Source_Serif_Pro_bold.ttf</string>
-      <string>Source_Serif_Pro_light_italic.ttf</string>
-      <string>Source_Serif_Pro_regular.ttf</string>
-      <string>Source_Serif_Pro_semibold.ttf</string>
-      <string>Source_Serif_Pro.ttf</string>
-    </array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -61,6 +56,30 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>REVERSE_CLIENT_ID</key>
+	<string>2ol3ogqp6tg07flu9pn4o6kdsa856vv-991769937344</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Open_Sans_bold.ttf</string>
+		<string>Open_Sans_regular.ttf</string>
+		<string>Open_Sans_semibold.ttf</string>
+		<string>Open_Sans.ttf</string>
+		<string>Outfit_bold.ttf</string>
+		<string>Outfit_light.ttf</string>
+		<string>Outfit_medium.ttf</string>
+		<string>Outfit_regular.ttf</string>
+		<string>Outfit_semibold.ttf</string>
+		<string>Outfit.ttf</string>
+		<string>Poppins_regular.ttf</string>
+		<string>Poppins.ttf</string>
+		<string>Source_Serif_Pro_black.ttf</string>
+		<string>Source_Serif_Pro_bold_italic.ttf</string>
+		<string>Source_Serif_Pro_bold.ttf</string>
+		<string>Source_Serif_Pro_light_italic.ttf</string>
+		<string>Source_Serif_Pro_regular.ttf</string>
+		<string>Source_Serif_Pro_semibold.ttf</string>
+		<string>Source_Serif_Pro.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -75,18 +94,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb1005676287534165</string>
-			</array>
-		</dict>
-	</array>
-	<key>FacebookAppID</key>
-	<string>1005676287534165</string>
-	<key>FacebookDisplayName</key>
-	<string>Cleva</string>
 </dict>
 </plist>

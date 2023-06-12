@@ -1,6 +1,6 @@
 // export const API_BASE_URL = "http://192.168.18.178:3000/";
-export const API_BASE_URL = "http://192.168.18.134:3000/";
-// export const API_BASE_URL = "https://cleva-backend.onrender.com/";
+// export const API_BASE_URL = "http://192.168.18.134:3000/";
+export const API_BASE_URL = "https://cleva-backend.onrender.com/";
 
 export const getApiURL = (endpoint) => API_BASE_URL + endpoint
 
