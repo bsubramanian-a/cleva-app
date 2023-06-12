@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 12,
     marginTop: 4,
+    height: 48,
     width: '100%',
     color: '#000',
     fontWeight: '600'

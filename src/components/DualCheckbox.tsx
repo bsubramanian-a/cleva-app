@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-const DualCheckbox = ({ label, value, onChange }:any) => {
-  const handleCheckboxChange = (newValue:any) => {
+const DualCheckbox = ({ label, value, onChange }: any) => {
+  const handleCheckboxChange = (newValue: any) => {
     if (onChange) {
       onChange(newValue);
     }
@@ -18,7 +17,12 @@ const DualCheckbox = ({ label, value, onChange }:any) => {
           onPress={() => handleCheckboxChange(true)}
         >
           {value === true && (
-            <Icon name="check" size={20} color="#FBB142" />
+            <Image
+              style={styles.vuesaxlinearsmsIcon}
+              resizeMode="cover"
+              source={require('../assets/tick.png')}
+            />
+            // <Icon name="check" size={20} color="#FBB142" />
           )}
         </TouchableOpacity>
         <Text style={styles.checkboxLabel}>Yes</Text>
@@ -27,7 +31,11 @@ const DualCheckbox = ({ label, value, onChange }:any) => {
           onPress={() => handleCheckboxChange(false)}
         >
           {value === false && (
-            <Icon name="check" size={20} color="#FBB142" />
+            <Image
+              style={styles.vuesaxlinearsmsIcon}
+              resizeMode="cover"
+              source={require('../assets/tick.png')}
+            />
           )}
         </TouchableOpacity>
         <Text style={styles.checkboxLabel}>No</Text>
@@ -39,6 +47,10 @@ const DualCheckbox = ({ label, value, onChange }:any) => {
 const styles = StyleSheet.create({
   checkboxContainer: {
     marginVertical: 10,
+  },
+  vuesaxlinearsmsIcon: {
+    height: 10,
+    width: 10
   },
   label: {
     fontSize: 16,

@@ -3,10 +3,10 @@ import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Pressable } from 
 import LinearGradient from "react-native-linear-gradient";
 import Label from "../components/Label";
 import {
-  Padding,
-  FontFamily,
-  Color,
-  FontSize,
+    Padding,
+    FontFamily,
+    Color,
+    FontSize,
 } from "../GlobalStyles";
 import CustomHeader from "../components/CustomHeader";
 import { useSelector } from "react-redux";
@@ -19,21 +19,21 @@ import DropdownComponent from "../components/DropdownComponent";
 import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
 import { DEPENDANT } from "../../urls";
 
-const EditDependants = ({}:any) => {
+const EditDependants = ({ }: any) => {
     const navigation = useNavigation();
-    const route:any = useRoute();
+    const route: any = useRoute();
     const { id } = route.params;
     const [loading, setLoading] = useState(false);
-    const profile = useSelector((state:any) => state?.data?.profile);
+    const profile = useSelector((state: any) => state?.data?.profile);
     const [datas, setDatas] = useState<any>([]);
 
     useEffect(() => {
-       const data = profile[0]?.dependants?.find((dp:any) => dp?.id == id);
+        const data = profile[0]?.dependants?.find((dp: any) => dp?.id == id);
 
-       if(data) setDatas([data]);
+        if (data) setDatas([data]);
     }, [profile, id])
 
-    const updateProfile = async() => {
+    const updateProfile = async () => {
         const {
             id,
             Name,
@@ -41,7 +41,7 @@ const EditDependants = ({}:any) => {
             Dependant_Until2,
             Dependant_of_Person
         } = datas[0];
-        
+
         const updatedData = {
             id,
             Name,
@@ -53,7 +53,7 @@ const EditDependants = ({}:any) => {
         console.log("updatedData", updatedData);
 
         setLoading(true);
-        
+
         await actions.updateOtherProfileDetails([updatedData], DEPENDANT);
 
         await actions.getProfile();
@@ -68,13 +68,13 @@ const EditDependants = ({}:any) => {
 
     const updateState = (value: any, label: string) => {
         setDatas((prevDatas: any) => {
-          const updatedDatas = prevDatas.map((data: any) => {
-            if (label in data) {
-              return { ...data, [label]: value };
-            }
-            return data;
-          });
-          return updatedDatas;
+            const updatedDatas = prevDatas.map((data: any) => {
+                if (label in data) {
+                    return { ...data, [label]: value };
+                }
+                return data;
+            });
+            return updatedDatas;
         });
     };
 
@@ -88,7 +88,7 @@ const EditDependants = ({}:any) => {
             for (const account of prof.accounts) {
                 if (account.id === value) {
                     foundUser = account;
-                break;
+                    break;
                 }
             }
             if (foundUser) {
@@ -102,64 +102,72 @@ const EditDependants = ({}:any) => {
         }
 
         setDatas((prevDatas: any) => {
-          const updatedDatas = prevDatas.map((data: any) => {
-            if (label in data) {
-              return { ...data, [label]: newValue };
-            }
-            return data;
-          });
-          return updatedDatas;
+            const updatedDatas = prevDatas.map((data: any) => {
+                if (label in data) {
+                    return { ...data, [label]: newValue };
+                }
+                return data;
+            });
+            return updatedDatas;
         });
     };
-    
+
     return (
         <View
-        style={styles.wealthAssets}
+            style={styles.wealthAssets}
         >
-        <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
-        <CustomHeader name="Edit Details" type={3}/>
-        <Loader visible={loading} />
-        <FlashMessage position="top" />
-        <ScrollView
-            style={styles.wealthTabParent}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.frameScrollViewContent}
-        >
-            <View style={styles.advicecontainer}>
-                <View style={[styles.frWrapper, styles.ml_11, styles.wrapperLayout]}>
-                  <Text style={styles.dr}>{datas?.length > 0 && (profile[0]?.First_Name?.charAt(0)+profile[0]?.Last_Name?.charAt(0))}</Text>
-                </View>
-                
-                <View style={{alignItems: 'center', marginVertical: 10}}>
-                    <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>{datas[0]?.Name}</Text>
-                </View>
-
-                <CTextInput icon={require("../assets/profile.png")} key='Name' label='First Name' defaultValue={datas[0]?.Name?.toString()} id='Name' updateState={updateState} isNumOnly={false}/>
-
-                <CTextInput icon={require("../assets/dob.png")} key='Age' label='Age' defaultValue={datas[0]?.Age?.toString()} id='Age' updateState={updateState} isNumOnly={true}/>
-                
-                <CTextInput icon={require("../assets/hierarchy.png")} key='Dependant_Until2' label='Dependant until:' defaultValue={datas[0]?.Dependant_Until2?.toString()} id='Dependant_Until2' updateState={updateState} isNumOnly={false}/>
-
-                <Label label="Dependant Of:" icon={require("../assets/hierarchy.png")} />
-                <DropdownComponent
-                    values={[{ label: 'None', value: '' }, { label: profile[0]?.First_Name + " " + profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: profile[0]?.accounts[0]?.First_Name + " " + profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
-                    defaultValue={datas[0]?.Dependant_of_Person?.id?.toString()}
-                    onValueChange={(value:any) => updateSelectState(value, 'Dependant_of_Person')}
-                />
-            </View>
-            <LinearGradient
-            style={[styles.bottom, styles.bottomFlexBox]}
-            locations={[0, 1]}
-            colors={["#fbb142", "#f6a326"]}
-            useAngle={true}
-            angle={180}
+            <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
+            <CustomHeader name="Edit Details" type={3} />
+            <Loader visible={loading} />
+            <FlashMessage position="top" />
+            <ScrollView
+                style={styles.wealthTabParent}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.frameScrollViewContent}
             >
-                <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={updateProfile}>
-                    <Text style={[styles.edit, styles.ml4]}>Save</Text>
-                </Pressable>
-            </LinearGradient>
-        </ScrollView>
+                <View style={styles.advicecontainer}>
+                    <View style={[styles.frWrapper, styles.ml_11, styles.wrapperLayout]}>
+                        <Text style={styles.dr}>{datas?.length > 0 && (profile[0]?.First_Name?.charAt(0) + profile[0]?.Last_Name?.charAt(0))}</Text>
+                    </View>
+
+                    <View style={{ alignItems: 'center', marginVertical: 10 }}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'black' }}>{datas[0]?.Name}</Text>
+                    </View>
+
+
+                    <CTextInput icon={require("../assets/profile.png")} key='Name' label='First Name' defaultValue={datas[0]?.Name?.toString()} id='Name' updateState={updateState} isNumOnly={false} />
+
+
+                    <View style={styles.mainBox}>
+                        <View style={styles.sideBox}><Text style={styles.textBox}>Years</Text></View>
+                        <CTextInput icon={require("../assets/dob.png")} key='Age' label='Age' defaultValue={datas[0]?.Age?.toString()} id='Age' updateState={updateState} isNumOnly={true} />
+                    </View>
+
+                    <View style={styles.mainBox}>
+                        <View style={styles.sideBox}><Text style={styles.textBox}>Years old</Text></View>
+                        <CTextInput icon={require("../assets/hierarchy.png")} key='Dependant_Until2' label='Dependant until:' defaultValue={datas[0]?.Dependant_Until2?.toString()} id='Dependant_Until2' updateState={updateState} isNumOnly={false} />
+                    </View>
+
+                    <Label label="Dependant Of:" icon={require("../assets/hierarchy.png")} />
+                    <DropdownComponent
+                        values={[{ label: 'None', value: '' }, { label: profile[0]?.First_Name + " " + profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: profile[0]?.accounts[0]?.First_Name + " " + profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
+                        defaultValue={datas[0]?.Dependant_of_Person?.id?.toString()}
+                        onValueChange={(value: any) => updateSelectState(value, 'Dependant_of_Person')}
+                    />
+                </View>
+                <LinearGradient
+                    style={[styles.bottom, styles.bottomFlexBox]}
+                    locations={[0, 1]}
+                    colors={["#fbb142", "#f6a326"]}
+                    useAngle={true}
+                    angle={180}
+                >
+                    <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={updateProfile}>
+                        <Text style={[styles.edit, styles.ml4]}>Save</Text>
+                    </Pressable>
+                </LinearGradient>
+            </ScrollView>
         </View>
     );
 };
@@ -168,6 +176,28 @@ const styles = StyleSheet.create({
     frWrapper: {
         backgroundColor: "#9755b6",
         alignSelf: 'center'
+    },
+    mainBox: {
+        position: "relative",
+    },
+    sideBox: {
+        position: "absolute",
+        right: 0,
+        bottom: 0,
+        borderWidth: 1,
+        borderColor: "#FBB142",
+        width: "35%",
+        height: 48,
+        borderTopRightRadius: 12,
+        borderBottomRightRadius: 12,
+        alignItems: "center",
+        flex: 1,
+        justifyContent: "center"
+    },
+    textBox: {
+        color: "#000",
+        fontSize: 15,
+        fontWeight: "600"
     },
     ml_11: {
         marginLeft: -11,
@@ -197,8 +227,8 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         shadowColor: "rgba(32, 34, 36, 0.5)",
         shadowOffset: {
-          width: 0,
-          height: 4,
+            width: 0,
+            height: 4,
         },
         shadowRadius: 15,
         elevation: 40,
@@ -252,7 +282,7 @@ const styles = StyleSheet.create({
     wealthTabParent: {
         alignSelf: "stretch",
         flex: 1,
-    },    
+    },
 });
 
 export default EditDependants;

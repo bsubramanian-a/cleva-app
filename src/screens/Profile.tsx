@@ -123,7 +123,7 @@ const Profile = () => {
             item: [
               { icon: require("../assets/profile.png"), name: 'First Name', value: dependant?.Name },
               { icon: require("../assets/dob.png"), name: 'Age', value: dependant?.Age + " Years" },
-              { icon: require("../assets/hierarchy.png"), name: 'Dependant Until', value: dependant?.Dependant_Until2 },
+              { icon: require("../assets/hierarchy.png"), name: 'Dependant Until', value: dependant?.Dependant_Until2 +  " Years old" },
               { icon: require("../assets/hierarchy.png"), name: 'Dependant Of', value: dependant?.Dependant_of_Person?.name },
             ]
           };
@@ -142,7 +142,7 @@ const Profile = () => {
               { icon: require("../assets/personalcard.png"), name: 'Job Title', value: profile[0]?.employmentDetails[0]?.Job_Title },
               { icon: require("../assets/tag-user.png"), name: 'Employer', value: profile[0]?.employmentDetails[0]?.Name },
               { icon: require("../assets/cd.png"), name: 'Status', value: profile[0]?.employmentDetails[0]?.Status },
-              { icon: require("../assets/wallet.png"), name: 'Salary', value: profile[0]?.employmentDetails[0]?.Salary_ex_Super },
+              { icon: require("../assets/wallet.png"), name: 'Salary', value: "$" + profile[0]?.employmentDetails[0]?.Salary_ex_Super?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
               { icon: require("../assets/discount-circle.png"), name: 'Super', value: (profile[0]?.employmentDetails[0]?.Super || 0)+"%"},
               { icon: require("../assets/calendar.png"), name: 'Employment Start Date', value: profile[0]?.employmentDetails[0]?.Employment_Start_Date ? formatDate(profile[0]?.employmentDetails[0]?.Employment_Start_Date) : null },
               { name: 'Leave Entitlements', value: "" },
@@ -160,7 +160,7 @@ const Profile = () => {
               { icon: require("../assets/personalcard.png"), name: 'Job Title', value: profile[0]?.employmentDetails[1]?.Job_Title },
               { icon: require("../assets/tag-user.png"), name: 'Employer', value: profile[0]?.employmentDetails[1]?.Name },
               { icon: require("../assets/cd.png"), name: 'Status', value: profile[0]?.employmentDetails[1]?.Status },
-              { icon: require("../assets/wallet.png"), name: 'Salary', value: profile[0]?.employmentDetails[1]?.Salary_ex_Super },
+              { icon: require("../assets/wallet.png"), name: 'Salary', value: "$" + profile[0]?.employmentDetails[1]?.Salary_ex_Super?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
               { icon: require("../assets/discount-circle.png"), name: 'Super', value: (profile[0]?.employmentDetails[1]?.Super || 0)+"%"},
               { icon: require("../assets/calendar.png"), name: 'Employment Start Date', value: profile[0]?.employmentDetails[1]?.Employment_Start_Date ? formatDate(profile[0]?.employmentDetails[1]?.Employment_Start_Date) : null },
               { name: 'Leave Entitlements', value: "" },
