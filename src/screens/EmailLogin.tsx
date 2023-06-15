@@ -6,7 +6,7 @@ import actions from "../../actions";
 import Loader from "../components/Loader";
 import CKeyboard from "../components/CKeyboard";
 
-const EmailLogin = ({navigation}:any) => {
+const EmailLogin = ({ navigation }: any) => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -23,13 +23,13 @@ const EmailLogin = ({navigation}:any) => {
     setLoading(true);
     setError("");
     try {
-      const res:any = await actions.verifyEmail({
+      const res: any = await actions.verifyEmail({
         email,
       });
       console.log('res==>>>>>', res);
-      if(res?.isUserExist === true){
+      if (res?.isUserExist === true) {
         navigation.navigate('OTPScreen')
-      }else{
+      } else {
         setError("User doesn't exist, please register first");
       }
       setLoading(false);
@@ -45,7 +45,7 @@ const EmailLogin = ({navigation}:any) => {
       <CKeyboard>
         <View style={styles.heading}>
           <Text style={styles.loginWithEmailContainer}>
-            <Text style={styles.login}>Login</Text>  {'\n'} 
+            <Text style={styles.login}>Login</Text>  {'\n'}
             <Text style={styles.withEmail}>with email</Text>
           </Text>
           {/* <CKeyboard></CKeyboard> */}
@@ -60,25 +60,27 @@ const EmailLogin = ({navigation}:any) => {
             emailInputMarginTop={48}
             setText={setEmail}
           />
-          {error != "" && 
-            <Text style={{color: 'red'}}>{error}</Text>
+          {error != "" &&
+            <Text style={{ color: 'red' }}>{error}</Text>
           }
         </View>
         <View
           style={[styles.nextprevious, styles.emailLoginSpaceBlock]}
         >
-          <Image
-            style={styles.iconleftarrow}
-            resizeMode="cover"
-            source={require("../assets/iconarrow.png")}
-          />
-          <Pressable onPress={email != "" ? onVerifyEmail: undefined} style={styles.next}>
+          <Pressable onPress={() => navigation.navigate("LoginSignup")} style={styles.next}>
+            <Image
+              style={styles.iconleftarrow}
+              resizeMode="cover"
+              source={require("../assets/iconarrow.png")}
+            />
+          </Pressable>
+          <Pressable onPress={email != "" ? onVerifyEmail : undefined} style={styles.next}>
             <Image
               style={styles.iconrightarrow}
               resizeMode="cover"
               source={email != "" ? require("../assets/iconarrow1.png") : require("../assets/iconrightarrow.png")}
             />
-            <Text style={[styles.next1, email != "" && {color: '#000'}]}>NEXT</Text>
+            <Text style={[styles.next1, email != "" && { color: '#000' }]}>NEXT</Text>
           </Pressable>
         </View>
       </CKeyboard>

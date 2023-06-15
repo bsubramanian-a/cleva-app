@@ -7,29 +7,29 @@ import { Color, FontFamily, FontSize, Margin, Padding } from '../GlobalStyles';
 import actions from '../../actions';
 import { useSelector } from 'react-redux';
 
-const OTPScreen = ({navigation}:any) => {
+const OTPScreen = ({ navigation }: any) => {
   const [otp, setOTP] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const email = useSelector((state: any) => state.auth.email);
-  
-  const handleOTPTyping = (code:any) => {
+
+  const handleOTPTyping = (code: any) => {
     console.log("handleOTPTyping", code);
     setOTP(code);
   };
 
-  const otpVerify = async() => {
+  const otpVerify = async () => {
     setLoading(true);
     setError("");
     try {
-      const res:any = await actions.verifyOTP({
+      const res: any = await actions.verifyOTP({
         otp,
         email
       });
       console.log('res==>>>>>', res);
-      if(res?.isCorrect === true){
+      if (res?.isCorrect === true) {
         navigation.navigate('PasswordLogin')
-      }else{
+      } else {
         setError(res?.error);
       }
       setLoading(false);
@@ -45,11 +45,11 @@ const OTPScreen = ({navigation}:any) => {
       <CKeyboard>
         <View style={styles.heading}>
           <Text style={styles.loginWithEmailContainer}>
-            <Text style={styles.login}>Enter the</Text>  {'\n'} 
-            <Text style={styles.login}>OTP</Text>  {'\n'} 
+            <Text style={styles.login}>Enter the</Text>  {'\n'}
+            <Text style={styles.login}>OTP</Text>  {'\n'}
           </Text>
-          {error != "" && 
-            <Text style={{color: 'red'}}>{error}</Text>
+          {error != "" &&
+            <Text style={{ color: 'red' }}>{error}</Text>
           }
           <View style={styles.otpContainer}>
             <OtpInputs
@@ -63,18 +63,20 @@ const OTPScreen = ({navigation}:any) => {
         <View
           style={[styles.nextprevious, styles.emailLoginSpaceBlock]}
         >
-          <Image
-            style={styles.iconleftarrow}
-            resizeMode="cover"
-            source={require("../assets/iconarrow.png")}
-          />
-          <Pressable onPress={otp != "" ? otpVerify: undefined} style={styles.next}>
+          <Pressable onPress={() => navigation.navigate("EmailLogin")} style={styles.next}>
+            <Image
+              style={styles.iconleftarrow}
+              resizeMode="cover"
+              source={require("../assets/iconarrow.png")}
+            />
+          </Pressable>
+          <Pressable onPress={otp != "" ? otpVerify : undefined} style={styles.next}>
             <Image
               style={styles.iconrightarrow}
               resizeMode="cover"
               source={otp != "" ? require("../assets/iconarrow1.png") : require("../assets/iconrightarrow.png")}
             />
-            <Text style={[styles.next1, otp != "" && {color: '#000'}]}>NEXT</Text>
+            <Text style={[styles.next1, otp != "" && { color: '#000' }]}>NEXT</Text>
           </Pressable>
         </View>
       </CKeyboard>

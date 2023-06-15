@@ -18,6 +18,7 @@ const GoogleLogin = ({onVerifyEmail}:any) => {
   GoogleSignin.configure({
     webClientId: config.googleWebClientId,
     offlineAccess: true, // if you need to access user data while offline
+    iosClientId: "443739967199-aqt4tluhchtf41d9vue0djdcs956i03b.apps.googleusercontent.com",
   });
   
   useEffect(() => {
