@@ -172,37 +172,37 @@ const Profile = () => {
           }
         ].filter(obj => obj)
       },
-      // {
-      //   title: 'Expenses',
-      //   icon: require("../assets/receipt-item.png"),
-      //   link: 'EditExpenses',
-      //   items: [
-      //     profile[0]?.expenses?.length > 0 && {
-      //       subHeading: profile[0]?.expenses[0]?.Household?.name,
-      //       id: profile[0]?.expenses[0]?.id,
-      //       item: [
-      //         { icon: require("../assets/profile.png"), name: 'Gas', value: `$${profile[0]?.expenses[0]?.Gas_p_a}` },
-      //         { icon: require("../assets/profile.png"), name: 'Electricity', value: `$${profile[0]?.expenses[0]?.Electricity_p_a}` },
-      //         { icon: require("../assets/profile.png"), name: 'Water', value: `$${profile[0]?.expenses[0]?.Water_p_a}` },
-      //         { icon: require("../assets/profile.png"), name: 'Home/Contents Insurance', value: `$${profile[0]?.expenses[0]?.Home_Contents_Insurance_p_a}` },
-      //         { icon: require("../assets/profile.png"), name: 'Car Insurance', value: `$${profile[0]?.expenses[0]?.Car_Insurance_p_a}` },
-      //         { icon: require("../assets/profile.png"), name: 'Private Health Insurance', value: `$${profile[0]?.expenses[0]?.Private_Health_Insurance_p_a}` },
-      //       ]
-      //     },
-      //     {
-      //       subHeading: "Loan Repayments",
-      //       id: profile[0]?.expenses[0]?.id,
-      //       item: [
-      //         { icon: require("../assets/profile.png"), name: 'Home', value: `$${profile[0]?.expenses[0]?.Home_Loan}` },
-      //         { icon: require("../assets/profile.png"), name: 'Investment Property', value: `$${profile[0]?.expenses[0]?.Investment_Property_Loan_p_a}` },
-      //         { icon: require("../assets/profile.png"), name: 'Other Investment', value: `$${profile[0]?.expenses[0]?.Other_Investment_Loan_p_a}` },
-      //         { icon: require("../assets/profile.png"), name: 'Personal', value: `$${profile[0]?.expenses[0]?.Personal_Loan_p_a}` },
-      //         { icon: require("../assets/profile.png"), name: 'Credit Cards', value: `$${profile[0]?.expenses[0]?.Credit_Cards_per_month}` },
-      //         { icon: require("../assets/profile.png"), name: 'Other Expenses',  value: `$${profile[0]?.expenses[0]?.Other_Expenses_p_a}\n${profile[0]?.expenses[0]?.Multi_Line_1}` },
-      //       ]
-      //     }
-      //   ].filter(obj => obj)
-      // },
+      {
+        title: 'Expenses',
+        icon: require("../assets/receipt-item.png"),
+        link: 'EditExpenses',
+        items: [
+          profile[0]?.expenses?.length > 0 && {
+            subHeading: profile[0]?.expenses[0]?.Household?.name,
+            id: profile[0]?.expenses[0]?.id,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'Gas', value: `$${profile[0]?.expenses[0]?.Gas_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Electricity', value: `$${profile[0]?.expenses[0]?.Electricity_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Water', value: `$${profile[0]?.expenses[0]?.Water_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Home/Contents Insurance', value: `$${profile[0]?.expenses[0]?.Home_Contents_Insurance_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Car Insurance', value: `$${profile[0]?.expenses[0]?.Car_Insurance_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Private Health Insurance', value: `$${profile[0]?.expenses[0]?.Private_Health_Insurance_p_a}` },
+            ]
+          },
+          {
+            subHeading: "Loan Repayments",
+            id: profile[0]?.expenses[0]?.id,
+            item: [
+              { icon: require("../assets/profile.png"), name: 'Home', value: `$${profile[0]?.expenses[0]?.Home_Loan}` },
+              { icon: require("../assets/profile.png"), name: 'Investment Property', value: `$${profile[0]?.expenses[0]?.Investment_Property_Loan_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Other Investment', value: `$${profile[0]?.expenses[0]?.Other_Investment_Loan_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Personal', value: `$${profile[0]?.expenses[0]?.Personal_Loan_p_a}` },
+              { icon: require("../assets/profile.png"), name: 'Credit Cards', value: `$${profile[0]?.expenses[0]?.Credit_Cards_per_month}` },
+              { icon: require("../assets/profile.png"), name: 'Other Expenses',  value: `$${profile[0]?.expenses[0]?.Other_Expenses_p_a}\n${profile[0]?.expenses[0]?.Multi_Line_1}` },
+            ]
+          }
+        ].filter(obj => obj)
+      },
       // {
       //   title: 'Employment Choice/Retirement',
       //   icon: require("../assets/people.png"),
@@ -733,7 +733,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_6xl,
     color: Color.white1,
     textAlign: "center",
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontFamily: FontFamily.sourceSerifPro,
     fontWeight: "600",
     lineHeight: 22,
   },
