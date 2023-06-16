@@ -154,7 +154,7 @@ const Profile = () => {
           },
           profile[0]?.employmentDetails?.length >= 2 && {
             subHeading: profile[0]?.employmentDetails[1]?.Client_Name?.name,
-            id: profile[0]?.employmentDetails[0]?.id,
+            id: profile[0]?.employmentDetails[1]?.id,
             item: [
               { icon: require("../assets/briefcase.png"), name: 'Occupation', value: profile[0]?.employmentDetails[1]?.Occupation },
               { icon: require("../assets/personalcard.png"), name: 'Job Title', value: profile[0]?.employmentDetails[1]?.Job_Title },
