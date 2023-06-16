@@ -34,7 +34,7 @@ const EditEmployment = ({ }: any) => {
         setCheckboxValue(newValue);
         updateState(newValue, "Any_changes_planned_next_6_12mths");
     };
-    
+
     useEffect(() => {
         const data = profile[0]?.employmentDetails?.find((dp: any) => dp?.id == id);
 
@@ -161,18 +161,27 @@ const EditEmployment = ({ }: any) => {
                         <CTextInput icon={require("../assets/sick.png")} key='Sick' label='Sick Leave' defaultValue={datas[0]?.Sick?.toString()} id='Sick' updateState={updateState} isNumOnly={true} />
                     </View>
 
-                    <View style={styles.mainBox}>
+                    <View>
                         <View style={styles.sideBox}><Text style={styles.textBox}>Days</Text></View>
                         <CTextInput icon={require("../assets/calendar.png")} key='Long_Service' label='Long Service Leave' defaultValue={datas[0]?.Long_Service?.toString()} id='Long_Service' updateState={updateState} isNumOnly={true} />
                     </View>
 
-                    <DualCheckbox
-                        label="Is there likely any changes in the next 6-12 months?"
-                        value={checkboxValue}
-                        onChange={handleCheckboxChange}
-                    />
+                    <View>
+                        <View style={styles.imgText}>
+                            <Image
+                                style={styles.vuesaxlinearedit2Icon}
+                                resizeMode="cover"
+                                source={require('../assets/document-text.png')}
+                            />
+                            <Text style={styles.labelText}>Is there likely any changes in the next 6-12 months?</Text>
+                        </View>
+                        <DualCheckbox
+                            value={checkboxValue}
+                            onChange={handleCheckboxChange}
+                        />
+                    </View>
 
-                    <CTextInput icon={require("../assets/document-text.png")} key='Multi_Line_1' label='Long Service Leave' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true} />
+                    <CTextInput style={styles.tInput} key='Multi_Line_1' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true} />
                 </View>
                 <LinearGradient
                     style={[styles.bottom, styles.bottomFlexBox]}
@@ -191,6 +200,27 @@ const EditEmployment = ({ }: any) => {
 };
 
 const styles = StyleSheet.create({
+    tInput: {
+        borderWidth: 1,
+        borderRadius: 12,
+        borderColor: "#DEDEDE",
+        width: "100%",
+        paddingHorizontal: 20,
+        paddingVertical: 12,
+        paddingTop: 10,
+    },
+    imgText: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        marginTop: 24,
+        gap: 5,
+    },
+    labelText: {
+        color: "#4B4B4B",
+        fontSize: 14,
+    },
     frWrapper: {
         backgroundColor: "#9755b6",
         alignSelf: 'center'

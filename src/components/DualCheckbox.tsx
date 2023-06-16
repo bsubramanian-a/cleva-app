@@ -46,7 +46,7 @@ const DualCheckbox = ({ label, value, onChange }: any) => {
 
 const styles = StyleSheet.create({
   checkboxContainer: {
-    marginVertical: 10,
+    marginBottom: 10,
   },
   vuesaxlinearsmsIcon: {
     height: 10,
