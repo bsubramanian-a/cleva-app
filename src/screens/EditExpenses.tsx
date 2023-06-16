@@ -25,7 +25,7 @@ import data from "../../reducers/data";
 const EditExpenses = ({}:any) => {
     const navigation = useNavigation();
     const route:any = useRoute();
-    const { id } = route.params;
+    const { id, type } = route.params;
     const [loading, setLoading] = useState(false);
     const profile = useSelector((state:any) => state?.data?.profile);
     const [datas, setDatas] = useState<any>([]);
@@ -37,17 +37,9 @@ const EditExpenses = ({}:any) => {
     };
 
     useEffect(() => {
-       const data = profile[0]?.expenses?.find((dp:any) => dp?.id == id);
+        setDatas([ profile[0]?.expenses[0]]);
+    }, [profile, type])
 
-        if(data) {
-            setDatas([data]);
-            if(data?.Other_Expenses_p_a && data?.Other_Expenses_p_a != "" && data?.Other_Expenses_p_a != 0){
-                setCheckboxValue(true);
-            }else{
-                setCheckboxValue(false);
-            }
-        };
-    }, [profile, id])
 
     const updateProfile = async() => {
         const {
@@ -133,41 +125,49 @@ const EditExpenses = ({}:any) => {
                     <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>Household</Text>
                 </View>
                 
-                <CTextInput icon={require("../assets/profile.png")} key='Gas_p_a' label='Gas' defaultValue={datas[0]?.Gas_p_a?.toString()} id='Gas_p_a' updateState={updateState} isNumOnly={true}/>
+                {type == 'user1' && 
+                    <>
+                        <CTextInput icon={require("../assets/profile.png")} key='Gas_p_a' label='Gas' defaultValue={datas[0]?.Gas_p_a?.toString()} id='Gas_p_a' updateState={updateState} isNumOnly={true}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Electricity_p_a' label='Electricity' defaultValue={datas[0]?.Electricity_p_a?.toString()} id='Electricity_p_a' updateState={updateState} isNumOnly={true}/>
+                        <CTextInput icon={require("../assets/profile.png")} key='Electricity_p_a' label='Electricity' defaultValue={datas[0]?.Electricity_p_a?.toString()} id='Electricity_p_a' updateState={updateState} isNumOnly={true}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Water_p_a' label='Water' defaultValue={datas[0]?.Water_p_a?.toString()} id='Water_p_a' updateState={updateState} isNumOnly={true}/>
+                        <CTextInput icon={require("../assets/profile.png")} key='Water_p_a' label='Water' defaultValue={datas[0]?.Water_p_a?.toString()} id='Water_p_a' updateState={updateState} isNumOnly={true}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Home_Contents_Insurance_p_a' label='Home/Contents Insurance' defaultValue={datas[0]?.Home_Contents_Insurance_p_a?.toString()} id='Home_Contents_Insurance_p_a' updateState={updateState} isNumOnly={true}/>
+                        <CTextInput icon={require("../assets/profile.png")} key='Home_Contents_Insurance_p_a' label='Home/Contents Insurance' defaultValue={datas[0]?.Home_Contents_Insurance_p_a?.toString()} id='Home_Contents_Insurance_p_a' updateState={updateState} isNumOnly={true}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Car_Insurance_p_a' label='Car Insurance' defaultValue={datas[0]?.Car_Insurance_p_a?.toString()} id='Car_Insurance_p_a' updateState={updateState} isNumOnly={true}/>
+                        <CTextInput icon={require("../assets/profile.png")} key='Car_Insurance_p_a' label='Car Insurance' defaultValue={datas[0]?.Car_Insurance_p_a?.toString()} id='Car_Insurance_p_a' updateState={updateState} isNumOnly={true}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Private_Health_Insurance_p_a' label='Private Health Insurance' defaultValue={datas[0]?.Private_Health_Insurance_p_a?.toString()} id='Private_Health_Insurance_p_a' updateState={updateState} isNumOnly={true}/>
+                        <CTextInput icon={require("../assets/profile.png")} key='Private_Health_Insurance_p_a' label='Private Health Insurance' defaultValue={datas[0]?.Private_Health_Insurance_p_a?.toString()} id='Private_Health_Insurance_p_a' updateState={updateState} isNumOnly={true}/>
+                    </>
+                }
 
                 <Text>Loan Repayments</Text>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Home_Loan' label='Home' defaultValue={datas[0]?.Home_Loan?.toString()} id='Home_Loan' updateState={updateState} isNumOnly={true}/>
+                {type == 'user2' && 
+                    <>
+                        <CTextInput icon={require("../assets/profile.png")} key='Home_Loan' label='Home' defaultValue={datas[0]?.Home_Loan?.toString()} id='Home_Loan' updateState={updateState} isNumOnly={true}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Investment_Property_Loan_p_a' label='Investment Property' defaultValue={datas[0]?.Investment_Property_Loan_p_a?.toString()} id='Investment_Property_Loan_p_a' updateState={updateState} isNumOnly={true}/>
+                        <CTextInput icon={require("../assets/profile.png")} key='Investment_Property_Loan_p_a' label='Investment Property' defaultValue={datas[0]?.Investment_Property_Loan_p_a?.toString()} id='Investment_Property_Loan_p_a' updateState={updateState} isNumOnly={true}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Other_Investment_Loan_p_a' label='Other Investment' defaultValue={datas[0]?.Other_Investment_Loan_p_a?.toString()} id='Other_Investment_Loan_p_a' updateState={updateState} isNumOnly={true}/>
+                        <CTextInput icon={require("../assets/profile.png")} key='Other_Investment_Loan_p_a' label='Other Investment' defaultValue={datas[0]?.Other_Investment_Loan_p_a?.toString()} id='Other_Investment_Loan_p_a' updateState={updateState} isNumOnly={true}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Personal_Loan_p_a' label='Personal' defaultValue={datas[0]?.Personal_Loan_p_a?.toString()} id='Personal_Loan_p_a' updateState={updateState} isNumOnly={true}/>
+                        <CTextInput icon={require("../assets/profile.png")} key='Personal_Loan_p_a' label='Personal' defaultValue={datas[0]?.Personal_Loan_p_a?.toString()} id='Personal_Loan_p_a' updateState={updateState} isNumOnly={true}/>
 
-                <CTextInput icon={require("../assets/profile.png")} key='Credit_Cards_per_month' label='Credit Cards' defaultValue={datas[0]?.Credit_Cards_per_month?.toString()} id='Credit_Cards_per_month' updateState={updateState} isNumOnly={true}/>
+                        <CTextInput icon={require("../assets/profile.png")} key='Credit_Cards_per_month' label='Credit Cards' defaultValue={datas[0]?.Credit_Cards_per_month?.toString()} id='Credit_Cards_per_month' updateState={updateState} isNumOnly={true}/>
 
-                <DualCheckbox
-                    label="Other Expenses"
-                    value={checkboxValue}
-                    onChange={handleCheckboxChange}
-                />
+                        <DualCheckbox
+                            label="Other Expenses"
+                            value={checkboxValue}
+                            onChange={handleCheckboxChange}
+                        />
 
-                { checkboxValue &&
-                    <CTextInput icon={require("../assets/profile.png")} key='Other_Expenses_p_a' label='Other Expenses' defaultValue={datas[0]?.Other_Expenses_p_a?.toString()} id='Other_Expenses_p_a' updateState={updateState} isNumOnly={false} isTextArea={true}/>
+                        { checkboxValue &&
+                            <CTextInput icon={require("../assets/profile.png")} key='Other_Expenses_p_a' label='Other Expenses' defaultValue={datas[0]?.Other_Expenses_p_a?.toString()} id='Other_Expenses_p_a' updateState={updateState} isNumOnly={false} isTextArea={true}/>
+                        }
+
+                        <CTextInput icon={require("../assets/profile.png")} key='Multi_Line_1' label='' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true}/>
+                    </>
                 }
-
-                <CTextInput icon={require("../assets/profile.png")} key='Multi_Line_1' label='' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true}/>
             </View>
             <LinearGradient
             style={[styles.bottom, styles.bottomFlexBox]}

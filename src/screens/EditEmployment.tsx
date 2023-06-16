@@ -34,7 +34,7 @@ const EditEmployment = ({ }: any) => {
         setCheckboxValue(newValue);
         updateState(newValue, "Any_changes_planned_next_6_12mths");
     };
-
+    
     useEffect(() => {
         const data = profile[0]?.employmentDetails?.find((dp: any) => dp?.id == id);
 
