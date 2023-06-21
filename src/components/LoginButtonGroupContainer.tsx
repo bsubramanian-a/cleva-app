@@ -7,10 +7,11 @@ import {
   Text,
   View,
   ImageSourcePropType,
+  Platform,
 } from "react-native";
 import GoogleLogin from "../components/GoogleLogin";
 import LoginButton from "../components/LoginButton";
-import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import { LoginManager, AccessToken, GraphRequestManager, GraphRequest } from 'react-native-fbsdk-next';
 import {
   Margin,
   FontFamily,
@@ -19,6 +20,7 @@ import {
   Border,
   Padding,
 } from "../GlobalStyles";
+import AppleLogin from "./AppleLogin";
 
 type LoginButtonGroupContainerType = {
   socialLoginImageUrl?: ImageSourcePropType;
@@ -50,33 +52,51 @@ const LoginButtonGroupContainer = ({
     };
   }, [propBackgroundColor]);
 
-  const handleFacebookLogin = async () => {
-    try {
-      // Log in with Facebook
-      const result = await LoginManager.logInWithPermissions(['public_profile']);
-      console.log("facebook login result", result);
-      if (result.isCancelled) {
-        console.log('Login cancelled');
-      } else {
-        // Get the access token
-        const accessToken = await AccessToken.getCurrentAccessToken();
-
-        if (accessToken) {
-          console.log('Access token:', accessToken.accessToken);
-        } else {
-          console.log('Failed to get access token');
-        }
-      }
-    } catch (error) {
-      console.log('Login failed:', error);
+const handleFacebookLogin = async () => {
+  try {
+    const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+    console.log("result", result);
+    if (result.isCancelled) {
+      throw new Error('User cancelled login');
     }
-  };
+
+    const data = await AccessToken.getCurrentAccessToken();
+    if (!data) {
+      throw new Error('Something went wrong obtaining the access token');
+    }
+    const accessToken = data.accessToken;
+    console.log("accessToken", accessToken);
+
+    // Request additional user data, such as email
+    const graphRequest = new GraphRequest('/me', {
+      accessToken,
+      parameters: {
+        fields: {
+          string: 'id,name,email',
+        },
+      },
+    }, (error, response) => {
+      if (error) {
+        console.log('Error retrieving user data: ', error);
+      } else {
+        const { id, name, email }:any = response;
+        console.log('User data:', { id, name, email });
+        // Perform further actions with the obtained user data
+      }
+    });
+
+    // Execute the graph request
+    new GraphRequestManager().addRequest(graphRequest).start();
+  } catch (error) {
+    console.log('Error logging in:', error);
+  }
+};
 
   return (
     <View style={[styles.buttonGroup, styles.mt72, styles.appleLoginFlexBox]}>
       <View style={styles.socialLogin}>
         <GoogleLogin onVerifyEmail={onVerifyEmail} />
-        <Pressable
+        {Platform.OS === 'android' && <Pressable
          onPress={handleFacebookLogin}
           style={[
             styles.appleLogin,
@@ -93,7 +113,9 @@ const LoginButtonGroupContainer = ({
           <Text style={[styles.loginWithFacebook, styles.ml66]}>
             {socialLoginText}
           </Text>
-        </Pressable>
+        </Pressable>}
+
+        {Platform.OS === 'ios' && <AppleLogin />}
       </View>
       <Text style={[styles.or, styles.mt40]}>Or</Text>
       <View style={[styles.socialLogin, styles.mt40]}>

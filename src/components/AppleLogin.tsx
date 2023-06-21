@@ -8,10 +8,31 @@ import {
   Border,
   Padding,
 } from "../GlobalStyles";
+import { appleAuth, AppleButton } from '@invertase/react-native-apple-authentication';
 
 const AppleLogin = () => {
+  const handleAppleLogin = async () => {
+    try {
+      // Start the Apple authentication request
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+      });
+  
+      // Get the user's credential details
+      const { user, email, fullName } = appleAuthRequestResponse;
+  
+      // Use the received credential details for further processing
+      console.log(user);
+      console.log(email);
+      console.log(fullName);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <Pressable style={[styles.appleLogin, styles.mt32]}>
+    <Pressable style={[styles.appleLogin, {marginTop: 30}]} onPress={handleAppleLogin}>
       <Image
         style={styles.iconmarketsLogoappstore}
         resizeMode="cover"
@@ -24,7 +45,7 @@ const AppleLogin = () => {
 
 const styles = StyleSheet.create({
   ml66: {
-    marginLeft: Margin.m_8xl,
+    marginLeft: Margin.m_lg,
   },
   iconmarketsLogoappstore: {
     width: 28,
@@ -32,18 +53,18 @@ const styles = StyleSheet.create({
   },
   loginWithApple: {
     flex: 1,
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
     lineHeight: 22,
     fontWeight: "600",
-    fontFamily: FontFamily.textMediumBoldText,
+    fontFamily: FontFamily.textMediumBoldText1,
     textAlign: "left",
     color: Color.white1,
   },
   appleLogin: {
     alignSelf: "stretch",
-    borderRadius: Border.br_3xl,
+    borderRadius: Border.br_md,
     backgroundColor: Color.black,
-    shadowColor: "#e3a99d",
+    shadowColor: "#e1a698",
     shadowOffset: {
       width: 0,
       height: 10,
@@ -54,10 +75,10 @@ const styles = StyleSheet.create({
     height: 70,
     overflow: "hidden",
     flexDirection: "row",
-    paddingHorizontal: Padding.p_lg,
-    paddingVertical: Padding.p_5xs,
+    paddingHorizontal: Padding.p_md,
+    paddingVertical: Padding.p_2xs,
     alignItems: "center",
-    color: Color.white1,
+    color: Color.dark1,
   },
 });
 
