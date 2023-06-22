@@ -172,6 +172,37 @@ const Profile = () => {
           }
         ].filter(obj => obj)
       },
+      {
+        title: 'Income',
+        icon: require("../assets/money-recieve.png"),
+        link: 'EditIncome',
+        items: [
+          profile[0]?.income?.length >= 1 && {
+            subHeading: profile[0]?.income[0]?.Person_Account?.name,
+            id: profile[0]?.income[0]?.id,
+            item: [
+            { icon: require("../assets/dollar-square.png"), name: 'Centrelink/DVA', value: profile[0]?.income[0]?.Centrelink_DVA_p_a },
+              { icon: require("../assets/dollar-square.png"), name: 'Interest Income', value: profile[0]?.income[0]?.Interest_Income_p_a },
+              { icon: require("../assets/dollar-square.png"), name: 'Rental Income', value: profile[0]?.income[0]?.Rental_Income_p_a },
+              { icon: require("../assets/dollar-square.png"), name: 'Dividends', value: profile[0]?.income[0]?.Dividends_p_a },
+              { icon: require("../assets/dollar-square.png"), name: 'Pension/Annuity', value: profile[0]?.income[0]?.Pension_Annuity_p_a },
+              { icon: require("../assets/dollar-square.png"), name: 'Other Income', value: "$"+`${profile[0]?.income[0]?.Other_Income_p_a || 0}${profile[0]?.income[0]?.Details_Other_Income ? '\n'+profile[0]?.income[0]?.Details_Other_Income : ""}` }
+            ]
+          },
+          profile[0]?.income?.length >= 2 && {
+            subHeading: profile[0]?.income[1]?.Person_Account?.name,
+            id: profile[0]?.income[1]?.id,
+            item: [
+            { icon: require("../assets/dollar-square.png"), name: 'Centrelink/DVA', value: profile[0]?.income[1]?.Centrelink_DVA_p_a },
+              { icon: require("../assets/dollar-square.png"), name: 'Interest Income', value: profile[0]?.income[1]?.Interest_Income_p_a },
+              { icon: require("../assets/dollar-square.png"), name: 'Rental Income', value: profile[0]?.income[1]?.Rental_Income_p_a },
+              { icon: require("../assets/dollar-square.png"), name: 'Dividends', value: profile[0]?.income[1]?.Dividends_p_a },
+              { icon: require("../assets/dollar-square.png"), name: 'Pension/Annuity', value: profile[0]?.income[1]?.Pension_Annuity_p_a },
+              { icon: require("../assets/dollar-square.png"), name: 'Other Income', value: "$"+`${profile[0]?.income[1]?.Other_Income_p_a || 0}${profile[0]?.income[1]?.Details_Other_Income ? '\n'+profile[0]?.income[1]?.Details_Other_Income : ""}` }
+            ]
+          },
+        ].filter(obj => obj)
+      },
       // {
       //   title: 'Expenses',
       //   icon: require("../assets/receipt-item.png"),
@@ -527,80 +558,6 @@ const Profile = () => {
           </View>
         </View>
         <AccordionContainer accordions={accordion} />
-        {/* <View style={[styles.options, styles.optionsSpaceBlock]}>         
-          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
-            <View style={styles.vuesaxlinearsmsParent}>
-              <View style={styles.vuesaxlinearprofileCircleWrapper}>
-                <Image
-                  style={styles.vuesaxlinearprofileCircleIcon}
-                  resizeMode="cover"
-                  source={require("../assets/money-recieve.png")}
-                />
-              </View>
-              <Text
-                style={[
-                  styles.aboutYou,
-                  styles.mTypo,
-                  styles.danFleurClr,
-                ]}
-              >
-                Income
-              </Text>
-            </View>
-            <Image
-              style={styles.vuesaxlinearsmsIcon}
-              resizeMode="cover"
-              source={require("../assets/vuesaxlineararrowcircledown.png")}
-            />
-          </View>
-          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
-            <View style={styles.vuesaxlinearsmsParent}>
-              <View style={styles.vuesaxlinearprofileCircleWrapper}>
-                <Image
-                  style={styles.vuesaxlinearprofileCircleIcon}
-                  resizeMode="cover"
-                  source={require("../assets/danger.png")}
-                />
-              </View>
-              <Text
-                style={[
-                  styles.aboutYou,
-                  styles.mTypo,
-                  styles.danFleurClr,
-                ]}
-              >{`Risk Profile & Preferences`}</Text>
-            </View>
-            <Image
-              style={styles.vuesaxlinearsmsIcon}
-              resizeMode="cover"
-              source={require("../assets/vuesaxlineararrowcircledown.png")}
-            />
-          </View>
-          <View style={[styles.excercise1, styles.mt15, styles.frameParentFlexBox, styles.aboutCard]}>
-            <View style={styles.vuesaxlinearsmsParent}>
-              <View style={styles.vuesaxlinearprofileCircleWrapper}>
-                <Image
-                  style={styles.vuesaxlinearprofileCircleIcon}
-                  resizeMode="cover"
-                  source={require("../assets/vuesaxlinearreceiptedit.png")}
-                />
-              </View>
-              <Text
-                style={[
-                  styles.aboutYou,
-                  styles.mTypo,
-                  styles.danFleurClr,
-                ]}
-              >{`Pricing & Service Agreement`}</Text>
-            </View>
-            <Image
-              style={styles.vuesaxlinearsmsIcon}
-              resizeMode="cover"
-              source={require("../assets/vuesaxlineararrowcircledown.png")}
-            />
-          </View>
-
-        </View> */}
       </ScrollView>
     </View>
   );

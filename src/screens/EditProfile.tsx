@@ -257,7 +257,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         overflow: "hidden",
     },
-
     frameScrollViewContent: {
         paddingTop: 18,
         flexDirection: "column",

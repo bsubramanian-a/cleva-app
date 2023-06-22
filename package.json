@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --simulator='iPhone 14 Pro'",
     "lint": "eslint .",
     "start": "react-native start --reset-cache",
     "test": "jest"
@@ -23,6 +23,7 @@
     "date-fns": "^2.30.0",
     "react": "18.2.0",
     "react-native": "0.71.6",
+    "react-native-chart-kit": "^6.12.0",
     "react-native-circular-progress": "^1.3.8",
     "react-native-date-picker": "^4.2.13",
     "react-native-deck-swiper": "^2.0.13",

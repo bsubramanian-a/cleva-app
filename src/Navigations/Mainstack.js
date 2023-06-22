@@ -23,6 +23,14 @@ import EditExpenses from '../screens/EditExpenses';
 import EditIncome from '../screens/EditIncome';
 import EditInsurance from '../screens/EditInsurance';
 import EditRetirement from '../screens/EditRetirement';
+import AddANewGoalGoalDate from '../screens/AddANewGoalGoalDate';
+import AddANewGoalGoalFrequenc from '../screens/AddANewGoalGoalFrequenc';
+import AddANewGoalGoalImportan from '../screens/AddANewGoalGoalImportan';
+import AddANewGoalGoalMoney from '../screens/AddANewGoalGoalMoney';
+import AddANewGoalGoalResponsi from '../screens/AddANewGoalGoalResponsi';
+import AddANewGoalGoalSummary from '../screens/AddANewGoalGoalSummary';
+import AddANewGoalGoalType from '../screens/AddANewGoalGoalType';
+import GoalImportance from '../screens/GoalImportance';
 
 const Tab = createBottomTabNavigator();
 
@@ -177,6 +185,14 @@ const Mainstack = (Drawer, userData) => {
             <Drawer.Screen name="EditIncome" component={EditIncome} />
             <Drawer.Screen name="EditInsurance" component={EditInsurance} />
             <Drawer.Screen name="EditRetirement" component={EditRetirement} />
+            <Drawer.Screen name="AddANewGoalGoalDate" component={AddANewGoalGoalDate} />
+            <Drawer.Screen name="AddANewGoalGoalFrequenc" component={AddANewGoalGoalFrequenc} />
+            <Drawer.Screen name="AddANewGoalGoalImportan" component={AddANewGoalGoalImportan} />
+            <Drawer.Screen name="AddANewGoalGoalMoney" component={AddANewGoalGoalMoney} />
+            <Drawer.Screen name="AddANewGoalGoalResponsi" component={AddANewGoalGoalResponsi} />
+            <Drawer.Screen name="AddANewGoalGoalSummary" component={AddANewGoalGoalSummary} />
+            <Drawer.Screen name="AddANewGoalGoalType" component={AddANewGoalGoalType} />
+            <Drawer.Screen name="GoalImportance" component={GoalImportance} />
         </Drawer.Navigator>
     );
 };
