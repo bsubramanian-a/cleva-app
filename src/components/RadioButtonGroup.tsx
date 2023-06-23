@@ -90,9 +90,10 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   optionText: {
-    fontSize: 11,
+    fontSize: 14,
     fontWeight: 'bold',
-    color: '#555555',
+    color: '#000',
+    fontFamily: 'sourceSerifProSemibold',
   },
   selectedOptionBackground: {
     borderRadius: 12,

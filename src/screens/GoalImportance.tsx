@@ -54,7 +54,7 @@ const GoalImportance = ({navigation}:any) => {
                 options={[{value: "A Must Have"}, {value: "Nice To Have"}, {value: "May Be One Day"}]}
                 onChange={handleChange}
                 count={1}
-                coptionContainer={{height: 56, marginVertical: 10, padding: 0, margin: 0, paddingHorizontal: 0}}
+                coptionContainer={{height: 56, marginVertical: 10, padding: 0, backgroundColor: '#fff', margin: 0, paddingHorizontal: 0}}
                 coptionView={{height: 56, alignItems: 'center', justifyContent : 'center'}}
             />
           </View>

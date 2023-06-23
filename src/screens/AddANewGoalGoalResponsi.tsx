@@ -54,7 +54,7 @@ const AddANewGoalGoalResponsi = ({navigation}:any) => {
                 options={[{value: "Family Member 1"}, {value: "Family Member 2"}, {value: "Joint"}]}
                 onChange={handleChange}
                 count={1}
-                coptionContainer={{height: 56, marginVertical: 10, padding: 0, margin: 0, paddingHorizontal: 0}}
+                coptionContainer={{height: 56, backgroundColor: "#fff", marginVertical: 10, padding: 0, margin: 0, paddingHorizontal: 0}}
                 coptionView={{height: 56, alignItems: 'center', justifyContent : 'center'}}
             />
           </View>

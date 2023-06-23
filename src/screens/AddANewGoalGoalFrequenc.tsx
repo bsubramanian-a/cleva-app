@@ -54,7 +54,7 @@ const AddANewGoalGoalFrequenc = ({navigation}:any) => {
                 options={[{value: "Weekly"}, {value: "Fortnightly"}, {value: "Monthly"}]}
                 onChange={handleChange}
                 count={1}
-                coptionContainer={{height: 56, marginVertical: 10, padding: 0, margin: 0, paddingHorizontal: 0}}
+                coptionContainer={{height: 56, marginVertical: 10, backgroundColor: "#fff", padding: 0, margin: 0, paddingHorizontal: 0}}
                 coptionView={{height: 56, alignItems: 'center', justifyContent : 'center'}}
             />
           </View>

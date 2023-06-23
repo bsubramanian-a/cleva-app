@@ -55,11 +55,11 @@ const AddANewGoalGoalMoney = ({navigation}:any) => {
       >
         <View style={[styles.advicecontainer, styles.topMenuSpaceBlock]}>
           <View>
-            <CTextInput icon={require("../assets/contact.png")} key='title' label='How much do you need?' defaultValue={""} id='title' updateState={updateState} isNumOnly={false}/>
+            <CTextInput icon={require("../assets/dollarcircle.png")} key='title' label='How much do you need?' defaultValue={""} id='title' updateState={updateState} isNumOnly={false}/>
 
-            <CTextInput icon={require("../assets/contact.png")} key='title' label='How much do you have now?' defaultValue={""} id='title' updateState={updateState} isNumOnly={false}/>
+            <CTextInput icon={require("../assets/dollarcircle.png")} key='title' label='How much do you have now?' defaultValue={""} id='title' updateState={updateState} isNumOnly={false}/>
 
-            <Text>When do you need the money by ?</Text>
+            <Text style={styles.sHead}>When do you need the money by?</Text>
 
             <Label label="Select Date" icon={require("../assets/dob.png")} />
             <CustomDatePicker defaultValue={datas[0]?.Date_of_Birth && new Date(datas[0]?.Date_of_Birth?.toString())} onValueChange={(value:any) => updateState(value, 'Date_of_Birth')} />
@@ -176,6 +176,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     flex: 1,
+  },
+  sHead: {
+    fontSize: 20,
+    fontWeight: "500",
   },
   topMenu: {
     paddingBottom: Padding.p_17xl,

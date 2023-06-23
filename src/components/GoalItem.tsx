@@ -69,10 +69,10 @@ const styles = StyleSheet.create({
         color: Color.black,
     },
     status: {
-        borderRadius: 12,
+        borderRadius: 20,
         backgroundColor: '#EF9F2720',
         paddingVertical: 10,
-        paddingHorizontal: 4,
+        paddingHorizontal: 18,
         flexDirection: "row",
         overflow: "hidden",
     },

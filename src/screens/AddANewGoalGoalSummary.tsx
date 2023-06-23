@@ -28,7 +28,7 @@ const AddANewGoalGoalSummary = ({navigation}:any) => {
         <View style={[styles.advicecontainer, styles.topMenuSpaceBlock]}>
           <View style={[styles.advice, styles.menuFlexBox]}>
             <View style={styles.selectGoalTypeParent}>
-              <Text style={[styles.selectGoalType, styles.textTypo]}>
+              <Text style={styles.selectGoalType}>
                 Here's A Summary
               </Text>
               <View style={styles.frameParent}>
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
   },
   textTypo: {
     fontFamily: FontFamily.outfitMedium,
+    fontSize: 16,
     fontWeight: "500",
     color: Color.black,
   },
@@ -175,6 +176,9 @@ const styles = StyleSheet.create({
   selectGoalType: {
     fontSize: FontSize.size_xl,
     textAlign: "center",
+    fontSize: 16,
+    fontWeight: "500",
+    color: Color.black,
   },
   frameChild: {
     height: 290,
@@ -185,6 +189,7 @@ const styles = StyleSheet.create({
   },
   toAchieveYour: {
     fontWeight: "300",
+    fontSize: 16,
     fontFamily: FontFamily.outfitLight,
     color: Color.darkslategray_100,
   },
