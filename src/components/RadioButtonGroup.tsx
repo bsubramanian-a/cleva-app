@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#000',
-    fontFamily: FontFamily.sourceSerifProe,
+    fontFamily: FontFamily.sourceSerifPro,
   },
   selectedOptionBackground: {
     borderRadius: 12,
