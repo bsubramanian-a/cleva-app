@@ -53,43 +53,43 @@ const LoginButtonGroupContainer = ({
   }, [propBackgroundColor]);
 
 const handleFacebookLogin = async () => {
-  try {
-    const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-    console.log("result", result);
-    if (result.isCancelled) {
-      throw new Error('User cancelled login');
-    }
+  // try {
+  //   const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+  //   console.log("result", result);
+  //   if (result.isCancelled) {
+  //     throw new Error('User cancelled login');
+  //   }
 
-    const data = await AccessToken.getCurrentAccessToken();
-    if (!data) {
-      throw new Error('Something went wrong obtaining the access token');
-    }
-    const accessToken = data.accessToken;
-    console.log("accessToken", accessToken);
+  //   const data = await AccessToken.getCurrentAccessToken();
+  //   if (!data) {
+  //     throw new Error('Something went wrong obtaining the access token');
+  //   }
+  //   const accessToken = data.accessToken;
+  //   console.log("accessToken", accessToken);
 
-    // Request additional user data, such as email
-    const graphRequest = new GraphRequest('/me', {
-      accessToken,
-      parameters: {
-        fields: {
-          string: 'id,name,email',
-        },
-      },
-    }, (error, response) => {
-      if (error) {
-        console.log('Error retrieving user data: ', error);
-      } else {
-        const { id, name, email }:any = response;
-        console.log('User data:', { id, name, email });
-        // Perform further actions with the obtained user data
-      }
-    });
+  //   // Request additional user data, such as email
+  //   const graphRequest = new GraphRequest('/me', {
+  //     accessToken,
+  //     parameters: {
+  //       fields: {
+  //         string: 'id,name,email',
+  //       },
+  //     },
+  //   }, (error, response) => {
+  //     if (error) {
+  //       console.log('Error retrieving user data: ', error);
+  //     } else {
+  //       const { id, name, email }:any = response;
+  //       console.log('User data:', { id, name, email });
+  //       // Perform further actions with the obtained user data
+  //     }
+  //   });
 
-    // Execute the graph request
-    new GraphRequestManager().addRequest(graphRequest).start();
-  } catch (error) {
-    console.log('Error logging in:', error);
-  }
+  //   // Execute the graph request
+  //   new GraphRequestManager().addRequest(graphRequest).start();
+  // } catch (error) {
+  //   console.log('Error logging in:', error);
+  // }
 };
 
   return (

@@ -60,7 +60,7 @@ const Goals = ({navigation}:any) => {
       <TouchableOpacity onPress={() => openPage('Goal1')}><Text>Goal1</Text></TouchableOpacity>
       <TouchableOpacity onPress={() => openPage('GoalsEditGoalsPopup')}><Text>GoalsEditGoalsPopup</Text></TouchableOpacity> */}
 
-      <GraphModal visible={modalVisible} onClose={closeModal} filterOptions={[{value: "All"}, {value: "6 mo"}, {value: "1 yr"}, {value: "3 yrs"}, {value: "5 yrs"}, {value: "10 yrs"}]} handleFilter={handleFilter} selectedFilter={selectedFilter}/>
+      {/* <GraphModal visible={modalVisible} onClose={closeModal} filterOptions={[{value: "All"}, {value: "6 mo"}, {value: "1 yr"}, {value: "3 yrs"}, {value: "5 yrs"}, {value: "10 yrs"}]} handleFilter={handleFilter} selectedFilter={selectedFilter}/>
 
       <GoalCategoryModal navigation={navigation} visible={isCateoryModalVisible} onClose={() => setIsCategoryModalVisible(false)} />
 
@@ -75,7 +75,7 @@ const Goals = ({navigation}:any) => {
         <Text style={styles.buttonText}>Open Graph</Text>
       </TouchableOpacity> */}
 
-      <Tabs
+      {/* <Tabs
         tabs={['Labelled Money', 'ClevaLife']}
         activeTab={activeTab}
         onTabPress={handleTabPress}
@@ -105,7 +105,7 @@ const Goals = ({navigation}:any) => {
 
       <View style={styles.goalsContainer}>
         <GoalItem data={{title : " Save $5000 for Italy Holiday", owner: 'DR', dueDate: "12/07/2023", status: 'Doing'}}  />
-      </View>
+      </View> */}
     </View>
   );
 };

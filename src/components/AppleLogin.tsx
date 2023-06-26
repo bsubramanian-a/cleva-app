@@ -12,23 +12,23 @@ import { appleAuth, AppleButton } from '@invertase/react-native-apple-authentica
 
 const AppleLogin = () => {
   const handleAppleLogin = async () => {
-    try {
-      // Start the Apple authentication request
-      const appleAuthRequestResponse = await appleAuth.performRequest({
-        requestedOperation: appleAuth.Operation.LOGIN,
-        requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
-      });
+    // try {
+    //   // Start the Apple authentication request
+    //   const appleAuthRequestResponse = await appleAuth.performRequest({
+    //     requestedOperation: appleAuth.Operation.LOGIN,
+    //     requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+    //   });
   
-      // Get the user's credential details
-      const { user, email, fullName } = appleAuthRequestResponse;
+    //   // Get the user's credential details
+    //   const { user, email, fullName } = appleAuthRequestResponse;
   
-      // Use the received credential details for further processing
-      console.log(user);
-      console.log(email);
-      console.log(fullName);
-    } catch (error) {
-      console.log(error);
-    }
+    //   // Use the received credential details for further processing
+    //   console.log(user);
+    //   console.log(email);
+    //   console.log(fullName);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
