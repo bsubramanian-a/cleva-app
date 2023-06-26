@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   },
   nSeeveeLane: {
     fontSize: FontSize.size_mini,
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontFamily: FontFamily.sourceSerifPro,
     color: Color.gray_800,
     textAlign: "left",
     fontWeight: "600",

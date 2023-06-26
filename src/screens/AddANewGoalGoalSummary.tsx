@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   },
   propertyGoal: {
     fontSize: FontSize.size_3xl,
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontFamily: FontFamily.sourceSerifPro,
     textAlign: "center",
     color: Color.black,
     fontWeight: "600",

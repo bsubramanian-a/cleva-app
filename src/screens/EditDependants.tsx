@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
         fontSize: FontSize.size_6xl,
         color: Color.white1,
         textAlign: "center",
-        fontFamily: FontFamily.sourceSerifProSemibold,
+        fontFamily: FontFamily.sourceSerifPro,
         fontWeight: "600",
         lineHeight: 22,
     },

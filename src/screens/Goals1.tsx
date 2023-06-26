@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   goals1Typo: {
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontFamily: FontFamily.sourceSerifPro,
     fontWeight: "600",
     color: Color.black,
   },

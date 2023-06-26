@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { FontFamily } from '../GlobalStyles';
 
 const RadioButtonGroup = ({ options, defaultValue, orientation = 'horizontal', count = 1, onChange, coptionContainer, cselectedOptionBackground, coptionView, coptionDescription, coptionTextStyle }:any) => {
   const [selectedValue, setSelectedValue] = useState(defaultValue);
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#000',
-    fontFamily: 'sourceSerifProSemibold',
+    fontFamily: FontFamily.sourceSerifProe,
   },
   selectedOptionBackground: {
     borderRadius: 12,

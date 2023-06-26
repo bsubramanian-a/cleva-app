@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         color: Color.black,
     },
     goals1Typo: {
-        fontFamily: FontFamily.sourceSerifProSemibold,
+        fontFamily: FontFamily.sourceSerifPro,
         fontWeight: "600",
         color: Color.black,
     },

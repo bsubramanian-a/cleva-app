@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   propertyGoal: {
     fontSize: FontSize.size_3xl,
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontFamily: FontFamily.sourceSerifPro,
     textAlign: "center",
     fontWeight: "600",
   },

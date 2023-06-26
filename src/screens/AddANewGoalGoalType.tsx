@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     fontSize: FontSize.size_mini,
     textAlign: "center",
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontFamily: FontFamily.sourceSerifPro,
     fontWeight: "600",
   },
   goalWrapperShadowBox: {
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_3xl,
     textAlign: "center",
     color: Color.black,
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontFamily: FontFamily.sourceSerifPro,
     fontWeight: "600",
   },
   pageHeading: {

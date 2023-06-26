@@ -323,7 +323,7 @@ const styles = StyleSheet.create({
   save5000For: {
     fontSize: FontSize.size_mini,
     fontWeight: "600",
-    fontFamily: FontFamily.sourceSerifProSemibold,
+    fontFamily: FontFamily.sourceSerifPro,
     color: Color.black,
     textAlign: "left",
   },
