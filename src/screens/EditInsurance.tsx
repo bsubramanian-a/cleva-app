@@ -122,7 +122,7 @@ const EditInsurance = ({}:any) => {
                     </View>
                     
                     <View style={{alignItems: 'center', marginVertical: 10}}>
-                        <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>{datas[0]?.Client_Name?.name}</Text>
+                        <Text style={{fontWeight: '500', fontSize: 22, color: 'black', fontFamily: FontFamily.sourceSerifPro,}}>{datas[0]?.Client_Name?.name}</Text>
                     </View>
 
                     <CTextInput icon={require("../assets/profile.png")} key='Total_Liabilities' label='Total Liabilitiese' defaultValue={datas[0]?.Total_Liabilities?.toString()} id='Total_Liabilities' updateState={updateState} isNumOnly={true}/>
@@ -185,12 +185,11 @@ const styles = StyleSheet.create({
         overflow: "hidden",
     },
     dr: {
-        fontSize: FontSize.size_6xl,
+        fontSize: 26,
         color: Color.white1,
         textAlign: "center",
         fontFamily: FontFamily.sourceSerifPro,
         fontWeight: "600",
-        lineHeight: 22,
     },
     advicecontainer: {
         paddingTop: 30,

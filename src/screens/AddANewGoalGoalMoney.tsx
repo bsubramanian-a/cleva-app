@@ -38,6 +38,10 @@ const AddANewGoalGoalMoney = ({navigation}:any) => {
     navigation.navigate('AddANewGoalGoalResponsi');
   }
 
+  const today = new Date();
+  const futureDate = new Date();
+  futureDate.setFullYear(today.getFullYear() + 100);
+
   return (
     <ScrollView
       style={styles.addANewGoalGoalDate}
@@ -59,10 +63,10 @@ const AddANewGoalGoalMoney = ({navigation}:any) => {
 
             <CTextInput icon={require("../assets/dollarcircle.png")} key='money_have' label='How much do you have now?' defaultValue={""} id='money_have' updateState={updateState} isNumOnly={false}/>
 
-            <Text style={styles.sHead}>When do you need the money by?</Text>
+            <Text style={styles.sHead}>When do you need the {"\n"} money by?</Text>
 
-            <Label label="Select Date" icon={require("../assets/dob.png")} />
-            <CustomDatePicker defaultValue={datas[0]?.Date_of_Birth && new Date(datas[0]?.Date_of_Birth?.toString())} onValueChange={(value:any) => updateState(value, 'when_money_need')} />
+            <Label label="Select Date" icon={require("../assets/calendar.png")} />
+            <CustomDatePicker defaultValue={datas[0]?.Date_of_Birth && new Date(datas[0]?.Date_of_Birth?.toString())} onValueChange={(value:any) => updateState(value, 'when_money_need')} minimumDate={null} maximumDate={futureDate} disableFutureDates={false} disablePastDates={true}/>
           </View>
           
           <LinearGradient
@@ -180,6 +184,10 @@ const styles = StyleSheet.create({
   sHead: {
     fontSize: 20,
     fontWeight: "500",
+    textAlign: "center",
+    marginTop: 28,
+    marginBottom: 12,
+    fontFamily: FontFamily.outfitMedium,
   },
   topMenu: {
     paddingBottom: Padding.p_17xl,

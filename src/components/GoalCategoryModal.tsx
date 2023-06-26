@@ -102,12 +102,14 @@ const styles = StyleSheet.create({
     },
     heading:{
         fontWeight: "500",
-        fontSize: 20,
+        fontFamily: FontFamily.sourceSerifPro,
+        fontSize: 28,
         marginBottom: 20,
         color: '#2A3545',
     },
     subheading:{
-        fontWeight: "400",
+        fontWeight: "500",
+        fontFamily: FontFamily.outfitMedium,
         fontSize: 14,
         color: '#2A3545'
     },
@@ -137,14 +139,13 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         top: 0,
-        width: 20,
-        height: 20,
         zIndex: 10000
     },
     closeButtonText: {
         color: '#000',
-        fontWeight: 'bold',
-        fontSize: 20
+        fontFamily: FontFamily.textMediumBoldText1,
+        fontWeight: '400',
+        fontSize: 18
     },
     iconleftarrow: {
         width: 20, 

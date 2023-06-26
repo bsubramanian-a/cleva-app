@@ -180,24 +180,24 @@ const Profile = () => {
             subHeading: profile[0]?.income[0]?.Person_Account?.name,
             id: profile[0]?.income[0]?.id,
             item: [
-            { icon: require("../assets/dollar-square.png"), name: 'Centrelink/DVA', value: profile[0]?.income[0]?.Centrelink_DVA_p_a },
-              { icon: require("../assets/dollar-square.png"), name: 'Interest Income', value: profile[0]?.income[0]?.Interest_Income_p_a },
-              { icon: require("../assets/dollar-square.png"), name: 'Rental Income', value: profile[0]?.income[0]?.Rental_Income_p_a },
-              { icon: require("../assets/dollar-square.png"), name: 'Dividends', value: profile[0]?.income[0]?.Dividends_p_a },
-              { icon: require("../assets/dollar-square.png"), name: 'Pension/Annuity', value: profile[0]?.income[0]?.Pension_Annuity_p_a },
-              { icon: require("../assets/dollar-square.png"), name: 'Other Income', value: "$"+`${profile[0]?.income[0]?.Other_Income_p_a || 0}${profile[0]?.income[0]?.Details_Other_Income ? '\n'+profile[0]?.income[0]?.Details_Other_Income : ""}` }
+            { icon: require("../assets/dollar-square.png"), name: 'Centrelink/DVA', value: "$"+`${profile[0]?.income[0]?.Centrelink_DVA_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/dollar-square.png"), name: 'Interest Income', value: "$"+`${profile[0]?.income[0]?.Interest_Income_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/dollar-square.png"), name: 'Rental Income', value: "$"+`${profile[0]?.income[0]?.Rental_Income_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/dollar-square.png"), name: 'Dividends', value: "$"+`${profile[0]?.income[0]?.Dividends_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/dollar-square.png"), name: 'Pension/Annuity', value: "$"+`${profile[0]?.income[0]?.Pension_Annuity_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/dollar-square.png"), name: 'Other Income', value: "$"+`${profile[0]?.income[0]?.Other_Income_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') || 0}${profile[0]?.income[0]?.Details_Other_Income ? '\n'+profile[0]?.income[0]?.Details_Other_Income : ""}` }
             ]
           },
           profile[0]?.income?.length >= 2 && {
             subHeading: profile[0]?.income[1]?.Person_Account?.name,
             id: profile[0]?.income[1]?.id,
             item: [
-            { icon: require("../assets/dollar-square.png"), name: 'Centrelink/DVA', value: profile[0]?.income[1]?.Centrelink_DVA_p_a },
-              { icon: require("../assets/dollar-square.png"), name: 'Interest Income', value: profile[0]?.income[1]?.Interest_Income_p_a },
-              { icon: require("../assets/dollar-square.png"), name: 'Rental Income', value: profile[0]?.income[1]?.Rental_Income_p_a },
-              { icon: require("../assets/dollar-square.png"), name: 'Dividends', value: profile[0]?.income[1]?.Dividends_p_a },
-              { icon: require("../assets/dollar-square.png"), name: 'Pension/Annuity', value: profile[0]?.income[1]?.Pension_Annuity_p_a },
-              { icon: require("../assets/dollar-square.png"), name: 'Other Income', value: "$"+`${profile[0]?.income[1]?.Other_Income_p_a || 0}${profile[0]?.income[1]?.Details_Other_Income ? '\n'+profile[0]?.income[1]?.Details_Other_Income : ""}` }
+            { icon: require("../assets/dollar-square.png"), name: 'Centrelink/DVA', value: "$"+`${profile[0]?.income[1]?.Centrelink_DVA_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/dollar-square.png"), name: 'Interest Income', value: "$"+`${profile[0]?.income[1]?.Interest_Income_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/dollar-square.png"), name: 'Rental Income', value: "$"+`${profile[0]?.income[1]?.Rental_Income_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/dollar-square.png"), name: 'Dividends', value: "$"+`${profile[0]?.income[1]?.Dividends_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/dollar-square.png"), name: 'Pension/Annuity', value: "$"+`${profile[0]?.income[1]?.Pension_Annuity_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/dollar-square.png"), name: 'Other Income', value: "$"+`${profile[0]?.income[1]?.Other_Income_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') || 0}${profile[0]?.income[1]?.Details_Other_Income ? '\n'+profile[0]?.income[1]?.Details_Other_Income : ""}` }
             ]
           },
         ].filter(obj => obj)
@@ -211,24 +211,24 @@ const Profile = () => {
             subHeading: profile[0]?.expenses[0]?.Household?.name,
             id: profile[0]?.expenses[0]?.id,
             item: [
-              { icon: require("../assets/money-recieve.png"), name: 'Gas', value: `$${profile[0]?.expenses[0]?.Gas_p_a}` },
-              { icon: require("../assets/money-recieve.png"), name: 'Electricity', value: `$${profile[0]?.expenses[0]?.Electricity_p_a}` },
-              { icon: require("../assets/money-recieve.png"), name: 'Water', value: `$${profile[0]?.expenses[0]?.Water_p_a}` },
-              { icon: require("../assets/money-recieve.png"), name: 'Home/Contents Insurance', value: `$${profile[0]?.expenses[0]?.Home_Contents_Insurance_p_a}` },
-              { icon: require("../assets/money-recieve.png"), name: 'Car Insurance', value: `$${profile[0]?.expenses[0]?.Car_Insurance_p_a}` },
-              { icon: require("../assets/money-recieve.png"), name: 'Private Health Insurance', value: `$${profile[0]?.expenses[0]?.Private_Health_Insurance_p_a}` },
+              { icon: require("../assets/money-recieve.png"), name: 'Gas', value: `$${profile[0]?.expenses[0]?.Gas_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/money-recieve.png"), name: 'Electricity', value: `$${profile[0]?.expenses[0]?.Electricity_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/money-recieve.png"), name: 'Water', value: `$${profile[0]?.expenses[0]?.Water_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/money-recieve.png"), name: 'Home/Contents Insurance', value: `$${profile[0]?.expenses[0]?.Home_Contents_Insurance_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/money-recieve.png"), name: 'Car Insurance', value: `$${profile[0]?.expenses[0]?.Car_Insurance_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/money-recieve.png"), name: 'Private Health Insurance', value: `$${profile[0]?.expenses[0]?.Private_Health_Insurance_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
             ]
           },
           {
             subHeading: "Loan Repayments",
             id: profile[0]?.expenses[0]?.id,
             item: [
-              { icon: require("../assets/money-recieve.png"), name: 'Home', value: `$${profile[0]?.expenses[0]?.Home_Loan}` },
-              { icon: require("../assets/money-recieve.png"), name: 'Investment Property', value: `$${profile[0]?.expenses[0]?.Investment_Property_Loan_p_a}` },
-              { icon: require("../assets/money-recieve.png"), name: 'Other Investment', value: `$${profile[0]?.expenses[0]?.Other_Investment_Loan_p_a}` },
-              { icon: require("../assets/money-recieve.png"), name: 'Personal', value: `$${profile[0]?.expenses[0]?.Personal_Loan_p_a}` },
-              { icon: require("../assets/money-recieve.png"), name: 'Credit Cards', value: `$${profile[0]?.expenses[0]?.Credit_Cards_per_month}` },
-              { icon: require("../assets/money-recieve.png"), name: 'Other Expenses',  value: `$${profile[0]?.expenses[0]?.Other_Expenses_p_a}\n${profile[0]?.expenses[0]?.Multi_Line_1}` },
+              { icon: require("../assets/money-recieve.png"), name: 'Home', value: `$${profile[0]?.expenses[0]?.Home_Loan?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/money-recieve.png"), name: 'Investment Property', value: `$${profile[0]?.expenses[0]?.Investment_Property_Loan_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/money-recieve.png"), name: 'Other Investment', value: `$${profile[0]?.expenses[0]?.Other_Investment_Loan_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/money-recieve.png"), name: 'Personal', value: `$${profile[0]?.expenses[0]?.Personal_Loan_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/money-recieve.png"), name: 'Credit Cards', value: `$${profile[0]?.expenses[0]?.Credit_Cards_per_month?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
+              { icon: require("../assets/money-recieve.png"), name: 'Other Expenses',  value: `$${profile[0]?.expenses[0]?.Other_Expenses_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}\n${profile[0]?.expenses[0]?.Multi_Line_1}` },
             ]
           }
         ].filter(obj => obj)
@@ -292,30 +292,30 @@ const Profile = () => {
             subHeading: profile[0]?.insurance[0]?.Client_Name?.name,
             id: profile[0]?.insurance[0]?.Client_Name?.id,
             item: [
-              { icon: require("../assets/dollar-square.png"), name: 'Total Liabilities', value: "$"+profile[0]?.insurance[0]?.Total_Liabilities },
-              { icon: require("../assets/dollar-square.png"), name: 'Allowance for Children/Education', value: "$"+profile[0]?.insurance[0]?.Child_Edu_Allowance },
-              { icon: require("../assets/dollar-square.png"), name: 'Replace Income p.a.', value: "$"+profile[0]?.insurance[0]?.Replace_Income_p_a },
-              { icon: require("../assets/dollar-square.png"), name: 'Number of years', value: profile[0]?.insurance[0]?.Number_of_Income_Yrs },
-              { icon: require("../assets/dollar-square.png"), name: 'Allowance for Medical', value: "$"+profile[0]?.insurance[0]?.Allowance_Medical },
-              { icon: require("../assets/dollar-square.png"), name: 'Allowance for funeral', value: "$"+profile[0]?.insurance[0]?.Allowance_Funeral },
-              { icon: require("../assets/dollar-square.png"), name: 'Allowance for Emergency', value: "$"+profile[0]?.insurance[0]?.Allowance_Emergency },
-              { icon: require("../assets/dollar-square.png"), name: 'Allowance for House Modifications', value: "$"+profile[0]?.insurance[0]?.Allowance_Home_Mods },
-              { icon: require("../assets/dollar-square.png"), name: 'Other Income', value: "$"+`${profile[0]?.insurance[0]?.Other_Allowances_Consideration || 0}\n${profile[0]?.insurance[0]?.Multi_Line_1}` }
+              { icon: require("../assets/dollar-square.png"), name: 'Total Liabilities', value: "$"+profile[0]?.insurance[0]?.Total_Liabilities?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Allowance for Children/Education', value: "$"+profile[0]?.insurance[0]?.Child_Edu_Allowance?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Replace Income p.a.', value: "$"+profile[0]?.insurance[0]?.Replace_Income_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Number of years', value: profile[0]?.insurance[0]?.Number_of_Income_Yrs?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Allowance for Medical', value: "$"+profile[0]?.insurance[0]?.Allowance_Medical?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Allowance for funeral', value: "$"+profile[0]?.insurance[0]?.Allowance_Funeral?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Allowance for Emergency', value: "$"+profile[0]?.insurance[0]?.Allowance_Emergency?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Allowance for House Modifications', value: "$"+profile[0]?.insurance[0]?.Allowance_Home_Mods?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Other Income', value: "$"+`${profile[0]?.insurance[0]?.Other_Allowances_Consideration?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') || 0}\n${profile[0]?.insurance[0]?.Multi_Line_1}` }
             ]
           },
           profile[0]?.insurance?.length >= 2 && {
             subHeading: profile[0]?.insurance[1]?.Client_Name?.name,
             id: profile[0]?.insurance[1]?.Client_Name?.id,
             item: [
-              { icon: require("../assets/dollar-square.png"), name: 'Total Liabilities', value: "$"+profile[0]?.insurance[1]?.Total_Liabilities },
-              { icon: require("../assets/dollar-square.png"), name: 'Allowance for Children/Education', value: "$"+profile[0]?.insurance[1]?.Child_Edu_Allowance },
-              { icon: require("../assets/dollar-square.png"), name: 'Replace Income p.a.', value: "$"+profile[0]?.insurance[1]?.Replace_Income_p_a },
-              { icon: require("../assets/dollar-square.png"), name: 'Number of years', value: profile[0]?.insurance[1]?.Number_of_Income_Yrs },
-              { icon: require("../assets/dollar-square.png"), name: 'Allowance for Medical', value: "$"+profile[0]?.insurance[1]?.Allowance_Medical },
-              { icon: require("../assets/dollar-square.png"), name: 'Allowance for funeral', value: "$"+profile[0]?.insurance[1]?.Allowance_Funeral },
-              { icon: require("../assets/dollar-square.png"), name: 'Allowance for Emergency', value: "$"+profile[0]?.insurance[1]?.Allowance_Emergency },
-              { icon: require("../assets/dollar-square.png"), name: 'Allowance for House Modifications', value: "$"+profile[0]?.insurance[1]?.Allowance_Home_Mods },
-              { icon: require("../assets/dollar-square.png"), name: 'Other Income', value: `$${profile[0]?.insurance[1]?.Other_Allowances_Consideration}\n${profile[0]?.insurance[1]?.Multi_Line_1}` }
+              { icon: require("../assets/dollar-square.png"), name: 'Total Liabilities', value: "$"+profile[0]?.insurance[1]?.Total_Liabilities?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Allowance for Children/Education', value: "$"+profile[0]?.insurance[1]?.Child_Edu_Allowance?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Replace Income p.a.', value: "$"+profile[0]?.insurance[1]?.Replace_Income_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Number of years', value: profile[0]?.insurance[1]?.Number_of_Income_Yrs?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Allowance for Medical', value: "$"+profile[0]?.insurance[1]?.Allowance_Medical?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Allowance for funeral', value: "$"+profile[0]?.insurance[1]?.Allowance_Funeral?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Allowance for Emergency', value: "$"+profile[0]?.insurance[1]?.Allowance_Emergency?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Allowance for House Modifications', value: "$"+profile[0]?.insurance[1]?.Allowance_Home_Mods?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') },
+              { icon: require("../assets/dollar-square.png"), name: 'Other Income', value: `$${profile[0]?.insurance[1]?.Other_Allowances_Consideration?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}\n${profile[0]?.insurance[1]?.Multi_Line_1}` }
             ]
           }
         ].filter(obj => obj)

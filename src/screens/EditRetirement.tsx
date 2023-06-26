@@ -97,7 +97,7 @@ const EditRetirement = ({}:any) => {
                 </View>
 
                 <View style={{alignItems: 'center', marginVertical: 10}}>
-                    <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>{datas[0]?.First_Name} {datas[0]?.Last_Name}</Text>
+                    <Text style={{fontWeight: '500', fontSize: 22, color: 'black', fontFamily: FontFamily.sourceSerifPro,}}>{datas[0]?.First_Name} {datas[0]?.Last_Name}</Text>
                 </View>
                 
                 <View style={styles.container}>
@@ -138,12 +138,11 @@ const styles = StyleSheet.create({
         overflow: "hidden",
     },
     dr: {
-        fontSize: FontSize.size_6xl,
+        fontSize: 26,
         color: Color.white1,
         textAlign: "center",
         fontFamily: FontFamily.sourceSerifPro,
         fontWeight: "600",
-        lineHeight: 22,
     },
     advicecontainer: {
         paddingTop: 30,

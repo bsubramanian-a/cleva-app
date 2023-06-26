@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
   heading:{
     fontSize: 20,
     fontWeight: "500",
+    fontFamily: FontFamily.openSansRegular,
     marginVertical: 30,
     textAlign: 'center'
   },

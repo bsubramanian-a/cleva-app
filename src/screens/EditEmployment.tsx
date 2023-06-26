@@ -124,7 +124,7 @@ const EditEmployment = ({ }: any) => {
                     </View>
 
                     <View style={{ alignItems: 'center', marginVertical: 10 }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'black' }}>{datas[0]?.Name}</Text>
+                        <Text style={{ fontWeight: '500', fontSize: 22, color: 'black', fontFamily: FontFamily.sourceSerifPro, }}>{datas[0]?.Name}</Text>
                     </View>
 
                     <CTextInput icon={require("../assets/briefcase.png")} key='Occupation' label='Occupation' defaultValue={datas[0]?.Occupation?.toString()} id='Occupation' updateState={updateState} isNumOnly={false} />
@@ -238,12 +238,11 @@ const styles = StyleSheet.create({
         overflow: "hidden",
     },
     dr: {
-        fontSize: FontSize.size_6xl,
+        fontSize: 26,
         color: Color.white1,
         textAlign: "center",
         fontFamily: FontFamily.sourceSerifPro,
         fontWeight: "600",
-        lineHeight: 22,
     },
     advicecontainer: {
         paddingTop: 30,
