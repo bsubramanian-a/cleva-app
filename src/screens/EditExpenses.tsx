@@ -122,8 +122,7 @@ const EditExpenses = ({ }: any) => {
                     </View>
 
                     <View style={{ alignItems: 'center', marginVertical: 1, marginBottom: 10 }}>
-                        <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.Household?.name?.charAt(0) + datas[0]?.Household?.name?.charAt(1))}</Text>
-                        <Text style={{ fontWeight: 'bold', fontSize: 14, color: '#FBB142' }}>Household</Text>
+                        <Text style={{ fontWeight: '500', fontSize: 15, color: '#FBB142'}}>Household</Text>
                     </View>
 
                     {type == 'user1' &&
@@ -209,12 +208,11 @@ const styles = StyleSheet.create({
         fontSize: 14
     },
     dr: {
-        fontSize: FontSize.size_6xl,
+        fontSize: 26,
         color: Color.white1,
         textAlign: "center",
         fontFamily: FontFamily.sourceSerifPro,
         fontWeight: "600",
-        lineHeight: 22,
     },
     advicecontainer: {
         paddingTop: 30,

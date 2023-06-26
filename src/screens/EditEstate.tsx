@@ -132,8 +132,7 @@ const EditEstate = ({ }: any) => {
                     </View>
 
                     <View style={{ alignItems: 'center', marginVertical: 10 }}>
-                        <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.First_Name?.charAt(0) + datas[0]?.Last_Name?.charAt(0))}</Text>
-                        <Text style={{ fontWeight: 'bold', fontSize: 14, color: '#FBB142' }}>Household</Text>
+                        <Text style={{ fontWeight: '500', fontSize: 14, color: '#FBB142' }}>Household</Text>
                     </View>
 
                     <Label label="Do you have a beneficiary for your super fund??" icon={require("../assets/profile.png")} />
@@ -206,12 +205,11 @@ const styles = StyleSheet.create({
         marginTop: 15
     },
     dr: {
-        fontSize: FontSize.size_6xl,
+        fontSize: 26,
         color: Color.white1,
         textAlign: "center",
         fontFamily: FontFamily.sourceSerifPro,
         fontWeight: "600",
-        lineHeight: 22,
     },
     advicecontainer: {
         paddingTop: 30,

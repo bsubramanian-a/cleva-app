@@ -109,12 +109,12 @@ const EditIncome = ({ }: any) => {
                 contentContainerStyle={styles.frameScrollViewContent}
             >
                 <View style={styles.advicecontainer}>
-                    <View style={[styles.frWrapper, styles.ml_11, styles.wrapperLayout]}>
+                    <View style={[styles.frWrapper, styles.wrapperLayout]}>
                         <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.Person_Account?.name?.split(' ').map((word:string) => word.charAt(0).toUpperCase()).join(''))}</Text>
                     </View>
 
                     <View style={{ alignItems: 'center', marginVertical: 10 }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'black' }}>{datas[0]?.Person_Account?.name}</Text>
+                        <Text style={{ fontWeight: '500', fontSize: 22, color: 'black', fontFamily: FontFamily.sourceSerifPro, }}>{datas[0]?.Person_Account?.name}</Text>
                     </View>
 
                     <CTextInput icon={require("../assets/dollar-square.png")} key='Centrelink_DVA_p_a' label='Centrelink/DVA' defaultValue={datas[0]?.Centrelink_DVA_p_a?.toString()} id='Centrelink_DVA_p_a' updateState={updateState} isNumOnly={false} />
@@ -203,12 +203,11 @@ const styles = StyleSheet.create({
         overflow: "hidden",
     },
     dr: {
-        fontSize: FontSize.size_6xl,
+        fontSize: 26,
         color: Color.white1,
         textAlign: "center",
         fontFamily: FontFamily.sourceSerifPro,
         fontWeight: "600",
-        lineHeight: 22,
     },
     advicecontainer: {
         paddingTop: 30,
