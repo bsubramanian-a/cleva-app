@@ -31,7 +31,8 @@ type LoginButtonGroupContainerType = {
   onVerifyEmail:Function;
   /** Style props */
   propBackgroundColor?: string;
-  showRMessage?:Function
+  showRMessage?:Function,
+  onVerifyAppleEmail?:Function
 };
 
 const getStyleValue = (key: string, value: string | number | undefined) => {
@@ -46,6 +47,7 @@ const LoginButtonGroupContainer = ({
   acceptToContinue,
   navigation,
   onVerifyEmail,
+  onVerifyAppleEmail,
   showRMessage
 }: LoginButtonGroupContainerType) => {
   const [loginError, setLoginError] = useState("");
@@ -120,7 +122,7 @@ const LoginButtonGroupContainer = ({
           </Text>
         </Pressable>}
 
-        {Platform.OS === 'ios' && <AppleLogin onVerifyEmail={onVerifyEmail} showRMessage={showRMessage} setLoginError={setLoginError}/>}
+        {Platform.OS === 'ios' && <AppleLogin onVerifyEmail={onVerifyAppleEmail} showRMessage={showRMessage} setLoginError={setLoginError}/>}
       </View>
       <Text style={[styles.or, styles.mt40]}>Or</Text>
       <View style={[styles.socialLogin, styles.mt40]}>

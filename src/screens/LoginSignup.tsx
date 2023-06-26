@@ -19,7 +19,29 @@ const LoginSignup = ({navigation}:any) => {
       type: mtype == 'success' ? 'success' : 'danger',
     });
   }
-  
+  const onVerifyAppleEmail = async (email:string, apple_user_id:string) => {
+    setLoading(true);
+    setError("");
+    try {
+      const res:any = await actions.verifyAppleEmail({
+        email, apple_user_id
+      });
+      console.log('res==>>>>>', res);
+      if(res?.status){
+        if(res?.status == "failed"){
+          setError(res?.message);
+        }
+      }else{
+        setError("User doesn't exist, please register first");
+        actions.logout();
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log('error raised', error);
+    }
+  };
+
   const onVerifyEmail = async (email:string) => {
     setLoading(true);
     setError("");
@@ -72,6 +94,7 @@ const LoginSignup = ({navigation}:any) => {
         acceptToContinue="Login with email"
         navigation={navigation}
         onVerifyEmail={onVerifyEmail}
+        onVerifyAppleEmail={onVerifyAppleEmail}
         showRMessage={showRMessage}
       />
     </ScrollView>

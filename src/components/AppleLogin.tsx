@@ -12,6 +12,7 @@ import { appleAuth, AppleButton } from '@invertase/react-native-apple-authentica
 import { showMessage } from "react-native-flash-message";
 
 const AppleLogin = ({onVerifyEmail, showRMessage, setLoginError}:any) => {
+  
   const handleAppleLogin = async () => {
     try {
       setLoginError("");
@@ -28,14 +29,7 @@ const AppleLogin = ({onVerifyEmail, showRMessage, setLoginError}:any) => {
       console.log(user);
       console.log(email);
       console.log(fullName);
-
-      if(email){
-        onVerifyEmail(email);
-      }else{
-        console.log("error apple login");
-        // showRMessage("Couldn't login, please try different login method!", "error");
-        setLoginError("Couldn't login, please try different login method!");
-      }
+      onVerifyEmail(email, user);
     } catch (error) {
       console.log(error);
     }
