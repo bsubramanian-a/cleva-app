@@ -213,12 +213,13 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     label: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 14,
         marginBottom: 10,
+        color: "#4B4B4B"
     },
     paragraph: {
-        fontSize: 16,
+        fontSize: 14,
+        color: "#4B4B4B"
     },
     input: {
         borderWidth: 1,
@@ -226,7 +227,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         paddingVertical: 6,
         paddingHorizontal: 8,
-        fontSize: 16,
+        fontSize: 14,
         marginBottom: 6,
     },
 });

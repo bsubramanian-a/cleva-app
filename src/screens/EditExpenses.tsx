@@ -3,10 +3,10 @@ import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Pressable } from 
 import LinearGradient from "react-native-linear-gradient";
 import Label from "../components/Label";
 import {
-  Padding,
-  FontFamily,
-  Color,
-  FontSize,
+    Padding,
+    FontFamily,
+    Color,
+    FontSize,
 } from "../GlobalStyles";
 import CustomHeader from "../components/CustomHeader";
 import { useSelector } from "react-redux";
@@ -22,26 +22,26 @@ import { EXPENSES } from "../../urls";
 import DualCheckbox from "../components/DualCheckbox";
 import data from "../../reducers/data";
 
-const EditExpenses = ({}:any) => {
+const EditExpenses = ({ }: any) => {
     const navigation = useNavigation();
-    const route:any = useRoute();
+    const route: any = useRoute();
     const { id, type } = route.params;
     const [loading, setLoading] = useState(false);
-    const profile = useSelector((state:any) => state?.data?.profile);
+    const profile = useSelector((state: any) => state?.data?.profile);
     const [datas, setDatas] = useState<any>([]);
     const [checkboxValue, setCheckboxValue] = useState(false);
 
-    const handleCheckboxChange = (newValue:any) => {
-      setCheckboxValue(newValue);
-      updateState(newValue, "Any_changes_planned_next_6_12mths");
+    const handleCheckboxChange = (newValue: any) => {
+        setCheckboxValue(newValue);
+        updateState(newValue, "Any_changes_planned_next_6_12mths");
     };
 
     useEffect(() => {
-        setDatas([ profile[0]?.expenses[0]]);
+        setDatas([profile[0]?.expenses[0]]);
     }, [profile, type])
 
 
-    const updateProfile = async() => {
+    const updateProfile = async () => {
         const {
             Gas_p_a,
             Electricity_p_a,
@@ -57,7 +57,7 @@ const EditExpenses = ({}:any) => {
             Other_Expenses_p_a,
             Multi_Line_1
         } = datas[0];
-        
+
         const updatedData = {
             id,
             Gas_p_a,
@@ -71,7 +71,7 @@ const EditExpenses = ({}:any) => {
             Other_Investment_Loan_p_a,
             Personal_Loan_p_a,
             Credit_Cards_per_month,
-            Other_Expenses_p_a : !checkboxValue ? null : Other_Expenses_p_a,
+            Other_Expenses_p_a: !checkboxValue ? null : Other_Expenses_p_a,
             Multi_Line_1
         };
 
@@ -91,96 +91,97 @@ const EditExpenses = ({}:any) => {
 
     const updateState = (value: any, label: string) => {
         setDatas((prevDatas: any) => {
-          const updatedDatas = prevDatas.map((data: any) => {
-            if (label in data) {
-              return { ...data, [label]: value };
-            }
-            return data;
-          });
-          return updatedDatas;
+            const updatedDatas = prevDatas.map((data: any) => {
+                if (label in data) {
+                    return { ...data, [label]: value };
+                }
+                return data;
+            });
+            return updatedDatas;
         });
     };
 
     console.log("datas", datas);
     return (
         <View
-        style={styles.wealthAssets}
+            style={styles.wealthAssets}
         >
-        <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
-        <CustomHeader name="Edit Details" type={3}/>
-        <Loader visible={loading} />
-        <FlashMessage position="top" />
-        <ScrollView
-            style={styles.wealthTabParent}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.frameScrollViewContent}
-        >
-            <View style={styles.advicecontainer}>
-                <View style={[styles.frWrapper, styles.ml_11, styles.wrapperLayout]}>
-                  <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.Household?.name?.charAt(0) +datas[0]?.Household?.name?.charAt(1))}</Text>
-                </View>
-                
-                <View style={{alignItems: 'center', marginVertical: 10}}>
-                    <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>Household</Text>
-                </View>
-                
-                {type == 'user1' && 
-                    <>
-                        <CTextInput icon={require("../assets/profile.png")} key='Gas_p_a' label='Gas' defaultValue={datas[0]?.Gas_p_a?.toString()} id='Gas_p_a' updateState={updateState} isNumOnly={true}/>
-
-                        <CTextInput icon={require("../assets/profile.png")} key='Electricity_p_a' label='Electricity' defaultValue={datas[0]?.Electricity_p_a?.toString()} id='Electricity_p_a' updateState={updateState} isNumOnly={true}/>
-
-                        <CTextInput icon={require("../assets/profile.png")} key='Water_p_a' label='Water' defaultValue={datas[0]?.Water_p_a?.toString()} id='Water_p_a' updateState={updateState} isNumOnly={true}/>
-
-                        <CTextInput icon={require("../assets/profile.png")} key='Home_Contents_Insurance_p_a' label='Home/Contents Insurance' defaultValue={datas[0]?.Home_Contents_Insurance_p_a?.toString()} id='Home_Contents_Insurance_p_a' updateState={updateState} isNumOnly={true}/>
-
-                        <CTextInput icon={require("../assets/profile.png")} key='Car_Insurance_p_a' label='Car Insurance' defaultValue={datas[0]?.Car_Insurance_p_a?.toString()} id='Car_Insurance_p_a' updateState={updateState} isNumOnly={true}/>
-
-                        <CTextInput icon={require("../assets/profile.png")} key='Private_Health_Insurance_p_a' label='Private Health Insurance' defaultValue={datas[0]?.Private_Health_Insurance_p_a?.toString()} id='Private_Health_Insurance_p_a' updateState={updateState} isNumOnly={true}/>
-                    </>
-                }
-
-                <Text>Loan Repayments</Text>
-
-                {type == 'user2' && 
-                    <>
-                        <CTextInput icon={require("../assets/profile.png")} key='Home_Loan' label='Home' defaultValue={datas[0]?.Home_Loan?.toString()} id='Home_Loan' updateState={updateState} isNumOnly={true}/>
-
-                        <CTextInput icon={require("../assets/profile.png")} key='Investment_Property_Loan_p_a' label='Investment Property' defaultValue={datas[0]?.Investment_Property_Loan_p_a?.toString()} id='Investment_Property_Loan_p_a' updateState={updateState} isNumOnly={true}/>
-
-                        <CTextInput icon={require("../assets/profile.png")} key='Other_Investment_Loan_p_a' label='Other Investment' defaultValue={datas[0]?.Other_Investment_Loan_p_a?.toString()} id='Other_Investment_Loan_p_a' updateState={updateState} isNumOnly={true}/>
-
-                        <CTextInput icon={require("../assets/profile.png")} key='Personal_Loan_p_a' label='Personal' defaultValue={datas[0]?.Personal_Loan_p_a?.toString()} id='Personal_Loan_p_a' updateState={updateState} isNumOnly={true}/>
-
-                        <CTextInput icon={require("../assets/profile.png")} key='Credit_Cards_per_month' label='Credit Cards' defaultValue={datas[0]?.Credit_Cards_per_month?.toString()} id='Credit_Cards_per_month' updateState={updateState} isNumOnly={true}/>
-
-                        <DualCheckbox
-                            label="Other Expenses"
-                            value={checkboxValue}
-                            onChange={handleCheckboxChange}
-                        />
-
-                        { checkboxValue &&
-                            <CTextInput icon={require("../assets/profile.png")} key='Other_Expenses_p_a' label='Other Expenses' defaultValue={datas[0]?.Other_Expenses_p_a?.toString()} id='Other_Expenses_p_a' updateState={updateState} isNumOnly={false} isTextArea={true}/>
-                        }
-
-                        <CTextInput icon={require("../assets/profile.png")} key='Multi_Line_1' label='' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true}/>
-                    </>
-                }
-            </View>
-            <LinearGradient
-            style={[styles.bottom, styles.bottomFlexBox]}
-            locations={[0, 1]}
-            colors={["#fbb142", "#f6a326"]}
-            useAngle={true}
-            angle={180}
+            <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
+            <CustomHeader name="Edit Details" type={3} />
+            <Loader visible={loading} />
+            <FlashMessage position="top" />
+            <ScrollView
+                style={styles.wealthTabParent}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.frameScrollViewContent}
             >
-                <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={updateProfile}>
-                    <Text style={[styles.edit, styles.ml4]}>Save</Text>
-                </Pressable>
-            </LinearGradient>
-        </ScrollView>
+                <View style={styles.advicecontainer}>
+                    <View style={[styles.frWrapper, styles.wrapperLayout]}>
+                        <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.Household?.name?.charAt(0) + datas[0]?.Household?.name?.charAt(1))}</Text>
+                    </View>
+
+                    <View style={{ alignItems: 'center', marginVertical: 1, marginBottom: 10 }}>
+                        <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.Household?.name?.charAt(0) + datas[0]?.Household?.name?.charAt(1))}</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 14, color: '#FBB142' }}>Household</Text>
+                    </View>
+
+                    {type == 'user1' &&
+                        <>
+                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Gas_p_a' label='Gas' defaultValue={datas[0]?.Gas_p_a?.toString()} id='Gas_p_a' updateState={updateState} isNumOnly={true} />
+
+                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Electricity_p_a' label='Electricity' defaultValue={datas[0]?.Electricity_p_a?.toString()} id='Electricity_p_a' updateState={updateState} isNumOnly={true} />
+
+                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Water_p_a' label='Water' defaultValue={datas[0]?.Water_p_a?.toString()} id='Water_p_a' updateState={updateState} isNumOnly={true} />
+
+                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Home_Contents_Insurance_p_a' label='Home/Contents Insurance' defaultValue={datas[0]?.Home_Contents_Insurance_p_a?.toString()} id='Home_Contents_Insurance_p_a' updateState={updateState} isNumOnly={true} />
+
+                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Car_Insurance_p_a' label='Car Insurance' defaultValue={datas[0]?.Car_Insurance_p_a?.toString()} id='Car_Insurance_p_a' updateState={updateState} isNumOnly={true} />
+
+                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Private_Health_Insurance_p_a' label='Private Health Insurance' defaultValue={datas[0]?.Private_Health_Insurance_p_a?.toString()} id='Private_Health_Insurance_p_a' updateState={updateState} isNumOnly={true} />
+                        </>
+                    }
+
+                    <Text style={styles.loanR}>Loan Repayments</Text>
+
+                    {type == 'user2' &&
+                        <>
+                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Home_Loan' label='Home' defaultValue={datas[0]?.Home_Loan?.toString()} id='Home_Loan' updateState={updateState} isNumOnly={true} />
+
+                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Investment_Property_Loan_p_a' label='Investment Property' defaultValue={datas[0]?.Investment_Property_Loan_p_a?.toString()} id='Investment_Property_Loan_p_a' updateState={updateState} isNumOnly={true} />
+
+                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Other_Investment_Loan_p_a' label='Other Investment' defaultValue={datas[0]?.Other_Investment_Loan_p_a?.toString()} id='Other_Investment_Loan_p_a' updateState={updateState} isNumOnly={true} />
+
+                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Personal_Loan_p_a' label='Personal' defaultValue={datas[0]?.Personal_Loan_p_a?.toString()} id='Personal_Loan_p_a' updateState={updateState} isNumOnly={true} />
+
+                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Credit_Cards_per_month' label='Credit Cards' defaultValue={datas[0]?.Credit_Cards_per_month?.toString()} id='Credit_Cards_per_month' updateState={updateState} isNumOnly={true} />
+
+                            <DualCheckbox
+                                label="Other Expenses"
+                                value={checkboxValue}
+                                onChange={handleCheckboxChange}
+                            />
+
+                            {checkboxValue &&
+                                <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Other_Expenses_p_a' label='Other Expenses' defaultValue={datas[0]?.Other_Expenses_p_a?.toString()} id='Other_Expenses_p_a' updateState={updateState} isNumOnly={false} isTextArea={true} />
+                            }
+
+                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Multi_Line_1' label='' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true} />
+                        </>
+                    }
+                </View>
+                <LinearGradient
+                    style={[styles.bottom, styles.bottomFlexBox]}
+                    locations={[0, 1]}
+                    colors={["#fbb142", "#f6a326"]}
+                    useAngle={true}
+                    angle={180}
+                >
+                    <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={updateProfile}>
+                        <Text style={[styles.edit, styles.ml4]}>Save</Text>
+                    </Pressable>
+                </LinearGradient>
+            </ScrollView>
         </View>
     );
 };
@@ -202,6 +203,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         overflow: "hidden",
     },
+    loanR: {
+        color: "#FBB142",
+        marginTop: 15,
+        fontSize: 14
+    },
     dr: {
         fontSize: FontSize.size_6xl,
         color: Color.white1,
@@ -218,8 +224,8 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         shadowColor: "rgba(32, 34, 36, 0.5)",
         shadowOffset: {
-          width: 0,
-          height: 4,
+            width: 0,
+            height: 4,
         },
         shadowRadius: 15,
         elevation: 40,
@@ -273,7 +279,7 @@ const styles = StyleSheet.create({
     wealthTabParent: {
         alignSelf: "stretch",
         flex: 1,
-    },    
+    },
 });
 
 export default EditExpenses;
