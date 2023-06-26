@@ -11,6 +11,7 @@ import {
 import LinearGradient from "react-native-linear-gradient";
 import { Color, Padding, Border, FontFamily, FontSize } from "../GlobalStyles";
 import CustomHeader from "../components/CustomHeader";
+import actions from "../../actions";
 
 const AddANewGoalGoalType = () => {
   return (
@@ -74,6 +75,7 @@ const AddANewGoalGoalType = () => {
                     style={[styles.frameChild, styles.frameChildFlexBox]}
                     placeholder="Beach Pad"
                     placeholderTextColor="#bfbfbf"
+                    onChangeText={(value) => actions.updateAddGoals({ title: value })}
                   />
                 </View>
               </View>

@@ -9,5 +9,6 @@ export default {
     LIABILITIES: "LIABILITIES",
     PROFILE: "PROFILE",
     LOGOUT: "LOGOUT",
-    GOALS: "GOALS"
+    GOALS: "GOALS",
+    ADD_GOALS: "ADD_GOALS"
 }

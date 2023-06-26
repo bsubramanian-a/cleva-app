@@ -16,11 +16,13 @@ import CTextInput from "../components/CTextInput";
 import { useState } from "react";
 import Label from "../components/Label";
 import CustomDatePicker from "../components/CustomDatepicker";
+import actions from "../../actions";
 
 const AddANewGoalGoalDate = ({navigation}:any) => {
   const [datas, setDatas] = useState<any>([]);
   
   const updateState = (value: any, label: string) => {
+    actions.updateAddGoals({ [label]: value })
     setDatas((prevDatas: any) => {
       const updatedDatas = prevDatas.map((data: any) => {
         if (label in data) {
@@ -32,9 +34,11 @@ const AddANewGoalGoalDate = ({navigation}:any) => {
     });
   };
 
-  const updateData = () => {
-    console.log("datas", datas);
+  const today = new Date();
+  const futureDate = new Date();
+  futureDate.setFullYear(today.getFullYear() + 100);
 
+  const updateData = () => {
     navigation.navigate('AddANewGoalGoalImportan');
   }
 
@@ -57,10 +61,10 @@ const AddANewGoalGoalDate = ({navigation}:any) => {
           <View>
             <CTextInput isMobile={true} icon={require("../assets/gps.png")} key='title' label='Give your goal a name' defaultValue={""} id='title' updateState={updateState} isNumOnly={false}/>
 
-            <CTextInput style={styles.tInput} key='Multi_Line_1' label="Short Description of your goal" defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true} />
+            <CTextInput style={styles.tInput} key='description' label="Short Description of your goal" defaultValue={datas[0]?.Multi_Line_1?.toString()} id='description' updateState={updateState} isNumOnly={false} isTextArea={true} />
 
             <Label label={`When do you want to achieve this goal by ? \n dd/mm/yyyy`} icon={require("../assets/dob.png")} />
-            <CustomDatePicker defaultValue={datas[0]?.Date_of_Birth && new Date(datas[0]?.Date_of_Birth?.toString())} onValueChange={(value:any) => updateState(value, 'Date_of_Birth')} />
+            <CustomDatePicker defaultValue={datas[0]?.Date_of_Birth && new Date(datas[0]?.Date_of_Birth?.toString())} onValueChange={(value:any) => updateState(value, 'targetDate')}   minimumDate={null} maximumDate={futureDate}  disableFutureDates={false} disablePastDates={true} />
           </View>
           
           <LinearGradient

@@ -8,7 +8,8 @@ const initialState = {
     assets : {},
     liabilities : {},
     profile : {},
-    goals: {}
+    goals: {},
+    addGoals: {}
 };
 
 const data = (state = initialState, action:any) => {
@@ -31,6 +32,8 @@ const data = (state = initialState, action:any) => {
             return {...state, profile: data};
         case types.GOALS:
             return {...state, goals: data};
+        case types.ADD_GOALS:
+            return { ...state, addGoals: { ...state.addGoals, ...data } };
         case types.LOGOUT:
             return {...initialState};
         default:

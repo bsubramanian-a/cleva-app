@@ -16,11 +16,13 @@ import CTextInput from "../components/CTextInput";
 import { useState } from "react";
 import Label from "../components/Label";
 import CustomDatePicker from "../components/CustomDatepicker";
+import actions from "../../actions";
 
 const AddANewGoalGoalMoney = ({navigation}:any) => {
   const [datas, setDatas] = useState<any>([]);
   
   const updateState = (value: any, label: string) => {
+    actions.updateAddGoals({ [label]: value })
     setDatas((prevDatas: any) => {
       const updatedDatas = prevDatas.map((data: any) => {
         if (label in data) {
@@ -33,8 +35,6 @@ const AddANewGoalGoalMoney = ({navigation}:any) => {
   };
 
   const updateData = () => {
-    console.log("datas", datas);
-
     navigation.navigate('AddANewGoalGoalResponsi');
   }
 
@@ -55,14 +55,14 @@ const AddANewGoalGoalMoney = ({navigation}:any) => {
       >
         <View style={[styles.advicecontainer, styles.topMenuSpaceBlock]}>
           <View>
-            <CTextInput icon={require("../assets/dollarcircle.png")} key='title' label='How much do you need?' defaultValue={""} id='title' updateState={updateState} isNumOnly={false}/>
+            <CTextInput icon={require("../assets/dollarcircle.png")} key='money_need' label='How much do you need?' defaultValue={""} id='money_need' updateState={updateState} isNumOnly={false}/>
 
-            <CTextInput icon={require("../assets/dollarcircle.png")} key='title' label='How much do you have now?' defaultValue={""} id='title' updateState={updateState} isNumOnly={false}/>
+            <CTextInput icon={require("../assets/dollarcircle.png")} key='money_have' label='How much do you have now?' defaultValue={""} id='money_have' updateState={updateState} isNumOnly={false}/>
 
             <Text style={styles.sHead}>When do you need the money by?</Text>
 
             <Label label="Select Date" icon={require("../assets/dob.png")} />
-            <CustomDatePicker defaultValue={datas[0]?.Date_of_Birth && new Date(datas[0]?.Date_of_Birth?.toString())} onValueChange={(value:any) => updateState(value, 'Date_of_Birth')} />
+            <CustomDatePicker defaultValue={datas[0]?.Date_of_Birth && new Date(datas[0]?.Date_of_Birth?.toString())} onValueChange={(value:any) => updateState(value, 'when_money_need')} />
           </View>
           
           <LinearGradient

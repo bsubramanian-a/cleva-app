@@ -1,5 +1,5 @@
 import { apiGet, apiPost, clearUserData, setUserData, apiPostFormData, apiDelete, apiPut } from "../Utils"
-import { JOURNALS, EXERCISES, SUMMARY, ADVICE, ASSETS, LIABILITIES, PROFILE, ADD_ASSET, ADD_LIABILITY, DELETE_ASSET, DELETE_LIABILITY, DEPENDANT, EMPLOYMENT, ESTATE, EXPENSES, INCOME, INSURANCE, RETIREMENT, GETGOALBYACCOUNT } from "../urls";
+import { JOURNALS, EXERCISES, SUMMARY, ADVICE, ASSETS, LIABILITIES, PROFILE, ADD_ASSET, ADD_LIABILITY, DELETE_ASSET, DELETE_LIABILITY, DEPENDANT, EMPLOYMENT, ESTATE, EXPENSES, INCOME, INSURANCE, RETIREMENT, GETGOALBYACCOUNT, CREATEGOAL } from "../urls";
 import store from "../store";
 import types from "../types";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
@@ -189,6 +189,16 @@ export const updateOtherProfileDetails = (data:any, url:string) => {
     })
 }
 
+export const createGoal = (data:any) => {
+    return new Promise((resolve, reject) => {
+        return apiPost(CREATEGOAL, data).then((res) => {  
+            resolve(res)
+        }).catch((error) => {
+            reject(error)
+        })
+    })
+}
+
 export const isSignedIn = async () => {
     try {
       const isSignedIn = await GoogleSignin.isSignedIn();
@@ -213,6 +223,13 @@ export const signOut = async () => {
     } catch (error) {
         console.error('Sign out error: ', error);
     }
+};
+
+export const updateAddGoals = (data:any) => {
+    dispatch({
+      type: types.ADD_GOALS,
+      payload: data,
+    });
 };
 
 export const logout = () => {

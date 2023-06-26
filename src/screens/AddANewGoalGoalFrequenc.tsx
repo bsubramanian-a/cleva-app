@@ -17,17 +17,17 @@ import { useState } from "react";
 import Label from "../components/Label";
 import CustomDatePicker from "../components/CustomDatepicker";
 import RadioButtonGroup from "../components/RadioButtonGroup";
+import actions from "../../actions";
 
 const AddANewGoalGoalFrequenc = ({navigation}:any) => {
   const [reponsible, setResponsible] = useState<any>(null)
 
   const handleChange = (value:any) => {
     setResponsible(value);
+    actions.updateAddGoals({ frequent_money_save: value })
   };
 
   const updateData = () => {
-    console.log("reponsible", reponsible);
-
     navigation.navigate('GoalImportance');
   }
 

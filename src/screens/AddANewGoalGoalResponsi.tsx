@@ -17,17 +17,20 @@ import { useState } from "react";
 import Label from "../components/Label";
 import CustomDatePicker from "../components/CustomDatepicker";
 import RadioButtonGroup from "../components/RadioButtonGroup";
+import { useSelector } from "react-redux";
+import actions from "../../actions";
 
 const AddANewGoalGoalResponsi = ({navigation}:any) => {
   const [reponsible, setResponsible] = useState<any>(null)
-
+  const profile = useSelector((state:any) => state.data.profile);
+  
   const handleChange = (value:any) => {
     setResponsible(value);
+    let val = value == "Joint" ? null : value;
+    actions.updateAddGoals({ ownerId: val, Goal_Owner_s: val });
   };
 
   const updateData = () => {
-    console.log("reponsible", reponsible);
-
     navigation.navigate('AddANewGoalGoalFrequenc');
   }
 
@@ -51,7 +54,7 @@ const AddANewGoalGoalResponsi = ({navigation}:any) => {
             <Text style={styles.heading}>Who owns/Will be responsible{'\n'} For The Goals ?</Text>
 
             <RadioButtonGroup
-                options={[{value: "Family Member 1"}, {value: "Family Member 2"}, {value: "Joint"}]}
+                options={[{value: `${profile[0]?.First_Name} ${profile[0]?.Last_Name}`, id: profile[0]?.id }, profile[0]?.accounts?.length > 0 && profile[0]?.accounts[0]?.Email && {value: `${profile[0]?.accounts[0]?.First_Name} ${profile[0]?.accounts[0]?.Last_Name}`, id: profile[0]?.accounts[0]?.id}, {value: "Joint"}]}
                 onChange={handleChange}
                 count={1}
                 coptionContainer={{height: 56, backgroundColor: "#fff", marginVertical: 10, padding: 0, margin: 0, paddingHorizontal: 0}}

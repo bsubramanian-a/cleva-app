@@ -11,8 +11,12 @@ import {
 import LinearGradient from "react-native-linear-gradient";
 import { Padding, FontFamily, Color, FontSize, Border } from "../GlobalStyles";
 import CustomHeader from "../components/CustomHeader";
+import { useRoute } from "@react-navigation/native";
 
 const AddANewGoalGoalSummary = ({navigation}:any) => {
+  const route: any = useRoute();
+  const { message } = route.params;
+
   return (
     <View
       style={[styles.addANewGoalGoalSummary, styles.goalLayout]}
@@ -38,14 +42,14 @@ const AddANewGoalGoalSummary = ({navigation}:any) => {
                     resizeMode="cover"
                     source={require("../assets/group-1171275104.png")}
                   />
-                </View>
+                </View> 
                 <Text
                   style={[
                     styles.toAchieveYourContainer,
                     styles.addAnotherPropertyTypo,
                   ]}
                 >
-                  <Text style={styles.toAchieveYour}>
+                  {/* <Text style={styles.toAchieveYour}>
                     To achieve your goal of
                   </Text>
                   <Text style={styles.textTypo}> $2000</Text>
@@ -54,7 +58,8 @@ const AddANewGoalGoalSummary = ({navigation}:any) => {
                   <Text
                     style={styles.toAchieveYour}
                   >{` you need to pay off per `}</Text>
-                  <Text style={styles.textTypo}>week</Text>
+                  <Text style={styles.textTypo}>week</Text> */}
+                  {message}
                 </Text>
               </View>
             </View>

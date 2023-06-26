@@ -5,10 +5,10 @@ import { FontFamily } from '../GlobalStyles';
 const RadioButtonGroup = ({ options, defaultValue, orientation = 'horizontal', count = 1, onChange, coptionContainer, cselectedOptionBackground, coptionView, coptionDescription, coptionTextStyle }:any) => {
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
-  const handleOptionPress = (value:any) => {
-    setSelectedValue(value);
+  const handleOptionPress = (option:any) => {
+    setSelectedValue(option?.value);
     if (onChange) {
-      onChange(value);
+      onChange(option?.id || option?.value);
     }
   };
 
@@ -32,7 +32,7 @@ const RadioButtonGroup = ({ options, defaultValue, orientation = 'horizontal', c
         <TouchableOpacity
           key={option}
           style={optionContainerStyle}
-          onPress={() => handleOptionPress(option?.value)}
+          onPress={() => handleOptionPress(option)}
           activeOpacity={0.8}
         >
           {isSelected ? (

@@ -17,17 +17,17 @@ import { useState } from "react";
 import Label from "../components/Label";
 import CustomDatePicker from "../components/CustomDatepicker";
 import RadioButtonGroup from "../components/RadioButtonGroup";
+import actions from "../../actions";
 
 const AddANewGoalGoalImportan = ({navigation}:any) => {
   const [importance, setImportance] = useState<any>(null)
 
   const handleChange = (value:any) => {
+    actions.updateAddGoals({ "isFinancial": value })
     setImportance(value);
   };
 
   const updateData = () => {
-    console.log("importance", importance);
-
     navigation.navigate('AddANewGoalGoalMoney');
   }
 

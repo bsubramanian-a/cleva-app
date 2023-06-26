@@ -17,18 +17,34 @@ import { useState } from "react";
 import Label from "../components/Label";
 import CustomDatePicker from "../components/CustomDatepicker";
 import RadioButtonGroup from "../components/RadioButtonGroup";
+import actions from "../../actions";
+import Loader from "../components/Loader";
+import { useSelector } from "react-redux";
 
 const GoalImportance = ({navigation}:any) => {
   const [reponsible, setResponsible] = useState<any>(null)
+  const [loading, setLoading] = useState(false);
+  const addGoals = useSelector((state:any) => state.data.addGoals);
+  const profile = useSelector((state:any) => state.data.profile);
 
   const handleChange = (value:any) => {
     setResponsible(value);
+    actions.updateAddGoals({ goal_priority: value })
   };
 
-  const updateData = () => {
-    console.log("reponsible", reponsible);
+  const updateData = async() => {
+    setLoading(true);
 
-    navigation.navigate('AddANewGoalGoalSummary');
+    let updateData = {...addGoals, Household: { id : profile[0]?.Account_Name?.id }} 
+
+    try {
+      const response:any = await actions.createGoal(updateData);
+      navigation.navigate('AddANewGoalGoalSummary', { message : response?.message });
+      setLoading(false)
+    } catch (error) {
+      console.log("error", error);
+      setLoading(false)
+    }
   }
 
   return (
@@ -39,7 +55,7 @@ const GoalImportance = ({navigation}:any) => {
       contentContainerStyle={styles.addANewGoalGoalDateContent}
     >
       <CustomHeader name="Property Goal" type={2}/>
-
+      <Loader visible={loading} />
       <ScrollView
         style={styles.advicecontainerWrapper}
         showsVerticalScrollIndicator={true}

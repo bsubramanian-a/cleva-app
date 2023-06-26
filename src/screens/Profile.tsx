@@ -34,7 +34,6 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    console.log(profile);
     setAccordions();
   }, [profile])
 

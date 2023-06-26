@@ -3,6 +3,7 @@ import { View, Modal, TouchableOpacity, Text, StyleSheet, Dimensions, ScrollView
 import { LineChart } from 'react-native-chart-kit';
 import RadioButtonGroup from './RadioButtonGroup';
 import { FontFamily } from '../GlobalStyles';
+import actions from '../../actions';
 
 const GoalCategoryModal = ({ visible, onClose, navigation }:any) => {
     const [category, setCategory] = useState("");
@@ -18,55 +19,56 @@ const GoalCategoryModal = ({ visible, onClose, navigation }:any) => {
 
     const handleCategoryChange = (value:any) => {
         setCategory(value);
+        actions.updateAddGoals({ goalType: value });
     };
 
     return (
         <Modal visible={visible} onRequestClose={onClose} transparent>
-        <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-                <ScrollView contentContainerStyle={{paddingTop: 5}} showsVerticalScrollIndicator={false}>
-                    <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-                        <Text style={styles.closeButtonText}>x</Text>
-                    </TouchableOpacity>
-                
-                    <Text style={styles.saveHeading}>Save for something big</Text>
-                    <Text style={styles.heading}>What is the{"\n"}Category of the{"\n"}goals you have in{"\n"}mind?</Text>
-                    <Text style={styles.subheading}>To create a new goal, select the category</Text>
-
-                    <RadioButtonGroup
-                        options={[{value: "Property", description: "New home, first home, renovations, investent property"}, {value: "Travel", description: "Dream Holiday, Overseas, Amazing Experience"}, {value: "Kids education & investments", description: "Education fund, investment for 21t birthday, help them into property"}, {value: "Lifestyle", description: "New car, christmas gift fund, wedding"}, {value: "Assets & Liabilities", description: "Pay down debt or save to buy growth assets for investment"}, {value: "Save fo something big", description: "Pay down debt or save to buy growth assets for investment"}, {value: "My super fund goal", description: "What is your Cleva Life goal for your super ?"}]}
-                        defaultValue={"Option 2"}
-                        onChange={handleCategoryChange}
-                        count={1}
-                        coptionView={styles.coptionView}
-                        coptionContainer={{height : 75, paddingVertical: 0, backgroundColor: '#fff', borderRadius: 38, marginVertical: 10, borderWidth: 1, borderColor: '#dedede'}}
-                        coptionDescription={{textAlign: 'center', color: '#2A3545', fontSize: 10}}
-                        coptionTextStyle={{textAlign: 'center', color: '#2A3545', fontSize: 14, fontWeight: 600}}
-                        cselectedOptionBackground={{backgroundColor: '#FBB142', color: '#fff'}}
-                    />
-
-                    <View
-                    style={[styles.nextprevious, styles.emailLoginSpaceBlock]}
-                    >
-                        <TouchableOpacity onPress={onClose} style={styles.next}>
-                            <Image
-                            style={styles.iconleftarrow}
-                            resizeMode="cover"
-                            source={require("../assets/iconarrow.png")}
-                            />
+            <View style={styles.modalContainer}>
+                <View style={styles.modalContent}>
+                    <ScrollView contentContainerStyle={{paddingTop: 5}} showsVerticalScrollIndicator={false}>
+                        <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+                            <Text style={styles.closeButtonText}>x</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {onClose(); navigation.navigate("AddANewGoalGoalDate")} } style={styles.next}>
-                            <Image
-                            style={styles.iconrightarrow}
-                            resizeMode="cover"
-                            source={category != "" ? require("../assets/iconarrow1.png") : require("../assets/iconrightarrow.png")}
-                            />
-                            <Text style={[styles.next1, category != "" && { color: '#000' }]}>NEXT</Text>
-                        </TouchableOpacity>
-                    </View>
-                </ScrollView>
+                    
+                        <Text style={styles.saveHeading}>Save for something big</Text>
+                        <Text style={styles.heading}>What is the{"\n"}Category of the{"\n"}goals you have in{"\n"}mind?</Text>
+                        <Text style={styles.subheading}>To create a new goal, select the category</Text>
+
+                        <RadioButtonGroup
+                            options={[{value: "Property", description: "New home, first home, renovations, investent property"}, {value: "Travel", description: "Dream Holiday, Overseas, Amazing Experience"}, {value: "Kids education & investments", description: "Education fund, investment for 21t birthday, help them into property"}, {value: "Lifestyle", description: "New car, christmas gift fund, wedding"}, {value: "Assets & Liabilities", description: "Pay down debt or save to buy growth assets for investment"}, {value: "Save fo something big", description: "Pay down debt or save to buy growth assets for investment"}, {value: "My super fund goal", description: "What is your Cleva Life goal for your super ?"}]}
+                            defaultValue={"Option 2"}
+                            onChange={handleCategoryChange}
+                            count={1}
+                            coptionView={styles.coptionView}
+                            coptionContainer={{height : 75, paddingVertical: 0, backgroundColor: '#fff', borderRadius: 38, marginVertical: 10, borderWidth: 1, borderColor: '#dedede'}}
+                            coptionDescription={{textAlign: 'center', color: '#2A3545', fontSize: 10}}
+                            coptionTextStyle={{textAlign: 'center', color: '#2A3545', fontSize: 14, fontWeight: 600}}
+                            cselectedOptionBackground={{backgroundColor: '#FBB142', color: '#fff'}}
+                        />
+
+                        <View
+                        style={[styles.nextprevious, styles.emailLoginSpaceBlock]}
+                        >
+                            <TouchableOpacity onPress={onClose} style={styles.next}>
+                                <Image
+                                style={styles.iconleftarrow}
+                                resizeMode="cover"
+                                source={require("../assets/iconarrow.png")}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => {onClose(); navigation.navigate("AddANewGoalGoalDate")} } style={styles.next}>
+                                <Image
+                                style={styles.iconrightarrow}
+                                resizeMode="cover"
+                                source={category != "" ? require("../assets/iconarrow1.png") : require("../assets/iconrightarrow.png")}
+                                />
+                                <Text style={[styles.next1, category != "" && { color: '#000' }]}>NEXT</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </ScrollView>
+                </View>
             </View>
-        </View>
         </Modal>
     );
 };
