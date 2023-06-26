@@ -13,7 +13,7 @@ import config from "../../config/config";
 import { useEffect } from "react";
 import actions from "../../actions";
 
-const GoogleLogin = ({onVerifyEmail}:any) => {
+const GoogleLogin = ({onVerifyEmail, setLoginError}:any) => {
   // console.log("config", config.googleWebClientId);
   GoogleSignin.configure({
     webClientId: config.googleWebClientId,
@@ -35,6 +35,7 @@ const GoogleLogin = ({onVerifyEmail}:any) => {
 
   const signIn = async () => {
     try {
+      setLoginError("");
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       // User signed in successfully, handle your logic here

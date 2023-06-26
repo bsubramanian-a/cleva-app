@@ -9,10 +9,12 @@ import {
   Padding,
 } from "../GlobalStyles";
 import { appleAuth, AppleButton } from '@invertase/react-native-apple-authentication';
+import { showMessage } from "react-native-flash-message";
 
-const AppleLogin = () => {
+const AppleLogin = ({onVerifyEmail, showRMessage, setLoginError}:any) => {
   const handleAppleLogin = async () => {
     try {
+      setLoginError("");
       // Start the Apple authentication request
       const appleAuthRequestResponse = await appleAuth.performRequest({
         requestedOperation: appleAuth.Operation.LOGIN,
@@ -26,6 +28,14 @@ const AppleLogin = () => {
       console.log(user);
       console.log(email);
       console.log(fullName);
+
+      if(email){
+        onVerifyEmail(email);
+      }else{
+        console.log("error apple login");
+        // showRMessage("Couldn't login, please try different login method!", "error");
+        setLoginError("Couldn't login, please try different login method!");
+      }
     } catch (error) {
       console.log(error);
     }

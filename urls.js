@@ -27,3 +27,5 @@ export const EXPENSES = getApiURL('expenses');
 export const INCOME = getApiURL('income');
 export const INSURANCE = getApiURL('ina');
 export const RETIREMENT = getApiURL('retirement');
+export const GETGOALBYACCOUNT = getApiURL('goals/goalsbyaccount');
+export const UPDATEGOALS = getApiURL('goals/updategoals');

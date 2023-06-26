@@ -8,5 +8,6 @@ export default {
     ASSETS: "ASSETS",
     LIABILITIES: "LIABILITIES",
     PROFILE: "PROFILE",
-    LOGOUT: "LOGOUT"
+    LOGOUT: "LOGOUT",
+    GOALS: "GOALS"
 }

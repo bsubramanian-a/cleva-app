@@ -7,7 +7,8 @@ const initialState = {
     advices : {},
     assets : {},
     liabilities : {},
-    profile : {}
+    profile : {},
+    goals: {}
 };
 
 const data = (state = initialState, action:any) => {
@@ -28,6 +29,8 @@ const data = (state = initialState, action:any) => {
             return {...state, liabilities: data};
         case types.PROFILE:
             return {...state, profile: data};
+        case types.GOALS:
+            return {...state, goals: data};
         case types.LOGOUT:
             return {...initialState};
         default:

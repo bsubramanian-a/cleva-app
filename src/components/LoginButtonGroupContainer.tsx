@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   Pressable,
   Image,
@@ -21,6 +21,7 @@ import {
   Padding,
 } from "../GlobalStyles";
 import AppleLogin from "./AppleLogin";
+import { useSafeAreaFrame } from "react-native-safe-area-context";
 
 type LoginButtonGroupContainerType = {
   socialLoginImageUrl?: ImageSourcePropType;
@@ -30,6 +31,7 @@ type LoginButtonGroupContainerType = {
   onVerifyEmail:Function;
   /** Style props */
   propBackgroundColor?: string;
+  showRMessage?:Function
 };
 
 const getStyleValue = (key: string, value: string | number | undefined) => {
@@ -43,59 +45,62 @@ const LoginButtonGroupContainer = ({
   propBackgroundColor,
   acceptToContinue,
   navigation,
-  onVerifyEmail
+  onVerifyEmail,
+  showRMessage
 }: LoginButtonGroupContainerType) => {
-
+  const [loginError, setLoginError] = useState("");
   const appleLoginStyle = useMemo(() => {
     return {
       ...getStyleValue("backgroundColor", propBackgroundColor),
     };
   }, [propBackgroundColor]);
 
-const handleFacebookLogin = async () => {
-  try {
-    const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-    console.log("result", result);
-    if (result.isCancelled) {
-      throw new Error('User cancelled login');
-    }
-
-    const data = await AccessToken.getCurrentAccessToken();
-    if (!data) {
-      throw new Error('Something went wrong obtaining the access token');
-    }
-    const accessToken = data.accessToken;
-    console.log("accessToken", accessToken);
-
-    // Request additional user data, such as email
-    const graphRequest = new GraphRequest('/me', {
-      accessToken,
-      parameters: {
-        fields: {
-          string: 'id,name,email',
-        },
-      },
-    }, (error, response) => {
-      if (error) {
-        console.log('Error retrieving user data: ', error);
-      } else {
-        const { id, name, email }:any = response;
-        console.log('User data:', { id, name, email });
-        // Perform further actions with the obtained user data
+  const handleFacebookLogin = async () => {
+    try {
+      setLoginError("");
+      const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+      console.log("result", result);
+      if (result.isCancelled) {
+        throw new Error('User cancelled login');
       }
-    });
 
-    // Execute the graph request
-    new GraphRequestManager().addRequest(graphRequest).start();
-  } catch (error) {
-    console.log('Error logging in:', error);
-  }
-};
+      const data = await AccessToken.getCurrentAccessToken();
+      if (!data) {
+        throw new Error('Something went wrong obtaining the access token');
+      }
+      const accessToken = data.accessToken;
+      console.log("accessToken", accessToken);
+
+      // Request additional user data, such as email
+      const graphRequest = new GraphRequest('/me', {
+        accessToken,
+        parameters: {
+          fields: {
+            string: 'id,name,email',
+          },
+        },
+      }, (error, response) => {
+        if (error) {
+          console.log('Error retrieving user data: ', error);
+        } else {
+          const { id, name, email }:any = response;
+          console.log('User data:', { id, name, email });
+          // Perform further actions with the obtained user data
+        }
+      });
+
+      // Execute the graph request
+      new GraphRequestManager().addRequest(graphRequest).start();
+    } catch (error) {
+      console.log('Error logging in:', error);
+    }
+  };
 
   return (
     <View style={[styles.buttonGroup, styles.mt72, styles.appleLoginFlexBox]}>
       <View style={styles.socialLogin}>
-        <GoogleLogin onVerifyEmail={onVerifyEmail} />
+        {loginError && <Text style={{textAlign: 'center', color: 'red', marginBottom: 10}}>Login failed, please try different method</Text>}
+        <GoogleLogin onVerifyEmail={onVerifyEmail} setLoginError={setLoginError} />
         {Platform.OS === 'android' && <Pressable
          onPress={handleFacebookLogin}
           style={[
@@ -115,7 +120,7 @@ const handleFacebookLogin = async () => {
           </Text>
         </Pressable>}
 
-        {Platform.OS === 'ios' && <AppleLogin />}
+        {Platform.OS === 'ios' && <AppleLogin onVerifyEmail={onVerifyEmail} showRMessage={showRMessage} setLoginError={setLoginError}/>}
       </View>
       <Text style={[styles.or, styles.mt40]}>Or</Text>
       <View style={[styles.socialLogin, styles.mt40]}>

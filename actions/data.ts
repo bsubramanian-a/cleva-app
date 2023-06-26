@@ -1,5 +1,5 @@
 import { apiGet, apiPost, clearUserData, setUserData, apiPostFormData, apiDelete, apiPut } from "../Utils"
-import { JOURNALS, EXERCISES, SUMMARY, ADVICE, ASSETS, LIABILITIES, PROFILE, ADD_ASSET, ADD_LIABILITY, DELETE_ASSET, DELETE_LIABILITY, DEPENDANT, EMPLOYMENT, ESTATE, EXPENSES, INCOME, INSURANCE, RETIREMENT } from "../urls";
+import { JOURNALS, EXERCISES, SUMMARY, ADVICE, ASSETS, LIABILITIES, PROFILE, ADD_ASSET, ADD_LIABILITY, DELETE_ASSET, DELETE_LIABILITY, DEPENDANT, EMPLOYMENT, ESTATE, EXPENSES, INCOME, INSURANCE, RETIREMENT, GETGOALBYACCOUNT } from "../urls";
 import store from "../store";
 import types from "../types";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
@@ -96,6 +96,20 @@ export const getProfile = () => {
             console.log("response from action1", res);
             dispatch({
                 type: types.PROFILE,
+                payload: res.data
+            });
+            resolve(res)
+        }).catch((error) => {
+            reject(error)
+        });
+    });    
+}
+
+export const getGoalsByAccount = () => {
+    return new Promise((resolve, reject) => {
+        return apiGet(GETGOALBYACCOUNT).then((res) => {
+            dispatch({
+                type: types.GOALS,
                 payload: res.data
             });
             resolve(res)

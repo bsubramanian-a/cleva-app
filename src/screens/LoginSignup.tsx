@@ -5,10 +5,20 @@ import { Margin, FontSize, FontFamily, Color } from "../GlobalStyles";
 import { useState } from "react";
 import actions from "../../actions";
 import Loader from "../components/Loader";
+import { showMessage } from "react-native-flash-message";
 
 const LoginSignup = ({navigation}:any) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const showRMessage = (message:string, mtype:string) => {
+    console.log("showRMessage", message, mtype);
+    showMessage({
+      message: mtype == 'success' ? 'Success' : 'Failed',
+      description: message,
+      type: mtype == 'success' ? 'success' : 'danger',
+    });
+  }
   
   const onVerifyEmail = async (email:string) => {
     setLoading(true);
@@ -62,6 +72,7 @@ const LoginSignup = ({navigation}:any) => {
         acceptToContinue="Login with email"
         navigation={navigation}
         onVerifyEmail={onVerifyEmail}
+        showRMessage={showRMessage}
       />
     </ScrollView>
   );

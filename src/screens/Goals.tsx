@@ -5,19 +5,30 @@ import { Margin, FontSize, FontFamily, Color, Padding, Border } from "../GlobalS
 import CustomHeader from "../components/CustomHeader";
 import RadioButtonGroup from "../components/RadioButtonGroup";
 import GraphModal from "../components/GraphModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Tabs from "../components/Tab";
 import { cos } from "react-native-reanimated";
 import LinearGradient from "react-native-linear-gradient";
 import GoalItem from "../components/GoalItem";
 import GoalCategoryModal from "../components/GoalCategoryModal";
+import actions from "../../actions";
+import { useSelector } from "react-redux";
 
 const Goals = ({navigation}:any) => {
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [modalVisible, setModalVisible] = useState(false);
   const [isCateoryModalVisible, setIsCategoryModalVisible] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const goals = useSelector((state:any) => state.data.goals);
+
+  useEffect(() => {
+    getGoals();
+  }, [])
+
+  const getGoals = async() => {
+    await actions.getGoalsByAccount();
+  }
   
   const handleRadioChange = (value:any) => {
     console.log('Selected Option:', value);
@@ -49,31 +60,9 @@ const Goals = ({navigation}:any) => {
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
       <CustomHeader name="Goals" type={1}/>
 
-      {/* <TouchableOpacity onPress={() => openPage('AddANewGoalGoalDate')}><Text>AddANewGoalGoalDate</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => openPage('AddANewGoalGoalFrequenc')}><Text>AddANewGoalGoalFrequenc</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => openPage('AddANewGoalGoalImportan')}><Text>AddANewGoalGoalImportan</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => openPage('AddANewGoalGoalMoney')}><Text>AddANewGoalGoalMoney</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => openPage('AddANewGoalGoalResponsi')}><Text>AddANewGoalGoalResponsi</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => openPage('AddANewGoalGoalSummary')}><Text>AddANewGoalGoalSummary</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => openPage('AddANewGoalGoalType')}><Text>AddANewGoalGoalType</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => openPage('Goaln')}><Text>Goaln</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => openPage('Goal1')}><Text>Goal1</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => openPage('GoalsEditGoalsPopup')}><Text>GoalsEditGoalsPopup</Text></TouchableOpacity> */}
-
       <GraphModal visible={modalVisible} onClose={closeModal} filterOptions={[{value: "All"}, {value: "6 mo"}, {value: "1 yr"}, {value: "3 yrs"}, {value: "5 yrs"}, {value: "10 yrs"}]} handleFilter={handleFilter} selectedFilter={selectedFilter}/>
 
       <GoalCategoryModal navigation={navigation} visible={isCateoryModalVisible} onClose={() => setIsCategoryModalVisible(false)} />
-
-      {/* <RadioButtonGroup
-        options={["Option 1", "Option 2", "Option 3"]}
-        defaultValue={"Option 2"}
-        onChange={handleRadioChange}
-        count={3}
-      /> */}
-
-      {/* <TouchableOpacity style={styles.button} onPress={openModal}>
-        <Text style={styles.buttonText}>Open Graph</Text>
-      </TouchableOpacity> */}
 
       <Tabs
         tabs={['Labelled Money', 'ClevaLife']}
