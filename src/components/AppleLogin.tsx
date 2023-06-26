@@ -21,7 +21,7 @@ const AppleLogin = ({onVerifyEmail, showRMessage, setLoginError}:any) => {
         requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });
   
-      // Get the user's credential details
+    //   // Get the user's credential details
       const { user, email, fullName } = appleAuthRequestResponse;
   
       // Use the received credential details for further processing

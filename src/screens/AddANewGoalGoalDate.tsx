@@ -55,7 +55,7 @@ const AddANewGoalGoalDate = ({navigation}:any) => {
       >
         <View style={[styles.advicecontainer, styles.topMenuSpaceBlock]}>
           <View>
-            <CTextInput isMobile={true} icon={require("../assets/contact.png")} key='title' label='Give your goal a name' defaultValue={""} id='title' updateState={updateState} isNumOnly={false}/>
+            <CTextInput isMobile={true} icon={require("../assets/gps.png")} key='title' label='Give your goal a name' defaultValue={""} id='title' updateState={updateState} isNumOnly={false}/>
 
             <CTextInput style={styles.tInput} key='Multi_Line_1' label="Short Description of your goal" defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true} />
 

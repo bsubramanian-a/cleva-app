@@ -26,7 +26,7 @@ const GoalCategoryModal = ({ visible, onClose, navigation }:any) => {
             <View style={styles.modalContent}>
                 <ScrollView contentContainerStyle={{paddingTop: 5}} showsVerticalScrollIndicator={false}>
                     <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-                        <Text style={styles.closeButtonText}>X</Text>
+                        <Text style={styles.closeButtonText}>x</Text>
                     </TouchableOpacity>
                 
                     <Text style={styles.saveHeading}>Save for something big</Text>
@@ -40,9 +40,9 @@ const GoalCategoryModal = ({ visible, onClose, navigation }:any) => {
                         count={1}
                         coptionView={styles.coptionView}
                         coptionContainer={{height : 75, paddingVertical: 0, backgroundColor: '#fff', borderRadius: 38, marginVertical: 10, borderWidth: 1, borderColor: '#dedede'}}
-                        coptionDescription={{textAlign: 'center', color: '#000', fontSize: 14}}
-                        coptionTextStyle={{textAlign: 'center', color: '#000', fontSize: 14, fontWeight: 600}}
-                        cselectedOptionBackground={{backgroundColor: '#FBB142'}}
+                        coptionDescription={{textAlign: 'center', color: '#2A3545', fontSize: 10}}
+                        coptionTextStyle={{textAlign: 'center', color: '#2A3545', fontSize: 14, fontWeight: 600}}
+                        cselectedOptionBackground={{backgroundColor: '#FBB142', color: '#fff'}}
                     />
 
                     <View
@@ -94,16 +94,20 @@ const styles = StyleSheet.create({
     saveHeading:{
         fontSize: 12,
         fontWeight: "400",
-        marginBottom: 15
+        marginBottom: 15,
+        color: "#C0C0C0",
+        fontStyle: 'italic'
     },
     heading:{
         fontWeight: "500",
         fontSize: 20,
-        marginBottom: 20
+        marginBottom: 20,
+        color: '#2A3545',
     },
     subheading:{
         fontWeight: "400",
         fontSize: 14,
+        color: '#2A3545'
     },
     coptionView:{
         height: 70,

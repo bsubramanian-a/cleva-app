@@ -94,7 +94,7 @@ const Goals = ({navigation}:any) => {
 
       <View style={styles.goalsContainer}>
         <GoalItem data={{title : " Save $5000 for Italy Holiday", owner: 'DR', dueDate: "12/07/2023", status: 'Doing'}}  />
-      </View>
+      </View> */}
     </View>
   );
 };
