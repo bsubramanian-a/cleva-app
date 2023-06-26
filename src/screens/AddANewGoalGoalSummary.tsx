@@ -35,7 +35,7 @@ const AddANewGoalGoalSummary = ({navigation}:any) => {
                 <View style={styles.groupWrapper}>
                   <Image
                     style={[styles.frameChild, styles.goalLayout]}
-                    resizeMode="cover"
+                    resizeMode="contain"
                     source={require("../assets/group-1171275104.png")}
                   />
                 </View>
@@ -50,10 +50,10 @@ const AddANewGoalGoalSummary = ({navigation}:any) => {
                   </Text>
                   <Text style={styles.textTypo}> $2000</Text>
                   <Text style={styles.toAchieveYour}>{` by `}</Text>
-                  <Text style={styles.textTypo}>12/20/2021</Text>
+                  <Text style={styles.textTypo}>{'\n'}12/20/2021</Text>
                   <Text
                     style={styles.toAchieveYour}
-                  >{` you need to pay off per `}</Text>
+                  >{` you need to pay off \n per `}</Text>
                   <Text style={styles.textTypo}>week</Text>
                 </Text>
               </View>
@@ -174,9 +174,9 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   selectGoalType: {
-    fontSize: FontSize.size_xl,
+    fontFamily: FontFamily.openSansRegular,
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "500",
     color: Color.black,
   },

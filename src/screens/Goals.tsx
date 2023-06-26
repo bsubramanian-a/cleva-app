@@ -81,7 +81,7 @@ const Goals = ({navigation}:any) => {
         angle={180}
       >
         <Text style={[styles.setYourGoalsContainer, styles.doingTypo]}>
-          Set your goals to save for somethingimportant and/or exciting
+          Set your goals to save for something important and/or exciting
         </Text>
         <TouchableOpacity onPress={() => setIsCategoryModalVisible(true)}>
           <Image
@@ -115,6 +115,8 @@ const styles = StyleSheet.create({
   doingTypo: {
     fontFamily: FontFamily.outfitMedium,
     fontWeight: "500",
+    fontSize: 16,
+    color: "#fff",
     flexWrap: 'wrap',
     width: '80%'
   },

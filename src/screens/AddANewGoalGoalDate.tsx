@@ -59,7 +59,7 @@ const AddANewGoalGoalDate = ({navigation}:any) => {
 
             <CTextInput style={styles.tInput} key='Multi_Line_1' label="Short Description of your goal" defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true} />
 
-            <Label label={`When do you want to achieve this goal by ? \n dd/mm/yyyy`} icon={require("../assets/dob.png")} />
+            <Label label={`When do you want to achieve this goal by ? \n dd/mm/yyyy`} icon={require("../assets/calendar.png")} />
             <CustomDatePicker defaultValue={datas[0]?.Date_of_Birth && new Date(datas[0]?.Date_of_Birth?.toString())} onValueChange={(value:any) => updateState(value, 'Date_of_Birth')} />
           </View>
           

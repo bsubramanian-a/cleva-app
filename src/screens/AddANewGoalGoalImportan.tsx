@@ -18,10 +18,10 @@ import Label from "../components/Label";
 import CustomDatePicker from "../components/CustomDatepicker";
 import RadioButtonGroup from "../components/RadioButtonGroup";
 
-const AddANewGoalGoalImportan = ({navigation}:any) => {
+const AddANewGoalGoalImportan = ({ navigation }: any) => {
   const [importance, setImportance] = useState<any>(null)
 
-  const handleChange = (value:any) => {
+  const handleChange = (value: any) => {
     setImportance(value);
   };
 
@@ -38,7 +38,7 @@ const AddANewGoalGoalImportan = ({navigation}:any) => {
       showsHorizontalScrollIndicator={true}
       contentContainerStyle={styles.addANewGoalGoalDateContent}
     >
-      <CustomHeader name="Property Goal" type={2}/>
+      <CustomHeader name="Property Goal" type={2} />
 
       <ScrollView
         style={styles.advicecontainerWrapper}
@@ -53,17 +53,17 @@ const AddANewGoalGoalImportan = ({navigation}:any) => {
             <Text style={styles.subheading}>Do you need to set aside/save money to achieve this goal ?</Text>
 
             <RadioButtonGroup
-                options={[{value: "Yes"}, {value: "No"}]}
-                onChange={handleChange}
-                count={1}
-                cselectedOptionBackground={{height: 25, padding: 4}}
-                coptionView={styles.coptionView}
-                coptionContainer={{height : 80, paddingVertical: 0, backgroundColor: '#fff', borderRadius: 12, marginVertical: 10}}
-                coptionDescription={{textAlign: 'center', color: '#000', fontSize: 14}}
-                coptionTextStyle={{textAlign: 'center', color: '#000', fontSize: 14, fontWeight: 600}}
+              options={[{ value: "Yes" }, { value: "No" }]}
+              onChange={handleChange}
+              count={1}
+              cselectedOptionBackground={{ height: 25, padding: 4 }}
+              coptionView={styles.coptionView}
+              coptionContainer={{ height: 80, paddingVertical: 0, backgroundColor: '#fff', borderRadius: 12, marginVertical: 10 }}
+              coptionDescription={{ textAlign: 'center', color: '#000', fontSize: 18 }}
+              coptionTextStyle={{ textAlign: 'center', color: '#000', fontSize: 18, fontWeight: 600 }}
             />
           </View>
-          
+
           <LinearGradient
             style={[styles.bottom, styles.bottomFlexBox]}
             locations={[0, 1]}
@@ -71,7 +71,7 @@ const AddANewGoalGoalImportan = ({navigation}:any) => {
             useAngle={true}
             angle={180}
           >
-            <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={updateData}>
+            <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={updateData}>
               <Text style={[styles.edit, styles.ml4]}>Next</Text>
             </Pressable>
           </LinearGradient>
@@ -82,16 +82,20 @@ const AddANewGoalGoalImportan = ({navigation}:any) => {
 };
 
 const styles = StyleSheet.create({
-  heading:{
+  heading: {
     fontWeight: "500",
-    fontSize: 20,
+    fontFamily: FontFamily.openSansRegular,
+    // fontFamily: FontFamily.outfitMedium,
+    fontSize: 28,
     marginVertical: 20,
   },
-  subheading:{
-      fontWeight: "400",
-      fontSize: 16,
+  subheading: {
+    marginBottom: 50,
+    fontWeight: "500",
+    fontFamily: FontFamily.outfitMedium,
+    fontSize: 16,
   },
-  coptionView:{
+  coptionView: {
     height: 70,
     justifyContent: 'center',
     overflow: 'hidden',
@@ -115,12 +119,12 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   edit: {
-      fontSize: FontSize.textMediumBoldText1_size,
-      lineHeight: 20,
-      fontWeight: "600",
-      fontFamily: FontFamily.openSansRegular,
-      color: Color.white1,
-      textAlign: "center",
+    fontSize: FontSize.textMediumBoldText1_size,
+    lineHeight: 20,
+    fontWeight: "600",
+    fontFamily: FontFamily.openSansRegular,
+    color: Color.white1,
+    textAlign: "center",
   },
   tInput: {
     borderWidth: 1,
