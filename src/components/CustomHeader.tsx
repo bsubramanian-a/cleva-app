@@ -8,12 +8,16 @@ import TopHeader from "./TopHeader";
 import HeaderBack from "./HeaderBack";
 import ProfileHeader from "./ProfileHeader";
 
-const CustomHeader = ({name, type}:any) => {
+const CustomHeader = ({name, type, back = ''}: any) => {
     const navigation = useNavigation();
     // console.log("custom header name", name);
 
     const goBack = () => {
-      navigation.goBack();
+      if (back) {
+        navigation.navigate(back);
+      } else {
+        navigation.goBack();
+      }
     } 
 
     switch (type) {

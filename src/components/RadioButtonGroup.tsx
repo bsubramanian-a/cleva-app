@@ -1,63 +1,105 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { FontFamily } from '../GlobalStyles';
+import React, {useEffect, useState} from 'react';
+import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {FontFamily} from '../GlobalStyles';
 
-const RadioButtonGroup = ({ options, defaultValue, orientation = 'horizontal', count = 1, onChange, coptionContainer, cselectedOptionBackground, coptionView, coptionDescription, coptionTextStyle }:any) => {
+const RadioButtonGroup = ({
+  options,
+  defaultValue,
+  orientation = 'horizontal',
+  count = 1,
+  onChange,
+  coptionContainer,
+  cselectedOptionBackground,
+  coptionView,
+  coptionDescription,
+  coptionTextStyle,
+}: any) => {
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
-  const handleOptionPress = (option:any) => {
+  const handleOptionPress = (option: any) => {
     setSelectedValue(option?.value);
     if (onChange) {
       onChange(option?.id || option?.value);
     }
   };
 
+  useEffect(() => {
+    setSelectedValue(defaultValue);
+  }, [defaultValue]);
+
   const renderOptions = () => {
     const rows = [];
-    let row:any = [];
+    let row: any = [];
     let rowIndex = 0;
 
-    options.forEach((option:any, index:any) => {
+    options.forEach((option: any, index: any) => {
       const isSelected = selectedValue === option?.value;
       const optionContainerStyle = [
         styles.optionContainer,
         coptionContainer,
         isSelected && styles.selectedOption,
         orientation === 'horizontal' && styles.horizontalOption,
-        orientation === 'horizontal' && rowIndex % count !== 0 && styles.horizontalGap,
+        orientation === 'horizontal' &&
+          rowIndex % count !== 0 &&
+          styles.horizontalGap,
       ];
-      const optionTextStyle = [styles.optionText, isSelected && styles.selectedOptionText];
+      const optionTextStyle = [
+        styles.optionText,
+        isSelected && styles.selectedOptionText,
+      ];
 
       row.push(
         <TouchableOpacity
-          key={option}
+          key={option+index}
           style={optionContainerStyle}
           onPress={() => handleOptionPress(option)}
-          activeOpacity={0.8}
-        >
+          activeOpacity={0.8}>
           {isSelected ? (
-            <View style={[styles.selectedOptionBackground, styles.optionView, cselectedOptionBackground, coptionView]}>
-              <Text style={[optionTextStyle, {color: '#FBB142'}, coptionTextStyle]}>{option?.value}</Text>
-              {option?.description && <Text style={[coptionDescription]}>{option?.description}</Text>}
+            <View
+              style={[
+                styles.selectedOptionBackground,
+                styles.optionView,
+                cselectedOptionBackground,
+                coptionView,
+              ]}>
+              <Text
+                style={[optionTextStyle, {color: '#FBB142'}, coptionTextStyle]}>
+                {option?.value}
+              </Text>
+              {option?.description && (
+                <Text style={coptionDescription}>{option?.description}</Text>
+              )}
             </View>
           ) : (
             <View style={[styles.optionView, coptionView]}>
-              <Text style={[optionTextStyle, coptionTextStyle]}>{option?.value}</Text>
-              {option?.description && <Text style={[coptionDescription]}>{option?.description}</Text>}
+              <Text style={[optionTextStyle, coptionTextStyle]}>
+                {option?.value}
+              </Text>
+              {option?.description && (
+                <Text style={coptionDescription}>{option?.description}</Text>
+              )}
             </View>
           )}
-        </TouchableOpacity>
+        </TouchableOpacity>,
       );
 
       if (orientation === 'horizontal' && row.length === count) {
-        rows.push(<View style={styles.horizontalRow} key={rowIndex}>{row}</View>);
+        rows.push(
+          <View style={styles.horizontalRow} key={rowIndex}>
+            {row}
+          </View>,
+        );
         row = [];
         rowIndex++;
       }
     });
 
     if (orientation === 'horizontal' && row.length > 0) {
-      rows.push(<View style={styles.horizontalRow} key={rowIndex}>{row}</View>);
+      rows.push(
+        <View style={styles.horizontalRow} key={rowIndex}>
+          {row}
+        </View>,
+      );
     }
 
     return rows.length > 0 ? rows : row;
@@ -67,55 +109,55 @@ const RadioButtonGroup = ({ options, defaultValue, orientation = 'horizontal', c
 };
 
 const styles = StyleSheet.create({
-  optionView:{
-    flexDirection: "column",
-    // borderWidth: 1,
-    flex: 1,
-    borderRadius: 12
-  },
   container: {
     flexDirection: 'column',
+  },
+  horizontalGap: {
+    marginRight: 0,
+  },
+  horizontalOption: {
+    flex: 1,
   },
   horizontalRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   optionContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    height: 52,
-    paddingHorizontal: 3,
     borderRadius: 12,
-    marginVertical: 4,
+    flexDirection: 'row',
+    height: 52,
+    justifyContent: 'center',
     marginRight: 8,
+    marginVertical: 4,
+    paddingHorizontal: 3,
   },
   optionText: {
-    fontSize: 14,
-    fontWeight: 'bold',
     color: '#000',
     fontFamily: FontFamily.sourceSerifPro,
+    fontSize: 14,
+    fontWeight: 'bold',
   },
-  selectedOptionBackground: {
-    borderRadius: 12,
+  optionView: {
+    flexDirection: 'column',
+    // borderWidth: 1,
     flex: 1,
-    height: 30,
-    justifyContent: "center",
-    alignItems: 'center',
-    borderColor: '#F6A326',
-    borderWidth: 1
+    borderRadius: 12,
   },
   selectedOption: {
     overflow: 'hidden',
   },
+  selectedOptionBackground: {
+    alignItems: 'center',
+    borderColor: '#F6A326',
+    borderRadius: 12,
+    borderWidth: 1,
+    flex: 1,
+    height: 30,
+    justifyContent: 'center',
+  },
   selectedOptionText: {
     color: '#FFFFFF',
-  },
-  horizontalOption: {
-    flex: 1,
-  },
-  horizontalGap: {
-    marginRight: 0,
   },
 });
 

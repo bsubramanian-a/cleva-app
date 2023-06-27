@@ -14,13 +14,17 @@ import GoalItem from "../components/GoalItem";
 import GoalCategoryModal from "../components/GoalCategoryModal";
 import actions from "../../actions";
 import { useSelector } from "react-redux";
+import EditGoalModal from "../components/EditGoalModal";
 
 const Goals = ({navigation}:any) => {
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [modalVisible, setModalVisible] = useState(false);
   const [isCateoryModalVisible, setIsCategoryModalVisible] = useState(false);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const goals = useSelector((state:any) => state.data.goals);
+  const [currentGoal, setCurrentGoal] = useState<any>();
+  const [chartData, setChartData] = useState<any>();
 
   useEffect(() => {
     getGoals();
@@ -38,7 +42,8 @@ const Goals = ({navigation}:any) => {
     console.log('Selected filter:', value);
   };
 
-  const openModal = () => {
+  const openModal = (goal:any) => {
+    setCurrentGoal(goal);
     setModalVisible(true);
   };
 
@@ -55,18 +60,29 @@ const Goals = ({navigation}:any) => {
     setActiveTab(tabNumber);
   };
 
+  useEffect(() => {
+    console.log("selectedFilter", selectedFilter);
+    (async () => {
+      console.log("inside selectedFilter");
+      const chartDatas = await actions.getChartData(selectedFilter, currentGoal?.id);
+      console.log("chartDatas", chartDatas);
+    })();
+  }, [selectedFilter]);  
+
   return (
     <View>
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
       <CustomHeader name="Goals" type={1}/>
 
-      <GraphModal visible={modalVisible} onClose={closeModal} filterOptions={[{value: "All"}, {value: "6 mo"}, {value: "1 yr"}, {value: "3 yrs"}, {value: "5 yrs"}, {value: "10 yrs"}]} handleFilter={handleFilter} selectedFilter={selectedFilter}/>
+      <GraphModal goal={currentGoal} key="GraphModal" visible={modalVisible} onClose={closeModal} filterOptions={[{value: "All"}, {value: "6 mo"}, {value: "1 yr"}, {value: "3 yrs"}, {value: "5 yrs"}, {value: "10 yrs"}]} handleFilter={handleFilter} selectedFilter={selectedFilter}/>
 
-      <GoalCategoryModal navigation={navigation} visible={isCateoryModalVisible} onClose={() => setIsCategoryModalVisible(false)} />
-
+      <GoalCategoryModal key="GoalCategoryModal" navigation={navigation} visible={isCateoryModalVisible} onClose={() => setIsCategoryModalVisible(false)} />
+       
+      <EditGoalModal key="EditGoalModal" navigation={navigation} goal={currentGoal} visible={isEditModalVisible} onClose={() => setIsEditModalVisible(false)} />
+ 
       <Tabs
         tabs={['Labelled Money', 'ClevaLife']}
-        activeTab={activeTab}
+        activeTab={activeTab} 
         onTabPress={handleTabPress}
       />
 
@@ -92,10 +108,13 @@ const Goals = ({navigation}:any) => {
         </TouchableOpacity>
       </LinearGradient>
 
-      <View style={styles.goalsContainer}>
-        <GoalItem data={{title : " Save $5000 for Italy Holiday", owner: 'DR', dueDate: "12/07/2023", status: 'Doing'}}  />
-      </View>
-    </View>
+      {goals?.length > 0 &&<View style={styles.goalsContainer}>
+        {goals?.map((goal: any, index: any) => <GoalItem openModal={openModal} key={"GoalItem"+index} onPress={(data:any) => {
+          setCurrentGoal(data);
+          setIsEditModalVisible(true)
+        }} data={goal} /> )}
+      </View>}
+    </View> 
   );
 };
 

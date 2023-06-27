@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   ScrollView,
   Image,
@@ -8,25 +8,28 @@ import {
   TextInput,
   Pressable,
   Dimensions,
-} from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import { Padding, Border, Color, FontFamily, FontSize } from "../GlobalStyles";
-import CustomHeader from "../components/CustomHeader";
-import CTextInput from "../components/CTextInput";
-import { useState } from "react";
-import Label from "../components/Label";
-import CustomDatePicker from "../components/CustomDatepicker";
-import actions from "../../actions";
+} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import {Padding, Border, Color, FontFamily, FontSize} from '../GlobalStyles';
+import CustomHeader from '../components/CustomHeader';
+import CTextInput from '../components/CTextInput';
+import {useState} from 'react';
+import Label from '../components/Label';
+import CustomDatePicker from '../components/CustomDatepicker';
+import actions from '../../actions';
+import FlashMessage, {showMessage} from 'react-native-flash-message';
+import {useSelector} from 'react-redux';
 
-const AddANewGoalGoalDate = ({navigation}:any) => {
+const AddANewGoalGoalDate = ({navigation}: any) => {
   const [datas, setDatas] = useState<any>([]);
-  
+  const addGoals = useSelector((state: any) => state.data.addGoals);
+
   const updateState = (value: any, label: string) => {
-    actions.updateAddGoals({ [label]: value })
+    actions.updateAddGoals({[label]: value});
     setDatas((prevDatas: any) => {
       const updatedDatas = prevDatas.map((data: any) => {
         if (label in data) {
-          return { ...data, [label]: value };
+          return {...data, [label]: value};
         }
         return data;
       });
@@ -39,42 +42,79 @@ const AddANewGoalGoalDate = ({navigation}:any) => {
   futureDate.setFullYear(today.getFullYear() + 100);
 
   const updateData = () => {
-    navigation.navigate('AddANewGoalGoalImportan');
-  }
+    if (addGoals?.title && addGoals?.description && addGoals?.targetDate) {
+      navigation.navigate('AddANewGoalGoalImportan');
+    } else {
+      showMessage({
+        message: 'Failed',
+        description: 'Please fill all the fields',
+        type: 'danger',
+      });
+    }
+  };
 
   return (
     <ScrollView
       style={styles.addANewGoalGoalDate}
       showsVerticalScrollIndicator={true}
       showsHorizontalScrollIndicator={true}
-      contentContainerStyle={styles.addANewGoalGoalDateContent}
-    >
-      <CustomHeader name="Property Goal" type={2}/>
-
+      contentContainerStyle={styles.addANewGoalGoalDateContent}>
+      <CustomHeader name="Property Goal" type={2} />
+      <FlashMessage position="top" />
       <ScrollView
         style={styles.advicecontainerWrapper}
         showsVerticalScrollIndicator={true}
         showsHorizontalScrollIndicator={true}
-        contentContainerStyle={styles.frameScrollViewContent}
-      >
+        contentContainerStyle={styles.frameScrollViewContent}>
         <View style={[styles.advicecontainer, styles.topMenuSpaceBlock]}>
           <View>
-            <CTextInput isMobile={true} icon={require("../assets/gps.png")} key='title' label='Give your goal a name' defaultValue={""} id='title' updateState={updateState} isNumOnly={false}/>
+            <CTextInput
+              isMobile={true}
+              icon={require('../assets/gps.png')}
+              key="title"
+              label="Give your goal a name"
+              defaultValue={addGoals?.title}
+              id="title"
+              updateState={updateState}
+              isNumOnly={false}
+            />
 
-            <CTextInput style={styles.tInput} key='description' label="Short Description of your goal" defaultValue={datas[0]?.Multi_Line_1?.toString()} id='description' updateState={updateState} isNumOnly={false} isTextArea={true} />
+            <CTextInput
+              style={styles.tInput}
+              key="description"
+              label="Short Description of your goal"
+              defaultValue={addGoals?.description}
+              id="description"
+              updateState={updateState}
+              isNumOnly={false}
+              isTextArea={true}
+            />
 
-            <Label label={`When do you want to achieve this goal by ? \n dd/mm/yyyy`} icon={require("../assets/calendar.png")} />
-            <CustomDatePicker defaultValue={datas[0]?.Date_of_Birth && new Date(datas[0]?.Date_of_Birth?.toString())} onValueChange={(value:any) => updateState(value, 'targetDate')} minimumDate={null} maximumDate={futureDate} disableFutureDates={false} disablePastDates={true} />
+            <Label
+              label={'When do you want to achieve this goal by ? \n dd/mm/yyyy'}
+              icon={require('../assets/calendar.png')}
+            />
+            <CustomDatePicker
+              defaultValue={
+                addGoals?.targetDate && new Date(addGoals?.targetDate)
+              }
+              onValueChange={(value: any) => updateState(value, 'targetDate')}
+              minimumDate={null}
+              maximumDate={futureDate}
+              disableFutureDates={false}
+              disablePastDates={true}
+            />
           </View>
-          
+
           <LinearGradient
             style={[styles.bottom, styles.bottomFlexBox]}
             locations={[0, 1]}
-            colors={["#fbb142", "#f6a326"]}
+            colors={['#fbb142', '#f6a326']}
             useAngle={true}
-            angle={180}
-          >
-            <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={updateData}>
+            angle={180}>
+            <Pressable
+              style={{flexDirection: 'row', alignItems: 'center'}}
+              onPress={updateData}>
               <Text style={[styles.edit, styles.ml4]}>Next</Text>
             </Pressable>
           </LinearGradient>
@@ -85,211 +125,211 @@ const AddANewGoalGoalDate = ({navigation}:any) => {
 };
 
 const styles = StyleSheet.create({
-  bottom: {
-    width: 180,
-    paddingHorizontal: 5,
-    paddingVertical: 14,
-    alignSelf: 'center',
-    borderRadius: 60,
-    marginVertical: 28
-  },
-  bottomFlexBox: {
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-  },
-  ml4: {
-    marginLeft: 4,
-  },
-  edit: {
-      fontSize: FontSize.textMediumBoldText1_size,
-      lineHeight: 20,
-      fontWeight: "600",
-      fontFamily: FontFamily.openSansRegular,
-      color: Color.white1,
-      textAlign: "center",
-  },
-  tInput: {
-    borderWidth: 1,
-    borderColor: "#DEDEDE",
-    width: "100%",
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    height: 200,
-    borderRadius: 25,
-    overflow: 'hidden'
-  },
-  frameScrollViewContent: {
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
+  addANewGoalGoalDate: {
+    backgroundColor: Color.white,
+    flex: 1,
+    maxWidth: '100%',
+    overflow: 'hidden',
+    width: '100%',
   },
   addANewGoalGoalDateContent: {
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
   },
-  topMenuSpaceBlock: {
-    paddingHorizontal: 24,
-    alignSelf: "stretch",
-  },
-  menuFlexBox: {
-    borderRadius: Border.br_11xl,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  propertyGoalClr: {
-    color: Color.black,
-    textAlign: "center",
+  advice: {
+    borderRadius: Border.br_base,
+    elevation: 40,
+    justifyContent: 'center',
+    paddingVertical: Padding.p_xl,
+    shadowColor: 'rgba(32, 34, 36, 0.08)',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 40,
   },
   adviceFlexBox: {
-    paddingHorizontal: Padding.p_xs,
-    alignItems: "center",
-    alignSelf: "stretch",
-    overflow: "hidden",
+    alignItems: 'center',
+    alignSelf: 'stretch',
     backgroundColor: Color.white,
+    overflow: 'hidden',
+    paddingHorizontal: Padding.p_xs,
   },
-  frameChildTypo: {
-    fontFamily: FontFamily.outfitMedium,
-    fontWeight: "500",
+  advicecontainer: {
+    flexDirection: 'column',
+    flex: 1,
+    justifyContent: 'space-between',
+    minHeight: Dimensions.get('window').height - 200,
+    paddingBottom: Padding.p_xs,
   },
-  mainvector1Icon: {
-    width: 164,
-    height: 63,
-    overflow: "hidden",
-  },
-  vuesaxlineararrowLeftIcon: {
-    width: 22,
-    height: 22,
-  },
-  menu: {
-    backgroundColor: Color.snow,
-    padding: Padding.p_4xs,
-    justifyContent: "center",
-    overflow: "hidden",
-  },
-  propertyGoal: {
-    fontSize: FontSize.size_3xl,
-    fontFamily: FontFamily.sourceSerifPro,
-    textAlign: "center",
-    fontWeight: "600",
-  },
-  pageHeading: {
-    marginLeft: 66,
-    alignItems: "center",
-    flexDirection: "row",
+  advicecontainerWrapper: {
+    alignSelf: 'stretch',
     flex: 1,
   },
-  topMenu: {
-    paddingBottom: Padding.p_17xl,
-    marginTop: -12,
-    alignItems: "center",
-    flexDirection: "row",
+  bottom: {
+    alignSelf: 'center',
+    borderRadius: 60,
+    marginVertical: 28,
+    paddingHorizontal: 5,
+    paddingVertical: 14,
+    width: 180,
   },
-  header: {
-    backgroundColor: "transparent",
-    alignSelf: "stretch",
-  },
-  whenDoYouContainer: {
-    fontSize: FontSize.size_xl,
-    textAlign: "center",
-    color: Color.black,
+  bottomFlexBox: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
   },
   calendarIcon: {
-    width: 16,
     height: 16,
-  },
-  selectDate: {
-    lineHeight: 22,
-    fontWeight: "300",
-    fontFamily: FontFamily.outfitLight,
-    color: Color.darkslategray_100,
-    textAlign: "left",
-    marginLeft: 3,
-    fontSize: FontSize.size_sm,
+    width: 16,
   },
   calendarParent: {
-    alignItems: "center",
-    flexDirection: "row",
+    alignItems: 'center',
+    flexDirection: 'row',
   },
-  frameChild: {
-    borderRadius: Border.br_xs,
-    borderStyle: "solid",
-    borderColor: "#dedede",
-    borderWidth: 1,
-    paddingVertical: Padding.p_smi,
-    marginTop: 4,
-    fontSize: FontSize.size_sm,
-    paddingHorizontal: Padding.p_2xl,
-    alignItems: "center",
-    alignSelf: "stretch",
-    overflow: "hidden",
-    backgroundColor: Color.white,
-    flexDirection: "row",
-  },
-  frameParent: {
-    justifyContent: "center",
-    alignSelf: "stretch",
-  },
-  frameWrapper: {
-    marginTop: 35,
-    alignItems: "center",
-    alignSelf: "stretch",
-  },
-  whenDoYouNeedTheMoneyByParent: {
-    alignItems: "center",
-    alignSelf: "stretch",
-  },
-  next: {
-    fontSize: FontSize.textMediumBoldText_size,
+  edit: {
+    color: Color.white1,
+    fontFamily: FontFamily.openSansRegular,
+    fontSize: FontSize.textMediumBoldText1_size,
+    fontWeight: '600',
     lineHeight: 20,
-    fontFamily: FontFamily.outfitSemibold,
-    color: Color.white,
-    textAlign: "center",
-    fontWeight: "600",
-  },
-  pressable: {
-    height: "100%",
-    paddingHorizontal: Padding.p_xs,
-    paddingVertical: Padding.p_xs,
-    justifyContent: "center",
-    flexDirection: "row",
-    backgroundColor: "transparent",
+    textAlign: 'center',
   },
   editBtn: {
     height: 44,
     marginTop: 450,
   },
-  advice: {
-    borderRadius: Border.br_base,
-    shadowColor: "rgba(32, 34, 36, 0.08)",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowRadius: 40,
-    elevation: 40,
-    shadowOpacity: 1,
-    paddingVertical: Padding.p_xl,
-    justifyContent: "center",
-  },
-  advicecontainer: {
-    paddingBottom: Padding.p_xs,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    flex: 1,
-    minHeight: Dimensions.get('window').height - 200
-  },
-  advicecontainerWrapper: {
-    alignSelf: "stretch",
-    flex: 1,
-  },
-  addANewGoalGoalDate: {
-    width: "100%",
-    maxWidth: "100%",
-    overflow: "hidden",
-    flex: 1,
+  frameChild: {
+    alignItems: 'center',
+    alignSelf: 'stretch',
     backgroundColor: Color.white,
+    borderColor: '#dedede',
+    borderRadius: Border.br_xs,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    flexDirection: 'row',
+    fontSize: FontSize.size_sm,
+    marginTop: 4,
+    overflow: 'hidden',
+    paddingHorizontal: Padding.p_2xl,
+    paddingVertical: Padding.p_smi,
+  },
+  frameChildTypo: {
+    fontFamily: FontFamily.outfitMedium,
+    fontWeight: '500',
+  },
+  frameParent: {
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
+  frameScrollViewContent: {
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+  frameWrapper: {
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    marginTop: 35,
+  },
+  header: {
+    alignSelf: 'stretch',
+    backgroundColor: 'transparent',
+  },
+  mainvector1Icon: {
+    height: 63,
+    overflow: 'hidden',
+    width: 164,
+  },
+  menu: {
+    backgroundColor: Color.snow,
+    justifyContent: 'center',
+    overflow: 'hidden',
+    padding: Padding.p_4xs,
+  },
+  menuFlexBox: {
+    alignItems: 'center',
+    borderRadius: Border.br_11xl,
+    justifyContent: 'center',
+  },
+  ml4: {
+    marginLeft: 4,
+  },
+  next: {
+    color: Color.white,
+    fontFamily: FontFamily.outfitSemibold,
+    fontSize: FontSize.textMediumBoldText_size,
+    fontWeight: '600',
+    lineHeight: 20,
+    textAlign: 'center',
+  },
+  pageHeading: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    flex: 1,
+    marginLeft: 66,
+  },
+  pressable: {
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    height: '100%',
+    justifyContent: 'center',
+    paddingHorizontal: Padding.p_xs,
+    paddingVertical: Padding.p_xs,
+  },
+  propertyGoal: {
+    fontFamily: FontFamily.sourceSerifPro,
+    fontSize: FontSize.size_3xl,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  propertyGoalClr: {
+    color: Color.black,
+    textAlign: 'center',
+  },
+  selectDate: {
+    color: Color.darkslategray_100,
+    fontFamily: FontFamily.outfitLight,
+    fontSize: FontSize.size_sm,
+    fontWeight: '300',
+    lineHeight: 22,
+    marginLeft: 3,
+    textAlign: 'left',
+  },
+  tInput: {
+    borderColor: '#DEDEDE',
+    borderRadius: 25,
+    borderWidth: 1,
+    height: 200,
+    overflow: 'hidden',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    width: '100%',
+  },
+  topMenu: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: -12,
+    paddingBottom: Padding.p_17xl,
+  },
+  topMenuSpaceBlock: {
+    alignSelf: 'stretch',
+    paddingHorizontal: 24,
+  },
+  vuesaxlineararrowLeftIcon: {
+    height: 22,
+    width: 22,
+  },
+  whenDoYouContainer: {
+    color: Color.black,
+    fontSize: FontSize.size_xl,
+    textAlign: 'center',
+  },
+  whenDoYouNeedTheMoneyByParent: {
+    alignItems: 'center',
+    alignSelf: 'stretch',
   },
 });
 

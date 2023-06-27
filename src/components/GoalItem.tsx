@@ -1,10 +1,12 @@
-import { Image, StyleSheet, Text, View } from "react-native"
+import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { Border, Color, FontFamily, FontSize, Padding } from "../GlobalStyles";
 
-const GoalItem = ({data}:any) => {
+const GoalItem = ({data, onPress, openModal}:any) => {
+    const dateObj = new Date(data?.Target_Date);
+    const formattedDate = dateObj.toLocaleDateString('en-US');
 
     return (
-        <View style={styles.frameParentShadowBox}>
+        <TouchableOpacity onPress={() => onPress(data)} style={styles.frameParentShadowBox}>
             <View
                 style={[
                     styles.save5000ForItalyHolidayParent,
@@ -12,10 +14,10 @@ const GoalItem = ({data}:any) => {
                 ]}
             >
                 <Text style={[styles.save5000For, styles.goals1Typo]}>
-                    {data?.title}
+                    {data?.Name}
                 </Text>
                 <View style={styles.status}>
-                    <Text style={[styles.doing, styles.doingTypo]}>{data?.status}</Text>
+                    <Text style={[styles.doing, styles.doingTypo]}>{data?.Status}</Text>
                 </View>
             </View>
             <View style={[styles.frameItem, styles.frameItemSpaceBlock]} />
@@ -25,7 +27,7 @@ const GoalItem = ({data}:any) => {
                 <Text style={styles.goalOwnerDrContainer}>
                     <Text style={styles.goalOwner}>
                         <Text style={styles.goalOwner1}>Goal Owner:</Text>
-                        <Text style={styles.text}>{` `}</Text>
+                        <Text style={styles.text}>{""}</Text>
                     </Text>
                     <Text style={styles.text}>
                         <Text style={styles.dr1}>{data?.owner}</Text>
@@ -35,20 +37,22 @@ const GoalItem = ({data}:any) => {
                     <Text style={styles.goalOwnerDrContainer}>
                         <Text style={styles.goalOwner}>
                             <Text style={styles.goalOwner1}>Due Date:</Text>
-                            <Text style={styles.text}>{` `}</Text>
+                            <Text style={styles.text}> {formattedDate}</Text>
                         </Text>
                         <Text style={styles.text}>
                             <Text style={styles.dr1}>{data?.dueDate}</Text>
                         </Text>
                     </Text>
-                    <Image
-                        style={styles.vuesaxlinearactivityIcon}
-                        resizeMode="cover"
-                        source={require("../assets/vuesaxlinearactivity.png")}
-                    />
+                    <Pressable onPress={() => openModal(data)}>
+                        <Image
+                            style={styles.vuesaxlinearactivityIcon}
+                            resizeMode="cover"
+                            source={require("../assets/vuesaxlinearactivity.png")}
+                        />
+                    </Pressable>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

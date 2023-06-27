@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Pressable, Image, StyleSheet, Text } from "react-native";
+import * as React from 'react';
+import {Pressable, Image, StyleSheet, Text} from 'react-native';
 import {
   Margin,
   FontSize,
@@ -7,24 +7,26 @@ import {
   Color,
   Border,
   Padding,
-} from "../GlobalStyles";
-import { appleAuth, AppleButton } from '@invertase/react-native-apple-authentication';
-import { showMessage } from "react-native-flash-message";
+} from '../GlobalStyles';
+import {
+  appleAuth,
+  AppleButton,
+} from '@invertase/react-native-apple-authentication';
+import {showMessage} from 'react-native-flash-message';
 
-const AppleLogin = ({onVerifyEmail, showRMessage, setLoginError}:any) => {
-  
+const AppleLogin = ({onVerifyEmail, showRMessage, setLoginError}: any) => {
   const handleAppleLogin = async () => {
     try {
-      setLoginError("");
+      setLoginError('');
       // Start the Apple authentication request
       const appleAuthRequestResponse = await appleAuth.performRequest({
         requestedOperation: appleAuth.Operation.LOGIN,
         requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });
-  
+
       // Get the user's credential details
-      const { user, email, fullName } = appleAuthRequestResponse;
-  
+      const {user, email, fullName} = appleAuthRequestResponse;
+
       // Use the received credential details for further processing
       onVerifyEmail(email, user);
     } catch (error) {
@@ -33,11 +35,13 @@ const AppleLogin = ({onVerifyEmail, showRMessage, setLoginError}:any) => {
   };
 
   return (
-    <Pressable style={[styles.appleLogin, {marginTop: 30}]} onPress={handleAppleLogin}>
+    <Pressable
+      style={[styles.appleLogin, {marginTop: 30}]}
+      onPress={handleAppleLogin}>
       <Image
         style={styles.iconmarketsLogoappstore}
         resizeMode="cover"
-        source={require("../assets/iconmarkets-logoappstore.png")}
+        source={require('../assets/iconmarkets-logoappstore.png')}
       />
       <Text style={[styles.loginWithApple, styles.ml66]}>Login with Apple</Text>
     </Pressable>
@@ -45,41 +49,41 @@ const AppleLogin = ({onVerifyEmail, showRMessage, setLoginError}:any) => {
 };
 
 const styles = StyleSheet.create({
-  ml66: {
-    marginLeft: Margin.m_lg,
-  },
-  iconmarketsLogoappstore: {
-    width: 28,
-    height: 28,
-  },
-  loginWithApple: {
-    flex: 1,
-    fontSize: FontSize.textMediumBoldText1_size,
-    lineHeight: 22,
-    fontWeight: "600",
-    fontFamily: FontFamily.textMediumBoldText1,
-    textAlign: "left",
-    color: Color.white1,
-  },
   appleLogin: {
-    alignSelf: "stretch",
-    borderRadius: Border.br_md,
+    alignItems: 'center',
+    alignSelf: 'stretch',
     backgroundColor: Color.black,
-    shadowColor: "#e1a698",
+    borderRadius: Border.br_md,
+    color: Color.dark1,
+    elevation: 20,
+    flexDirection: 'row',
+    height: 70,
+    overflow: 'hidden',
+    paddingHorizontal: Padding.p_md,
+    paddingVertical: Padding.p_2xs,
+    shadowColor: '#e1a698',
     shadowOffset: {
       width: 0,
       height: 10,
     },
-    shadowRadius: 20,
-    elevation: 20,
     shadowOpacity: 1,
-    height: 70,
-    overflow: "hidden",
-    flexDirection: "row",
-    paddingHorizontal: Padding.p_md,
-    paddingVertical: Padding.p_2xs,
-    alignItems: "center",
-    color: Color.dark1,
+    shadowRadius: 20,
+  },
+  iconmarketsLogoappstore: {
+    height: 28,
+    width: 28,
+  },
+  loginWithApple: {
+    color: Color.white1,
+    flex: 1,
+    fontFamily: FontFamily.textMediumBoldText1,
+    fontSize: FontSize.textMediumBoldText1_size,
+    fontWeight: '600',
+    lineHeight: 22,
+    textAlign: 'left',
+  },
+  ml66: {
+    marginLeft: Margin.m_lg,
   },
 });
 

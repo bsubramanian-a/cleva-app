@@ -17,9 +17,9 @@ const CustomDatePicker = ({ defaultValue, onValueChange, minimumDate, maximumDat
     }
   };
 
-  useEffect(() => {
-    setSelectedDate(defaultValue);
-  }, [defaultValue]);
+  // useEffect(() => {
+  //   setSelectedDate(defaultValue);
+  // }, [defaultValue]);
 
   const openDatePicker = () => {
     setOpen(!open);

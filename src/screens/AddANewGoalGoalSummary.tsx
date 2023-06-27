@@ -12,16 +12,26 @@ import LinearGradient from "react-native-linear-gradient";
 import { Padding, FontFamily, Color, FontSize, Border } from "../GlobalStyles";
 import CustomHeader from "../components/CustomHeader";
 import { useRoute } from "@react-navigation/native";
+import { useEffect } from "react";
+import actions from "../../actions";
 
 const AddANewGoalGoalSummary = ({navigation}:any) => {
   const route: any = useRoute();
-  const { message } = route.params;
+  const { money_need, formattedDate, money_save, frequent_money_save } = route.params;
+  
+  useEffect(() => {
+    getGoals();
+  }, [])
+
+  const getGoals = async() => {
+    await actions.getGoalsByAccount();
+  }
 
   return (
     <View
       style={[styles.addANewGoalGoalSummary, styles.goalLayout]}
     >
-      <CustomHeader name="Property Goal" type={2}/>
+      <CustomHeader name="Property Goal" type={2} back="Home"/>
       
       <ScrollView
         style={styles.advicecontainerWrapper}
@@ -49,7 +59,16 @@ const AddANewGoalGoalSummary = ({navigation}:any) => {
                     styles.addAnotherPropertyTypo,
                   ]}
                 >
-                  {message}
+                  <Text style={styles.toAchieveYour}>
+                    To achieve your goal of
+                  </Text>
+                  <Text style={styles.textTypo}> ${money_need}</Text>
+                  <Text style={styles.toAchieveYour}>{` by `}</Text>
+                  <Text style={styles.textTypo}>{formattedDate}</Text>
+                  <Text
+                    style={styles.toAchieveYour}
+                  > you need to pay off <Text style={styles.textTypo}>${money_save}</Text> per </Text>
+                  <Text style={styles.textTypo}>{frequent_money_save}</Text>
                 </Text>
               </View>
             </View>
