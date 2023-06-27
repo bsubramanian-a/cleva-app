@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Pressable } from "react-native";
+import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Pressable, Dimensions } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Label from "../components/Label";
 import {
@@ -55,6 +55,8 @@ const EditRetirement = ({}:any) => {
 
         await actions.getProfile();
 
+        navigation.navigate('Profile');
+
         showMessage({
             message: 'Success',
             description: 'Profile updated successfully',
@@ -101,7 +103,12 @@ const EditRetirement = ({}:any) => {
                 </View>
                 
                 <View style={styles.container}>
-                    <Text style={styles.label}>{datas[0]?.First_Name}, you'd like to retire or have choice of whether you work by <CTextInput key='Choice_Retirement_Target_Age' label='' defaultValue={datas[0]?.Choice_Retirement_Target_Age?.toString()} id='Choice_Retirement_Target_Age' updateState={updateState} isNumOnly={true} placeholder="age (retirement)"/>(approx). You'd like to have approx. <CTextInput key='Choice_Retirement_Target_Income_p_a' label='' defaultValue={datas[0]?.Choice_Retirement_Target_Income_p_a?.toString()} id='Choice_Retirement_Target_Income_p_a' updateState={updateState} isNumOnly={true} placeholder="$[00,000]"/>(in today's dollars) to sustain your lifestyle.</Text>
+                    <Text style={styles.label}>{datas[0]?.First_Name}, you'd like to retire or have </Text> 
+                    <Text style={styles.label}>{datas[0]?.First_Name}choice of whether you work by </Text> 
+                    <CTextInput inputStyle={{width: 70}} key='Choice_Retirement_Target_Age' label='' defaultValue={datas[0]?.Choice_Retirement_Target_Age?.toString()} id='Choice_Retirement_Target_Age' updateState={updateState} isNumOnly={true} placeholder="age (retirement)"/>
+                    <Text>(approx). You'd like to have approx. </Text> 
+                    <CTextInput inputStyle={{width: 100}} key='Choice_Retirement_Target_Income_p_a' label='' defaultValue={datas[0]?.Choice_Retirement_Target_Income_p_a?.toString()} id='Choice_Retirement_Target_Income_p_a' updateState={updateState} isNumOnly={true} placeholder="$[00,000]"/>
+                    <Text>(in today's dollars) to sustain your lifestyle.</Text>
                 </View>
             </View>
             <LinearGradient
@@ -121,6 +128,15 @@ const EditRetirement = ({}:any) => {
 };
 
 const styles = StyleSheet.create({
+    inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    textInput: {
+        // Custom styles for the text input
+        // Adjust the width, margin, or padding as needed
+        width: 70,
+    },
     frWrapper: {
         backgroundColor: "#9755b6",
         alignSelf: 'center'
@@ -146,7 +162,7 @@ const styles = StyleSheet.create({
     },
     advicecontainer: {
         paddingTop: 30,
-        paddingHorizontal: Padding.p_lg,
+        paddingHorizontal: Padding.p_sm,
         paddingBottom: Padding.p_sm,
         alignSelf: "stretch",
         borderRadius: 16,
@@ -209,7 +225,10 @@ const styles = StyleSheet.create({
         flex: 1,
     },    
     container: {
-        padding: 20,
+        padding: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        flexWrap: 'wrap',
     },
     label: {
         fontSize: 14,

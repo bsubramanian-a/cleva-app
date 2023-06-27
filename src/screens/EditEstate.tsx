@@ -80,6 +80,8 @@ const EditEstate = ({ }: any) => {
 
         await actions.getProfile();
 
+        navigation.navigate('Profile');
+
         showMessage({
             message: 'Success',
             description: 'Profile updated successfully',
@@ -131,6 +133,9 @@ const EditEstate = ({ }: any) => {
                         <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.First_Name?.charAt(0) + datas[0]?.Last_Name?.charAt(0))}</Text>
                     </View>
 
+                    <View style={{alignItems: 'center', marginVertical: 10}}>
+                        <Text style={{fontWeight: '500', fontSize: 22, color: 'black', fontFamily: FontFamily.sourceSerifPro}}>{datas[0]?.First_Name} {datas[0]?.Last_Name}</Text>
+                    </View>
                     <View style={{ alignItems: 'center', marginVertical: 10 }}>
                         <Text style={{ fontWeight: '500', fontSize: 14, color: '#FBB142' }}>Household</Text>
                     </View>

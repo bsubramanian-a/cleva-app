@@ -86,13 +86,13 @@ const Accordion = ({
               {index == 0 && <View style={styles.lineStyle} />}
               <View style={styles.editRow}>
                 <Text style={styles.subHeading}>{section.subHeading}</Text>
-                <Pressable onPress={() => editProfile((index == 0 ? 'user1' : 'user2'), section?.id)} style={{ marginTop: 5 }}>
+                {section?.isLink != false && <Pressable onPress={() => editProfile((index == 0 ? 'user1' : 'user2'), section?.id)} style={{ marginTop: 5 }}>
                   <Image
                     style={styles.vuesaxlinearedit}
                     resizeMode="cover"
                     source={require('../assets/edit.png')}
                   />
-                </Pressable>
+                </Pressable>}
               </View>
               {section.item.map((item: any, itemIndex: any) => (
                 <React.Fragment key={itemIndex.toString()}>

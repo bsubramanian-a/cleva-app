@@ -79,7 +79,7 @@ const AddANewGoalGoalMoney = ({navigation}: any) => {
               defaultValue={addGoals?.money_need}
               id="money_need"
               updateState={updateState}
-              isNumOnly={false}
+              isNumOnly={true}
             />
 
             <CTextInput
@@ -89,7 +89,7 @@ const AddANewGoalGoalMoney = ({navigation}: any) => {
               defaultValue={addGoals?.money_have}
               id="money_have"
               updateState={updateState}
-              isNumOnly={false}
+              isNumOnly={true}
             />
 
             <Text style={styles.sHead}>

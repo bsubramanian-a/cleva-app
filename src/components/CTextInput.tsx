@@ -3,7 +3,7 @@ import { View, TextInput, StyleSheet, Text, Image } from 'react-native';
 import { FontFamily } from '../GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
 
-const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, icon="", isMobile = false, isTextArea=false, placeholder="", ...props }: any) => {
+const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, icon="", isMobile = false, isTextArea=false, placeholder="", inputStyle={}, ...props }: any) => {
   // console.log("defaultValue.......", defaultValue, id)
   const navigation = useNavigation();
   const [inputValue, setInputValue] = useState(defaultValue);
@@ -47,7 +47,7 @@ const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, ic
       <TextInput
         multiline={isTextArea}
         keyboardType={isNumOnly ? "numeric" : "default"}
-        style={styles.input}
+        style={[styles.input, inputStyle]}
         defaultValue={isNumOnly ? inputValue?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : isMobile ? formatMobileNumber(inputValue) : inputValue}
         placeholder={placeholder}
         placeholderTextColor={"#AAA9A8"}

@@ -15,6 +15,7 @@ import GoalCategoryModal from "../components/GoalCategoryModal";
 import actions from "../../actions";
 import { useSelector } from "react-redux";
 import EditGoalModal from "../components/EditGoalModal";
+import WealthTab from "../components/WealthTab";
 
 const Goals = ({navigation}:any) => {
   const [selectedFilter, setSelectedFilter] = useState('All');
@@ -56,7 +57,6 @@ const Goals = ({navigation}:any) => {
   }
 
   const handleTabPress = (tabNumber:number) => {
-    console.log("tabNumber", tabNumber);
     setActiveTab(tabNumber);
   };
 
@@ -79,14 +79,13 @@ const Goals = ({navigation}:any) => {
       <GoalCategoryModal key="GoalCategoryModal" navigation={navigation} visible={isCateoryModalVisible} onClose={() => setIsCategoryModalVisible(false)} />
        
       <EditGoalModal key="EditGoalModal" navigation={navigation} goal={currentGoal} visible={isEditModalVisible} onClose={() => setIsEditModalVisible(false)} />
- 
-      <Tabs
+
+      <WealthTab 
         tabs={['Labelled Money', 'ClevaLife']}
         activeTab={activeTab} 
-        onTabPress={handleTabPress}
-      />
+        onTabPress={handleTabPress}/>
 
-      <LinearGradient
+      {activeTab == 0 && <LinearGradient
         style={[
           styles.setYourGoalsToSaveForSomParent,
           styles.parentFlexBox,
@@ -106,9 +105,9 @@ const Goals = ({navigation}:any) => {
             source={require("../assets/frame-562.png")}
           />
         </TouchableOpacity>
-      </LinearGradient>
+      </LinearGradient>}
 
-      {goals?.length > 0 &&<View style={styles.goalsContainer}>
+      {(goals?.length > 0 && activeTab == 0) && <View style={styles.goalsContainer}>
         {goals?.map((goal: any, index: any) => <GoalItem openModal={openModal} key={"GoalItem"+index} onPress={(data:any) => {
           setCurrentGoal(data);
           setIsEditModalVisible(true)

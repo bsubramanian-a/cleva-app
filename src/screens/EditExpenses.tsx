@@ -81,6 +81,8 @@ const EditExpenses = ({ }: any) => {
 
         await actions.getProfile();
 
+        navigation.navigate('Profile');
+
         showMessage({
             message: 'Success',
             description: 'Profile updated successfully',
@@ -101,7 +103,7 @@ const EditExpenses = ({ }: any) => {
         });
     };
 
-    console.log("datas", datas);
+    // console.log("datas", datas);
     return (
         <View
             style={styles.wealthAssets}
@@ -121,53 +123,49 @@ const EditExpenses = ({ }: any) => {
                         <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.Household?.name?.charAt(0) + datas[0]?.Household?.name?.charAt(1))}</Text>
                     </View>
 
+                    <View style={{alignItems: 'center', marginVertical: 10}}>
+                        <Text style={{fontWeight: '500', fontSize: 22, color: 'black', fontFamily: FontFamily.sourceSerifPro}}>{datas[0]?.Household?.name}</Text>
+                    </View>
+
                     <View style={{ alignItems: 'center', marginVertical: 1, marginBottom: 10 }}>
                         <Text style={{ fontWeight: '500', fontSize: 15, color: '#FBB142'}}>Household</Text>
                     </View>
 
-                    {type == 'user1' &&
-                        <>
-                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Gas_p_a' label='Gas' defaultValue={datas[0]?.Gas_p_a?.toString()} id='Gas_p_a' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Gas_p_a' label='Gas' defaultValue={datas[0]?.Gas_p_a?.toString()} id='Gas_p_a' updateState={updateState} isNumOnly={true} />
 
-                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Electricity_p_a' label='Electricity' defaultValue={datas[0]?.Electricity_p_a?.toString()} id='Electricity_p_a' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Electricity_p_a' label='Electricity' defaultValue={datas[0]?.Electricity_p_a?.toString()} id='Electricity_p_a' updateState={updateState} isNumOnly={true} />
 
-                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Water_p_a' label='Water' defaultValue={datas[0]?.Water_p_a?.toString()} id='Water_p_a' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Water_p_a' label='Water' defaultValue={datas[0]?.Water_p_a?.toString()} id='Water_p_a' updateState={updateState} isNumOnly={true} />
 
-                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Home_Contents_Insurance_p_a' label='Home/Contents Insurance' defaultValue={datas[0]?.Home_Contents_Insurance_p_a?.toString()} id='Home_Contents_Insurance_p_a' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Home_Contents_Insurance_p_a' label='Home/Contents Insurance' defaultValue={datas[0]?.Home_Contents_Insurance_p_a?.toString()} id='Home_Contents_Insurance_p_a' updateState={updateState} isNumOnly={true} />
 
-                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Car_Insurance_p_a' label='Car Insurance' defaultValue={datas[0]?.Car_Insurance_p_a?.toString()} id='Car_Insurance_p_a' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Car_Insurance_p_a' label='Car Insurance' defaultValue={datas[0]?.Car_Insurance_p_a?.toString()} id='Car_Insurance_p_a' updateState={updateState} isNumOnly={true} />
 
-                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Private_Health_Insurance_p_a' label='Private Health Insurance' defaultValue={datas[0]?.Private_Health_Insurance_p_a?.toString()} id='Private_Health_Insurance_p_a' updateState={updateState} isNumOnly={true} />
-                        </>
-                    }
+                    <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Private_Health_Insurance_p_a' label='Private Health Insurance' defaultValue={datas[0]?.Private_Health_Insurance_p_a?.toString()} id='Private_Health_Insurance_p_a' updateState={updateState} isNumOnly={true} />
 
                     <Text style={styles.loanR}>Loan Repayments</Text>
 
-                    {type == 'user2' &&
-                        <>
-                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Home_Loan' label='Home' defaultValue={datas[0]?.Home_Loan?.toString()} id='Home_Loan' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Home_Loan' label='Home' defaultValue={datas[0]?.Home_Loan?.toString()} id='Home_Loan' updateState={updateState} isNumOnly={true} />
 
-                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Investment_Property_Loan_p_a' label='Investment Property' defaultValue={datas[0]?.Investment_Property_Loan_p_a?.toString()} id='Investment_Property_Loan_p_a' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Investment_Property_Loan_p_a' label='Investment Property' defaultValue={datas[0]?.Investment_Property_Loan_p_a?.toString()} id='Investment_Property_Loan_p_a' updateState={updateState} isNumOnly={true} />
 
-                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Other_Investment_Loan_p_a' label='Other Investment' defaultValue={datas[0]?.Other_Investment_Loan_p_a?.toString()} id='Other_Investment_Loan_p_a' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Other_Investment_Loan_p_a' label='Other Investment' defaultValue={datas[0]?.Other_Investment_Loan_p_a?.toString()} id='Other_Investment_Loan_p_a' updateState={updateState} isNumOnly={true} />
 
-                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Personal_Loan_p_a' label='Personal' defaultValue={datas[0]?.Personal_Loan_p_a?.toString()} id='Personal_Loan_p_a' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Personal_Loan_p_a' label='Personal' defaultValue={datas[0]?.Personal_Loan_p_a?.toString()} id='Personal_Loan_p_a' updateState={updateState} isNumOnly={true} />
 
-                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Credit_Cards_per_month' label='Credit Cards' defaultValue={datas[0]?.Credit_Cards_per_month?.toString()} id='Credit_Cards_per_month' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Credit_Cards_per_month' label='Credit Cards' defaultValue={datas[0]?.Credit_Cards_per_month?.toString()} id='Credit_Cards_per_month' updateState={updateState} isNumOnly={true} />
 
-                            <DualCheckbox
-                                label="Other Expenses"
-                                value={checkboxValue}
-                                onChange={handleCheckboxChange}
-                            />
+                    <DualCheckbox
+                        label="Other Expenses"
+                        value={checkboxValue}
+                        onChange={handleCheckboxChange}
+                    />
 
-                            {checkboxValue &&
-                                <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Other_Expenses_p_a' label='Other Expenses' defaultValue={datas[0]?.Other_Expenses_p_a?.toString()} id='Other_Expenses_p_a' updateState={updateState} isNumOnly={false} isTextArea={true} />
-                            }
-
-                            <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Multi_Line_1' label='' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true} />
-                        </>
+                    {checkboxValue &&
+                        <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Other_Expenses_p_a' label='Other Expenses' defaultValue={datas[0]?.Other_Expenses_p_a?.toString()} id='Other_Expenses_p_a' updateState={updateState} isNumOnly={false} isTextArea={true} />
                     }
+
+                    <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Multi_Line_1' label='' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true} />
                 </View>
                 <LinearGradient
                     style={[styles.bottom, styles.bottomFlexBox]}

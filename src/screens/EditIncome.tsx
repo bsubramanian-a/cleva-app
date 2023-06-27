@@ -74,6 +74,8 @@ const EditIncome = ({ }: any) => {
 
         await actions.getProfile();
 
+        navigation.navigate('Profile');
+
         showMessage({
             message: 'Success',
             description: 'Profile updated successfully',
@@ -117,15 +119,15 @@ const EditIncome = ({ }: any) => {
                         <Text style={{ fontWeight: '500', fontSize: 22, color: 'black', fontFamily: FontFamily.sourceSerifPro, }}>{datas[0]?.Person_Account?.name}</Text>
                     </View>
 
-                    <CTextInput icon={require("../assets/dollar-square.png")} key='Centrelink_DVA_p_a' label='Centrelink/DVA' defaultValue={datas[0]?.Centrelink_DVA_p_a?.toString()} id='Centrelink_DVA_p_a' updateState={updateState} isNumOnly={false} />
+                    <CTextInput icon={require("../assets/dollar-square.png")} key='Centrelink_DVA_p_a' label='Centrelink/DVA' defaultValue={datas[0]?.Centrelink_DVA_p_a?.toString()} id='Centrelink_DVA_p_a' updateState={updateState} isNumOnly={true} />
 
-                    <CTextInput icon={require("../assets/dollar-square.png")} key='Interest_Income_p_a' label='Interest Income' defaultValue={datas[0]?.Interest_Income_p_a?.toString()} id='Interest_Income_p_a' updateState={updateState} isNumOnly={false} />
+                    <CTextInput icon={require("../assets/dollar-square.png")} key='Interest_Income_p_a' label='Interest Income' defaultValue={datas[0]?.Interest_Income_p_a?.toString()} id='Interest_Income_p_a' updateState={updateState} isNumOnly={true} />
 
-                    <CTextInput icon={require("../assets/dollar-square.png")} key='Rental_Income_p_a' label='Rental Income' defaultValue={datas[0]?.Rental_Income_p_a?.toString()} id='Rental_Income_p_a' updateState={updateState} isNumOnly={false} />
+                    <CTextInput icon={require("../assets/dollar-square.png")} key='Rental_Income_p_a' label='Rental Income' defaultValue={datas[0]?.Rental_Income_p_a?.toString()} id='Rental_Income_p_a' updateState={updateState} isNumOnly={true} />
 
-                    <CTextInput icon={require("../assets/dollar-square.png")} key='Dividends_p_a' label='Dividends' defaultValue={datas[0]?.Dividends_p_a?.toString()} id='Dividends_p_a' updateState={updateState} isNumOnly={false} />
+                    <CTextInput icon={require("../assets/dollar-square.png")} key='Dividends_p_a' label='Dividends' defaultValue={datas[0]?.Dividends_p_a?.toString()} id='Dividends_p_a' updateState={updateState} isNumOnly={true} />
                     
-                    <CTextInput icon={require("../assets/dollar-square.png")} key='Pension_Annuity_p_a' label='Pension/Annuity' defaultValue={datas[0]?.Pension_Annuity_p_a?.toString()} id='Pension_Annuity_p_a' updateState={updateState} isNumOnly={false} />
+                    <CTextInput icon={require("../assets/dollar-square.png")} key='Pension_Annuity_p_a' label='Pension/Annuity' defaultValue={datas[0]?.Pension_Annuity_p_a?.toString()} id='Pension_Annuity_p_a' updateState={updateState} isNumOnly={true} />
 
                     <View>
                         <View style={styles.imgText}>
@@ -143,7 +145,7 @@ const EditIncome = ({ }: any) => {
                     </View>
 
                     {checkboxValue && <>
-                        <CTextInput icon={require("../assets/dollar-square.png")} key='Other_Income_p_a' label='Other Income' defaultValue={datas[0]?.Other_Income_p_a?.toString()} id='Other_Income_p_a' updateState={updateState} isNumOnly={false} />
+                        <CTextInput icon={require("../assets/dollar-square.png")} key='Other_Income_p_a' label='Other Income' defaultValue={datas[0]?.Other_Income_p_a?.toString()} id='Other_Income_p_a' updateState={updateState} isNumOnly={true} />
 
                         <CTextInput style={styles.tInput} key='Details_Other_Income' defaultValue={datas[0]?.Details_Other_Income?.toString()} id='Details_Other_Income' updateState={updateState} isNumOnly={false} isTextArea={true} />
                     </>}

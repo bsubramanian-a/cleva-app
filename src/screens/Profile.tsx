@@ -222,6 +222,7 @@ const Profile = () => {
           {
             subHeading: "Loan Repayments",
             id: profile[0]?.expenses[0]?.id,
+            isLink: false,
             item: [
               { icon: require("../assets/money-recieve.png"), name: 'Home', value: `$${profile[0]?.expenses[0]?.Home_Loan?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
               { icon: require("../assets/money-recieve.png"), name: 'Investment Property', value: `$${profile[0]?.expenses[0]?.Investment_Property_Loan_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
@@ -259,9 +260,9 @@ const Profile = () => {
         icon: require("../assets/task.png"),
         link: 'EditEstate',
         items: [
-          profile[0]?.dependants?.length >= 1 && {
-            subHeading: profile[0]?.dependants[0]?.Name,
-            id: profile[0]?.dependants[0]?.id,
+          profile?.length > 0 && {
+            subHeading: profile[0]?.Preferred_1st_Name,
+            id: profile[0]?.id,
             item: [
               { icon: require("../assets/profile.png"), name: 'Do you have a beneficiary for your super fund?', value: profile[0]?.Super_Fund_Beneficiary?.includes('Yes') ? "Yes, " + profile[0]?.If_Yes_Beneficiary_Name_s : "No" },
               { icon: require("../assets/document-text.png"), name: 'Do you have a Will?\nIs it current?', value: `${profile[0]?.Do_you_have_a_Will}\n${profile[0]?.Is_it_up_to_date}` },
@@ -270,8 +271,8 @@ const Profile = () => {
               { icon: require("../assets/document-text.png"), name: 'Do you have a POA?', value: profile[0]?.Do_you_have_a_POA[0] },
             ]
           },
-          profile[0]?.dependants?.length >= 2 && profile[0]?.accounts?.length > 0 && profile[0]?.accounts[0]?.Email && {
-            subHeading: profile[0]?.dependants[1]?.Name,
+          profile[0]?.accounts?.length > 0 && profile[0]?.accounts[0]?.Email && {
+            subHeading: profile[0]?.accounts[0]?.Preferred_1st_Name,
             id: profile[0]?.dependants[1]?.id,
             item: [
               { icon: require("../assets/profile.png"), name: 'Do you have a beneficiary for your super fund?', value: profile[0]?.accounts[0]?.Super_Fund_Beneficiary?.includes('Yes') ? "Yes, " + profile[0]?.accounts[0]?.If_Yes_Beneficiary_Name_s : "No" },

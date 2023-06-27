@@ -58,6 +58,8 @@ const EditDependants = ({ }: any) => {
 
         await actions.getProfile();
 
+        navigation.navigate('Profile');
+
         showMessage({
             message: 'Success',
             description: 'Profile updated successfully',
