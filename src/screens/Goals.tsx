@@ -35,7 +35,7 @@ const Goals = ({navigation}:any) => {
 
   const getGoals = async() => {
     await actions.getGoalsByAccount();
-  }  
+  } 
   
   const handleRadioChange = (value:any) => {
     console.log('Selected Option:', value);

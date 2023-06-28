@@ -33,6 +33,10 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
     });
   };
 
+  React.useEffect(() => {
+    setDatas([]);
+  }, [goal])
+
   const updateData = async () => {
     const currentGoalOwners = goal?.owners;
     const currentHouseHoldOwners = [{ id: profile[0]?.id, name: `${profile[0]?.First_Name} ${profile[0]?.Last_Name}` }, profile[0]?.accounts?.length > 0 && { id: profile[0]?.accounts[0]?.id, name: `${profile[0]?.accounts[0]?.First_Name} ${profile[0]?.accounts[0]?.Last_Name}` }];
@@ -58,13 +62,12 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
   const futureDate = new Date();
   futureDate.setFullYear(today.getFullYear() + 100);
 
-  console.log("edit goal modal", goal?.owners)
+ React.useEffect(() => {
+  console.log("edit goal modal", goal)
+ }, [goal])
 
   return (
-    <Modal visible={visible} onRequestClose={onClose} transparent={true} 
-    animationType="fade" 
-    backdropColor={'rgba(0, 0, 0, 0.8)'}
-    >
+    <Modal visible={visible} onRequestClose={onClose} transparent>
         <View style={styles.goalsEditGoalsPopup}>
             <Loader visible={loading} />
             <Pressable onPress={onClose} style={styles.closeButton}>
@@ -84,7 +87,7 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                     </Text>
                 </View>
 
-                <View style={{marginTop: 30}}>
+                <View style={{marginTop: 40}}>
                   <Text style={styles.subheading}>
                     Status
                   </Text>
@@ -105,12 +108,12 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                     coptionDescription={{
                       textAlign: 'center',
                       color: '#000',
-                      fontSize: 14,
+                      fontSize: 18,
                     }}
                     coptionTextStyle={{
                       textAlign: 'center',
                       color: '#000',
-                      fontSize: 14,
+                      fontSize: 18,
                       fontWeight: 600,
                     }}
                   />
@@ -149,12 +152,12 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                     coptionDescription={{
                       textAlign: 'center',
                       color: '#000',
-                      fontSize: 14,
+                      fontSize: 18,
                     }}
                     coptionTextStyle={{
                       textAlign: 'center',
                       color: '#000',
-                      fontSize: 14,
+                      fontSize: 18,
                       fontWeight: 600,
                     }}
                   />
@@ -234,8 +237,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   subheading: {
-    fontFamily: FontFamily.sourceSerifPro,
-    fontSize: 14,
+    fontFamily: FontFamily.outfitMedium,
+    fontSize: 16,
     fontWeight: '500',
     marginBottom: 10,
     marginTop: 20
@@ -263,7 +266,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   save200PerTypo: {
-    color: "#161616",
+    color: Color.darkslategray_100,
     fontFamily: FontFamily.outfitLight,
     fontWeight: "300",
   },
@@ -323,15 +326,20 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   save200Per: {
-    marginTop: 12,
+    marginLeft: -152,
+    top: 37,
+    width: 304,
     lineHeight: 20,
-    color: "#4B4B4B",
+    color: Color.darkslategray_100,
     fontFamily: FontFamily.outfitLight,
     fontWeight: "300",
     fontSize: FontSize.size_sm,
     textAlign: "center",
+    left: "50%",
+    position: "absolute",
   },
   save20000ForNewCarParent: {
+    height: 97,
     marginTop: 30,
     alignSelf: "stretch",
   },
@@ -403,6 +411,16 @@ const styles = StyleSheet.create({
   frameContainer: {
     alignSelf: "stretch",
   },
+  jointWrapper: {
+    paddingHorizontal: 58,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  clevaWrapper: {
+    paddingHorizontal: 56,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   frameView: {
     marginTop: 10,
     alignSelf: "stretch",
@@ -441,6 +459,7 @@ const styles = StyleSheet.create({
   },
   parent: {
     borderColor: "#dedede",
+    width: 310,
     paddingLeft: Padding.p_xl,
     paddingTop: Padding.p_6xs,
     paddingRight: Padding.p_6xs,
@@ -474,6 +493,10 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "center",
+  },
+  editBtn: {
+    height: 44,
+    marginTop: 30,
   },
   groupParent: {
     borderRadius: Border.br_base,

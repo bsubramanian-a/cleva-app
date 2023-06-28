@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Modal, Button, StyleSheet, Text } from 'react-n
 import DatePicker from 'react-native-date-picker';
 import { format, isAfter, isBefore, isToday } from 'date-fns';
 
-const CustomDatePicker = ({ defaultValue, onValueChange, minimumDate, maximumDate, disableFutureDates, disablePastDates }: any) => {
+const CustomDatePicker = ({ defaultValue, onValueChange, minimumDate, maximumDate, disableFutureDates, disablePastDates, shouldExecuteUseEffect=false }: any) => {
   const [selectedDate, setSelectedDate] = useState(defaultValue);
   const [open, setOpen] = useState(false);
 
@@ -17,10 +17,14 @@ const CustomDatePicker = ({ defaultValue, onValueChange, minimumDate, maximumDat
     }
   };
 
-  // useEffect(() => {
-  //   setSelectedDate(defaultValue);
-  // }, [defaultValue]);
-
+  if(shouldExecuteUseEffect){
+    useEffect(() => {
+      if(defaultValue){
+        setSelectedDate(defaultValue);
+      }
+    }, [defaultValue]);
+  }
+  
   const openDatePicker = () => {
     setOpen(!open);
   };

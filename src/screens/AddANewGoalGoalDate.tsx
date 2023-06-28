@@ -95,6 +95,7 @@ const AddANewGoalGoalDate = ({ navigation }: any) => {
               icon={require('../assets/calendar.png')}
             />
             <CustomDatePicker
+              shouldExecuteUseEffect={true}
               defaultValue={
                 addGoals?.targetDate && new Date(addGoals?.targetDate)
               }

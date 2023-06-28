@@ -23,6 +23,7 @@ const GraphModal = ({
 }: any) => {
   console.log("xaxis inside", xaxis);
   console.log("yaxis inside", yaxis);
+
   const data = {
     labels: xaxis || [],
     datasets: [
@@ -36,8 +37,9 @@ const GraphModal = ({
     if (isNaN(value) || !value || value === undefined) {
       return "";
     }
-    return Math.floor(value); // Round down to the nearest integer
+    return Math.floor(value).toString(); // Round down to the nearest integer
   };
+  
 
   return (
     <Modal visible={visible} onRequestClose={onClose} transparent>
