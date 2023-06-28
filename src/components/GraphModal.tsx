@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Modal,
@@ -18,14 +18,25 @@ const GraphModal = ({
   handleFilter,
   filterOptions,
   selectedFilter,
+  xaxis,
+  yaxis
 }: any) => {
+  console.log("xaxis inside", xaxis);
+  console.log("yaxis inside", yaxis);
   const data = {
-    labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+    labels: xaxis || [],
     datasets: [
       {
-        data: [20, 45, 28, 80, 99, 43],
+        data: yaxis || [],
       },
     ],
+  };
+
+  const formatYLabel = (value:any) => {
+    if (isNaN(value) || !value || value === undefined) {
+      return "";
+    }
+    return Math.floor(value); // Round down to the nearest integer
   };
 
   return (
@@ -58,6 +69,7 @@ const GraphModal = ({
               width={300}
               height={200}
               chartConfig={chartConfig}
+              formatYLabel={formatYLabel}
               bezier
             />
           </View>

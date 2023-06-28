@@ -16,16 +16,18 @@ import actions from "../../actions";
 import { useSelector } from "react-redux";
 import EditGoalModal from "../components/EditGoalModal";
 import WealthTab from "../components/WealthTab";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Goals = ({navigation}:any) => {
-  const [selectedFilter, setSelectedFilter] = useState('All');
+  const [selectedFilter, setSelectedFilter] = useState('6 mo');
   const [modalVisible, setModalVisible] = useState(false);
   const [isCateoryModalVisible, setIsCategoryModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const goals = useSelector((state:any) => state.data.goals);
   const [currentGoal, setCurrentGoal] = useState<any>();
-  const [chartData, setChartData] = useState<any>();
+  const [xaxis, setXaxis] = useState([]);
+  const [yaxis, setYaxis] = useState([]); 
 
   useEffect(() => {
     getGoals();
@@ -33,14 +35,14 @@ const Goals = ({navigation}:any) => {
 
   const getGoals = async() => {
     await actions.getGoalsByAccount();
-  }
+  }  
   
   const handleRadioChange = (value:any) => {
     console.log('Selected Option:', value);
   };
 
   const handleFilter = (value:any) => {
-    console.log('Selected filter:', value);
+    setSelectedFilter(value);
   };
 
   const openModal = (goal:any) => {
@@ -58,23 +60,25 @@ const Goals = ({navigation}:any) => {
 
   const handleTabPress = (tabNumber:number) => {
     setActiveTab(tabNumber);
-  };
+  }; 
+
+  const getChartData = async () => {
+    const chartData:any = await actions.getChartData(selectedFilter, currentGoal?.id, currentGoal?.Current_Value);
+    console.log("chartData", chartData);
+    setXaxis(chartData?.x);
+    setYaxis(chartData?.y);
+  }
 
   useEffect(() => {
-    console.log("selectedFilter", selectedFilter);
-    (async () => {
-      console.log("inside selectedFilter");
-      const chartDatas = await actions.getChartData(selectedFilter, currentGoal?.id);
-      console.log("chartDatas", chartDatas);
-    })();
-  }, [selectedFilter]);  
+    if(modalVisible && currentGoal) getChartData();
+  }, [selectedFilter, currentGoal])
 
   return (
-    <View>
+    <ScrollView>
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
       <CustomHeader name="Goals" type={1}/>
 
-      <GraphModal goal={currentGoal} key="GraphModal" visible={modalVisible} onClose={closeModal} filterOptions={[{value: "All"}, {value: "6 mo"}, {value: "1 yr"}, {value: "3 yrs"}, {value: "5 yrs"}, {value: "10 yrs"}]} handleFilter={handleFilter} selectedFilter={selectedFilter}/>
+      <GraphModal xaxis={xaxis} yaxis={yaxis} goal={currentGoal} key="GraphModal" visible={modalVisible} onClose={closeModal} filterOptions={[{value: "All"}, {value: "6 mo"}, {value: "1 yr"}, {value: "3 yrs"}, {value: "5 yrs"}, {value: "10 yrs"}]} handleFilter={handleFilter} selectedFilter={selectedFilter}/>
 
       <GoalCategoryModal key="GoalCategoryModal" navigation={navigation} visible={isCateoryModalVisible} onClose={() => setIsCategoryModalVisible(false)} />
        
@@ -113,7 +117,7 @@ const Goals = ({navigation}:any) => {
           setIsEditModalVisible(true)
         }} data={goal} /> )}
       </View>}
-    </View> 
+    </ScrollView> 
   );
 };
 

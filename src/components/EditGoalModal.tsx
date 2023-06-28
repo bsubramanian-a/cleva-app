@@ -10,16 +10,17 @@ import Label from "./Label";
 import CustomDatePicker from "./CustomDatepicker";
 import actions from "../../actions";
 import Loader from "./Loader";
+import CTextInput from "./CTextInput";
+import RadioButtonGroupOwner from "./RadioButtonGroupOwner";
 
 const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
   const [datas, setDatas] = useState<any>([]);
   const profile = useSelector((state: any) => state.data.profile);
   const [loading, setLoading] = useState(false);
-  const dateObj = new Date(goal?.Target_Date);
-  const formattedDate = dateObj.toLocaleDateString('en-US');
+  // const dateObj = new Date(goal?.Target_Date);
+  // const formattedDate = dateObj.toLocaleDateString('en-US');
 
   const updateState = (value: any, label: string) => {
-    console.log("value", value, "label", label);
     setDatas((prevDatas: any) => {
       if (prevDatas.length === 0) {
         return [{ [label]: value }];
@@ -32,17 +33,18 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
     });
   };
 
-  // React.useEffect(() => {
-  //   console.log("Datas", datas);
-  // }, [datas])
-
   const updateData = async () => {
+    const currentGoalOwners = goal?.owners;
+    const currentHouseHoldOwners = [{ id: profile[0]?.id, name: `${profile[0]?.First_Name} ${profile[0]?.Last_Name}` }, profile[0]?.accounts?.length > 0 && { id: profile[0]?.accounts[0]?.id, name: `${profile[0]?.accounts[0]?.First_Name} ${profile[0]?.accounts[0]?.Last_Name}` }];
+
     setLoading(true);
 
-    const updateData = {id : goal?.id, ...datas[0]}
+    const updateData = {id : goal?.id, name: goal?.Name, currentGoalOwners, currentHouseHoldOwners, ...datas[0]}
 
     try {
       const response: any = await actions.updateGoal(updateData);
+
+      await actions.getGoalsByAccount();
 
       onClose();
       setLoading(false);  
@@ -55,6 +57,8 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
   const today = new Date();
   const futureDate = new Date();
   futureDate.setFullYear(today.getFullYear() + 100);
+
+  console.log("edit goal modal", goal?.owners)
 
   return (
     <Modal visible={visible} onRequestClose={onClose} transparent>
@@ -113,9 +117,9 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                   <Text style={styles.subheading}>
                     Goal Owner
                   </Text>
-                  <RadioButtonGroup
+                  <RadioButtonGroupOwner
                     key="OwnerRadioButtonGroup"
-                    defaultValue={goal?.Goal_Owner_s || ""}
+                    defaultValue={goal?.owners?.length > 0 ? (goal?.owners?.length > 1 ? 'Joint' : goal?.owners[0]?.Goal_Owner_s?.name) : ""}
                     options={[
                       {
                         value: `${profile[0]?.First_Name} ${profile[0]?.Last_Name}`,
@@ -127,7 +131,7 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                           id: profile[0]?.accounts[0]?.id,
                         },
                       {value: 'Joint'},
-                      {value: 'Cleva'},
+                      // {value: 'Cleva'},
                     ]}
                     onChange={(value:any) => updateState(value, 'Goal_Owner_s')}
                     count={2}
@@ -173,18 +177,28 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                   />
                 </View>
 
-                <LinearGradient
-                  style={[styles.bottom, styles.bottomFlexBox]}
-                  locations={[0, 1]}
-                  colors={['#fbb142', '#f6a326']}
-                  useAngle={true}
-                  angle={180}>
-                  <Pressable
-                    style={{flexDirection: 'row', alignItems: 'center'}}
-                    onPress={updateData}>
-                    <Text style={[styles.edit, styles.ml4]}>Next</Text>
-                  </Pressable>
-                </LinearGradient>
+                <CTextInput
+                  icon={require('../assets/dollarcircle.png')}
+                  key="Current_Value"
+                  label="How much do you have now?"
+                  defaultValue={goal?.Current_Value?.toString() || null}
+                  id="Current_Value"
+                  updateState={updateState}
+                  isNumOnly={true}
+                />
+
+                <Pressable
+                  style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}
+                  onPress={updateData}>
+                    <LinearGradient
+                      style={[styles.bottom, styles.bottomFlexBox]}
+                      locations={[0, 1]}
+                      colors={['#fbb142', '#f6a326']}
+                      useAngle={true}
+                      angle={180}>
+                        <Text style={[styles.edit, styles.ml4]}>Next</Text>
+                  </LinearGradient>
+                </Pressable>
             </ScrollView>
         </View>
     </Modal>

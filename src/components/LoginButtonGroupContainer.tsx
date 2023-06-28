@@ -71,7 +71,7 @@ const LoginButtonGroupContainer = ({
         throw new Error('Something went wrong obtaining the access token');
       }
       const accessToken = data.accessToken;
-      console.log("accessToken", accessToken);
+      // console.log("accessToken", accessToken);
 
       // Request additional user data, such as email
       const graphRequest = new GraphRequest('/me', {
@@ -84,9 +84,16 @@ const LoginButtonGroupContainer = ({
       }, (error, response) => {
         if (error) {
           console.log('Error retrieving user data: ', error);
+          setLoginError("Couldn't access facebook data, please try different login method!")
         } else {
           const { id, name, email }:any = response;
-          console.log('User data:', { id, name, email });
+          // console.log('User data:', { id, name, email });
+
+          if(email){
+            onVerifyEmail(email);
+          }else{
+            setLoginError("Email couldn't found, please try different login method!")
+          }
           // Perform further actions with the obtained user data
         }
       });

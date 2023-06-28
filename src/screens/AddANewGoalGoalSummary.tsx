@@ -19,14 +19,6 @@ const AddANewGoalGoalSummary = ({navigation}:any) => {
   const route: any = useRoute();
   const { money_need, formattedDate, money_save, frequent_money_save } = route.params;
   
-  useEffect(() => {
-    getGoals();
-  }, [])
-
-  const getGoals = async() => {
-    await actions.getGoalsByAccount();
-  }
-
   return (
     <View
       style={[styles.addANewGoalGoalSummary, styles.goalLayout]}

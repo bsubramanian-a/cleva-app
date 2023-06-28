@@ -65,7 +65,7 @@ const EditProfile = ({}:any) => {
 
         await actions.getProfile();
 
-        navigation.navigate('Profile');
+        navigation.goBack();
 
         showMessage({
             message: 'Success',
@@ -76,7 +76,7 @@ const EditProfile = ({}:any) => {
     }
 
     const updateState = (value: any, label: string) => {
-        console.log("label1233", label, value);
+        // console.log("label1233", label, value);
         setDatas((prevDatas: any) => {
           const updatedDatas = prevDatas.map((data: any) => {
             // console.log("data", data[label]);

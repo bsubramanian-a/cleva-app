@@ -118,13 +118,13 @@ export const getAssets = () => {
   });
 };
 
-export const getChartData = (interval: string, zohoGoalId: string) => {
+export const getChartData = (interval: string, zohoGoalId: string, todayValue: any) => {
   return new Promise((resolve, reject) => {
-    const apiUrl = `${CHARTDATA}?interval=${interval}&zohoGoalId=${zohoGoalId}`;
+    const apiUrl = `${CHARTDATA}?interval=${interval}&zohoGoalId=${zohoGoalId}&todayValue=${todayValue}`;
     return apiGet(apiUrl)
       .then(res => {
         console.log("res......", res)
-        resolve(res.data);
+        resolve(res);
       })
       .catch(error => {
         reject(error);
@@ -180,7 +180,7 @@ export const getGoalsByAccount = () => {
       });
   });
 };
-
+ 
 export const updateWealth = (data: any) => {
   return new Promise((resolve, reject) => {
     return apiPut(ASSETS, data)

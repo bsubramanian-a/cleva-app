@@ -20,16 +20,17 @@ import RadioButtonGroup from '../components/RadioButtonGroup';
 import {useSelector} from 'react-redux';
 import actions from '../../actions';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
+import RadioButtonGroupOwner from '../components/RadioButtonGroupOwner';
 
 const AddANewGoalGoalResponsi = ({navigation}: any) => {
-  const [reponsible, setResponsible] = useState<any>(null);
   const profile = useSelector((state: any) => state.data.profile);
   const addGoals = useSelector((state: any) => state.data.addGoals);
 
-  const handleChange = (value: any) => {
-    setResponsible(value);
-    let val = value === 'Joint' ? null : value;
-    actions.updateAddGoals({ownerId: val, Goal_Owner_s: val});
+  const handleChange = (option: any) => {
+    console.log("option handleChange", option);
+    let val = option?.id ? option?.value : option;
+    console.log("val", val);
+    actions.updateAddGoals({ownerId: option?.id, Goal_Owner_s: val});
   };
 
   const updateData = () => {
@@ -63,7 +64,7 @@ const AddANewGoalGoalResponsi = ({navigation}: any) => {
               Who owns/Will be responsible{'\n'} For The Goals ?
             </Text>
 
-            <RadioButtonGroup
+            <RadioButtonGroupOwner
               options={[
                 {
                   value: `${profile[0]?.First_Name} ${profile[0]?.Last_Name}`,

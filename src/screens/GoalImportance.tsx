@@ -34,6 +34,8 @@ const GoalImportance = ({navigation}: any) => {
     actions.updateAddGoals({goal_priority: value});
   };
 
+  const currentHouseHoldOwners = [{ id: profile[0]?.id, name: `${profile[0]?.First_Name} ${profile[0]?.Last_Name}` }, profile[0]?.accounts?.length > 0 && { id: profile[0]?.accounts[0]?.id, name: `${profile[0]?.accounts[0]?.First_Name} ${profile[0]?.accounts[0]?.Last_Name}` }];
+
   const updateData = async () => {
     if (addGoals?.goal_priority) {
       setLoading(true);
@@ -41,20 +43,24 @@ const GoalImportance = ({navigation}: any) => {
       let updateData = {
         ...addGoals,
         Household: {id: profile[0]?.Account_Name?.id},
+        currentHouseHoldOwners
       };
 
       try {
         const response: any = await actions.createGoal(updateData);
 
-        actions.emptyAddGoals();
+        setTimeout(async() => {
+          actions.emptyAddGoals();
+          await actions.getGoalsByAccount();
 
-        navigation.navigate('AddANewGoalGoalSummary', {
-          formattedDate: response?.targetDate,
-          money_need: response?.money_need,
-          money_save: response?.money_save,
-          frequent_money_save: response?.frequent_money_save,
-        });
-        setLoading(false);
+          navigation.navigate('AddANewGoalGoalSummary', {
+            formattedDate: response?.targetDate,
+            money_need: response?.money_need,
+            money_save: response?.money_save,
+            frequent_money_save: response?.frequent_money_save,
+          });
+          setLoading(false);
+        }, 1000)
       } catch (error) {
         console.log('error', error);
         setLoading(false);
@@ -107,6 +113,7 @@ const GoalImportance = ({navigation}: any) => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
+              defaultValue={addGoals?.goal_priority}
             />
           </View>
 

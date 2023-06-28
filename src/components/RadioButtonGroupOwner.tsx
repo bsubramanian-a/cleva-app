@@ -17,9 +17,10 @@ const RadioButtonGroup = ({
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
   const handleOptionPress = (option: any) => {
+    console.log("handleOptionPress...............", option);
     setSelectedValue(option?.value);
     if (onChange) {
-      onChange(option?.id ? {id: option?.id, name: option?.value} : option?.value);
+      onChange(option?.id ? option : option?.value);
     }
   };
 

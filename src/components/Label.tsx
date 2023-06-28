@@ -1,7 +1,7 @@
 import { ActivityIndicator, Image, StyleSheet, View, Text } from 'react-native';
 
 const Label = ({ icon, label }: any) => {
-    console.log("label", label)
+    // console.log("label", label)
     return (
         <View style={styles.container}>
             {icon &&

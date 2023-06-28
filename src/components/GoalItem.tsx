@@ -2,8 +2,12 @@ import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from "reac
 import { Border, Color, FontFamily, FontSize, Padding } from "../GlobalStyles";
 
 const GoalItem = ({data, onPress, openModal}:any) => {
-    const dateObj = new Date(data?.Target_Date);
-    const formattedDate = dateObj.toLocaleDateString('en-US');
+    const formatDate = (dateString:string) => {
+        const date = new Date(dateString);
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const formattedDate = `${date.getDate()}/${month}/${date.getFullYear()}`;
+        return formattedDate;
+      }  
 
     return (
         <TouchableOpacity onPress={() => onPress(data)} style={styles.frameParentShadowBox}>
@@ -37,7 +41,7 @@ const GoalItem = ({data, onPress, openModal}:any) => {
                     <Text style={styles.goalOwnerDrContainer}>
                         <Text style={styles.goalOwner}>
                             <Text style={styles.goalOwner1}>Due Date:</Text>
-                            <Text style={styles.text}> {formattedDate}</Text>
+                            <Text style={styles.text}> {formatDate(data?.Target_Date)}</Text>
                         </Text>
                         <Text style={styles.text}>
                             <Text style={styles.dr1}>{data?.dueDate}</Text>

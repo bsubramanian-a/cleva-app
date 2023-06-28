@@ -58,7 +58,7 @@ const EditDependants = ({ }: any) => {
 
         await actions.getProfile();
 
-        navigation.navigate('Profile');
+        navigation.goBack();
 
         showMessage({
             message: 'Success',
