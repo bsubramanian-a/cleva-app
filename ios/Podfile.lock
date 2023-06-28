@@ -379,8 +379,6 @@ PODS:
     - FBSDKGamingServicesKit (~> 15.0.0)
     - FBSDKShareKit (~> 15.0.0)
     - React-Core
-  - react-native-flipper (0.201.0):
-    - React-Core
   - react-native-safe-area-context (4.5.0):
     - RCT-Folly
     - RCTRequired
@@ -579,7 +577,6 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-fbsdk-next (from `../node_modules/react-native-fbsdk-next`)
-  - react-native-flipper (from `../node_modules/react-native-flipper`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-video (from `../node_modules/react-native-video`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -684,8 +681,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-date-picker"
   react-native-fbsdk-next:
     :path: "../node_modules/react-native-fbsdk-next"
-  react-native-flipper:
-    :path: "../node_modules/react-native-flipper"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-video:
@@ -788,7 +783,6 @@ SPEC CHECKSUMS:
   React-logger: 9332c3e7b4ef007a0211c0a9868253aac3e1da82
   react-native-date-picker: 04e866ba4e7857f83abd504ad42e787f0f02ae00
   react-native-fbsdk-next: 5291a5d67aab4e649d072c50988033ff0d05b915
-  react-native-flipper: 18d15fc2a82b4bb3270b6dd8100d99a8c32cb3b1
   react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
   react-native-video: fee89269ad07556d960721f3b62e39be6ace3c90
   react-native-webview: 994b9f8fbb504d6314dc40d83f94f27c6831b3bf
@@ -820,4 +814,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 4564f175274cc2a73cfb3ef92f2c7feac19338ae
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

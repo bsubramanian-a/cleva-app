@@ -5,10 +5,10 @@ const middlewares:any = [
   /* other middlewares */
 ];
 
-if (__DEV__) {
-  const createDebugger = require("redux-flipper").default;
-  middlewares.push(createDebugger());
-}
+// if (__DEV__) {
+//   const createDebugger = require("redux-flipper").default;
+//   middlewares.push(createDebugger());
+// }
 
 const store = configureStore({
   reducer: rootReducer,
