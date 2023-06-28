@@ -176,18 +176,18 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                   />
                 </View>
 
+                <Pressable
+                    style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}
+                    onPress={updateData}>
                 <LinearGradient
                   style={[styles.bottom, styles.bottomFlexBox]}
                   locations={[0, 1]}
                   colors={['#fbb142', '#f6a326']}
                   useAngle={true}
                   angle={180}>
-                  <Pressable
-                    style={{flexDirection: 'row', alignItems: 'center'}}
-                    onPress={updateData}>
                     <Text style={[styles.edit, styles.ml4]}>Next</Text>
-                  </Pressable>
                 </LinearGradient>
+                </Pressable>
             </ScrollView>
         </View>
     </Modal>

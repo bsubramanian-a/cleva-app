@@ -105,10 +105,10 @@ const EditRetirement = ({ }: any) => {
                     <View style={styles.container}>
                         <Text style={styles.label}>{datas[0]?.First_Name}, you'd like to retire or have </Text>
                         <Text style={styles.label}>choice of whether you work by </Text>
-                        <CTextInput inputStyle={{ width: "60%", height: 36, }} key='Choice_Retirement_Target_Age' label='' defaultValue={datas[0]?.Choice_Retirement_Target_Age?.toString()} id='Choice_Retirement_Target_Age' updateState={updateState} isNumOnly={true} placeholder="age (retirement)" />
+                        <CTextInput inputStyle={{ width: "60%" }} key='Choice_Retirement_Target_Age' label='' defaultValue={datas[0]?.Choice_Retirement_Target_Age?.toString()} id='Choice_Retirement_Target_Age' updateState={updateState} isNumOnly={true} placeholder="age (retirement)" />
                         <Text style={styles.label}>(approx). You'd like to have approx.</Text>
                         <View style={{ flexDirection: "row", gap: 0, justifyContent: "flex-start", alignItems: "center" }}>
-                            <CTextInput inputStyle={{ width: "90%", height: 36, marginTop: 0 }} key='Choice_Retirement_Target_Income_p_a' label='' defaultValue={datas[0]?.Choice_Retirement_Target_Income_p_a?.toString()} id='Choice_Retirement_Target_Income_p_a' updateState={updateState} isNumOnly={true} placeholder="$[00,000]" />
+                            <CTextInput inputStyle={{ width: "90%", marginTop: 0 }} key='Choice_Retirement_Target_Income_p_a' label='' defaultValue={datas[0]?.Choice_Retirement_Target_Income_p_a?.toString()} id='Choice_Retirement_Target_Income_p_a' updateState={updateState} isNumOnly={true} placeholder="$[00,000]" />
                             <Text style={[styles.label, styles.mTop]}> (in today's dollars) sustain</Text>
                         </View>
                         <Text style={styles.label}>your lifestyle.</Text>

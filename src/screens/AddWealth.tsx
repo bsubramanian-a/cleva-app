@@ -9,25 +9,25 @@ import {
   Pressable,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Padding, FontFamily, Color, FontSize} from '../GlobalStyles';
+import { Padding, FontFamily, Color, FontSize } from '../GlobalStyles';
 import CustomHeader from '../components/CustomHeader';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import CTextInput from '../components/CTextInput';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import actions from '../../actions';
 import Loader from '../components/Loader';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import FlashMessage, {
   showMessage,
   hideMessage,
 } from 'react-native-flash-message';
 
-const AddWealth = ({route}: any) => {
+const AddWealth = ({ route }: any) => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
   const [value, setValue] = useState('');
-  const {type} = route.params;
+  const { type } = route.params;
 
   const addWealth = async () => {
     setLoading(true);
@@ -122,18 +122,19 @@ const AddWealth = ({route}: any) => {
             defaultValue={value}
           />
         </View>
-        <LinearGradient
-          style={[styles.bottom, styles.bottomFlexBox]}
-          locations={[0, 1]}
-          colors={['#fbb142', '#f6a326']}
-          useAngle={true}
-          angle={180}>
-          <Pressable
-            style={{flexDirection: 'row', alignItems: 'center'}}
-            onPress={addWealth}>
+
+        <Pressable
+          style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+          onPress={addWealth}>
+          <LinearGradient
+            style={[styles.bottom, styles.bottomFlexBox]}
+            locations={[0, 1]}
+            colors={['#fbb142', '#f6a326']}
+            useAngle={true}
+            angle={180}>
             <Text style={[styles.edit, styles.ml4]}>Save</Text>
-          </Pressable>
-        </LinearGradient>
+          </LinearGradient>
+        </Pressable>
       </ScrollView>
     </View>
   );

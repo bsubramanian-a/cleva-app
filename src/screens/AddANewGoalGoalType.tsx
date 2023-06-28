@@ -21,8 +21,8 @@ const AddANewGoalGoalType = () => {
       showsHorizontalScrollIndicator={true}
       contentContainerStyle={styles.addANewGoalGoalTypeContent}
     >
-      <CustomHeader name="Property Goal" type={2}/>
-      
+      <CustomHeader name="Property Goal" type={2} />
+
       <ScrollView
         style={styles.advicecontainerWrapper}
         showsVerticalScrollIndicator={true}
@@ -80,17 +80,17 @@ const AddANewGoalGoalType = () => {
                 </View>
               </View>
             </View>
-            <LinearGradient
-              style={styles.editBtn}
-              locations={[0, 1]}
-              colors={["#fbb142", "#f6a326"]}
-              useAngle={true}
-              angle={180}
-            >
-              <Pressable style={[styles.pressable, styles.menuFlexBox]}>
+            <Pressable style={[styles.pressable, styles.menuFlexBox]}>
+              <LinearGradient
+                style={styles.editBtn}
+                locations={[0, 1]}
+                colors={["#fbb142", "#f6a326"]}
+                useAngle={true}
+                angle={180}
+              >
                 <Text style={styles.next}>Next</Text>
-              </Pressable>
-            </LinearGradient>
+              </LinearGradient>
+            </Pressable>
           </View>
         </View>
       </ScrollView>

@@ -54,17 +54,17 @@ const EditBtn = ({
   }, [editBtnHeight, editBtnPaddingHorizontal, editBtnPaddingVertical]);
 
   return (
-    <LinearGradient
-      style={[styles.editBtn, editBtnStyle]}
-      locations={[0, 1]}
-      colors={["#fbb142", "#f6a326"]}
-      useAngle={true}
-      angle={180}
-    >
-      <Pressable style={[styles.pressable, pressableStyle]} onPress={() => navigation.navigate('WealthAssets')}>
+    <Pressable style={[styles.pressable, pressableStyle]} onPress={() => navigation.navigate('WealthAssets')}>
+      <LinearGradient
+        style={[styles.editBtn, editBtnStyle]}
+        locations={[0, 1]}
+        colors={["#fbb142", "#f6a326"]}
+        useAngle={true}
+        angle={180}
+      >
         <Text style={[styles.edit, editStyle]}>{edit}</Text>
-      </Pressable>
-    </LinearGradient>
+      </LinearGradient>
+    </Pressable>
   );
 };
 

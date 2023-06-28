@@ -20,13 +20,13 @@ import { useNavigation } from "@react-navigation/native";
 import Loader from "../components/Loader";
 
 const WealthAssets = () => {
-  const navigation:any = useNavigation();
-  const assets = useSelector((state:any) => state.data.assets);
-  const liabilities = useSelector((state:any) => state.data.liabilities);
+  const navigation: any = useNavigation();
+  const assets = useSelector((state: any) => state.data.assets);
+  const liabilities = useSelector((state: any) => state.data.liabilities);
   const [activeTab, setActiveTab] = useState(0);
   const [loading, setLoading] = useState(false);
-  
-  const handleTabPress = (tabNumber:number) => {
+
+  const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
   };
 
@@ -34,60 +34,60 @@ const WealthAssets = () => {
     <View
       style={styles.wealthAssets}
     >
-      <Loader visible={loading} /> 
-      <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
-      <CustomHeader name="Your Wealth" type={2}/>
+      <Loader visible={loading} />
+      <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
+      <CustomHeader name="Your Wealth" type={2} />
       <ScrollView
         style={styles.wealthTabParent}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.frameScrollViewContent}
       >
-       <WealthTab tabs={['Assets', 'Liabilities']}
+        <WealthTab tabs={['Assets', 'Liabilities']}
           activeTab={activeTab}
-          onTabPress={handleTabPress}/>
+          onTabPress={handleTabPress} />
         <View style={styles.advicecontainer}>
           {
-            activeTab == 0 ? 
-              <AssetsWealth setLoading={setLoading} loading={loading} datas={assets} type="asset"/>
-            :
-              <AssetsWealth setLoading={setLoading} loading={loading} datas={liabilities} type="liability"/>
+            activeTab == 0 ?
+              <AssetsWealth setLoading={setLoading} loading={loading} datas={assets} type="asset" />
+              :
+              <AssetsWealth setLoading={setLoading} loading={loading} datas={liabilities} type="liability" />
           }
         </View>
         <View style={styles.buttonContainer}>
-          <LinearGradient
-            style={[styles.bottom, styles.bottomFlexBox]}
-            locations={[0, 1]}
-            colors={["#fbb142", "#f6a326"]}
-            useAngle={true}
-            angle={180}
-          >
-            <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={() => navigation.navigate('AddWealth', {type: activeTab == 0 ? 'asset' : 'liability'})}>
+          <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={() => navigation.navigate('AddWealth', { type: activeTab == 0 ? 'asset' : 'liability' })}>
+            <LinearGradient
+              style={[styles.bottom, styles.bottomFlexBox]}
+              locations={[0, 1]}
+              colors={["#fbb142", "#f6a326"]}
+              useAngle={true}
+              angle={180}
+            >
               <Image
                 style={styles.vuesaxlinearedit2Icon}
                 resizeMode="cover"
                 source={require("../assets/add.png")}
               />
               <Text style={[styles.edit, styles.ml4]}>Add</Text>
-            </Pressable>
-          </LinearGradient>
+            </LinearGradient>
+          </Pressable>
 
-          <LinearGradient
-            style={[styles.bottom, styles.bottomFlexBox]}
-            locations={[0, 1]}
-            colors={["#fbb142", "#f6a326"]}
-            useAngle={true}
-            angle={180}
-          >
-            <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={() => navigation.navigate('EditWealth', {type: activeTab == 0 ? 'asset' : 'liability'})}>
+          <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={() => navigation.navigate('EditWealth', { type: activeTab == 0 ? 'asset' : 'liability' })}>
+            <LinearGradient
+              style={[styles.bottom, styles.bottomFlexBox]}
+              locations={[0, 1]}
+              colors={["#fbb142", "#f6a326"]}
+              useAngle={true}
+              angle={180}
+            >
               <Image
                 style={styles.vuesaxlinearedit2Icon}
                 resizeMode="cover"
                 source={require("../assets/vuesaxlinearedit2.png")}
               />
               <Text style={[styles.edit, styles.ml4]}>Edit</Text>
-            </Pressable>
-          </LinearGradient>
+            </LinearGradient>
+          </Pressable>
         </View>
       </ScrollView>
     </View>
@@ -95,7 +95,7 @@ const WealthAssets = () => {
 };
 
 const styles = StyleSheet.create({
-  buttonContainer:{
+  buttonContainer: {
     paddingHorizontal: 20,
     flexDirection: "row",
     justifyContent: 'center',

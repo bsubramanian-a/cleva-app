@@ -10,23 +10,23 @@ import {
   Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Padding, Border, Color, FontFamily, FontSize} from '../GlobalStyles';
+import { Padding, Border, Color, FontFamily, FontSize } from '../GlobalStyles';
 import CustomHeader from '../components/CustomHeader';
 import CTextInput from '../components/CTextInput';
-import {useState} from 'react';
+import { useState } from 'react';
 import Label from '../components/Label';
 import CustomDatePicker from '../components/CustomDatepicker';
 import RadioButtonGroup from '../components/RadioButtonGroup';
 import actions from '../../actions';
-import {useSelector} from 'react-redux';
-import FlashMessage, {showMessage} from 'react-native-flash-message';
+import { useSelector } from 'react-redux';
+import FlashMessage, { showMessage } from 'react-native-flash-message';
 
-const AddANewGoalGoalImportan = ({navigation}: any) => {
+const AddANewGoalGoalImportan = ({ navigation }: any) => {
   const [importance, setImportance] = useState<any>(null);
   const addGoals = useSelector((state: any) => state.data.addGoals);
 
   const handleChange = (value: any) => {
-    actions.updateAddGoals({isFinancial: value});
+    actions.updateAddGoals({ isFinancial: value });
     setImportance(value);
   };
 
@@ -67,10 +67,10 @@ const AddANewGoalGoalImportan = ({navigation}: any) => {
 
             <RadioButtonGroup
               defaultValue={addGoals?.isFinancial}
-              options={[{value: 'Yes'}, {value: 'No'}]}
+              options={[{ value: 'Yes' }, { value: 'No' }]}
               onChange={handleChange}
               count={1}
-              cselectedOptionBackground={{height: 25, padding: 4}}
+              cselectedOptionBackground={{ height: 25, padding: 4 }}
               coptionView={styles.coptionView}
               coptionContainer={{
                 height: 80,
@@ -93,18 +93,18 @@ const AddANewGoalGoalImportan = ({navigation}: any) => {
             />
           </View>
 
-          <LinearGradient
-            style={[styles.bottom, styles.bottomFlexBox]}
-            locations={[0, 1]}
-            colors={['#fbb142', '#f6a326']}
-            useAngle={true}
-            angle={180}>
-            <Pressable
-              style={{flexDirection: 'row', alignItems: 'center'}}
-              onPress={updateData}>
+          <Pressable
+            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+            onPress={updateData}>
+            <LinearGradient
+              style={[styles.bottom, styles.bottomFlexBox]}
+              locations={[0, 1]}
+              colors={['#fbb142', '#f6a326']}
+              useAngle={true}
+              angle={180}>
               <Text style={[styles.edit, styles.ml4]}>Next</Text>
-            </Pressable>
-          </LinearGradient>
+            </LinearGradient>
+          </Pressable>
         </View>
       </ScrollView>
     </ScrollView>

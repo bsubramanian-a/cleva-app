@@ -83,21 +83,21 @@ const ExerciseEarlyHappyMemory = () => {
                 <Text style={[styles.myMemory, styles.summaryTypo]}>
                   My Memory
                 </Text>
-                <LinearGradient
-                  style={styles.edit}
-                  locations={[0, 1]}
-                  colors={["#fbb142", "#f6a326"]}
-                  useAngle={true}
-                  angle={180}
-                >
-                  <Pressable style={[styles.pressable, styles.pressableLayout]}>
+                <Pressable style={[styles.pressable, styles.pressableLayout]}>
+                  <LinearGradient
+                    style={styles.edit}
+                    locations={[0, 1]}
+                    colors={["#fbb142", "#f6a326"]}
+                    useAngle={true}
+                    angle={180}
+                  >
                     <Image
                       style={styles.vuesaxlinearedit2Icon}
                       resizeMode="cover"
                       source={require("../assets/vuesaxlinearedit21.png")}
                     />
-                  </Pressable>
-                </LinearGradient>
+                  </LinearGradient>
+                </Pressable>
               </View>
               <Text
                 style={[
