@@ -108,12 +108,12 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                     coptionDescription={{
                       textAlign: 'center',
                       color: '#000',
-                      fontSize: 18,
+                      fontSize: 14,
                     }}
                     coptionTextStyle={{
                       textAlign: 'center',
                       color: '#000',
-                      fontSize: 18,
+                      fontSize: 14,
                       fontWeight: 600,
                     }}
                   />
@@ -152,12 +152,13 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                     coptionDescription={{
                       textAlign: 'center',
                       color: '#000',
-                      fontSize: 18,
+                      fontSize: 14,
                     }}
                     coptionTextStyle={{
                       textAlign: 'center',
                       color: '#000',
-                      fontSize: 18,
+                      fontFamily: FontFamily.outfitBold,
+                      fontSize: 14,
                       fontWeight: 600,
                     }}
                   />
@@ -237,7 +238,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   subheading: {
-    fontFamily: FontFamily.outfitMedium,
+    fontFamily: FontFamily.sourceSerifPro,
     fontSize: 16,
     fontWeight: '500',
     marginBottom: 10,
