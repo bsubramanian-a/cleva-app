@@ -59,7 +59,7 @@ const Profile = () => {
 
   const EmployChoiceComponent = ({ age, price, firstname }: { age: any, price: any, firstname:string }) => {
     return (
-      <View style={styles.viewEmployChoiceComponent}>
+      <View>
         <Text style={styles.textEmployChoiceComponent} ellipsizeMode="tail">
           {firstname}, you’d like to retire or have the choice of whether you work by{' '}
           <Text style={styles.boldText}>{age}</Text> (approx.). You’d like to have approx.{' '}
@@ -564,12 +564,10 @@ const Profile = () => {
 };
 
 const styles = StyleSheet.create({
-  viewEmployChoiceComponent: {
-    width: screenWidth - 75,
-    paddingHorizontal: 10
-  },
   textEmployChoiceComponent: {
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    color: '#4B4B4B',
+    lineHeight: 22
   },
   boldText: {
     fontWeight: 'bold',
