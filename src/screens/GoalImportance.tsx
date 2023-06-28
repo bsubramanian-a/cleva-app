@@ -47,6 +47,7 @@ const GoalImportance = ({navigation}: any) => {
         const response: any = await actions.createGoal(updateData);
 
         actions.emptyAddGoals();
+        await actions.getGoalsByAccount();
 
         navigation.navigate('AddANewGoalGoalSummary', {
           formattedDate: response?.targetDate,

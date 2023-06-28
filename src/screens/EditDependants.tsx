@@ -158,17 +158,17 @@ const EditDependants = ({ }: any) => {
                         onValueChange={(value: any) => updateSelectState(value, 'Dependant_of_Person')}
                     />
                 </View>
-                <LinearGradient
-                    style={[styles.bottom, styles.bottomFlexBox]}
-                    locations={[0, 1]}
-                    colors={["#fbb142", "#f6a326"]}
-                    useAngle={true}
-                    angle={180}
-                >
-                    <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={updateProfile}>
+                <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={updateProfile}>
+                    <LinearGradient
+                        style={[styles.bottom, styles.bottomFlexBox]}
+                        locations={[0, 1]}
+                        colors={["#fbb142", "#f6a326"]}
+                        useAngle={true}
+                        angle={180}
+                    >
                         <Text style={[styles.edit, styles.ml4]}>Save</Text>
-                    </Pressable>
-                </LinearGradient>
+                    </LinearGradient>
+                </Pressable>
             </ScrollView>
         </View>
     );

@@ -134,9 +134,9 @@ const styles = StyleSheet.create({
   },
   optionText: {
     color: '#000',
-    fontFamily: FontFamily.sourceSerifPro,
+    fontFamily: FontFamily.outfitMedium,
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: '500',
   },
   optionView: {
     flexDirection: 'column',

@@ -112,7 +112,7 @@ const EditIncome = ({ }: any) => {
             >
                 <View style={styles.advicecontainer}>
                     <View style={[styles.frWrapper, styles.wrapperLayout]}>
-                        <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.Person_Account?.name?.split(' ').map((word:string) => word.charAt(0).toUpperCase()).join(''))}</Text>
+                        <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.Person_Account?.name?.split(' ').map((word: string) => word.charAt(0).toUpperCase()).join(''))}</Text>
                     </View>
 
                     <View style={{ alignItems: 'center', marginVertical: 10 }}>
@@ -126,7 +126,7 @@ const EditIncome = ({ }: any) => {
                     <CTextInput icon={require("../assets/dollar-square.png")} key='Rental_Income_p_a' label='Rental Income' defaultValue={datas[0]?.Rental_Income_p_a?.toString()} id='Rental_Income_p_a' updateState={updateState} isNumOnly={true} />
 
                     <CTextInput icon={require("../assets/dollar-square.png")} key='Dividends_p_a' label='Dividends' defaultValue={datas[0]?.Dividends_p_a?.toString()} id='Dividends_p_a' updateState={updateState} isNumOnly={true} />
-                    
+
                     <CTextInput icon={require("../assets/dollar-square.png")} key='Pension_Annuity_p_a' label='Pension/Annuity' defaultValue={datas[0]?.Pension_Annuity_p_a?.toString()} id='Pension_Annuity_p_a' updateState={updateState} isNumOnly={true} />
 
                     <View>
@@ -150,17 +150,17 @@ const EditIncome = ({ }: any) => {
                         <CTextInput style={styles.tInput} key='Details_Other_Income' defaultValue={datas[0]?.Details_Other_Income?.toString()} id='Details_Other_Income' updateState={updateState} isNumOnly={false} isTextArea={true} />
                     </>}
                 </View>
-                <LinearGradient
-                    style={[styles.bottom, styles.bottomFlexBox]}
-                    locations={[0, 1]}
-                    colors={["#fbb142", "#f6a326"]}
-                    useAngle={true}
-                    angle={180}
-                >
-                    <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={updateProfile}>
+                <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={updateProfile}>
+                    <LinearGradient
+                        style={[styles.bottom, styles.bottomFlexBox]}
+                        locations={[0, 1]}
+                        colors={["#fbb142", "#f6a326"]}
+                        useAngle={true}
+                        angle={180}
+                    >
                         <Text style={[styles.edit, styles.ml4]}>Save</Text>
-                    </Pressable>
-                </LinearGradient>
+                    </LinearGradient>
+                </Pressable>
             </ScrollView>
         </View>
     );

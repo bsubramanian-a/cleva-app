@@ -123,12 +123,9 @@ const EditExpenses = ({ }: any) => {
                         <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.Household?.name?.charAt(0) + datas[0]?.Household?.name?.charAt(1))}</Text>
                     </View>
 
-                    <View style={{alignItems: 'center', marginVertical: 10}}>
-                        <Text style={{fontWeight: '500', fontSize: 22, color: 'black', fontFamily: FontFamily.sourceSerifPro}}>{datas[0]?.Household?.name}</Text>
-                    </View>
-
-                    <View style={{ alignItems: 'center', marginVertical: 1, marginBottom: 10 }}>
-                        <Text style={{ fontWeight: '500', fontSize: 15, color: '#FBB142'}}>Household</Text>
+                    <View style={{ alignItems: 'center', marginVertical: 10, marginTop: 18 }}>
+                        <Text style={{ fontWeight: '500', fontSize: 22, color: 'black', fontFamily: FontFamily.sourceSerifPro, marginBottom: 1 }}>{datas[0]?.Household?.name}</Text>
+                        <Text style={{ fontWeight: '500', fontSize: 15, color: '#FBB142' }}>Household</Text>
                     </View>
 
                     <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Gas_p_a' label='Gas' defaultValue={datas[0]?.Gas_p_a?.toString()} id='Gas_p_a' updateState={updateState} isNumOnly={true} />
@@ -167,19 +164,19 @@ const EditExpenses = ({ }: any) => {
 
                     <CTextInput icon={require("../assets/vuesaxlinearmoneyrecive.png")} key='Multi_Line_1' label='' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true} />
                 </View>
-                <LinearGradient
-                    style={[styles.bottom, styles.bottomFlexBox]}
-                    locations={[0, 1]}
-                    colors={["#fbb142", "#f6a326"]}
-                    useAngle={true}
-                    angle={180}
-                >
-                    <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={updateProfile}>
+                <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "center" }} onPress={updateProfile}>
+                    <LinearGradient
+                        style={[styles.bottom, styles.bottomFlexBox]}
+                        locations={[0, 1]}
+                        colors={["#fbb142", "#f6a326"]}
+                        useAngle={true}
+                        angle={180}
+                    >
                         <Text style={[styles.edit, styles.ml4]}>Save</Text>
-                    </Pressable>
-                </LinearGradient>
+                    </LinearGradient>
+                </Pressable>
             </ScrollView>
-        </View>
+        </View >
     );
 };
 

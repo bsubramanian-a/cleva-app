@@ -185,17 +185,17 @@ const EditEmployment = ({ }: any) => {
 
                     <CTextInput style={styles.tInput} key='Multi_Line_1' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} isTextArea={true} />
                 </View>
-                <LinearGradient
-                    style={[styles.bottom, styles.bottomFlexBox]}
-                    locations={[0, 1]}
-                    colors={["#fbb142", "#f6a326"]}
-                    useAngle={true}
-                    angle={180}
-                >
-                    <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={updateProfile}>
+                <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={updateProfile}>
+                    <LinearGradient
+                        style={[styles.bottom, styles.bottomFlexBox]}
+                        locations={[0, 1]}
+                        colors={["#fbb142", "#f6a326"]}
+                        useAngle={true}
+                        angle={180}
+                    >
                         <Text style={[styles.edit, styles.ml4]}>Save</Text>
-                    </Pressable>
-                </LinearGradient>
+                    </LinearGradient>
+                </Pressable>
             </ScrollView>
         </View>
     );
