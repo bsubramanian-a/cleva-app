@@ -10,20 +10,20 @@ import {
   Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Padding, Border, Color, FontFamily, FontSize} from '../GlobalStyles';
+import { Padding, Border, Color, FontFamily, FontSize } from '../GlobalStyles';
 import CustomHeader from '../components/CustomHeader';
 import CTextInput from '../components/CTextInput';
-import {useState} from 'react';
+import { useState } from 'react';
 import Label from '../components/Label';
 import CustomDatePicker from '../components/CustomDatepicker';
 import RadioButtonGroup from '../components/RadioButtonGroup';
 import actions from '../../actions';
 import Loader from '../components/Loader';
-import {useSelector} from 'react-redux';
-import FlashMessage, {showMessage} from 'react-native-flash-message';
-import {CommonActions} from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import FlashMessage, { showMessage } from 'react-native-flash-message';
+import { CommonActions } from '@react-navigation/native';
 
-const GoalImportance = ({navigation}: any) => {
+const GoalImportance = ({ navigation }: any) => {
   const [reponsible, setResponsible] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const addGoals = useSelector((state: any) => state.data.addGoals);
@@ -31,7 +31,7 @@ const GoalImportance = ({navigation}: any) => {
 
   const handleChange = (value: any) => {
     setResponsible(value);
-    actions.updateAddGoals({goal_priority: value});
+    actions.updateAddGoals({ goal_priority: value });
   };
 
   const currentHouseHoldOwners = [{ id: profile[0]?.id, name: `${profile[0]?.First_Name} ${profile[0]?.Last_Name}` }, profile[0]?.accounts?.length > 0 && { id: profile[0]?.accounts[0]?.id, name: `${profile[0]?.accounts[0]?.First_Name} ${profile[0]?.accounts[0]?.Last_Name}` }];
@@ -94,9 +94,9 @@ const GoalImportance = ({navigation}: any) => {
 
             <RadioButtonGroup
               options={[
-                {value: 'A Must Have'},
-                {value: 'Nice To Have'},
-                {value: 'May Be One Day'},
+                { value: 'A Must Have' },
+                { value: 'Nice To Have' },
+                { value: 'May Be One Day' },
               ]}
               onChange={handleChange}
               count={1}
@@ -117,18 +117,19 @@ const GoalImportance = ({navigation}: any) => {
             />
           </View>
 
-          <LinearGradient
-            style={[styles.bottom, styles.bottomFlexBox]}
-            locations={[0, 1]}
-            colors={['#fbb142', '#f6a326']}
-            useAngle={true}
-            angle={180}>
-            <Pressable
-              style={{flexDirection: 'row', alignItems: 'center'}}
-              onPress={updateData}>
+
+          <Pressable
+            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+            onPress={updateData}>
+            <LinearGradient
+              style={[styles.bottom, styles.bottomFlexBox]}
+              locations={[0, 1]}
+              colors={['#fbb142', '#f6a326']}
+              useAngle={true}
+              angle={180}>
               <Text style={[styles.edit, styles.ml4]}>Next</Text>
-            </Pressable>
-          </LinearGradient>
+            </LinearGradient>
+          </Pressable>
         </View>
       </ScrollView>
     </ScrollView>

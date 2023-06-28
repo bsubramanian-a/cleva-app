@@ -10,14 +10,14 @@ import {
   Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Padding, Border, Color, FontFamily, FontSize} from '../GlobalStyles';
+import { Padding, Border, Color, FontFamily, FontSize } from '../GlobalStyles';
 import CustomHeader from '../components/CustomHeader';
 import CTextInput from '../components/CTextInput';
-import {useState} from 'react';
+import { useState } from 'react';
 import Label from '../components/Label';
 import CustomDatePicker from '../components/CustomDatepicker';
 import RadioButtonGroup from '../components/RadioButtonGroup';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import actions from '../../actions';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
 import RadioButtonGroupOwner from '../components/RadioButtonGroupOwner';
@@ -71,11 +71,11 @@ const AddANewGoalGoalResponsi = ({navigation}: any) => {
                   id: profile[0]?.id,
                 },
                 profile[0]?.accounts?.length > 0 &&
-                  profile[0]?.accounts[0]?.Email && {
-                    value: `${profile[0]?.accounts[0]?.First_Name} ${profile[0]?.accounts[0]?.Last_Name}`,
-                    id: profile[0]?.accounts[0]?.id,
-                  },
-                {value: 'Joint'},
+                profile[0]?.accounts[0]?.Email && {
+                  value: `${profile[0]?.accounts[0]?.First_Name} ${profile[0]?.accounts[0]?.Last_Name}`,
+                  id: profile[0]?.accounts[0]?.id,
+                },
+                { value: 'Joint' },
               ]}
               onChange={handleChange}
               count={1}
@@ -96,18 +96,18 @@ const AddANewGoalGoalResponsi = ({navigation}: any) => {
             />
           </View>
 
-          <LinearGradient
-            style={[styles.bottom, styles.bottomFlexBox]}
-            locations={[0, 1]}
-            colors={['#fbb142', '#f6a326']}
-            useAngle={true}
-            angle={180}>
-            <Pressable
-              style={{flexDirection: 'row', alignItems: 'center'}}
-              onPress={updateData}>
+          <Pressable
+            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+            onPress={updateData}>
+            <LinearGradient
+              style={[styles.bottom, styles.bottomFlexBox]}
+              locations={[0, 1]}
+              colors={['#fbb142', '#f6a326']}
+              useAngle={true}
+              angle={180}>
               <Text style={[styles.edit, styles.ml4]}>Next</Text>
-            </Pressable>
-          </LinearGradient>
+            </LinearGradient>
+          </Pressable>
         </View>
       </ScrollView>
     </ScrollView>

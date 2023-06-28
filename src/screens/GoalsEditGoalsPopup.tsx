@@ -89,17 +89,17 @@ const GoalsEditGoalsPopup = () => {
             </View>
           </View>
         </View>
-        <LinearGradient
-          style={styles.editBtn}
-          locations={[0, 1]}
-          colors={["#fbb142", "#f6a326"]}
-          useAngle={true}
-          angle={180}
-        >
-          <Pressable style={styles.pressable}>
+        <Pressable style={styles.pressable}>
+          <LinearGradient
+            style={styles.editBtn}
+            locations={[0, 1]}
+            colors={["#fbb142", "#f6a326"]}
+            useAngle={true}
+            angle={180}
+          >
             <Text style={styles.save}>Save</Text>
-          </Pressable>
-        </LinearGradient>
+          </LinearGradient>
+        </Pressable>
       </View>
     </View>
   );

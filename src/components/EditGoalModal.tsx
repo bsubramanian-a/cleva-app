@@ -61,7 +61,10 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
   console.log("edit goal modal", goal?.owners)
 
   return (
-    <Modal visible={visible} onRequestClose={onClose} transparent>
+    <Modal visible={visible} onRequestClose={onClose} transparent={true} 
+    animationType="fade" 
+    backdropColor={'rgba(0, 0, 0, 0.8)'}
+    >
         <View style={styles.goalsEditGoalsPopup}>
             <Loader visible={loading} />
             <Pressable onPress={onClose} style={styles.closeButton}>
@@ -81,7 +84,7 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                     </Text>
                 </View>
 
-                <View style={{marginTop: 40}}>
+                <View style={{marginTop: 30}}>
                   <Text style={styles.subheading}>
                     Status
                   </Text>
@@ -102,12 +105,12 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                     coptionDescription={{
                       textAlign: 'center',
                       color: '#000',
-                      fontSize: 18,
+                      fontSize: 14,
                     }}
                     coptionTextStyle={{
                       textAlign: 'center',
                       color: '#000',
-                      fontSize: 18,
+                      fontSize: 14,
                       fontWeight: 600,
                     }}
                   />
@@ -146,12 +149,12 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                     coptionDescription={{
                       textAlign: 'center',
                       color: '#000',
-                      fontSize: 18,
+                      fontSize: 14,
                     }}
                     coptionTextStyle={{
                       textAlign: 'center',
                       color: '#000',
-                      fontSize: 18,
+                      fontSize: 14,
                       fontWeight: 600,
                     }}
                   />
@@ -231,8 +234,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   subheading: {
-    fontFamily: FontFamily.outfitMedium,
-    fontSize: 16,
+    fontFamily: FontFamily.sourceSerifPro,
+    fontSize: 14,
     fontWeight: '500',
     marginBottom: 10,
     marginTop: 20
@@ -260,7 +263,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   save200PerTypo: {
-    color: Color.darkslategray_100,
+    color: "#161616",
     fontFamily: FontFamily.outfitLight,
     fontWeight: "300",
   },
@@ -320,20 +323,15 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   save200Per: {
-    marginLeft: -152,
-    top: 37,
-    width: 304,
+    marginTop: 12,
     lineHeight: 20,
-    color: Color.darkslategray_100,
+    color: "#4B4B4B",
     fontFamily: FontFamily.outfitLight,
     fontWeight: "300",
     fontSize: FontSize.size_sm,
     textAlign: "center",
-    left: "50%",
-    position: "absolute",
   },
   save20000ForNewCarParent: {
-    height: 97,
     marginTop: 30,
     alignSelf: "stretch",
   },
@@ -405,16 +403,6 @@ const styles = StyleSheet.create({
   frameContainer: {
     alignSelf: "stretch",
   },
-  jointWrapper: {
-    paddingHorizontal: 58,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  clevaWrapper: {
-    paddingHorizontal: 56,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   frameView: {
     marginTop: 10,
     alignSelf: "stretch",
@@ -453,7 +441,6 @@ const styles = StyleSheet.create({
   },
   parent: {
     borderColor: "#dedede",
-    width: 310,
     paddingLeft: Padding.p_xl,
     paddingTop: Padding.p_6xs,
     paddingRight: Padding.p_6xs,
@@ -487,10 +474,6 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "center",
-  },
-  editBtn: {
-    height: 44,
-    marginTop: 30,
   },
   groupParent: {
     borderRadius: Border.br_base,

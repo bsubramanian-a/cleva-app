@@ -12,22 +12,22 @@ import {
 
 const IconEditBtn = () => {
   return (
-    <LinearGradient
-      style={styles.editBtn}
-      locations={[0, 1]}
-      colors={["#fbb142", "#f6a326"]}
-      useAngle={true}
-      angle={180}
-    >
-      <Pressable style={styles.pressable}>
+    <Pressable style={styles.pressable}>
+      <LinearGradient
+        style={styles.editBtn}
+        locations={[0, 1]}
+        colors={["#fbb142", "#f6a326"]}
+        useAngle={true}
+        angle={180}
+      >
         <Image
           style={styles.vuesaxlinearedit2Icon}
           resizeMode="cover"
           source={require("../assets/vuesaxlinearedit2.png")}
         />
         <Text style={[styles.edit, styles.ml4]}>Edit</Text>
-      </Pressable>
-    </LinearGradient>
+      </LinearGradient>
+    </Pressable>
   );
 };
 

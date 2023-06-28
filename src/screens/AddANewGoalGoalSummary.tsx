@@ -15,7 +15,7 @@ import { useRoute } from "@react-navigation/native";
 import { useEffect } from "react";
 import actions from "../../actions";
 
-const AddANewGoalGoalSummary = ({navigation}:any) => {
+const AddANewGoalGoalSummary = ({ navigation }: any) => {
   const route: any = useRoute();
   const { money_need, formattedDate, money_save, frequent_money_save } = route.params;
   
@@ -23,8 +23,8 @@ const AddANewGoalGoalSummary = ({navigation}:any) => {
     <View
       style={[styles.addANewGoalGoalSummary, styles.goalLayout]}
     >
-      <CustomHeader name="Property Goal" type={2} back="Home"/>
-      
+      <CustomHeader name="Property Goal" type={2} back="Home" />
+
       <ScrollView
         style={styles.advicecontainerWrapper}
         showsVerticalScrollIndicator={true}
@@ -44,7 +44,7 @@ const AddANewGoalGoalSummary = ({navigation}:any) => {
                     resizeMode="contain"
                     source={require("../assets/group-1171275104.png")}
                   />
-                </View> 
+                </View>
                 <Text
                   style={[
                     styles.toAchieveYourContainer,
@@ -64,17 +64,17 @@ const AddANewGoalGoalSummary = ({navigation}:any) => {
                 </Text>
               </View>
             </View>
-            <LinearGradient
-              style={[styles.bottom, styles.bottomFlexBox]}
-              locations={[0, 1]}
-              colors={["#fbb142", "#f6a326"]}
-              useAngle={true}
-              angle={180}
-            >
-              <Pressable style={{flexDirection: 'row', alignItems: 'center'}} onPress={() => navigation.navigate('Goals')}>
+            <Pressable style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.navigate('Goals')}>
+              <LinearGradient
+                style={[styles.bottom, styles.bottomFlexBox]}
+                locations={[0, 1]}
+                colors={["#fbb142", "#f6a326"]}
+                useAngle={true}
+                angle={180}
+              >
                 <Text style={[styles.edit, styles.ml4]}>Add Another Property Goal</Text>
-              </Pressable>
-            </LinearGradient>
+              </LinearGradient>
+            </Pressable>
           </View>
         </View>
       </ScrollView>
@@ -100,12 +100,12 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   edit: {
-      fontSize: FontSize.textMediumBoldText1_size,
-      lineHeight: 20,
-      fontWeight: "600",
-      fontFamily: FontFamily.openSansRegular,
-      color: Color.white1,
-      textAlign: "center",
+    fontSize: FontSize.textMediumBoldText1_size,
+    lineHeight: 20,
+    fontWeight: "600",
+    fontFamily: FontFamily.openSansRegular,
+    color: Color.white1,
+    textAlign: "center",
   },
   frameScrollViewContent: {
     flexDirection: "column",
