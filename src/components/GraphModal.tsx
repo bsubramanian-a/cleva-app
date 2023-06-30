@@ -25,10 +25,10 @@ const GraphModal = ({
   console.log("yaxis inside", yaxis);
 
   const data = {
-    labels: xaxis || [],
+    labels: xaxis?.length > 0 ? xaxis : [0],
     datasets: [
       {
-        data: yaxis || [],
+        data: yaxis?.length > 0 ? yaxis : [0],
       },
     ],
   };

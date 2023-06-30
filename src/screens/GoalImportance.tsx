@@ -50,7 +50,6 @@ const GoalImportance = ({ navigation }: any) => {
         const response: any = await actions.createGoal(updateData);
 
         setTimeout(async() => {
-          actions.emptyAddGoals();
           await actions.getGoalsByAccount();
 
           navigation.navigate('AddANewGoalGoalSummary', {
@@ -58,7 +57,9 @@ const GoalImportance = ({ navigation }: any) => {
             money_need: response?.money_need,
             money_save: response?.money_save,
             frequent_money_save: response?.frequent_money_save,
+            title: addGoals?.goalType
           });
+          actions.emptyAddGoals();
           setLoading(false);
         }, 1000)
       } catch (error) {

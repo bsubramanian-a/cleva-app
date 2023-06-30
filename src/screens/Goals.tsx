@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import EditGoalModal from "../components/EditGoalModal";
 import WealthTab from "../components/WealthTab";
 import { ScrollView } from "react-native-gesture-handler";
+import Loader from "../components/Loader";
 
 const Goals = ({navigation}:any) => {
   const [selectedFilter, setSelectedFilter] = useState('6 mo');
@@ -28,14 +29,7 @@ const Goals = ({navigation}:any) => {
   const [currentGoal, setCurrentGoal] = useState<any>();
   const [xaxis, setXaxis] = useState([]);
   const [yaxis, setYaxis] = useState([]); 
-
-  useEffect(() => {
-    getGoals();
-  }, [])
-
-  const getGoals = async() => {
-    await actions.getGoalsByAccount();
-  } 
+  const [loading, setLoading] = useState(false);
   
   const handleRadioChange = (value:any) => {
     console.log('Selected Option:', value);
@@ -47,7 +41,7 @@ const Goals = ({navigation}:any) => {
 
   const openModal = (goal:any) => {
     setCurrentGoal(goal);
-    setModalVisible(true);
+    getChartData();
   };
 
   const closeModal = () => {
@@ -62,62 +56,75 @@ const Goals = ({navigation}:any) => {
     setActiveTab(tabNumber);
   }; 
 
+  useEffect(() => {
+    getGoals();
+  }, [])
+
+  const getGoals = async() => {
+    setLoading(true);
+    await actions.getGoalsByAccount();
+    setLoading(false);
+  } 
+
   const getChartData = async () => {
+    setLoading(true);
     const chartData:any = await actions.getChartData(selectedFilter, currentGoal?.id, currentGoal?.Current_Value);
-    console.log("chartData", chartData);
-    setXaxis(chartData?.x);
-    setYaxis(chartData?.y);
+    setXaxis(chartData?.x || []);
+    setYaxis(chartData?.y || []);
+    setModalVisible(true);
+    setLoading(false);
   }
 
-  useEffect(() => {
-    if(modalVisible && currentGoal) getChartData();
-  }, [selectedFilter, currentGoal])
+  // useEffect(() => {
+  //   if(modalVisible && currentGoal) getChartData();
+  // }, [selectedFilter, currentGoal])
 
   return (
-    <ScrollView>
+    <View style={{flex: 1}}>
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
       <CustomHeader name="Goals" type={1}/>
-
+      <Loader visible={loading} />
       <GraphModal xaxis={xaxis} yaxis={yaxis} goal={currentGoal} key="GraphModal" visible={modalVisible} onClose={closeModal} filterOptions={[{value: "All"}, {value: "6 mo"}, {value: "1 yr"}, {value: "3 yrs"}, {value: "5 yrs"}, {value: "10 yrs"}]} handleFilter={handleFilter} selectedFilter={selectedFilter}/>
 
       <GoalCategoryModal key="GoalCategoryModal" navigation={navigation} visible={isCateoryModalVisible} onClose={() => setIsCategoryModalVisible(false)} />
        
       <EditGoalModal key="EditGoalModal" navigation={navigation} goal={currentGoal} visible={isEditModalVisible} onClose={() => setIsEditModalVisible(false)} />
+      <ScrollView>
+        <WealthTab 
+          tabs={['Labelled Money', 'ClevaLife']}
+          activeTab={activeTab} 
+          onTabPress={handleTabPress}/>
 
-      <WealthTab 
-        tabs={['Labelled Money', 'ClevaLife']}
-        activeTab={activeTab} 
-        onTabPress={handleTabPress}/>
+        {activeTab == 0 && <LinearGradient
+          style={[
+            styles.setYourGoalsToSaveForSomParent,
+            styles.parentFlexBox,
+          ]}
+          locations={[0, 1]}
+          colors={["#fbb142", "#f6a326"]}
+          useAngle={true}
+          angle={180}
+        >
+          <Text style={[styles.setYourGoalsContainer, styles.doingTypo]}>
+            Set your goals to save for something important and/or exciting
+          </Text>
+          <TouchableOpacity onPress={() => setIsCategoryModalVisible(true)}>
+            <Image
+              style={styles.frameChild}
+              resizeMode="cover"
+              source={require("../assets/frame-562.png")}
+            />
+          </TouchableOpacity>
+        </LinearGradient>}
 
-      {activeTab == 0 && <LinearGradient
-        style={[
-          styles.setYourGoalsToSaveForSomParent,
-          styles.parentFlexBox,
-        ]}
-        locations={[0, 1]}
-        colors={["#fbb142", "#f6a326"]}
-        useAngle={true}
-        angle={180}
-      >
-        <Text style={[styles.setYourGoalsContainer, styles.doingTypo]}>
-          Set your goals to save for something important and/or exciting
-        </Text>
-        <TouchableOpacity onPress={() => setIsCategoryModalVisible(true)}>
-          <Image
-            style={styles.frameChild}
-            resizeMode="cover"
-            source={require("../assets/frame-562.png")}
-          />
-        </TouchableOpacity>
-      </LinearGradient>}
-
-      {(goals?.length > 0 && activeTab == 0) && <View style={styles.goalsContainer}>
-        {goals?.map((goal: any, index: any) => <GoalItem openModal={openModal} key={"GoalItem"+index} onPress={(data:any) => {
-          setCurrentGoal(data);
-          setIsEditModalVisible(true)
-        }} data={goal} /> )}
-      </View>}
-    </ScrollView> 
+        {(goals?.length > 0 && activeTab == 0) && <View style={styles.goalsContainer}>
+          {goals?.map((goal: any, index: any) => <GoalItem openModal={openModal} key={"GoalItem"+index} onPress={(data:any) => {
+            setCurrentGoal(data);
+            setIsEditModalVisible(true)
+          }} data={goal} /> )}
+        </View>}
+      </ScrollView>
+    </View> 
   );
 };
 

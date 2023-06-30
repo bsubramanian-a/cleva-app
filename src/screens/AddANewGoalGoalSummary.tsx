@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 
 const AddANewGoalGoalSummary = ({ navigation }: any) => {
   const route: any = useRoute();
-  const { money_need, formattedDate, money_save, frequent_money_save } = route.params;
+  const { money_need, formattedDate, money_save, frequent_money_save, title } = route.params;
   const addGoals = useSelector((state: any) => state.data.addGoals);
 
   const handleBackButton = () => {
@@ -41,7 +41,7 @@ const AddANewGoalGoalSummary = ({ navigation }: any) => {
     <View
       style={[styles.addANewGoalGoalSummary, styles.goalLayout]}
     >
-      <CustomHeader name={addGoals?.goalType + " Goal"} type={2} back="Home" />
+      <CustomHeader name={title + " Goal"} type={2} back="Home" />
 
       <ScrollView
         style={styles.advicecontainerWrapper}
