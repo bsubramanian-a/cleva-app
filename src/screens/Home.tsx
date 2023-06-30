@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Dimensions } from "react-native";
+import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Dimensions, BackHandler } from "react-native";
 import EventCard from "../components/EventCard";
 import RecommededCard from "../components/RecommededCard";
 import {
@@ -38,6 +38,21 @@ const Home = () => {
       }
     }
   };
+
+  const handleBackButton = () => {
+    // Replace 'ScreenName' with the name of the screen you want to redirect to
+    navigation.navigate('Home');
+    return true; // Return true to indicate that the event has been handled
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+  
+    return () => {
+      // Cleanup the event listener when the component unmounts
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    };
+  }, []);
 
   useEffect(() => {
     getDatas();

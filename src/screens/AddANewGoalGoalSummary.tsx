@@ -7,6 +7,7 @@ import {
   Text,
   Pressable,
   Dimensions,
+  BackHandler
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { Padding, FontFamily, Color, FontSize, Border } from "../GlobalStyles";
@@ -14,16 +15,33 @@ import CustomHeader from "../components/CustomHeader";
 import { useRoute } from "@react-navigation/native";
 import { useEffect } from "react";
 import actions from "../../actions";
+import { useSelector } from "react-redux";
 
 const AddANewGoalGoalSummary = ({ navigation }: any) => {
   const route: any = useRoute();
   const { money_need, formattedDate, money_save, frequent_money_save } = route.params;
+  const addGoals = useSelector((state: any) => state.data.addGoals);
+
+  const handleBackButton = () => {
+    // Replace 'ScreenName' with the name of the screen you want to redirect to
+    navigation.navigate('Home');
+    return true; // Return true to indicate that the event has been handled
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+  
+    return () => {
+      // Cleanup the event listener when the component unmounts
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    };
+  }, []);
   
   return (
     <View
       style={[styles.addANewGoalGoalSummary, styles.goalLayout]}
     >
-      <CustomHeader name="Property Goal" type={2} back="Home" />
+      <CustomHeader name={addGoals?.goalType + " Goal"} type={2} back="Home" />
 
       <ScrollView
         style={styles.advicecontainerWrapper}

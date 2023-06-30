@@ -54,12 +54,9 @@ const AddANewGoalGoalDate = ({ navigation }: any) => {
   };
 
   return (
-    <ScrollView
-      style={styles.addANewGoalGoalDate}
-      showsVerticalScrollIndicator={true}
-      showsHorizontalScrollIndicator={true}
-      contentContainerStyle={styles.addANewGoalGoalDateContent}>
-      <CustomHeader name="Property Goal" type={2} />
+    <View
+      style={styles.addANewGoalGoalDate}>
+      <CustomHeader name={addGoals?.goalType + " Goal"} type={2} />
       <FlashMessage position="top" />
       <ScrollView
         style={styles.advicecontainerWrapper}
@@ -121,7 +118,7 @@ const AddANewGoalGoalDate = ({ navigation }: any) => {
           </Pressable>
         </View>
       </ScrollView>
-    </ScrollView >
+    </View >
   );
 };
 

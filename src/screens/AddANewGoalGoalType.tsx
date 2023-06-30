@@ -15,11 +15,8 @@ import actions from "../../actions";
 
 const AddANewGoalGoalType = () => {
   return (
-    <ScrollView
+    <View
       style={[styles.addANewGoalGoalType, styles.goalBg]}
-      showsVerticalScrollIndicator={true}
-      showsHorizontalScrollIndicator={true}
-      contentContainerStyle={styles.addANewGoalGoalTypeContent}
     >
       <CustomHeader name="Property Goal" type={2} />
 
@@ -94,7 +91,7 @@ const AddANewGoalGoalType = () => {
           </View>
         </View>
       </ScrollView>
-    </ScrollView>
+    </View>
   );
 };
 

@@ -61,7 +61,8 @@ const HeaderBack = ({
 
 const styles = StyleSheet.create({
   ml83: {
-    marginLeft: 83,
+    // marginLeft: 60,
+    justifyContent: 'center'
   },
   topMenuFlexBox: {
     flexDirection: "row",

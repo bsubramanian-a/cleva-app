@@ -7,7 +7,20 @@ const GoalItem = ({data, onPress, openModal}:any) => {
         const month = (date.getMonth() + 1).toString().padStart(2, "0");
         const formattedDate = `${date.getDate()}/${month}/${date.getFullYear()}`;
         return formattedDate;
-      }  
+    }  
+
+    const getInitials = (name="") => {
+        const initials = name
+            ? name.split(' ').length === 1
+                ? name.substring(0, 2)
+                : name
+                    .split(' ')
+                    .map((word:string) => word.charAt(0))
+                    .join('')
+            : '';
+
+        return initials;
+    }
 
     return (
         <TouchableOpacity onPress={() => onPress(data)} style={styles.frameParentShadowBox}>
@@ -31,7 +44,7 @@ const GoalItem = ({data, onPress, openModal}:any) => {
                 <Text style={styles.goalOwnerDrContainer}>
                     <Text style={styles.goalOwner}>
                         <Text style={styles.goalOwner1}>Goal Owner:</Text>
-                        <Text style={styles.text}>{""}</Text>
+                        <Text style={styles.text}>{data?.owners?.length > 0 ? (data?.owners?.length > 1 ? 'Joint' : getInitials(data?.owners[0]?.Goal_Owner_s?.name)) : ""}</Text>
                     </Text>
                     <Text style={styles.text}>
                         <Text style={styles.dr1}>{data?.owner}</Text>
@@ -116,9 +129,11 @@ const styles = StyleSheet.create({
     goalOwner1: {
         fontWeight: "300",
         fontFamily: FontFamily.outfitLight,
+        color: '#4b4b4b'
     },
     text: {
         fontFamily: FontFamily.outfitRegular,
+        color: '#000'
     },
     goalOwner: {
         color: Color.darkslategray_100,

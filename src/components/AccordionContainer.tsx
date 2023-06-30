@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
   value: {
     fontWeight: 'bold',
     color: '#000',
-    width: "40%",
+    width: "47%",
     textAlign: 'right'
   },
 });

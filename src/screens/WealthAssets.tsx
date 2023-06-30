@@ -55,7 +55,7 @@ const WealthAssets = () => {
           }
         </View>
         <View style={styles.buttonContainer}>
-          <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={() => navigation.navigate('AddWealth', { type: activeTab == 0 ? 'asset' : 'liability' })}>
+          <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '48%' }} onPress={() => navigation.navigate('AddWealth', { type: activeTab == 0 ? 'asset' : 'liability' })}>
             <LinearGradient
               style={[styles.bottom, styles.bottomFlexBox]}
               locations={[0, 1]}
@@ -72,7 +72,7 @@ const WealthAssets = () => {
             </LinearGradient>
           </Pressable>
 
-          <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={() => navigation.navigate('EditWealth', { type: activeTab == 0 ? 'asset' : 'liability' })}>
+          <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '48%' }} onPress={() => navigation.navigate('EditWealth', { type: activeTab == 0 ? 'asset' : 'liability' })}>
             <LinearGradient
               style={[styles.bottom, styles.bottomFlexBox]}
               locations={[0, 1]}
@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   bottomFlexBox: {
+    flexDirection: 'row',
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 24
   },
   bottom: {
-    width: "48%",
+    width: "98%",
     paddingHorizontal: 5,
     paddingVertical: 14,
     alignSelf: 'center',

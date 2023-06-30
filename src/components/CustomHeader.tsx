@@ -53,9 +53,9 @@ const CustomHeader = ({name, type, back = ''}: any) => {
                 source={require("../assets/mainvector-1.png")}
                 />
                 <HeaderBack
-                goBack={goBack}
-                vuesaxlineararrowLeft={require("../assets/vuesaxlineararrowleft.png")}
-                getStarted={name}
+                  goBack={goBack}
+                  vuesaxlineararrowLeft={require("../assets/vuesaxlineararrowleft.png")}
+                  getStarted={name}
                 />
             </LinearGradient>
           );

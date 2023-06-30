@@ -43,12 +43,9 @@ const AddANewGoalGoalFrequenc = ({ navigation }: any) => {
   };
 
   return (
-    <ScrollView
-      style={styles.addANewGoalGoalDate}
-      showsVerticalScrollIndicator={true}
-      showsHorizontalScrollIndicator={true}
-      contentContainerStyle={styles.addANewGoalGoalDateContent}>
-      <CustomHeader name="Property Goal" type={2} />
+    <View
+      style={styles.addANewGoalGoalDate}>
+      <CustomHeader name={addGoals?.goalType + " Goal"} type={2} />
       <FlashMessage position="top" />
       <ScrollView
         style={styles.advicecontainerWrapper}
@@ -95,13 +92,13 @@ const AddANewGoalGoalFrequenc = ({ navigation }: any) => {
               locations={[0, 1]}
               colors={['#fbb142', '#f6a326']}
               useAngle={true}
-              angle={180}>
+              angle={180}> 
               <Text style={[styles.edit, styles.ml4]}>Next</Text>
             </LinearGradient>
           </Pressable>
         </View>
       </ScrollView>
-    </ScrollView>
+    </View>
   );
 };
 
