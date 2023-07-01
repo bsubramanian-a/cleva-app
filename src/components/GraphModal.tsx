@@ -57,6 +57,7 @@ const GraphModal = ({
             defaultValue={selectedFilter}
             onChange={handleFilter}
             count={6}
+            elevation={0}
             coptionContainer={{
               height: 25,
               marginVertical: 0,

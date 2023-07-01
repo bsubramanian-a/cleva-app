@@ -229,7 +229,7 @@ const Profile = () => {
               { icon: require("../assets/money-recieve.png"), name: 'Other Investment', value: `$${profile[0]?.expenses[0]?.Other_Investment_Loan_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
               { icon: require("../assets/money-recieve.png"), name: 'Personal', value: `$${profile[0]?.expenses[0]?.Personal_Loan_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
               { icon: require("../assets/money-recieve.png"), name: 'Credit Cards', value: `$${profile[0]?.expenses[0]?.Credit_Cards_per_month?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
-              { icon: require("../assets/money-recieve.png"), name: 'Other Expenses',  value: `$${profile[0]?.expenses[0]?.Other_Expenses_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}\n${profile[0]?.expenses[0]?.Multi_Line_1}` },
+              { icon: require("../assets/money-recieve.png"), name: 'Other Expenses',  value: `$${(profile[0]?.expenses[0]?.Other_Expenses_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') || 0)}\n${profile[0]?.expenses[0]?.Multi_Line_1}` },
             ]
           }
         ].filter(obj => obj)

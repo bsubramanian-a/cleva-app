@@ -75,9 +75,9 @@ const Goals = ({navigation}:any) => {
     setLoading(false);
   }
 
-  // useEffect(() => {
-  //   if(modalVisible && currentGoal) getChartData();
-  // }, [selectedFilter, currentGoal])
+  useEffect(() => {
+    if(modalVisible && currentGoal) getChartData();
+  }, [selectedFilter, currentGoal])
 
   return (
     <View style={{flex: 1}}>

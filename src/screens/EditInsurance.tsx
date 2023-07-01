@@ -127,29 +127,30 @@ const EditInsurance = ({ }: any) => {
                         <Text style={{ fontWeight: '500', fontSize: 22, color: 'black', fontFamily: FontFamily.sourceSerifPro, }}>{datas[0]?.Client_Name?.name}</Text>
                     </View>
 
-                    <CTextInput icon={require("../assets/profile.png")} key='Total_Liabilities' label='Total Liabilitiese' defaultValue={datas[0]?.Total_Liabilities?.toString()} id='Total_Liabilities' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/dollar-square.png")} key='Total_Liabilities' label='Total Liabilitiese' defaultValue={datas[0]?.Total_Liabilities?.toString()} id='Total_Liabilities' updateState={updateState} isNumOnly={true} />
 
-                    <CTextInput icon={require("../assets/profile.png")} key='Child_Edu_Allowance' label='Allowance for Children/Education' defaultValue={datas[0]?.Child_Edu_Allowance?.toString()} id='Child_Edu_Allowance' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/dollar-square.png")} key='Child_Edu_Allowance' label='Allowance for Children/Education' defaultValue={datas[0]?.Child_Edu_Allowance?.toString()} id='Child_Edu_Allowance' updateState={updateState} isNumOnly={true} />
 
-                    <CTextInput icon={require("../assets/profile.png")} key='Replace_Income_p_a' label='Replace Income p.a.' defaultValue={datas[0]?.Replace_Income_p_a?.toString()} id='Replace_Income_p_a' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/dollar-square.png")} key='Replace_Income_p_a' label='Replace Income p.a.' defaultValue={datas[0]?.Replace_Income_p_a?.toString()} id='Replace_Income_p_a' updateState={updateState} isNumOnly={true} />
 
-                    <CTextInput icon={require("../assets/profile.png")} key='Number_of_Income_Yrs' label='Number of years' defaultValue={datas[0]?.Number_of_Income_Yrs?.toString()} id='Number_of_Income_Yrs' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/dollar-square.png")} key='Number_of_Income_Yrs' label='Number of years' defaultValue={datas[0]?.Number_of_Income_Yrs?.toString()} id='Number_of_Income_Yrs' updateState={updateState} isNumOnly={true} />
 
-                    <CTextInput icon={require("../assets/profile.png")} key='Allowance_Medical' label='Allowance for Medical' defaultValue={datas[0]?.Allowance_Medical?.toString()} id='Allowance_Medical' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/dollar-square.png")} key='Allowance_Medical' label='Allowance for Medical' defaultValue={datas[0]?.Allowance_Medical?.toString()} id='Allowance_Medical' updateState={updateState} isNumOnly={true} />
 
-                    <CTextInput icon={require("../assets/profile.png")} key='Allowance_Funeral' label='Allowance for funeral' defaultValue={datas[0]?.Allowance_Funeral?.toString()} id='Allowance_Funeral' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/dollar-square.png")} key='Allowance_Funeral' label='Allowance for funeral' defaultValue={datas[0]?.Allowance_Funeral?.toString()} id='Allowance_Funeral' updateState={updateState} isNumOnly={true} />
 
-                    <CTextInput icon={require("../assets/profile.png")} key='Allowance_Emergency' label='Allowance for Emergency' defaultValue={datas[0]?.Allowance_Emergency?.toString()} id='Allowance_Emergency' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/dollar-square.png")} key='Allowance_Emergency' label='Allowance for Emergency' defaultValue={datas[0]?.Allowance_Emergency?.toString()} id='Allowance_Emergency' updateState={updateState} isNumOnly={true} />
 
-                    <CTextInput icon={require("../assets/profile.png")} key='Allowance_Home_Mods' label='Allowance for House Modifications' defaultValue={datas[0]?.Allowance_Home_Mods?.toString()} id='Allowance_Home_Mods' updateState={updateState} isNumOnly={true} />
+                    <CTextInput icon={require("../assets/dollar-square.png")} key='Allowance_Home_Mods' label='Allowance for House Modifications' defaultValue={datas[0]?.Allowance_Home_Mods?.toString()} id='Allowance_Home_Mods' updateState={updateState} isNumOnly={true} />
 
                     <DualCheckbox
                         label="Other"
                         value={otherheckboxValue}
                         onChange={handleOtherCheckboxChange}
+                        containerStyle={{marginTop: 12}}
                     />
 
-                    {otherheckboxValue && <CTextInput icon={require("../assets/profile.png")} key='Other_Allowances_Consideration' label='Other' defaultValue={datas[0]?.Other_Allowances_Consideration?.toString()} id='Other_Allowances_Consideration' updateState={updateState} isNumOnly={true} />}
+                    {otherheckboxValue && <CTextInput icon={require("../assets/dollar-square.png")} key='Other_Allowances_Consideration' label='Other' defaultValue={datas[0]?.Other_Allowances_Consideration?.toString()} id='Other_Allowances_Consideration' updateState={updateState} isNumOnly={true} />}
 
                     <CTextInput isTextArea={true} key='Multi_Line_1' label='' defaultValue={datas[0]?.Multi_Line_1?.toString()} id='Multi_Line_1' updateState={updateState} isNumOnly={false} placeholder="Other income details write here..." />
                 </View>

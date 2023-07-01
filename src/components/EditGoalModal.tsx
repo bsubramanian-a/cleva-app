@@ -79,11 +79,9 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
             </Pressable>
             <ScrollView contentContainerStyle={[styles.groupParent, styles.groupParentShadowBox]}>
                 <View style={styles.save20000ForNewCarParent}>
-                    <Text style={styles.save20000For}>Save $20000 for New Car</Text>
+                    <Text style={styles.save20000For}>{goal?.Name}</Text>
                     <Text style={[styles.save200Per, styles.save200PerTypo]}>
-                        Save $200 per fortnight untill sept 2028. Make it easier to hit your
-                        goal by automatically deducting an amount from your income using
-                        direct debit.
+                       {goal?.Description}
                     </Text>
                 </View>
 
@@ -203,7 +201,7 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                       colors={['#fbb142', '#f6a326']}
                       useAngle={true}
                       angle={180}>
-                        <Text style={[styles.edit, styles.ml4]}>Next</Text>
+                        <Text style={[styles.edit, styles.ml4]}>Save</Text>
                   </LinearGradient>
                 </Pressable>
             </ScrollView>
@@ -330,18 +328,18 @@ const styles = StyleSheet.create({
     marginLeft: -152,
     top: 37,
     width: 304,
-    lineHeight: 20,
+    // lineHeight: 20,
     color: Color.darkslategray_100,
     fontFamily: FontFamily.outfitLight,
     fontWeight: "300",
     fontSize: FontSize.size_sm,
     textAlign: "center",
     left: "50%",
-    position: "absolute",
+    // position: "absolute",
   },
   save20000ForNewCarParent: {
-    height: 97,
-    marginTop: 30,
+    // height: 97,
+    // marginTop: 30,
     alignSelf: "stretch",
   },
   nSeeveeLane: {

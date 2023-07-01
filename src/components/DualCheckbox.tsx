@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-const DualCheckbox = ({ label, value, onChange }: any) => {
+const DualCheckbox = ({ label, value, onChange, containerStyle }: any) => {
   const handleCheckboxChange = (newValue: any) => {
     if (onChange) {
       onChange(newValue);
@@ -9,7 +9,7 @@ const DualCheckbox = ({ label, value, onChange }: any) => {
   };
 
   return (
-    <View style={styles.checkboxContainer}>
+    <View style={[styles.checkboxContainer, containerStyle]}>
       <Text style={styles.label}>{label}</Text>
       <View style={styles.checkboxGroup}>
         <TouchableOpacity

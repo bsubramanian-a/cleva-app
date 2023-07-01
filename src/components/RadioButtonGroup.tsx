@@ -13,6 +13,7 @@ const RadioButtonGroup = ({
   coptionView,
   coptionDescription,
   coptionTextStyle,
+  elevation=2
 }: any) => {
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
@@ -51,7 +52,7 @@ const RadioButtonGroup = ({
       row.push(
         <TouchableOpacity
           key={option+index}
-          style={optionContainerStyle}
+          style={[optionContainerStyle, {elevation: elevation}]}
           onPress={() => handleOptionPress(option)}
           activeOpacity={0.8}>
           {isSelected ? (

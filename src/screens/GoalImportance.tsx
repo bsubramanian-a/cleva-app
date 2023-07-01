@@ -48,18 +48,19 @@ const GoalImportance = ({ navigation }: any) => {
 
       try {
         const response: any = await actions.createGoal(updateData);
+        // console.log("money need", response?.money_need?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ','))
 
         setTimeout(async() => {
           await actions.getGoalsByAccount();
-
+        actions.emptyAddGoals();
           navigation.navigate('AddANewGoalGoalSummary', {
             formattedDate: response?.targetDate,
-            money_need: response?.money_need,
-            money_save: response?.money_save,
+            money_need: response?.money_need?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+            money_save: response?.money_save?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
             frequent_money_save: response?.frequent_money_save,
             title: addGoals?.goalType
           });
-          actions.emptyAddGoals();
+          
           setLoading(false);
         }, 1000)
       } catch (error) {
