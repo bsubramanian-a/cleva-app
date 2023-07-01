@@ -13,7 +13,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		940AE776924D01B195C86817 /* libPods-Cleva.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C574899883DA85550B10BE4 /* libPods-Cleva.a */; };
-		95DD55602A4C9DAE00C9BF49 /* libFlipper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95DD555F2A4C9DAE00C9BF49 /* libFlipper.a */; };
 		B3374ABE3D117B12B392C0D4 /* libPods-Cleva-ClevaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98F550F301530A9C8BD89F73 /* libPods-Cleva-ClevaTests.a */; };
 		FC3606612A36EE8B008BF688 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC3606602A36EE8B008BF688 /* GoogleService-Info.plist */; };
 		FC94E2F12A1B580E0040480E /* Outfit_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC94E2DE2A1B58070040480E /* Outfit_light.ttf */; };
@@ -102,7 +101,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95DD55602A4C9DAE00C9BF49 /* libFlipper.a in Frameworks */,
 				940AE776924D01B195C86817 /* libPods-Cleva.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
