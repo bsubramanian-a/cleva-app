@@ -82,6 +82,7 @@ const AssetsWealth = ({datas, loading, setLoading, type}: any) => {
                   />
                 </Pressable>
               </View>
+              
               <DeletePopup
                 key={data.id}
                 isVisible={isDeleteModalVisible === data.id}

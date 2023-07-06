@@ -28,9 +28,9 @@ import {
   RETIREMENT,
   GETGOALBYACCOUNT,
   CREATEGOAL,
-  UPDATEGOAL,
   UPDATEGOALS,
   CHARTDATA,
+  ACCOUNTS
 } from '../urls';
 import store from '../store';
 import types from '../types';
@@ -148,6 +148,22 @@ export const getLiabilities = () => {
   });
 };
 
+export const getAccounts = () => {
+  return new Promise((resolve, reject) => {
+    return apiGet(ACCOUNTS)
+      .then(res => {
+        dispatch({
+          type: types.ACCOUNTS,
+          payload: res.data,
+        });
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
 export const getProfile = () => {
   return new Promise((resolve, reject) => {
     return apiGet(PROFILE)
@@ -184,6 +200,18 @@ export const getGoalsByAccount = () => {
 export const updateWealth = (data: any) => {
   return new Promise((resolve, reject) => {
     return apiPut(ASSETS, data)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const updateAccount= (data: any) => {
+  return new Promise((resolve, reject) => {
+    return apiPut(ACCOUNTS, data)
       .then(res => {
         resolve(res);
       })

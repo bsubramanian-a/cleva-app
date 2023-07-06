@@ -5,17 +5,17 @@ import Modal from 'react-native-modal';
 const DeletePopup = ({ isVisible, onDelete, onCancel, id }:any) => {
   return (
     <Modal isVisible={isVisible} backdropOpacity={0.5}>
-      <View style={styles.container}>
-        <Text style={styles.message}>Are you sure you want to delete?</Text>
-        <View style={styles.btnContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => onDelete(id)}>
-                <Text style={styles.buttonText}>Delete</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={onCancel}>
-                <Text style={styles.buttonText}>Cancel</Text>
-            </TouchableOpacity>
+        <View style={styles.container}>
+            <Text style={styles.message}>Are you sure you want to delete ?</Text>
+            <View style={styles.btnContainer}>
+                <TouchableOpacity style={styles.button} onPress={() => onDelete(id)}>
+                    <Text style={styles.buttonText}>Delete</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={onCancel}>
+                    <Text style={styles.buttonText}>Cancel</Text>
+                </TouchableOpacity>
+            </View>
         </View>
-      </View>
     </Modal>
   );
 };

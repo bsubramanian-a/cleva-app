@@ -32,7 +32,7 @@ const Home = () => {
   const handleTabPress = (tabNumber:number) => {
     if(tabNumber != 0){
       if(tabNumber == 1){
-        navigation.navigate('Profile');
+        navigation.navigate('Accounts');
       }else{
         navigation.navigate('WealthAssets');
       }

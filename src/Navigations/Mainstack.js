@@ -31,6 +31,8 @@ import AddANewGoalGoalResponsi from '../screens/AddANewGoalGoalResponsi';
 import AddANewGoalGoalSummary from '../screens/AddANewGoalGoalSummary';
 import AddANewGoalGoalType from '../screens/AddANewGoalGoalType';
 import GoalImportance from '../screens/GoalImportance';
+import Accounts from '../screens/Accounts';
+import EditAccount from '../screens/EditAccount';
 
 const Tab = createBottomTabNavigator();
 
@@ -225,6 +227,8 @@ const Mainstack = (Drawer, userData) => {
         component={AddANewGoalGoalType}
       />
       <Drawer.Screen name="GoalImportance" component={GoalImportance} />
+      <Drawer.Screen name="Accounts" component={Accounts} />
+      <Drawer.Screen name="EditAccount" component={EditAccount} />
     </Drawer.Navigator>
   );
 };

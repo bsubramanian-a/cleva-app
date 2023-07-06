@@ -9,7 +9,8 @@ const initialState = {
     liabilities : {},
     profile : {},
     goals: {},
-    addGoals: {}
+    addGoals: {},
+    accounts: {}
 };
 
 const data = (state = initialState, action:any) => {
@@ -52,6 +53,8 @@ const data = (state = initialState, action:any) => {
             return goal;
             })
         };
+    case types.ACCOUNTS:
+        return {...state, accounts: data};
     default:
         return state;
     }  
