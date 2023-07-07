@@ -15,8 +15,9 @@ import ThreeDotMenu from './ThreeDotMenu';
 import { useNavigation } from '@react-navigation/native';
 import DeletePopup from './DeletePopup';
 import { FontFamily } from '../GlobalStyles';
+import { color } from 'react-native-reanimated';
 
-const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccount, setIsAccountModalVisible }: any) => {
+const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccount, setIsAccountModalVisible, color }: any) => {
     const navigation: any = useNavigation();
 
     const editAccount = () => {
@@ -79,7 +80,7 @@ const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccoun
     return (
         <Pressable onPress={() => {setCurrentAccount(acc); setIsAccountModalVisible(true)}} style={styles.container}>
             <View style={styles.wrapper}>
-                <View style={styles.leftLine}></View>
+                <View style={[styles.leftLine, {borderColor: color}]}></View>
                 <View style={styles.contentView}>
                     <View style={styles.titleView}>
                         <View style={styles.titleWrap}>
@@ -156,7 +157,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignSelf: "center",
         borderWidth: 2,
-        borderColor: 'red',
         borderRadius: 7,
         width: 2,
         height: '80%',

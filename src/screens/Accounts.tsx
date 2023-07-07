@@ -34,8 +34,6 @@ const Accounts = () => {
   const [isAccountModalVisible, setIsAccountModalVisible] = useState(false);
   const [currentAccount, setCurrentAccount] = useState(null);
 
-  console.log("accounts------------------------", accounts);
-
   useEffect(() => {
     getAccounts();
   }, []);
@@ -113,7 +111,7 @@ const Accounts = () => {
 
       {accounts?.length > 0 ? <ScrollView>
         <View style={styles.cardWrapper}>
-          {accounts?.map((acc:any) =>  <AccountCard setIsAccountModalVisible={setIsAccountModalVisible} setCurrentAccount={setCurrentAccount} setDeleteModalVisible={setDeleteModalVisible} setDeleteId={setDeleteId} key={acc?.id} acc={acc} />)}
+          {accounts?.map((acc:any, index:number) =>  <AccountCard setIsAccountModalVisible={setIsAccountModalVisible} setCurrentAccount={setCurrentAccount} color={index % 2 === 0 ? 'red' : 'green'} setDeleteModalVisible={setDeleteModalVisible} setDeleteId={setDeleteId} key={acc?.id} acc={acc} />)}
         </View>
       </ScrollView> : <Text style={styles.textStyle}>No accounts found</Text>}
     </View>
