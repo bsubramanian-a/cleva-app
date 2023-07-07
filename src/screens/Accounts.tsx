@@ -93,7 +93,7 @@ const Accounts = () => {
         id={deleteId}
       />
 
-      <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={() => navigation.navigate('AddAccount')}>
+      <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginRight: 12 }} onPress={() => navigation.navigate('AddAccount')}>
           <LinearGradient
               style={[styles.bottom, styles.bottomFlexBox]}
               locations={[0, 1]}
@@ -101,7 +101,11 @@ const Accounts = () => {
               useAngle={true}
               angle={180}
           >
-              <Text style={[styles.edit, styles.ml4]}>Add Account</Text>
+            <Image
+                    style={{width: 20, height: 20}}
+                    resizeMode="cover"
+                    source={require("../assets/add.png")}
+                />
           </LinearGradient>
       </Pressable>
 
@@ -127,12 +131,10 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   bottom: {
-    alignSelf: 'center',
-    borderRadius: 60,
-    marginVertical: 28,
-    paddingHorizontal: 5,
-    paddingVertical: 14,
-    width: 180,
+    alignSelf: 'flex-end',
+    borderRadius: 50,
+    width: 42,
+    height: 42,
   },
   bottomFlexBox: {
     alignItems: 'center',
