@@ -246,6 +246,7 @@ export const deleteAsset = (id: any) => {
 };
 
 export const addLiability = (data: any) => {
+  console.log("addLiability", data);
   return new Promise((resolve, reject) => {
     return apiPost(ADD_LIABILITY, data)
       .then(res => {

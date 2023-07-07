@@ -60,16 +60,20 @@ const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccoun
     };
 
     const getInitials = (name: string) => {
-        const words = name.split(' ');
-        let initials = '';
-
-        if (words.length === 1) {
-            initials = words[0].substring(0, 2);
-        } else if (words.length >= 2) {
-            initials = words[0][0] + words[1][0];
+        if(name){
+            const words = name.split(' ');
+            let initials = '';
+    
+            if (words.length === 1) {
+                initials = words[0].substring(0, 2);
+            } else if (words.length >= 2) {
+                initials = words[0][0] + words[1][0];
+            }
+    
+            return initials.toUpperCase();
+        }else{
+            return "";
         }
-
-        return initials.toUpperCase();
     };
 
     return (
@@ -80,7 +84,7 @@ const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccoun
                     <View style={styles.titleView}>
                         <View style={styles.titleWrap}>
                             <Text style={styles.titleText}>{acc?.Name?.length <= 20 ? acc?.Name : acc?.Name.substring(0, 20) + '...'}</Text>
-                            <Text style={styles.moneyText}>${acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',)}</Text>
+                            <Text style={styles.moneyText}>${acc?.Current_Value ? acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : 0}</Text>
                         </View>
                         <View>
                             <Text style={styles.dateText}>As at {formatDate(acc?.Modified_Time)}</Text>
@@ -103,11 +107,14 @@ const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccoun
                                         </Text>
                                     </View>
                                 </> :
-                                <View style={styles.frWrapper}>
-                                    <Text style={styles.peopleText}>
-                                        {getInitials(acc?.Primary_Owner?.name || acc?.Secondary_Owner?.name)}
-                                    </Text>
-                                </View>
+                                <>
+                                {(acc?.Primary_Owner || acc?.Secondary_Owner) &&
+                                    <View style={styles.frWrapper}>
+                                        <Text style={styles.peopleText}>
+                                            {getInitials(acc?.Primary_Owner?.name || acc?.Secondary_Owner?.name)}
+                                        </Text>
+                                    </View>}
+                                </>
                             }
 
                         </View>

@@ -13,7 +13,7 @@ import CTextInput from "../components/CTextInput";
 import { useEffect, useState } from "react";
 import actions from "../../actions";
 import Loader from "../components/Loader";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
 import DropdownComponent from "../components/DropdownComponent";
 import Label from "../components/Label";
@@ -24,8 +24,10 @@ const AddAccount = ({ route }: any) => {
     const [loading, setLoading] = useState(false);
     const profile = useSelector((state: any) => state.data.profile);
     const [data, setData] = useState<any>();
+    const isFocused = useIsFocused();
 
     const updateWealth = async () => {
+        console.log("data.........", data);
         try{
             setLoading(true);
 
@@ -42,9 +44,10 @@ const AddAccount = ({ route }: any) => {
                 description: 'Account added successfully',
                 type: 'success',
             });
+
+            setData(null);
     
             navigation.navigate('Accounts');
-            setData(null);
             setLoading(false);
         } catch(err) {
             console.log("err", err);
@@ -71,22 +74,23 @@ const AddAccount = ({ route }: any) => {
                 contentContainerStyle={styles.frameScrollViewContent}
             >
                 <View style={styles.advicecontainer}>
-                    <CTextInput label="Name" id={data?.id} defaultValue={null} isNumOnly={false} updateState={(value:any) => updateState(value, 'Name')} />
+                    <CTextInput label="Name" icon={require("../assets/profile.png")} id={data?.id} defaultValue={data?.Name} isNumOnly={false} updateState={(value:any) => updateState(value, 'Name')} />
 
-                    <CTextInput label="Value" id={data?.id} defaultValue={null} updateState={(value:any) => updateState(value, 'Current_Value')} />
+                    <CTextInput label="Value" icon={require("../assets/dollar-square.png")} id={data?.id} defaultValue={data?.Current_Value} updateState={(value:any) => updateState(value, 'data?.Current_Value')} />
 
-                    <CTextInput label="Provider" id={data?.id} defaultValue={null} updateState={(value:any) => updateState(value, 'Product_Provider')} isNumOnly={false}/>
+                    <CTextInput label="Provider" icon={require("../assets/profile.png")} id={data?.id} defaultValue={data?.Product_Provider} updateState={(value:any) => updateState(value, 'Product_Provider')} isNumOnly={false}/>
                     
-                    <Label label="Primary Owner:" icon={require("../assets/hierarchy.png")} />
+                    <Label label="Primary Owner" icon={require("../assets/vuesaxlinearprofilecircle.png")} />
                     <DropdownComponent
                         values={[{ label: 'None', value: '' }, { label: profile[0]?.First_Name + " " + profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: profile[0]?.accounts[0]?.First_Name + " " + profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
-                        defaultValue={null}
+                        defaultValue={data?.Primary_Owner}
                         onValueChange={(value: any) => updateState(value, 'Primary_Owner')}
                     />
 
+                    <Label label="Secondary Owner" icon={require("../assets/vuesaxlinearprofilecircle.png")} />
                     <DropdownComponent
                         values={[{ label: 'None', value: '' }, { label: profile[0]?.First_Name + " " + profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: profile[0]?.accounts[0]?.First_Name + " " + profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
-                        defaultValue={null}
+                        defaultValue={data?.Secondary_Owner}
                         onValueChange={(value: any) => updateState(value, 'Secondary_Owner')}
                     />
                 </View>
