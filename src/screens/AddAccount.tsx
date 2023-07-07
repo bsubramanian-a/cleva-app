@@ -29,7 +29,7 @@ const AddAccount = ({ route }: any) => {
         try{
             setLoading(true);
 
-            await actions.addAsset(data);
+            await actions.addLiability(data);
     
             await actions.getAccounts();
     
@@ -44,6 +44,7 @@ const AddAccount = ({ route }: any) => {
             });
     
             navigation.navigate('Accounts');
+            setData(null);
             setLoading(false);
         } catch(err) {
             console.log("err", err);
@@ -60,7 +61,7 @@ const AddAccount = ({ route }: any) => {
             style={styles.wealthAssets}
         >
             <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-            <CustomHeader name="Your Wealth" type={2} />
+            <CustomHeader name="Add Account" type={2} />
             <FlashMessage position="top" />
             <Loader visible={loading} />
             <ScrollView
@@ -70,22 +71,22 @@ const AddAccount = ({ route }: any) => {
                 contentContainerStyle={styles.frameScrollViewContent}
             >
                 <View style={styles.advicecontainer}>
-                    <CTextInput label="Name" id={data?.id} isNumOnly={false} updateState={(value:any) => updateState(value, 'Name')} />
+                    <CTextInput label="Name" id={data?.id} defaultValue={null} isNumOnly={false} updateState={(value:any) => updateState(value, 'Name')} />
 
-                    <CTextInput label="Value" id={data?.id} updateState={(value:any) => updateState(value, 'Current_Value')} />
+                    <CTextInput label="Value" id={data?.id} defaultValue={null} updateState={(value:any) => updateState(value, 'Current_Value')} />
 
-                    <CTextInput label="Provider" id={data?.id} updateState={(value:any) => updateState(value, 'Product_Provider')} isNumOnly={false}/>
+                    <CTextInput label="Provider" id={data?.id} defaultValue={null} updateState={(value:any) => updateState(value, 'Product_Provider')} isNumOnly={false}/>
                     
                     <Label label="Primary Owner:" icon={require("../assets/hierarchy.png")} />
                     <DropdownComponent
                         values={[{ label: 'None', value: '' }, { label: profile[0]?.First_Name + " " + profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: profile[0]?.accounts[0]?.First_Name + " " + profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
-                        defaultValue={data?.Primary_Owner?.id?.toString()}
+                        defaultValue={null}
                         onValueChange={(value: any) => updateState(value, 'Primary_Owner')}
                     />
 
                     <DropdownComponent
                         values={[{ label: 'None', value: '' }, { label: profile[0]?.First_Name + " " + profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: profile[0]?.accounts[0]?.First_Name + " " + profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
-                        defaultValue={data?.Secondary_Owner?.id?.toString()}
+                        defaultValue={null}
                         onValueChange={(value: any) => updateState(value, 'Secondary_Owner')}
                     />
                 </View>

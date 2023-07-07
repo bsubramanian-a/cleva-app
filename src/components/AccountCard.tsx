@@ -121,7 +121,7 @@ const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccoun
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
+        marginTop: 30,
         shadowColor: "rgba(251, 177, 66, 0.1)",
         shadowOffset: {
             width: 0,
@@ -136,13 +136,14 @@ const styles = StyleSheet.create({
         height: 120,
         borderRadius: 16,
         paddingVertical: 5,
-        zIndex: 100
+        zIndex: 10
     },
     wrapper: {
         flex: 1,
         borderRightWidth: 4,
         borderColor: 'transparent',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        zIndex: 10
     },
     leftLine: {
         flex: 1,
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
         borderColor: 'red',
         borderRadius: 7,
         width: 2,
-        height: '80%'
+        height: '80%',
     },
     titleWrap: {
         marginTop: 6,

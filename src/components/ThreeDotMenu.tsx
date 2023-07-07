@@ -11,7 +11,7 @@ const ThreeDotMenu = ({ options }:any) => {
   };
 
   return (
-    <View style={{ position: 'relative' }}>
+    <View style={{ position: 'relative', zIndex: 1000000 }}>
       <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
       <Image
           style={{ width: 22, height: 22 }}
@@ -20,7 +20,7 @@ const ThreeDotMenu = ({ options }:any) => {
         />
       </TouchableOpacity>
       {isOpen && (
-        <View style={{ position: 'absolute', top: 20, right: 0, backgroundColor: '#FFF', borderWidth: 1, borderColor:  "#DEDEDE", padding: 10, width: 100, borderRadius: 14, zIndex: 1000000 , elevation: 5}}>
+        <View style={{ position: 'absolute', top: -7, right: 20, backgroundColor: '#FFF', borderWidth: 1, borderColor:  "#DEDEDE", padding: 10, width: 100, borderRadius: 14, zIndex: 1000000 , elevation: 5}}>
           {options.map((option:any, index:any) => (
             <TouchableOpacity
               key={index}

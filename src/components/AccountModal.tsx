@@ -42,7 +42,8 @@ const AccountModal = ({visible, onClose, acc}: any) => {
 
   return (
     <Modal visible={visible} onRequestClose={onClose} transparent>
-        <View style={styles.modalContainer}>
+      <View style={styles.modalContainer}>
+        <View style={styles.cardView}>
           <Pressable onPress={onClose} style={styles.closeButton}>
             <Image
               resizeMode="cover"
@@ -50,19 +51,27 @@ const AccountModal = ({visible, onClose, acc}: any) => {
               style={styles.frameChild}
             />
           </Pressable>
-          <ScrollView contentContainerStyle={styles.modalContent}>
+          <View style={styles.modalContent}>
             <Text>Name: {acc?.Name}</Text>
+            <Text>Provider: {acc?.Product_Provider}</Text>
             <Text>Value: ${acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g,',',)}</Text>
             <Text>Primary Owner: {acc?.Primary_Owner?.name}</Text>
             <Text>Secondary Owner: {acc?.Secondary_Owner?.name}</Text>
-            <Text>:Last Modified {formatDate(acc?.Modified_Time)}</Text>
-          </ScrollView>
+            <Text>Last Modified {formatDate(acc?.Modified_Time)}</Text>
+          </View>
         </View>
+      </View>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
+  cardView:{
+    position: 'relative',
+    width: '90%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   container: {
     position: 'relative',
     backgroundColor: "#fff",
@@ -76,23 +85,24 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     position: 'relative',
-    backgroundColor: "#fff",
-    width: Dimensions.get('window').width - 30,
-    height: Dimensions.get('window').height - 150,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
     borderRadius: 12,
-    alignSelf: 'center',
-    marginTop: 75,
     padding: 0,
-    zIndex: 1000
+    zIndex: 1000,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   modalContent: {
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
     padding: 16,
+    width: '90%'
   },
   closeButton: {
     alignSelf: 'flex-end',
-    right: -35,
+    right: -15,
     top: -35,
     position: 'absolute',
     zIndex: 1000000
