@@ -72,7 +72,7 @@ const AccountCard = ({acc, setDeleteModalVisible, setDeleteId, setCurrentAccount
     };    
 
     return (
-        <Pressable onPress={() => {setCurrentAccount(acc?.id); setIsAccountModalVisible(true)}} style={styles.container}>
+        <Pressable onPress={() => {setCurrentAccount(acc); setIsAccountModalVisible(true)}} style={styles.container}>
             <View style={styles.wrapper}>
                 <View style={styles.leftLine}></View>
                 <View style={styles.contentView}>

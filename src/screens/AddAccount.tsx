@@ -19,34 +19,17 @@ import DropdownComponent from "../components/DropdownComponent";
 import Label from "../components/Label";
 import DeletePopup from "../components/DeletePopup";
 
-const EditAccount = ({ route }: any) => {
+const AddAccount = ({ route }: any) => {
     const navigation:any = useNavigation();
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState<any>();
     const profile = useSelector((state: any) => state.data.profile);
-    const accounts = useSelector((state: any) => state.data.accounts);
-    const { id } = route.params;
-    console.log("id", id);
-
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            if(accounts?.length > 0){
-                const data = accounts?.find((acc:any) => acc?.id == id);
-                // console.log("data.......", data);
-                setData(data);
-            }else{
-                setData([]);
-            }
-        });
-
-        return unsubscribe;
-    }, [navigation, accounts, id]);
+    const [data, setData] = useState<any>();
 
     const updateWealth = async () => {
         try{
             setLoading(true);
 
-            await actions.updateAccount(data);
+            await actions.addAsset(data);
     
             await actions.getAccounts();
     
@@ -56,7 +39,7 @@ const EditAccount = ({ route }: any) => {
     
             showMessage({
                 message: 'Success',
-                description: 'Account updated successfully',
+                description: 'Account added successfully',
                 type: 'success',
             });
     
@@ -87,11 +70,11 @@ const EditAccount = ({ route }: any) => {
                 contentContainerStyle={styles.frameScrollViewContent}
             >
                 <View style={styles.advicecontainer}>
-                    <CTextInput label="Name" id={data?.id} isNumOnly={false} updateState={(value:any) => updateState(value, 'Name')} defaultValue={data?.Name} />
+                    <CTextInput label="Name" id={data?.id} isNumOnly={false} updateState={(value:any) => updateState(value, 'Name')} />
 
-                    <CTextInput label="Value" defaultValue={data?.Current_Value?.toString()} id={data?.id} updateState={(value:any) => updateState(value, 'Current_Value')} />
+                    <CTextInput label="Value" id={data?.id} updateState={(value:any) => updateState(value, 'Current_Value')} />
 
-                    <CTextInput label="Provider" defaultValue={data?.Product_Provider?.toString()} id={data?.id} updateState={(value:any) => updateState(value, 'Product_Provider')} isNumOnly={false}/>
+                    <CTextInput label="Provider" id={data?.id} updateState={(value:any) => updateState(value, 'Product_Provider')} isNumOnly={false}/>
                     
                     <Label label="Primary Owner:" icon={require("../assets/hierarchy.png")} />
                     <DropdownComponent
@@ -188,4 +171,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default EditAccount;
+export default AddAccount;

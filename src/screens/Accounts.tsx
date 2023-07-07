@@ -93,6 +93,18 @@ const Accounts = () => {
         id={deleteId}
       />
 
+      <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={() => navigation.navigate('AddAccount')}>
+          <LinearGradient
+              style={[styles.bottom, styles.bottomFlexBox]}
+              locations={[0, 1]}
+              colors={["#fbb142", "#f6a326"]}
+              useAngle={true}
+              angle={180}
+          >
+              <Text style={[styles.edit, styles.ml4]}>Add Account</Text>
+          </LinearGradient>
+      </Pressable>
+
       {accounts?.length > 0 ? <ScrollView>
         <View style={styles.cardWrapper}>
           {accounts?.map((acc:any) =>  <AccountCard setIsAccountModalVisible={setIsAccountModalVisible} setCurrentAccount={setCurrentAccount} setDeleteModalVisible={setDeleteModalVisible} setDeleteId={setDeleteId} key={acc?.id} acc={acc} />)}
@@ -103,6 +115,30 @@ const Accounts = () => {
 };
 
 const styles = StyleSheet.create({
+  edit: {
+    color: Color.white1,
+    fontFamily: FontFamily.openSansRegular,
+    fontSize: FontSize.textMediumBoldText1_size,
+    fontWeight: '600',
+    lineHeight: 20,
+    textAlign: 'center',
+  },
+  ml4: {
+    marginLeft: 4,
+  },
+  bottom: {
+    alignSelf: 'center',
+    borderRadius: 60,
+    marginVertical: 28,
+    paddingHorizontal: 5,
+    paddingVertical: 14,
+    width: 180,
+  },
+  bottomFlexBox: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
   container:{
     flex: 1
   },
