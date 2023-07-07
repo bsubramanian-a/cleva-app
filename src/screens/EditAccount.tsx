@@ -77,7 +77,7 @@ const EditAccount = ({ route }: any) => {
             style={styles.wealthAssets}
         >
             <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-            <CustomHeader name="Your Wealth" type={2} />
+            <CustomHeader name="Edit Account" type={2} />
             <FlashMessage position="top" />
             <Loader visible={loading} />
             <ScrollView
@@ -87,19 +87,20 @@ const EditAccount = ({ route }: any) => {
                 contentContainerStyle={styles.frameScrollViewContent}
             >
                 <View style={styles.advicecontainer}>
-                    <CTextInput label="Name" id={data?.id} isNumOnly={false} updateState={(value:any) => updateState(value, 'Name')} defaultValue={data?.Name} />
+                    <CTextInput label="Name" icon={require("../assets/profile.png")} id={data?.id} isNumOnly={false} updateState={(value:any) => updateState(value, 'Name')} defaultValue={data?.Name} />
 
-                    <CTextInput label="Value" defaultValue={data?.Current_Value?.toString()} id={data?.id} updateState={(value:any) => updateState(value, 'Current_Value')} />
+                    <CTextInput label="Value" icon={require("../assets/dollar-square.png")} defaultValue={data?.Current_Value?.toString()} id={data?.id} updateState={(value:any) => updateState(value, 'Current_Value')} />
 
-                    <CTextInput label="Provider" defaultValue={data?.Product_Provider?.toString()} id={data?.id} updateState={(value:any) => updateState(value, 'Product_Provider')} isNumOnly={false}/>
+                    <CTextInput label="Provider" icon={require("../assets/profile.png")} defaultValue={data?.Product_Provider?.toString()} id={data?.id} updateState={(value:any) => updateState(value, 'Product_Provider')} isNumOnly={false}/>
                     
-                    <Label label="Primary Owner:" icon={require("../assets/hierarchy.png")} />
+                    <Label label="Primary Owner" icon={require("../assets/vuesaxlinearprofilecircle.png")} />
                     <DropdownComponent
                         values={[{ label: 'None', value: '' }, { label: profile[0]?.First_Name + " " + profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: profile[0]?.accounts[0]?.First_Name + " " + profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
                         defaultValue={data?.Primary_Owner?.id?.toString()}
                         onValueChange={(value: any) => updateState(value, 'Primary_Owner')}
                     />
 
+                    <Label label="Secondary Owner" icon={require("../assets/vuesaxlinearprofilecircle.png")} />
                     <DropdownComponent
                         values={[{ label: 'None', value: '' }, { label: profile[0]?.First_Name + " " + profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: profile[0]?.accounts[0]?.First_Name + " " + profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
                         defaultValue={data?.Secondary_Owner?.id?.toString()}

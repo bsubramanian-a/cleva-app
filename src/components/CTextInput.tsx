@@ -34,7 +34,7 @@ const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, ic
 
   return (
     <View style={styles.container}>
-      <View style={{flexDirection: 'row', gap: 3, alignItems: 'center'}}>
+      <View style={{flexDirection: 'row', gap: 3, alignItems: 'center', justifyContent: 'flex-start'}}>
         {icon && 
           <Image
             style={styles.vuesaxlinearprofileCircleIcon}

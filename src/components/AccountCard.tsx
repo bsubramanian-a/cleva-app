@@ -1,36 +1,37 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  View,
-  Modal,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Pressable,
-  Image,
+    View,
+    Modal,
+    TouchableOpacity,
+    Text,
+    StyleSheet,
+    Dimensions,
+    Pressable,
+    Image,
 } from 'react-native';
-import {LineChart} from 'react-native-chart-kit';
+import { LineChart } from 'react-native-chart-kit';
 import RadioButtonGroup from './RadioButtonGroup';
 import ThreeDotMenu from './ThreeDotMenu';
 import { useNavigation } from '@react-navigation/native';
 import DeletePopup from './DeletePopup';
+import { FontFamily } from '../GlobalStyles';
 
-const AccountCard = ({acc, setDeleteModalVisible, setDeleteId, setCurrentAccount, setIsAccountModalVisible}: any) => {
-    const navigation:any = useNavigation();
+const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccount, setIsAccountModalVisible }: any) => {
+    const navigation: any = useNavigation();
 
     const editAccount = () => {
-        navigation.navigate('EditAccount', {id: acc?.id});
+        navigation.navigate('EditAccount', { id: acc?.id });
     };
-    
+
     const deleteAccount = () => {
         console.log("delete clicked")
         setDeleteModalVisible(acc?.id);
         setDeleteId(acc?.id);
     };
-    
+
     const options = [
-        { label: 'Edit', onClick: editAccount },
-        { label: 'Delete', onClick: deleteAccount },
+        { label: 'Edit', onClick: editAccount, icon: require("../assets/editAcc.png") },
+        { label: 'Delete', onClick: deleteAccount, icon: require("../assets/trashAcc.png") },
     ];
 
     const formatDate = (dateString: any) => {
@@ -38,38 +39,38 @@ const AccountCard = ({acc, setDeleteModalVisible, setDeleteId, setCurrentAccount
         const day = date.getDate();
         const month = date.toLocaleString('en-US', { month: 'long' });
         const year = date.getFullYear();
-      
+
         const getOrdinalSuffix = (day: any) => {
-          if (day === 1 || day === 21 || day === 31) {
-            return 'st';
-          } else if (day === 2 || day === 22) {
-            return 'nd';
-          } else if (day === 3 || day === 23) {
-            return 'rd';
-          } else {
-            return 'th';
-          }
+            if (day === 1 || day === 21 || day === 31) {
+                return 'st';
+            } else if (day === 2 || day === 22) {
+                return 'nd';
+            } else if (day === 3 || day === 23) {
+                return 'rd';
+            } else {
+                return 'th';
+            }
         };
-      
+
         const currentDate = new Date();
         const currentYear = currentDate.getFullYear();
         const formattedYear = year === currentYear ? '' : ` ${year}`;
-      
+
         return `${day}${getOrdinalSuffix(day)} ${month}${formattedYear}`;
     };
 
-    const getInitials = (name:string) => {
+    const getInitials = (name: string) => {
         const words = name.split(' ');
         let initials = '';
-      
+
         if (words.length === 1) {
-          initials = words[0].substring(0, 2);
+            initials = words[0].substring(0, 2);
         } else if (words.length >= 2) {
-          initials = words[0][0] + words[1][0];
+            initials = words[0][0] + words[1][0];
         }
-      
+
         return initials.toUpperCase();
-    };    
+    };
 
     return (
         <Pressable onPress={() => {setCurrentAccount(acc); setIsAccountModalVisible(true)}} style={styles.container}>
@@ -78,37 +79,37 @@ const AccountCard = ({acc, setDeleteModalVisible, setDeleteId, setCurrentAccount
                 <View style={styles.contentView}>
                     <View style={styles.titleView}>
                         <View style={styles.titleWrap}>
-                            <Text>{acc?.Name?.length <= 20 ? acc?.Name : acc?.Name.substring(0, 20) + '...'}</Text>
-                            <Text>${acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g,',',)}</Text>
+                            <Text style={styles.titleText}>{acc?.Name?.length <= 20 ? acc?.Name : acc?.Name.substring(0, 20) + '...'}</Text>
+                            <Text style={styles.moneyText}>${acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',)}</Text>
                         </View>
                         <View>
-                            <Text>As at {formatDate(acc?.Modified_Time)}</Text>
+                            <Text style={styles.dateText}>As at {formatDate(acc?.Modified_Time)}</Text>
                         </View>
                     </View>
-      
+
                     <View style={styles.ownerView}>
                         <View style={styles.ownerWrap}>
-                            <Text>{(acc?.Primary_Owner && acc?.Secondary_Owner) ? 'Joint owner' : ((acc?.Primary_Owner || acc?.Secondary_Owner) ? 'Single Owner' : 'No Owner') }</Text>
+                            <Text style={styles.dateText}>{(acc?.Primary_Owner && acc?.Secondary_Owner) ? 'Joint owner' : ((acc?.Primary_Owner || acc?.Secondary_Owner) ? 'Single Owner' : 'No Owner')}</Text>
                             {(acc?.Primary_Owner && acc?.Secondary_Owner) ?
                                 <>
                                     <View style={styles.frWrapper}>
-                                        <Text>
+                                        <Text style={styles.peopleText}>
                                             {getInitials(acc?.Primary_Owner?.name)}
                                         </Text>
                                     </View>
                                     <View style={styles.drWrapper}>
-                                        <Text>
+                                        <Text style={styles.peopleText}>
                                             {getInitials(acc?.Secondary_Owner?.name)}
                                         </Text>
                                     </View>
-                                </> : 
+                                </> :
                                 <View style={styles.frWrapper}>
-                                    <Text>
+                                    <Text style={styles.peopleText}>
                                         {getInitials(acc?.Primary_Owner?.name || acc?.Secondary_Owner?.name)}
                                     </Text>
                                 </View>
                             }
-                           
+
                         </View>
                         <ThreeDotMenu options={options} />
                     </View>
@@ -120,9 +121,20 @@ const AccountCard = ({acc, setDeleteModalVisible, setDeleteId, setCurrentAccount
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: 20,
+        shadowColor: "rgba(251, 177, 66, 0.1)",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowRadius: 15,
+        elevation: 40,
+        shadowOpacity: 0.04,
+        borderColor: "#ffeccf",
         borderWidth: 1,
-        height: 100,
-        borderRadius: 7,
+        backgroundColor: "#fff",
+        height: 120,
+        borderRadius: 16,
         paddingVertical: 5,
         zIndex: 100
     },
@@ -133,25 +145,52 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     leftLine: {
+        flex: 1,
+        alignSelf: "center",
         borderWidth: 2,
         borderColor: 'red',
         borderRadius: 7,
         width: 2,
-        height: '100%'
+        height: '80%'
     },
     titleWrap: {
+        marginTop: 6,
         width: '100%',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
-    contentView:{
+    titleText: {
+        fontSize: 18,
+        fontFamily: FontFamily.sourceSerifPro,
+        fontWeight: "600",
+        color: "#000"
+    },
+    moneyText: {
+        fontSize: 18,
+        fontFamily: FontFamily.sourceSerifPro,
+        fontWeight: "600",
+        color: "#EF9F27"
+    },
+    dateText: {
+        marginVertical: 5,
+        fontSize: 14,
+        fontFamily: FontFamily.outfitLight,
+        fontWeight: "300",
+        color: "#4B4B4B"
+    },
+    peopleText: {
+        fontSize: 12,
+        color: "#fff",
+    },
+    contentView: {
         width: Dimensions.get('window').width - 30,
         paddingHorizontal: 13,
     },
     titleView: {
-        borderBottomWidth: 2
+        borderBottomWidth: 1,
+        borderColor: "#DEDEDE"
     },
-    ownerWrap:{
+    ownerWrap: {
         flexDirection: 'row',
         alignItems: 'center'
     },
@@ -180,7 +219,8 @@ const styles = StyleSheet.create({
     ownerView: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingVertical: 10
     }
 });
 
