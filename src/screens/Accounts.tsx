@@ -97,7 +97,7 @@ const Accounts = () => {
         <View style={styles.cardWrapper}>
           {accounts?.map((acc:any) =>  <AccountCard setIsAccountModalVisible={setIsAccountModalVisible} setCurrentAccount={setCurrentAccount} setDeleteModalVisible={setDeleteModalVisible} setDeleteId={setDeleteId} key={acc?.id} acc={acc} />)}
         </View>
-      </ScrollView> : <Text>No accounts found</Text>}
+      </ScrollView> : <Text style={styles.textStyle}>No accounts found</Text>}
     </View>
   );
 };
@@ -105,6 +105,10 @@ const Accounts = () => {
 const styles = StyleSheet.create({
   container:{
     flex: 1
+  },
+  textStyle: {
+    textAlign: "center",
+    marginTop: 20
   },
   cardWrapper: {
     paddingHorizontal: 10

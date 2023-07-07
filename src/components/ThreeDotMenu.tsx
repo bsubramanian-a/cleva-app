@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Text, View, Image } from 'react-native';
+import { FontFamily } from '../GlobalStyles';
 
 const ThreeDotMenu = ({ options }:any) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,10 +13,14 @@ const ThreeDotMenu = ({ options }:any) => {
   return (
     <View style={{ position: 'relative' }}>
       <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
-        <Text>...</Text>
+      <Image
+          style={{ width: 22, height: 22 }}
+          resizeMode="cover"
+          source={require('../assets/more.png')}
+        />
       </TouchableOpacity>
       {isOpen && (
-        <View style={{ position: 'absolute', top: 20, right: 0, backgroundColor: '#FFF', padding: 10, width: 100, borderRadius: 7, zIndex: 1000000 , elevation: 5}}>
+        <View style={{ position: 'absolute', top: 20, right: 0, backgroundColor: '#FFF', borderWidth: 1, borderColor:  "#DEDEDE", padding: 10, width: 100, borderRadius: 14, zIndex: 1000000 , elevation: 5}}>
           {options.map((option:any, index:any) => (
             <TouchableOpacity
               key={index}
@@ -23,11 +28,11 @@ const ThreeDotMenu = ({ options }:any) => {
               onPress={() => handleOptionClick(option.onClick)}
             >
                 <Image
-                    style={{width: 12, height: 12, marginEnd: 5}}
+                    style={{width: 16, height: 16, marginEnd: 6}}
                     resizeMode="cover"
-                    source={require("../assets/calendar.png")}
+                    source={option?.icon}
                 />
-                <Text>{option.label}</Text>
+                <Text style={{ fontSize: 14, fontWeight: "300", fontFamily: FontFamily.outfitLight }}>{option.label}</Text>
             </TouchableOpacity>
           ))}
         </View>
