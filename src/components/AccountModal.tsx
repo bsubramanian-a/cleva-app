@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Image, StyleSheet, Text, View, Pressable, Modal, Dimensions, ScrollView} from 'react-native';
+import { Image, StyleSheet, Text, View, Pressable, Modal, Dimensions, ScrollView } from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 import { Color, FontFamily, Padding, Border, FontSize } from "../GlobalStyles";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -13,14 +13,14 @@ import Loader from "./Loader";
 import CTextInput from "./CTextInput";
 import RadioButtonGroupOwner from "./RadioButtonGroupOwner";
 
-const AccountModal = ({visible, onClose, acc}: any) => {
+const AccountModal = ({ visible, onClose, acc }: any) => {
 
   const formatDate = (dateString: any) => {
     const date = new Date(dateString);
     const day = date.getDate();
     const month = date.toLocaleString('en-US', { month: 'long' });
     const year = date.getFullYear();
-  
+
     const getOrdinalSuffix = (day: any) => {
       if (day === 1 || day === 21 || day === 31) {
         return 'st';
@@ -32,11 +32,11 @@ const AccountModal = ({visible, onClose, acc}: any) => {
         return 'th';
       }
     };
-  
+
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const formattedYear = year === currentYear ? '' : ` ${year}`;
-  
+
     return `${day}${getOrdinalSuffix(day)} ${month}${formattedYear}`;
   };
 
@@ -52,12 +52,72 @@ const AccountModal = ({visible, onClose, acc}: any) => {
             />
           </Pressable>
           <View style={styles.modalContent}>
-            <Text>Name: {acc?.Name}</Text>
-            <Text>Provider: {acc?.Product_Provider}</Text>
-            <Text>Value: ${acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g,',',)}</Text>
-            <Text>Primary Owner: {acc?.Primary_Owner?.name}</Text>
-            <Text>Secondary Owner: {acc?.Secondary_Owner?.name}</Text>
-            <Text>Last Modified {formatDate(acc?.Modified_Time)}</Text>
+            <View style={styles.wrapContent}>
+              <View style={styles.imgText}>
+                <Image
+                  style={styles.vuesaxlinearprofileCircleIcon}
+                  resizeMode="cover"
+                  source={require("../assets/profile.png")}
+                />
+                <Text style={styles.dateText}>Name</Text>
+              </View>
+              <Text style={styles.titleText}>{acc?.Name}</Text>
+            </View>
+            <View style={styles.wrapContent}>
+              <View style={styles.imgText}>
+                <Image
+                  style={styles.vuesaxlinearprofileCircleIcon}
+                  resizeMode="cover"
+                  source={require("../assets/profile.png")}
+                />
+                <Text style={styles.dateText}>Provider</Text>
+              </View>
+              <Text style={styles.titleText}>{acc?.Product_Provider}</Text>
+            </View>
+            <View style={styles.wrapContent}>
+              <View style={styles.imgText}>
+                <Image
+                  style={styles.vuesaxlinearprofileCircleIcon}
+                  resizeMode="cover"
+                  source={require("../assets/dollar-square.png")}
+                />
+                <Text style={styles.dateText}>Value</Text>
+              </View>
+              <Text style={styles.titleText}>${acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',)}</Text>
+            </View>
+            <View style={styles.wrapContent}>
+              <View style={styles.imgText}>
+                <Image
+                  style={styles.vuesaxlinearprofileCircleIcon}
+                  resizeMode="cover"
+                  source={require("../assets/vuesaxlinearprofilecircle.png")}
+                />
+                <Text style={styles.dateText}>Primary Owner</Text>
+              </View>
+              <Text style={styles.titleText}>{acc?.Primary_Owner?.name}</Text>
+            </View>
+            <View style={styles.wrapContent}>
+              <View style={styles.imgText}>
+                <Image
+                  style={styles.vuesaxlinearprofileCircleIcon}
+                  resizeMode="cover"
+                  source={require("../assets/vuesaxlinearprofilecircle.png")}
+                />
+                <Text style={styles.dateText}>Secondary Owner</Text>
+              </View>
+              <Text style={styles.titleText}>{acc?.Secondary_Owner?.name}</Text>
+            </View>
+            <View style={styles.wrapContent}>
+              <View style={styles.imgText}>
+                <Image
+                  style={styles.vuesaxlinearprofileCircleIcon}
+                  resizeMode="cover"
+                  source={require("../assets/calendar.png")}
+                />
+                <Text style={styles.dateText}>Last Modified</Text>
+              </View>
+              <Text style={styles.titleText}>{formatDate(acc?.Modified_Time)}</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -66,7 +126,7 @@ const AccountModal = ({visible, onClose, acc}: any) => {
 };
 
 const styles = StyleSheet.create({
-  cardView:{
+  cardView: {
     position: 'relative',
     width: '90%',
     alignItems: 'center',
@@ -94,6 +154,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  wrapContent: {
+    paddingVertical: 12,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottomWidth: 1,
+    borderColor: "#e8e8e8"
+  },
+  imgText: {
+    flexDirection: "row",
+    gap: 4
+  },
   modalContent: {
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
@@ -106,6 +178,23 @@ const styles = StyleSheet.create({
     top: -35,
     position: 'absolute',
     zIndex: 1000000
+  },
+  vuesaxlinearprofileCircleIcon: {
+    marginTop: 1,
+    width: 18,
+    height: 18,
+  },
+  dateText: {
+    fontSize: 15,
+    fontFamily: FontFamily.outfitLight,
+    fontWeight: "300",
+    color: "#4B4B4B"
+  },
+  titleText: {
+    fontSize: 15,
+    fontFamily: FontFamily.outfitRegular,
+    fontWeight: "400",
+    color: "#000"
   },
   frameChild: {
     width: 83,
