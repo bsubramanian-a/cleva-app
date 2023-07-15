@@ -13,12 +13,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Padding, Border, Color, FontFamily, FontSize } from '../GlobalStyles';
 import CustomHeader from '../components/CustomHeader';
 import CTextInput from '../components/CTextInput';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Label from '../components/Label';
 import CustomDatePicker from '../components/CustomDatepicker';
 import actions from '../../actions';
 import FlashMessage, { showMessage } from 'react-native-flash-message';
 import { useSelector } from 'react-redux';
+import { useFocusEffect } from '@react-navigation/native';
+import { format } from 'date-fns';
 
 const AddANewGoalGoalDate = ({ navigation }: any) => {
   const [datas, setDatas] = useState<any>([]);
@@ -52,6 +54,20 @@ const AddANewGoalGoalDate = ({ navigation }: any) => {
       });
     }
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      // Trigger your focus event here
+      actions.updateAddGoals({ "targetDate": format(today, 'yyyy-MM-dd') });
+      
+      // You can also dispatch an action to update the Redux store or perform other logic
+
+      // Return a cleanup function if needed
+      return () => {
+        // Cleanup logic if needed
+      };
+    }, [])
+  );
 
   return (
     <View
@@ -94,7 +110,7 @@ const AddANewGoalGoalDate = ({ navigation }: any) => {
             <CustomDatePicker
               shouldExecuteUseEffect={true}
               defaultValue={
-                addGoals?.targetDate && new Date(addGoals?.targetDate)
+                addGoals?.targetDate ? new Date(addGoals?.targetDate) : today
               }
               onValueChange={(value: any) => updateState(value, 'targetDate')}
               minimumDate={null}

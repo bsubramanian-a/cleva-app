@@ -13,18 +13,21 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Padding, Border, Color, FontFamily, FontSize } from '../GlobalStyles';
 import CustomHeader from '../components/CustomHeader';
 import CTextInput from '../components/CTextInput';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Label from '../components/Label';
 import CustomDatePicker from '../components/CustomDatepicker';
 import actions from '../../actions';
 import FlashMessage, { showMessage } from 'react-native-flash-message';
 import { useSelector } from 'react-redux';
+import { useFocusEffect } from '@react-navigation/native';
+import { format } from 'date-fns';
 
 const AddANewGoalGoalMoney = ({ navigation }: any) => {
   const [datas, setDatas] = useState<any>([]);
   const addGoals = useSelector((state: any) => state.data.addGoals);
 
   const updateState = (value: any, label: string) => {
+    console.log("value", value, label);
     actions.updateAddGoals({ [label]: value });
     setDatas((prevDatas: any) => {
       const updatedDatas = prevDatas.map((data: any) => {
@@ -57,6 +60,21 @@ const AddANewGoalGoalMoney = ({ navigation }: any) => {
   const futureDate = new Date();
   futureDate.setFullYear(today.getFullYear() + 100);
 
+
+  useFocusEffect(
+    useCallback(() => {
+      // Trigger your focus event here
+      actions.updateAddGoals({ "when_money_need": format(today, 'yyyy-MM-dd') });
+      
+      // You can also dispatch an action to update the Redux store or perform other logic
+
+      // Return a cleanup function if needed
+      return () => {
+        // Cleanup logic if needed
+      };
+    }, [])
+  );
+
   return (
     <View
       style={styles.addANewGoalGoalDate}>
@@ -64,7 +82,7 @@ const AddANewGoalGoalMoney = ({ navigation }: any) => {
       <FlashMessage position="top" />
       <ScrollView
         style={styles.advicecontainerWrapper}
-        showsVerticalScrollIndicator={true}
+        showsVerticalScrollIndicator={true} 
         showsHorizontalScrollIndicator={true}
         contentContainerStyle={styles.frameScrollViewContent}>
         <View style={[styles.advicecontainer, styles.topMenuSpaceBlock]}>
@@ -99,7 +117,7 @@ const AddANewGoalGoalMoney = ({ navigation }: any) => {
             />
             <CustomDatePicker
               defaultValue={
-                addGoals?.when_money_need && new Date(addGoals?.when_money_need)
+                addGoals?.when_money_need ? new Date(addGoals?.when_money_need): today 
               }
               onValueChange={(value: any) =>
                 updateState(value, 'when_money_need')

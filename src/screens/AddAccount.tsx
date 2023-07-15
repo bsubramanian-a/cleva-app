@@ -76,7 +76,7 @@ const AddAccount = ({ route }: any) => {
                 <View style={styles.advicecontainer}>
                     <CTextInput label="Name" icon={require("../assets/profile.png")} id={data?.id} defaultValue={data?.Name} isNumOnly={false} updateState={(value:any) => updateState(value, 'Name')} />
 
-                    <CTextInput label="Value" icon={require("../assets/dollar-square.png")} id={data?.id} defaultValue={data?.Current_Value} updateState={(value:any) => updateState(value, 'data?.Current_Value')} />
+                    <CTextInput label="Value" icon={require("../assets/dollar-square.png")} id={data?.id} defaultValue={data?.Current_Value} updateState={(value:any) => updateState(value, 'Current_Value')} />
 
                     <CTextInput label="Provider" icon={require("../assets/profile.png")} id={data?.id} defaultValue={data?.Product_Provider} updateState={(value:any) => updateState(value, 'Product_Provider')} isNumOnly={false}/>
                     

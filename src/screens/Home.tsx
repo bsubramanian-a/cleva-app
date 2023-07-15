@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Dimensions, BackHandler } from "react-native";
+import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Dimensions, BackHandler, Alert } from "react-native";
 import EventCard from "../components/EventCard";
 import RecommededCard from "../components/RecommededCard";
 import {
@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import CircleProgressBar from "../components/CircleProgressBar";
 import { useNavigation } from "@react-navigation/native";
 import Loader from "../components/Loader";
+import RNExitApp from 'react-native-exit-app';
 
 const Home = () => {
   const navigation:any = useNavigation();
@@ -39,21 +40,45 @@ const Home = () => {
     }
   };
 
-  const handleBackButton = () => {
-    // Replace 'ScreenName' with the name of the screen you want to redirect to
-    navigation.navigate('Home');
-    return true; // Return true to indicate that the event has been handled
-  };
-
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
-  
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackButton
+    );
+
     return () => {
-      // Cleanup the event listener when the component unmounts
-      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+      backHandler.remove();
     };
   }, []);
 
+  const handleBackButton = () => {
+    if (navigation.isFocused()) {
+      Alert.alert(
+        'Confirm Exit',
+        'Are you sure you want to exit the app?',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Exit',
+            style: 'destructive',
+            onPress: () => {
+              // Exit the app
+              RNExitApp.exitApp();
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+
+      return true; // Return true to indicate that the event has been handled
+    }
+
+    return false; // Return false to allow the default back button behavior
+  };
+  
   useEffect(() => {
     getDatas();
   }, [])

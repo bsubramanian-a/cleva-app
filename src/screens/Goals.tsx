@@ -80,7 +80,7 @@ const Goals = ({navigation}:any) => {
   }, [selectedFilter, currentGoal])
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, paddingBottom: 30}}>
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
       <CustomHeader name="Goals" type={1}/>
       <Loader visible={loading} />

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
     View,
     Modal,
-    TouchableOpacity,
+    TouchableOpacity, 
     Text,
     StyleSheet,
     Dimensions,
@@ -17,7 +17,7 @@ import DeletePopup from './DeletePopup';
 import { FontFamily } from '../GlobalStyles';
 import { color } from 'react-native-reanimated';
 
-const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccount, setIsAccountModalVisible, color }: any) => {
+const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccount, setIsAccountModalVisible, color, index, count }: any) => {
     const navigation: any = useNavigation();
 
     const editAccount = () => {
@@ -78,7 +78,7 @@ const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccoun
     };
 
     return (
-        <Pressable onPress={() => {setCurrentAccount(acc); setIsAccountModalVisible(true)}} style={styles.container}>
+        <Pressable onPress={() => {setCurrentAccount(acc); setIsAccountModalVisible(true)}} style={[styles.container, count == index + 1 && {marginBottom: 30}]}>
             <View style={styles.wrapper}>
                 <View style={[styles.leftLine, {borderColor: color}]}></View>
                 <View style={styles.contentView}>

@@ -111,7 +111,7 @@ const Accounts = () => {
 
       {accounts?.length > 0 ? <ScrollView>
         <View style={styles.cardWrapper}>
-          {accounts?.map((acc:any, index:number) =>  <AccountCard setIsAccountModalVisible={setIsAccountModalVisible} setCurrentAccount={setCurrentAccount} color={index % 2 === 0 ? 'red' : 'green'} setDeleteModalVisible={setDeleteModalVisible} setDeleteId={setDeleteId} key={acc?.id} acc={acc} />)}
+          {accounts?.map((acc:any, index:number) =>  <AccountCard index={index} count={accounts?.length} setIsAccountModalVisible={setIsAccountModalVisible} setCurrentAccount={setCurrentAccount} color={index % 2 === 0 ? 'red' : 'green'} setDeleteModalVisible={setDeleteModalVisible} setDeleteId={setDeleteId} key={acc?.id} acc={acc} />)}
         </View>
       </ScrollView> : <Text style={styles.textStyle}>No accounts found</Text>}
     </View>
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   container:{
-    flex: 1
+    flex: 1,
   },
   textStyle: {
     textAlign: "center",

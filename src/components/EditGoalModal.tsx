@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Image, StyleSheet, Text, View, Pressable, Modal, Dimensions, ScrollView} from 'react-native';
+import {Image, StyleSheet, Text, View, Pressable, Modal, Dimensions, ScrollView, KeyboardAvoidingView, Platform} from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 import { Color, FontFamily, Padding, Border, FontSize } from "../GlobalStyles";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -68,7 +68,12 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
 
   return (
     <Modal visible={visible} onRequestClose={onClose} transparent>
-        <View style={styles.goalsEditGoalsPopup}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyboardAvoidingView}
+      >
+        <View style={styles.modalDialog}>
+          <View style={styles.goalsEditGoalsPopup}>
             <Loader visible={loading} />
             <Pressable onPress={onClose} style={styles.closeButton}>
               <Image
@@ -81,7 +86,7 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                 <View style={styles.save20000ForNewCarParent}>
                     <Text style={styles.save20000For}>{goal?.Name}</Text>
                     <Text style={[styles.save200Per, styles.save200PerTypo]}>
-                       {goal?.Description}
+                        {goal?.Description}
                     </Text>
                 </View>
 
@@ -205,12 +210,19 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                   </LinearGradient>
                 </Pressable>
             </ScrollView>
+          </View>
         </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
+  keyboardAvoidingView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   edit: {
     color: Color.white1,
     fontFamily: FontFamily.openSansRegular,
@@ -515,15 +527,19 @@ const styles = StyleSheet.create({
   goalsEditGoalsPopup: {
     position: 'relative',
     backgroundColor: "#fff",
-    // flex: 1,
     width: Dimensions.get('window').width - 30,
-    height: Dimensions.get('window').height - 150,
+    height: Dimensions.get('window').height - 220,
     borderRadius: 12,
     alignSelf: 'center',
-    marginTop: 75,
     padding: 0,
-    zIndex: 1000
+    zIndex: 1000,
   },
+  modalDialog: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });
 
 export default EditGoalModal;
