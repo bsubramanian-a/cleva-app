@@ -5,8 +5,8 @@ import { Margin, FontSize, FontFamily, Color, Padding, Border } from "../GlobalS
 import CustomHeader from "../components/CustomHeader";
 import RadioButtonGroup from "../components/RadioButtonGroup";
 import GraphModal from "../components/GraphModal";
-import { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useCallback, useEffect, useState } from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import Tabs from "../components/Tab";
 import { cos } from "react-native-reanimated";
 import LinearGradient from "react-native-linear-gradient";
@@ -78,6 +78,19 @@ const Goals = ({navigation}:any) => {
   useEffect(() => {
     if(modalVisible && currentGoal) getChartData();
   }, [selectedFilter, currentGoal])
+
+
+  useFocusEffect(
+    useCallback(() => {
+      
+      actions.emptyAddGoals();
+      
+      // Return a cleanup function if needed
+      return () => {
+        // Cleanup logic if needed
+      };
+    }, [])
+  );
 
   return (
     <View style={{flex: 1, paddingBottom: 30}}>

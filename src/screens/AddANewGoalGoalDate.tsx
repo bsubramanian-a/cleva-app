@@ -57,8 +57,11 @@ const AddANewGoalGoalDate = ({ navigation }: any) => {
 
   useFocusEffect(
     useCallback(() => {
-      // Trigger your focus event here
-      actions.updateAddGoals({ "targetDate": format(today, 'yyyy-MM-dd') });
+      console.log("addGoals first", addGoals);
+      if(!addGoals?.targetDate){
+        // Trigger your focus event here
+        actions.updateAddGoals({ "targetDate": format(today, 'yyyy-MM-dd') });
+      }
       
       // You can also dispatch an action to update the Redux store or perform other logic
 

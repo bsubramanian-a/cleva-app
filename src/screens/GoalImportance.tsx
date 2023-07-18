@@ -52,7 +52,7 @@ const GoalImportance = ({ navigation }: any) => {
 
         setTimeout(async() => {
           await actions.getGoalsByAccount();
-        actions.emptyAddGoals();
+          actions.emptyAddGoals();
           navigation.navigate('AddANewGoalGoalSummary', {
             formattedDate: response?.targetDate,
             money_need: response?.money_need?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ','),

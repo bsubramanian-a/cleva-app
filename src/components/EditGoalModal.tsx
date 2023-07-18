@@ -1,10 +1,10 @@
 import * as React from "react";
-import {Image, StyleSheet, Text, View, Pressable, Modal, Dimensions, ScrollView, KeyboardAvoidingView, Platform} from 'react-native';
+import {Image, StyleSheet, Text, View, Pressable, Modal, Dimensions, ScrollView, KeyboardAvoidingView, Platform, Keyboard} from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 import { Color, FontFamily, Padding, Border, FontSize } from "../GlobalStyles";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import RadioButtonGroup from "./RadioButtonGroup";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Label from "./Label";
 import CustomDatePicker from "./CustomDatepicker";
@@ -17,8 +17,7 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
   const [datas, setDatas] = useState<any>([]);
   const profile = useSelector((state: any) => state.data.profile);
   const [loading, setLoading] = useState(false);
-  // const dateObj = new Date(goal?.Target_Date);
-  // const formattedDate = dateObj.toLocaleDateString('en-US');
+  const scrollViewRef = useRef<any>(null);
 
   const updateState = (value: any, label: string) => {
     setDatas((prevDatas: any) => {
@@ -33,7 +32,7 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
     });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     setDatas([]);
   }, [goal])
 
@@ -62,12 +61,23 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
   const futureDate = new Date();
   futureDate.setFullYear(today.getFullYear() + 100);
 
- React.useEffect(() => {
-  console.log("edit goal modal", goal)
- }, [goal])
+  useEffect(() => {
+    // ...
+  
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        scrollViewRef.current.scrollToEnd({ animated: true });
+      }
+    );
+  
+    // ...
+  }, []);
+    
 
   return (
     <Modal visible={visible} onRequestClose={onClose} transparent>
+      <View style={styles.backdrop}></View>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardAvoidingView}
@@ -82,7 +92,7 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
                 style={styles.frameChild}
               />
             </Pressable>
-            <ScrollView contentContainerStyle={[styles.groupParent, styles.groupParentShadowBox]}>
+            <ScrollView ref={scrollViewRef} contentContainerStyle={[styles.groupParent, styles.groupParentShadowBox]}>
                 <View style={styles.save20000ForNewCarParent}>
                     <Text style={styles.save20000For}>{goal?.Name}</Text>
                     <Text style={[styles.save200Per, styles.save200PerTypo]}>
@@ -218,6 +228,14 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
 };
 
 const styles = StyleSheet.create({
+  backdrop: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black color
+  },
   keyboardAvoidingView: {
     flex: 1,
     justifyContent: 'center',

@@ -33,7 +33,7 @@ const AddAccount = ({ route }: any) => {
 
             await actions.addLiability(data);
     
-            await actions.getAccounts();
+            // await actions.getAccounts();
     
             await actions.getLiabilities();
     

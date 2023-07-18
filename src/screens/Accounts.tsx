@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Pressable } from "react-native";
+import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Pressable, BackHandler } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import HeaderBack from "../components/HeaderBack";
 import AssetsWealth from "../components/AssetsWealth";
@@ -13,10 +13,10 @@ import {
   FontSize,
 } from "../GlobalStyles";
 import WealthTab from "../components/WealthTab";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CustomHeader from "../components/CustomHeader";
 import { useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import Loader from "../components/Loader";
 import AccountCard from "../components/AccountCard";
 import { getAccounts } from "../../actions/data";
@@ -27,16 +27,43 @@ import AccountModal from "../components/AccountModal";
 
 const Accounts = () => {
   const navigation: any = useNavigation();
-  const accounts = useSelector((state: any) => state.data.accounts);
+  const account = useSelector((state: any) => state.data.accounts);
+  const [accounts, setAccounts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [isAccountModalVisible, setIsAccountModalVisible] = useState(false);
   const [currentAccount, setCurrentAccount] = useState(null);
 
+  useFocusEffect(
+    useCallback(() => {
+      getAccounts();
+
+      // Return a cleanup function if needed
+      return () => {
+        // Cleanup logic if needed
+      };
+    }, [])
+  );
+
+  const handleBackButton = () => {
+    // Replace 'ScreenName' with the name of the screen you want to redirect to
+    navigation.navigate('Home');
+    return true; // Return true to indicate that the event has been handled
+  };
+
   useEffect(() => {
-    getAccounts();
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+  
+    return () => {
+      // Cleanup the event listener when the component unmounts
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    };
   }, []);
+
+  useEffect(() => {
+    setAccounts(account);
+  }, [account])
 
   const getAccounts = async () => {
     setLoading(true);
@@ -82,7 +109,7 @@ const Accounts = () => {
     <View style={styles.container}>
       <Loader visible={loading} />
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-      <CustomHeader name="Accounts" type={2} />
+      <CustomHeader name="Accounts" type={2} back="Home" />
 
       <AccountModal visible={isAccountModalVisible} onClose={() => setIsAccountModalVisible(false)} acc={currentAccount} />
 

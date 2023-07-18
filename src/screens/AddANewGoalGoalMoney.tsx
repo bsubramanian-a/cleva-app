@@ -56,6 +56,10 @@ const AddANewGoalGoalMoney = ({ navigation }: any) => {
     }
   };
 
+  React.useEffect(() => {
+    console.log("add goals change", addGoals);
+  }, [addGoals])
+
   const today = new Date();
   const futureDate = new Date();
   futureDate.setFullYear(today.getFullYear() + 100);
@@ -63,8 +67,11 @@ const AddANewGoalGoalMoney = ({ navigation }: any) => {
 
   useFocusEffect(
     useCallback(() => {
-      // Trigger your focus event here
-      actions.updateAddGoals({ "when_money_need": format(today, 'yyyy-MM-dd') });
+      console.log("addGoals money", addGoals, !addGoals?.when_money_need);
+      if(!addGoals?.when_money_need){
+        // Trigger your focus event here
+        actions.updateAddGoals({ "when_money_need": format(today, 'yyyy-MM-dd') });
+      }
       
       // You can also dispatch an action to update the Redux store or perform other logic
 
@@ -116,6 +123,7 @@ const AddANewGoalGoalMoney = ({ navigation }: any) => {
               icon={require('../assets/calendar.png')}
             />
             <CustomDatePicker
+              shouldExecuteUseEffect={true}
               defaultValue={
                 addGoals?.when_money_need ? new Date(addGoals?.when_money_need): today 
               }
