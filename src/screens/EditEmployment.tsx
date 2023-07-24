@@ -122,7 +122,11 @@ const EditEmployment = ({ }: any) => {
             >
                 <View style={styles.advicecontainer}>
                     <View style={[styles.frWrapper, styles.ml_11, styles.wrapperLayout]}>
-                        <Text style={styles.dr}>{datas?.length > 0 && (profile[0]?.First_Name?.charAt(0) + profile[0]?.Last_Name?.charAt(0))}</Text>
+                        <Text style={styles.dr}>{datas?.length > 0 && (
+                      (profile[0]?.First_Name && profile[0]?.Last_Name)
+                        ? (profile[0]?.First_Name.charAt(0) + profile[0]?.Last_Name.charAt(0))
+                        : ((profile[0]?.First_Name || profile[0]?.Last_Name) || '').slice(0, 2)
+                    )}</Text>
                     </View>
 
                     <View style={{ alignItems: 'center', marginVertical: 10 }}>

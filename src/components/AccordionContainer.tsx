@@ -81,7 +81,7 @@ const Accordion = ({
       </TouchableOpacity>
       {isActive && (
         <View>
-          {items.map((section: any, index: any) => (
+          {items?.map((section: any, index: any) => (
             <View key={index.toString()}>
               {index == 0 && <View style={styles.lineStyle} />}
               <View style={styles.editRow}>

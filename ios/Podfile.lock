@@ -107,6 +107,7 @@ PODS:
     - hermes-engine/Pre-built (= 0.71.6)
   - hermes-engine/Pre-built (0.71.6)
   - libevent (2.1.12)
+  - Mobilisten (5.4.0)
   - OpenSSL-Universal (1.1.1100)
   - PromisesObjC (2.1.1)
   - PromisesSwift (2.1.1):
@@ -483,6 +484,8 @@ PODS:
     - React-Core
   - RNCClipboard (1.11.2):
     - React-Core
+  - RNExitApp (2.0.0):
+    - React-Core
   - RNGestureHandler (2.9.0):
     - React-Core
   - RNGoogleSignin (10.0.1):
@@ -522,6 +525,9 @@ PODS:
     - React-Core
   - RNVectorIcons (9.2.0):
     - React-Core
+  - RNZohoSalesIQ (5.4.0):
+    - Mobilisten (= 5.4.0)
+    - React
   - SocketRocket (0.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -596,12 +602,14 @@ DEPENDENCIES:
   - "RNAppleAuthentication (from `../node_modules/@invertase/react-native-apple-authentication`)"
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
+  - RNExitApp (from `../node_modules/react-native-exit-app`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - RNZohoSalesIQ (from `../node_modules/react-native-zohosalesiq-mobilisten/ios`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -628,6 +636,7 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - libevent
+    - Mobilisten
     - OpenSSL-Universal
     - PromisesObjC
     - PromisesSwift
@@ -719,6 +728,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCClipboard:
     :path: "../node_modules/@react-native-clipboard/clipboard"
+  RNExitApp:
+    :path: "../node_modules/react-native-exit-app"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNGoogleSignin:
@@ -731,6 +742,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  RNZohoSalesIQ:
+    :path: "../node_modules/react-native-zohosalesiq-mobilisten/ios"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -764,6 +777,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: c1edebe64e9fb4e8f6415d018edf1fd3eac074a1
   hermes-engine: b434cea529ad0152c56c7cb6486b0c4c0b23b5de
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
+  Mobilisten: 1be1439c93e84d2259efa5dffdb023b4abd43e56
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   PromisesSwift: 99fddfe4a0ec88a56486644c0da106694c92a604
@@ -802,16 +816,18 @@ SPEC CHECKSUMS:
   RNAppleAuthentication: 0571c08da8c327ae2afc0261b48b4a515b0286a6
   RNCAsyncStorage: b90b71f45b8b97be43bc4284e71a6af48ac9f547
   RNCClipboard: 3f0451a8100393908bea5c5c5b16f96d45f30bfc
+  RNExitApp: 00036cabe7bacbb413d276d5520bf74ba39afa6a
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNGoogleSignin: ccaa4a81582cf713eea562c5dd9dc1961a715fd0
   RNReanimated: cc5e3aa479cb9170bcccf8204291a6950a3be128
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
+  RNZohoSalesIQ: 78cd29360b4e584dc1e04a36e013c694d34a99af
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: ba09b6b11e6139e3df8229238aa794205ca6a02a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 4564f175274cc2a73cfb3ef92f2c7feac19338ae
+PODFILE CHECKSUM: c00366f25b805885c25165446c2eac670c5312bd
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

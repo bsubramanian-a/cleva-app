@@ -112,7 +112,7 @@ const EditIncome = ({ }: any) => {
             >
                 <View style={styles.advicecontainer}>
                     <View style={[styles.frWrapper, styles.wrapperLayout]}>
-                        <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.Person_Account?.name?.split(' ').map((word: string) => word.charAt(0).toUpperCase()).join(''))}</Text>
+                        <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.Person_Account?.name?.split(' ').map((word: string) => datas[0]?.Person_Account?.name?.split(' ')?.length > 1 ? word.charAt(0).toUpperCase() : word.charAt(0).toUpperCase() + word.charAt(1).toUpperCase()).join(''))}</Text>
                     </View>
 
                     <View style={{ alignItems: 'center', marginVertical: 10 }}>

@@ -5,15 +5,18 @@ import { Dropdown } from 'react-native-element-dropdown';
 const DropdownComponent = ({ values, defaultValue, onValueChange }:any) => {
     const [value, setValue] = useState(defaultValue);
     const [isFocus, setIsFocus] = useState(false);
+    console.log("values", values);
 
     useEffect(() => {
       setValue(defaultValue);
     }, [defaultValue])
 
+    const filteredValues = values.filter((item:any) => !!item);
+
     return (
       <Dropdown
         style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
-        data={values}
+        data={filteredValues}
         value={value}
         selectedTextStyle={{ fontSize: 14, color: '#000', fontWeight: '600' }}
         placeholderStyle={{ fontSize: 14, color: '#000', fontWeight: '600' }}

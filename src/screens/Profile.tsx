@@ -219,9 +219,9 @@ const Profile = () => {
               { icon: require("../assets/money-recieve.png"), name: 'Private Health Insurance', value: `$${profile[0]?.expenses[0]?.Private_Health_Insurance_p_a?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },
             ]
           },
-          {
+          profile[0]?.expenses?.length > 0 && {
             subHeading: "Loan Repayments",
-            id: profile[0]?.expenses[0]?.id,
+            id: profile[0]?.expenses?.length > 0 && profile[0]?.expenses[0]?.id,
             isLink: false,
             item: [
               { icon: require("../assets/money-recieve.png"), name: 'Home', value: `$${profile[0]?.expenses[0]?.Home_Loan?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}` },

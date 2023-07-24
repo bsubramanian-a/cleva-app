@@ -82,15 +82,15 @@ const AddAccount = ({ route }: any) => {
                     
                     <Label label="Primary Owner" icon={require("../assets/vuesaxlinearprofilecircle.png")} />
                     <DropdownComponent
-                        values={[{ label: 'None', value: '' }, { label: profile[0]?.First_Name + " " + profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: profile[0]?.accounts[0]?.First_Name + " " + profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
-                        defaultValue={data?.Primary_Owner}
+                        values={[{ label: 'None', value: '' }, { label: (profile[0]?.First_Name && (profile[0]?.First_Name + " ")) + profile[0]?.Last_Name && profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: (profile[0]?.accounts[0]?.First_Name && (profile[0]?.accounts[0]?.First_Name + " ")) + profile[0]?.accounts[0]?.Last_Name && profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
+                        defaultValue={data?.Primary_Owner?.id?.toString()}
                         onValueChange={(value: any) => updateState(value, 'Primary_Owner')}
                     />
 
                     <Label label="Secondary Owner" icon={require("../assets/vuesaxlinearprofilecircle.png")} />
                     <DropdownComponent
-                        values={[{ label: 'None', value: '' }, { label: profile[0]?.First_Name + " " + profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: profile[0]?.accounts[0]?.First_Name + " " + profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
-                        defaultValue={data?.Secondary_Owner}
+                        values={[{ label: 'None', value: '' }, { label: (profile[0]?.First_Name && (profile[0]?.First_Name + " ")) + profile[0]?.Last_Name && profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: (profile[0]?.accounts[0]?.First_Name && (profile[0]?.accounts[0]?.First_Name + " ")) + profile[0]?.accounts[0]?.Last_Name && profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
+                        defaultValue={data?.Secondary_Owner?.id?.toString()}
                         onValueChange={(value: any) => updateState(value, 'Secondary_Owner')}
                     />
                 </View>

@@ -4,7 +4,7 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 const CircleProgressBar = ({ progress1, total, radius, strokeWidth, color1, color2, netWorth }:any) => {
   const progress1Percentage = progress1 ? progress1 * 100 : 0;
-  console.log("progress1", progress1);
+  // console.log("progress1", progress1);
   // const progress2Percentage = progress2 * 100;
 
   return (

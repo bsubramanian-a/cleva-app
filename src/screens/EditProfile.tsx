@@ -125,7 +125,11 @@ const EditProfile = ({ }: any) => {
             >
                 <View style={styles.advicecontainer}>
                     <View style={[styles.frWrapper, styles.wrapperLayout]}>
-                        <Text style={styles.dr}>{datas?.length > 0 && (datas[0]?.First_Name?.charAt(0) + profile[0]?.Last_Name?.charAt(0))}</Text>
+                        <Text style={styles.dr}>{datas?.length > 0 && profile?.length > 0 && (
+                      (profile[0]?.First_Name && profile[0]?.Last_Name)
+                        ? (profile[0]?.First_Name.charAt(0) + profile[0]?.Last_Name.charAt(0))
+                        : ((profile[0]?.First_Name || profile[0]?.Last_Name) || '').slice(0, 2)
+                    )}</Text>
                     </View>
                     <View style={{ alignItems: 'center', marginVertical: 10 }}>
                         <Text style={{ fontWeight: '500', fontSize: 22, color: 'black', fontFamily: FontFamily.sourceSerifPro }}>{datas[0]?.First_Name} {datas[0]?.Last_Name}</Text>
