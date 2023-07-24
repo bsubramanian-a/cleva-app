@@ -21,8 +21,10 @@ import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-messa
 import { EXPENSES } from "../../urls";
 import DualCheckbox from "../components/DualCheckbox";
 import data from "../../reducers/data";
+import { useCustomFlashMessage } from "../components/CustomFlashMessage";
 
 const EditExpenses = ({ }: any) => {
+    const { showFlashMessage } = useCustomFlashMessage();
     const navigation = useNavigation();
     const route: any = useRoute();
     const { id, type } = route.params;
@@ -83,11 +85,12 @@ const EditExpenses = ({ }: any) => {
 
         navigation.goBack();
 
-        showMessage({
-            message: 'Success',
-            description: 'Profile updated successfully',
-            type: 'success',
-        });
+        // showMessage({
+        //     message: 'Success',
+        //     description: 'Profile updated successfully',
+        //     type: 'success',
+        // });
+        showFlashMessage("Profile updated successfully", 'success');
         setLoading(false);
     }
 

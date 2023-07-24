@@ -15,8 +15,10 @@ import actions from "../../actions";
 import Loader from "../components/Loader";
 import { useNavigation } from "@react-navigation/native";
 import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
+import { useCustomFlashMessage } from "../components/CustomFlashMessage";
 
 const EditWealth = ({ route }: any) => {
+    const { showFlashMessage } = useCustomFlashMessage();
     const navigation = useNavigation();
     const [loading, setLoading] = useState(false);
     const { type } = route.params;
@@ -49,11 +51,12 @@ const EditWealth = ({ route }: any) => {
             await actions.getLiabilities();
         }
 
-        showMessage({
-            message: 'Success',
-            description: 'Wealth updated successfully',
-            type: 'success',
-        });
+        // showMessage({
+        //     message: 'Success',
+        //     description: 'Wealth updated successfully',
+        //     type: 'success',
+        // });
+        showFlashMessage("Wealth updated successfully", 'success');
         setLoading(false);
     }
 

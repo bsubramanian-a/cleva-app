@@ -21,8 +21,10 @@ import FlashMessage, {
   showMessage,
   hideMessage,
 } from 'react-native-flash-message';
+import { useCustomFlashMessage } from '../components/CustomFlashMessage';
 
 const AddWealth = ({ route }: any) => {
+  const { showFlashMessage } = useCustomFlashMessage();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
@@ -41,43 +43,51 @@ const AddWealth = ({ route }: any) => {
       const res: any = await actions.addAsset(data);
 
       if (res?.data?.length > 0 && res?.data[0]?.code == 'SUCCESS') {
-        showMessage({
-          message: 'Success',
-          description: 'Asset added successfully',
-          type: 'success',
-        });
+        // showMessage({
+        //   message: 'Success',
+        //   description: 'Asset added successfully',
+        //   type: 'success',
+        // });
+
+        showFlashMessage("Asset added successfully", 'success');
 
         setName('');
         setValue('');
 
         await actions.getAssets();
       } else {
-        showMessage({
-          message: 'Failed',
-          description: 'Asset creation failed, please try again later!',
-          type: 'danger',
-        });
+        // showMessage({
+        //   message: 'Failed',
+        //   description: 'Asset creation failed, please try again later!',
+        //   type: 'danger',
+        // });
+
+        showFlashMessage("Asset creation failed, please try again later!", 'failure');
       }
     } else {
       const res: any = await actions.addLiability(data);
 
       if (res?.data?.length > 0 && res?.data[0]?.code == 'SUCCESS') {
-        showMessage({
-          message: 'Success',
-          description: 'Liability added successfully',
-          type: 'success',
-        });
+        // showMessage({
+        //   message: 'Success',
+        //   description: 'Liability added successfully',
+        //   type: 'success',
+        // });
+
+        showFlashMessage("Liability added successfully", 'success');
 
         setName('');
         setValue('');
 
         await actions.getLiabilities();
       } else {
-        showMessage({
-          message: 'Failed',
-          description: 'Liability creation failed, please try again later!',
-          type: 'danger',
-        });
+        // showMessage({
+        //   message: 'Failed',
+        //   description: 'Liability creation failed, please try again later!',
+        //   type: 'danger',
+        // });
+
+        showFlashMessage("Liability creation failed, please try again later!", 'failure');
       }
     }
 

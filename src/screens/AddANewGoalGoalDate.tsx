@@ -21,8 +21,10 @@ import FlashMessage, { showMessage } from 'react-native-flash-message';
 import { useSelector } from 'react-redux';
 import { useFocusEffect } from '@react-navigation/native';
 import { format } from 'date-fns';
+import { useCustomFlashMessage } from '../components/CustomFlashMessage';
 
 const AddANewGoalGoalDate = ({ navigation }: any) => {
+  const { showFlashMessage } = useCustomFlashMessage();
   const [datas, setDatas] = useState<any>([]);
   const addGoals = useSelector((state: any) => state.data.addGoals);
 
@@ -47,11 +49,12 @@ const AddANewGoalGoalDate = ({ navigation }: any) => {
     if (addGoals?.title && addGoals?.description && addGoals?.targetDate) {
       navigation.navigate('AddANewGoalGoalImportan');
     } else {
-      showMessage({
-        message: 'Failed',
-        description: 'Please fill all the fields',
-        type: 'danger',
-      });
+      // showMessage({
+      //   message: 'Failed',
+      //   description: 'Please fill all the fields',
+      //   type: 'danger',
+      // });
+      showFlashMessage("Please fill all the fields", 'failure');
     }
   };
 

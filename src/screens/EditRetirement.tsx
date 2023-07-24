@@ -19,8 +19,10 @@ import DropdownComponent from "../components/DropdownComponent";
 import CustomDatePicker from "../components/CustomDatepicker";
 import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
 import { RETIREMENT } from "../../urls";
+import { useCustomFlashMessage } from "../components/CustomFlashMessage";
 
 const EditRetirement = ({ }: any) => {
+    const { showFlashMessage } = useCustomFlashMessage();
     const navigation = useNavigation();
     const route: any = useRoute();
     const { type } = route.params;
@@ -57,11 +59,12 @@ const EditRetirement = ({ }: any) => {
 
         navigation.goBack();
 
-        showMessage({
-            message: 'Success',
-            description: 'Profile updated successfully',
-            type: 'success',
-        });
+        // showMessage({
+        //     message: 'Success',
+        //     description: 'Profile updated successfully',
+        //     type: 'success',
+        // });
+        showFlashMessage("Profile updated successfully", 'success');
         setLoading(false);
     }
 

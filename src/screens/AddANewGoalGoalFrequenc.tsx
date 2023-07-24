@@ -20,8 +20,10 @@ import RadioButtonGroup from '../components/RadioButtonGroup';
 import actions from '../../actions';
 import FlashMessage, { showMessage } from 'react-native-flash-message';
 import { useSelector } from 'react-redux';
+import { useCustomFlashMessage } from '../components/CustomFlashMessage';
 
 const AddANewGoalGoalFrequenc = ({ navigation }: any) => {
+  const { showFlashMessage } = useCustomFlashMessage();
   const [reponsible, setResponsible] = useState<any>(null);
   const addGoals = useSelector((state: any) => state.data.addGoals);
 
@@ -34,11 +36,13 @@ const AddANewGoalGoalFrequenc = ({ navigation }: any) => {
     if (addGoals?.frequent_money_save) {
       navigation.navigate('GoalImportance');
     } else {
-      showMessage({
-        message: 'Failed',
-        description: 'Please select any option',
-        type: 'danger',
-      });
+      // showMessage({
+      //   message: 'Failed',
+      //   description: 'Please select any option',
+      //   type: 'danger',
+      // });
+
+      showFlashMessage("Please select any option", 'failure');
     }
   };
 

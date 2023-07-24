@@ -5,8 +5,10 @@ import DeletePopup from './DeletePopup';
 import {useState} from 'react';
 import actions from '../../actions';
 import {showMessage} from 'react-native-flash-message';
+import { useCustomFlashMessage } from './CustomFlashMessage';
 
 const AssetsWealth = ({datas, loading, setLoading, type}: any) => {
+  const { showFlashMessage } = useCustomFlashMessage();
   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
   const total = parseFloat(
     datas
@@ -34,17 +36,19 @@ const AssetsWealth = ({datas, loading, setLoading, type}: any) => {
         await actions.getLiabilities();
       }
 
-      showMessage({
-        message: 'Success',
-        description: 'Asset deleted successfully',
-        type: 'success',
-      });
+      // showMessage({
+      //   message: 'Success',
+      //   description: 'Asset deleted successfully',
+      //   type: 'success',
+      // });
+      showFlashMessage("Asset deleted successfully", 'success');
     } else {
-      showMessage({
-        message: 'Failed',
-        description: 'Asset deleted successfully',
-        type: 'danger',
-      });
+      // showMessage({
+      //   message: 'Failed',
+      //   description: 'Asset delete failed',
+      //   type: 'danger',
+      // });
+      showFlashMessage("Asset delete failed", 'failure');
     }
     setLoading(false);
   };

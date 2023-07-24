@@ -21,8 +21,10 @@ import { useSelector } from 'react-redux';
 import actions from '../../actions';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
 import RadioButtonGroupOwner from '../components/RadioButtonGroupOwner';
+import { useCustomFlashMessage } from '../components/CustomFlashMessage';
 
 const AddANewGoalGoalResponsi = ({navigation}: any) => {
+  const { showFlashMessage } = useCustomFlashMessage();
   const profile = useSelector((state: any) => state.data.profile);
   const addGoals = useSelector((state: any) => state.data.addGoals);
 
@@ -37,11 +39,13 @@ const AddANewGoalGoalResponsi = ({navigation}: any) => {
     if (addGoals?.Goal_Owner_s) {
       navigation.navigate('AddANewGoalGoalFrequenc');
     } else {
-      showMessage({
-        message: 'Failed',
-        description: 'Please select any option',
-        type: 'danger',
-      });
+      // showMessage({
+      //   message: 'Failed',
+      //   description: 'Please select any option',
+      //   type: 'danger',
+      // });
+
+      showFlashMessage("Please select any option", 'failure');
     }
   };
 

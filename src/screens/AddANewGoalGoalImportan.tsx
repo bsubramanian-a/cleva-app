@@ -20,8 +20,10 @@ import RadioButtonGroup from '../components/RadioButtonGroup';
 import actions from '../../actions';
 import { useSelector } from 'react-redux';
 import FlashMessage, { showMessage } from 'react-native-flash-message';
+import { useCustomFlashMessage } from '../components/CustomFlashMessage';
 
 const AddANewGoalGoalImportan = ({ navigation }: any) => {
+  const { showFlashMessage } = useCustomFlashMessage();
   const [importance, setImportance] = useState<any>(null);
   const addGoals = useSelector((state: any) => state.data.addGoals);
 
@@ -34,11 +36,13 @@ const AddANewGoalGoalImportan = ({ navigation }: any) => {
     if (addGoals?.isFinancial) {
       navigation.navigate('AddANewGoalGoalMoney');
     } else {
-      showMessage({
-        message: 'Failed',
-        description: 'Please select any option',
-        type: 'danger',
-      });
+      // showMessage({
+      //   message: 'Failed',
+      //   description: 'Please select any option',
+      //   type: 'danger',
+      // });
+
+      showFlashMessage("Please select any option", 'failure');
     }
   };
 

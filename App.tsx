@@ -28,6 +28,7 @@ import Routes from './src/Navigations/Routes';
 import {NavigationContainer} from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import store from './store';
+import CustomFlashMessageProvider from './src/components/CustomFlashMessage';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -43,9 +44,11 @@ function App(): JSX.Element {
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Routes />
-      </NavigationContainer>
+      <CustomFlashMessageProvider>
+        <NavigationContainer>
+          <Routes />
+        </NavigationContainer>
+      </CustomFlashMessageProvider>
     </Provider>
   );
 }

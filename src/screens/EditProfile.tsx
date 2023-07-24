@@ -18,8 +18,10 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import DropdownComponent from "../components/DropdownComponent";
 import CustomDatePicker from "../components/CustomDatepicker";
 import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
+import { useCustomFlashMessage } from "../components/CustomFlashMessage";
 
 const EditProfile = ({ }: any) => {
+    const { showFlashMessage } = useCustomFlashMessage();
     const navigation = useNavigation();
     const route: any = useRoute();
     const { type } = route.params;
@@ -60,6 +62,17 @@ const EditProfile = ({ }: any) => {
 
         // console.log("updatedData", updatedData);
 
+        if(First_Name == '' || Last_Name == ''){
+            // showMessage({
+            //     message: 'Update Failed!',
+            //     description: 'Please fill first name and last name',
+            //     type: 'danger',
+            // });
+            showFlashMessage("Please fill first name and last name", 'failure');
+
+            return false;
+        }
+
         setLoading(true);
         await actions.updateProfile([updatedData]);
 
@@ -67,11 +80,13 @@ const EditProfile = ({ }: any) => {
 
         navigation.goBack();
 
-        showMessage({
-            message: 'Success',
-            description: 'Profile updated successfully',
-            type: 'success',
-        });
+        // showMessage({
+        //     message: 'Success',
+        //     description: 'Profile updated successfully',
+        //     type: 'success',
+        // });
+        showFlashMessage("Profile updated successfully", 'success');
+
         setLoading(false);
     }
 
@@ -116,7 +131,7 @@ const EditProfile = ({ }: any) => {
             <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
             <CustomHeader name="Edit Details" type={3} />
             <Loader visible={loading} />
-            <FlashMessage position="top" />
+
             <ScrollView
                 style={styles.wealthTabParent}
                 showsHorizontalScrollIndicator={false}

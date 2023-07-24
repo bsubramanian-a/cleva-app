@@ -24,8 +24,10 @@ import actions from "../../actions";
 import { showMessage } from "react-native-flash-message";
 import DeletePopup from "../components/DeletePopup";
 import AccountModal from "../components/AccountModal";
+import { useCustomFlashMessage } from "../components/CustomFlashMessage";
 
 const Accounts = () => {
+  const { showFlashMessage } = useCustomFlashMessage();
   const navigation: any = useNavigation();
   const account = useSelector((state: any) => state.data.accounts);
   const [accounts, setAccounts] = useState([]);
@@ -86,17 +88,21 @@ const Accounts = () => {
 
       await actions.getAssets();
 
-      showMessage({
-        message: 'Success',
-        description: 'Account deleted successfully',
-        type: 'success',
-      });
+      // showMessage({
+      //   message: 'Success',
+      //   description: 'Account deleted successfully',
+      //   type: 'success',
+      // });
+
+      showFlashMessage("Account deleted successfully", 'success');
     } else {
-      showMessage({
-        message: 'Failed',
-        description: 'Account deleted successfully',
-        type: 'danger',
-      });
+      // showMessage({
+      //   message: 'Failed',
+      //   description: 'Account delete failed',
+      //   type: 'danger',
+      // });
+
+      showFlashMessage("Account delete failed", 'failure');
     }
     setLoading(false);
   };

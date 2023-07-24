@@ -6,18 +6,26 @@ import { useState } from "react";
 import actions from "../../actions";
 import Loader from "../components/Loader";
 import { showMessage } from "react-native-flash-message";
+import { useCustomFlashMessage } from "../components/CustomFlashMessage";
 
 const LoginSignup = ({navigation}:any) => {
+  const { showFlashMessage } = useCustomFlashMessage();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const showRMessage = (message:string, mtype:string) => {
-    console.log("showRMessage", message, mtype);
-    showMessage({
-      message: mtype == 'success' ? 'Success' : 'Failed',
-      description: message,
-      type: mtype == 'success' ? 'success' : 'danger',
-    });
+    // console.log("showRMessage", message, mtype);
+    // showMessage({
+    //   message: mtype == 'success' ? 'Success' : 'Failed',
+    //   description: message,
+    //   type: mtype == 'success' ? 'success' : 'danger',
+    // });
+
+    if(mtype == 'success'){
+      showFlashMessage(message, 'success');
+    }else{
+      showFlashMessage(message, 'failure');
+    }
   }
   const onVerifyAppleEmail = async (email:string, apple_user_id:string) => {
     setLoading(true);

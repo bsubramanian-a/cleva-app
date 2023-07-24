@@ -18,8 +18,10 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import DropdownComponent from "../components/DropdownComponent";
 import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
 import { DEPENDANT } from "../../urls";
+import { useCustomFlashMessage } from "../components/CustomFlashMessage";
 
 const EditDependants = ({ }: any) => {
+    const { showFlashMessage } = useCustomFlashMessage();
     const navigation = useNavigation();
     const route: any = useRoute();
     const { id } = route.params;
@@ -50,7 +52,18 @@ const EditDependants = ({ }: any) => {
             Dependant_of_Person
         };
 
-        console.log("updatedData", updatedData);
+        if(Name == ''){
+            showFlashMessage("Please fill the name", "failure");
+            // showMessage({
+            //     message: 'Update Failed!',
+            //     description: 'Please fill the name',
+            //     type: 'danger',
+            // });
+
+            return false;
+        }
+
+        // console.log("updatedData", updatedData);
 
         setLoading(true);
 
@@ -60,11 +73,13 @@ const EditDependants = ({ }: any) => {
 
         navigation.goBack();
 
-        showMessage({
-            message: 'Success',
-            description: 'Profile updated successfully',
-            type: 'success',
-        });
+        // showMessage({
+        //     message: 'Success',
+        //     description: 'Profile updated successfully',
+        //     type: 'success',
+        // });
+        showFlashMessage("Profile updated successfully", "success");
+
         setLoading(false);
     }
 
@@ -121,7 +136,7 @@ const EditDependants = ({ }: any) => {
             <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
             <CustomHeader name="Edit Details" type={3} />
             <Loader visible={loading} />
-            <FlashMessage position="top" />
+
             <ScrollView
                 style={styles.wealthTabParent}
                 showsHorizontalScrollIndicator={false}
@@ -179,6 +194,13 @@ const EditDependants = ({ }: any) => {
 };
 
 const styles = StyleSheet.create({
+    wealthAssets: {
+        width: "100%",
+        maxWidth: "100%",
+        overflow: "hidden",
+        flex: 1,
+        backgroundColor: Color.white1,
+    },
     frWrapper: {
         backgroundColor: "#9755b6",
         alignSelf: 'center'
@@ -243,13 +265,6 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         backgroundColor: Color.white1,
         marginHorizontal: 24
-    },
-    wealthAssets: {
-        width: "100%",
-        maxWidth: "100%",
-        overflow: "hidden",
-        flex: 1,
-        backgroundColor: Color.white1,
     },
     ml4: {
         marginLeft: 4,

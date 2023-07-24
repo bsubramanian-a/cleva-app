@@ -22,8 +22,10 @@ import Loader from '../components/Loader';
 import { useSelector } from 'react-redux';
 import FlashMessage, { showMessage } from 'react-native-flash-message';
 import { CommonActions } from '@react-navigation/native';
+import { useCustomFlashMessage } from '../components/CustomFlashMessage';
 
 const GoalImportance = ({ navigation }: any) => {
+  const { showFlashMessage } = useCustomFlashMessage();
   const [reponsible, setResponsible] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const addGoals = useSelector((state: any) => state.data.addGoals);
@@ -68,11 +70,13 @@ const GoalImportance = ({ navigation }: any) => {
         setLoading(false);
       }
     } else {
-      showMessage({
-        message: 'Failed',
-        description: 'Please select any option',
-        type: 'danger',
-      });
+      // showMessage({
+      //   message: 'Failed',
+      //   description: 'Please select any option',
+      //   type: 'danger',
+      // });
+
+      showFlashMessage("Please select any option", 'failure');
     }
   };
 

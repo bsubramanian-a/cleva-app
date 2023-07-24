@@ -12,7 +12,7 @@ import {
   appleAuth,
   AppleButton,
 } from '@invertase/react-native-apple-authentication';
-import {showMessage} from 'react-native-flash-message';
+// import {showMessage} from 'react-native-flash-message';
 
 const AppleLogin = ({onVerifyEmail, showRMessage, setLoginError}: any) => {
   const handleAppleLogin = async () => {

@@ -18,8 +18,10 @@ import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-messa
 import DropdownComponent from "../components/DropdownComponent";
 import Label from "../components/Label";
 import DeletePopup from "../components/DeletePopup";
+import { useCustomFlashMessage } from "../components/CustomFlashMessage";
 
 const EditAccount = ({ route }: any) => {
+    const { showFlashMessage } = useCustomFlashMessage();
     const navigation:any = useNavigation();
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<any>();
@@ -54,11 +56,13 @@ const EditAccount = ({ route }: any) => {
     
             await actions.getAssets();
     
-            showMessage({
-                message: 'Success',
-                description: 'Account updated successfully',
-                type: 'success',
-            });
+            // showMessage({
+            //     message: 'Success',
+            //     description: 'Account updated successfully',
+            //     type: 'success',
+            // });
+
+            showFlashMessage("Account updated successfully", 'success');
     
             navigation.navigate('Accounts');
             setLoading(false);

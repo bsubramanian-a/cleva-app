@@ -20,8 +20,10 @@ import CustomDatePicker from "../components/CustomDatepicker";
 import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
 import { EMPLOYMENT } from "../../urls";
 import DualCheckbox from "../components/DualCheckbox";
+import { useCustomFlashMessage } from "../components/CustomFlashMessage";
 
 const EditEmployment = ({ }: any) => {
+    const { showFlashMessage } = useCustomFlashMessage();
     const navigation = useNavigation();
     const route: any = useRoute();
     const { id } = route.params;
@@ -86,11 +88,12 @@ const EditEmployment = ({ }: any) => {
 
         navigation.goBack();
 
-        showMessage({
-            message: 'Success',
-            description: 'Profile updated successfully',
-            type: 'success',
-        });
+        // showMessage({
+        //     message: 'Success',
+        //     description: 'Profile updated successfully',
+        //     type: 'success',
+        // });
+        showFlashMessage("Profile updated successfully", 'success');
         setLoading(false);
     }
 
