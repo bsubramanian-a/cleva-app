@@ -2,14 +2,19 @@
 
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { StreamChat, Channel } from 'stream-chat';
+import { useChatClient } from '../providers/ChatProvider';
+import { StatusBar } from 'react-native';
+import CustomHeader from '../components/CustomHeader';
 
-const API_KEY = 'YOUR_STREAM_API_KEY'; // Replace this with your actual Stream API key
-const client = StreamChat.getInstance(API_KEY);
+const selectedSubject = "Financial Review";
 
 const CoachListPage = () => {
   const navigation: any = useNavigation();
+  const client = useChatClient();
+  const route: any = useRoute();
+  const { subject } = route.params;
 
   // Sample data for users, replace with actual data from the server
   const users = [
@@ -23,6 +28,9 @@ const CoachListPage = () => {
     const currentUserID = 'current-user-id'; // Replace this with the ID of the current user
     const channel = await client.channel('messaging', {
       members: [currentUserID, selectedUser.id],
+      extra_data: {
+        subject: selectedSubject,
+      },
     });
 
     try {
@@ -41,7 +49,10 @@ const CoachListPage = () => {
 
   return (
     <View>
-      <Text>User List Page</Text>
+      <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
+      <CustomHeader name="Coach List Page" type={3} />
+      {/* <Loader visible={loading} /> */}
+
       <FlatList
         data={users}
         keyExtractor={(item) => item.id}

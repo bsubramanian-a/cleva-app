@@ -5,7 +5,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 const DropdownComponent = ({ values, defaultValue, onValueChange }:any) => {
     const [value, setValue] = useState(defaultValue);
     const [isFocus, setIsFocus] = useState(false);
-    console.log("values", values);
+    // console.log("values", values);
 
     useEffect(() => {
       setValue(defaultValue);

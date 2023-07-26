@@ -4,7 +4,7 @@ import React, { createContext, useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { StreamChat, User } from 'stream-chat';
 
-const API_KEY = '74hmm5v7ubs2';
+const API_KEY = 'nbd695va7c4k';
 
 const client = StreamChat.getInstance(API_KEY);
 
