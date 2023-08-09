@@ -37,7 +37,7 @@ const NewChatModal = ({
 
             <Text style={styles.heading}>What's the Subject?</Text>
          
-            <Label label="Select one" icon={require("../assets/document-text.png")} />
+            <Label label="Select one" icon={require("../assets/subject.png")} style={{Color: '#4b4b4b', fontWeight: '300', fontFamily: FontFamily.outfitLight, FontSize: 14}} />
             <DropdownComponent
                 values={[{ label: 'None', value: '' }, { label: 'Financial Review', value: 'Financial Review' }, { label: 'Tax Review', value: 'Tax Review' }, { label: 'Businees Review', value: 'Businees Review' }]}
                 defaultValue=""
@@ -52,7 +52,7 @@ const NewChatModal = ({
                     useAngle={true}
                     angle={180}
                 >
-                    <Text style={[styles.edit, styles.ml4]}>Save</Text>
+                    <Text style={[styles.edit]}>Start Chat</Text>
                 </LinearGradient>
             </Pressable>
         </View>
@@ -87,7 +87,10 @@ const styles = StyleSheet.create({
         overflow: "hidden",
     },
     heading:{
-        textAlign: 'center'
+        textAlign: 'center',
+        fontWeight: '500',
+        fontSize: 20,
+        fontFamily: FontFamily.outfitMedium,
     },
     frameChild: {
         width: 83,
@@ -112,8 +115,9 @@ const styles = StyleSheet.create({
     modalContent: {
         backgroundColor: '#FFFFFF',
         borderRadius: 12,
-        padding: 16,
-        width: Dimensions.get('window').width - 40
+        padding: 20,
+        width: Dimensions.get('window').width - 40,
+        paddingVertical: 30
     },
     filterContainer: {
         flexDirection: 'row',

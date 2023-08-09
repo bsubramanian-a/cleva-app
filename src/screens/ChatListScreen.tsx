@@ -1,14 +1,18 @@
 // ChatListScreen.tsx
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useCustomFlashMessage } from '../components/CustomFlashMessage';
 import { useChatClient } from '../providers/ChatProvider';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, StatusBar, Pressable, Dimensions } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, StatusBar, Pressable, Dimensions, Image } from 'react-native';
 import CustomHeader from '../components/CustomHeader';
 import WealthTab from '../components/WealthTab';
 import { useNavigation } from '@react-navigation/native';
 import ThreeDotMenu from '../components/ThreeDotMenu';
 import NewChatModal from '../components/NewChatModal';
+import { FontFamily } from '../GlobalStyles';
+import { RectButton, Swipeable } from 'react-native-gesture-handler';
+import { useZoom } from '@zoom/react-native-videosdk';
+import { useSelector } from 'react-redux';
 
 const ChatListScreen = () => {
   const navigation: any = useNavigation();
@@ -18,6 +22,17 @@ const ChatListScreen = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [subject, setSubject] = useState("");
+  const swipeableRef = useRef<Swipeable>(null);
+  const zoom = useZoom();
+  const token = useSelector((state: any) => state?.auth?.userData?.token);
+
+  // Function to delete the chat from history
+  const deleteChat = () => {
+    // Add the logic to delete the chat here
+    // For now, we'll just show a flash message
+    showFlashMessage('Chat deleted successfully', 'failure');
+    swipeableRef.current?.close();
+  };
 
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
@@ -30,6 +45,23 @@ const ChatListScreen = () => {
   useEffect(() => {
     fetchChats();
   }, []);
+
+  const joinZoom = async () => {
+    await zoom.joinSession({
+      sessionName: 'name of video session',
+      token,
+      userName: 'name of user',
+      audioOptions: {
+        connect: true,
+        mute: false,
+      },
+      videoOptions: {
+        localVideoOn: true,
+      },
+      sessionIdleTimeoutMins: 40,
+    });
+    
+  } 
 
   async function fetchChats() {
     try {
@@ -78,32 +110,47 @@ const ChatListScreen = () => {
     const randomColor = getRandomColor();
 
     return (
-      <TouchableOpacity
-        style={styles.chatItem}
-        onPress={() => {
-          navigation.navigate('ChatInnerScreen', { chatId: item?.id });
-        }}
-      >
-        <View style={styles.cardLeftContent}>
-          <View style={[styles.initialWrapper, { backgroundColor: randomColor }]}>
-            <Text style={styles.initialText}>{getInitials(item?.data?.name)}</Text>
-          </View>
-          <View>
-            <Text style={styles.chatName}>{item.data.name}</Text>
-            <Text style={styles.chatSubject}>Financial Review</Text>
-          </View>
-        </View>
-        <View style={styles.cardRightContent}>
-          <Text>1 hr</Text>
-          <ThreeDotMenu options={options} />
-        </View>
-      </TouchableOpacity>
+      <View style={styles.swipeableContainer}>
+        <Swipeable
+          ref={swipeableRef}
+          renderRightActions={() => (
+            <RectButton onPress={deleteChat}>
+              <View style={styles.deleteButton}>
+                <Image
+                  style={styles.trash}
+                  resizeMode="cover"
+                  source={require("../assets/trash.png")}
+                />
+              </View>
+            </RectButton>
+          )}
+          onSwipeableClose={() => swipeableRef.current?.close()}
+          containerStyle={{width: '100%'}}
+        >
+          <TouchableOpacity
+            style={styles.chatItem}
+            onPress={() => {
+              navigation.navigate('ChatInnerScreen', { chatId: item?.id });
+            }}
+          >
+            <View style={styles.cardLeftContent}>
+              <View style={[styles.initialWrapper, { backgroundColor: randomColor }]}>
+                <Text style={styles.initialText}>{getInitials(item?.data?.name)}</Text>
+              </View>
+              <View>
+                <Text style={styles.chatName}>{item.data.name}</Text>
+                <Text style={styles.chatSubject}>Financial Review</Text>
+              </View>
+            </View>
+            <View style={styles.cardRightContent}>
+              <Text style={styles.hour}>1 hr</Text>
+              <ThreeDotMenu options={options} />
+            </View>
+          </TouchableOpacity>
+        </Swipeable>
+      </View>
     );
   };
-
-  const deleteChat = (id: any) => {
-      console.log("delete id", id);
-  }
 
   const options = [
     { label: 'Delete', onClick: deleteChat, icon: require("../assets/trashAcc.png") },
@@ -134,8 +181,15 @@ const ChatListScreen = () => {
             activeTab == 0 &&
               <View style={styles.chatContainer}>
                 <View style={styles.titleRow}>
-                  <Text>Current</Text>
-                  <Pressable onPress={newChat}><Text>New Chat</Text></Pressable>
+                  <Text style={styles.current}>Current</Text>
+                  <Pressable style={styles.newChat} onPress={newChat}>
+                    <Image
+                      style={styles.add_circle}
+                      resizeMode="cover"
+                      source={require("../assets/add-circle.png")}
+                    />
+                    <Text style={styles.newChatText}>New Chat</Text>
+                  </Pressable>
                 </View>
                 <FlatList
                   data={chats}
@@ -144,12 +198,66 @@ const ChatListScreen = () => {
                 />
               </View>
           }
+
+          {
+            activeTab == 1 && 
+              <>
+                <TouchableOpacity onPress={joinZoom}>
+                  <Text>Join zoom</Text>
+                </TouchableOpacity>
+              </>
+          }
         </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  swipeableContainer: {
+    alignItems: 'center',
+    flex: 1,
+    marginVertical: 12,
+  },
+  deleteButton: {
+    backgroundColor: '#FFE0E0',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    width: 62,
+    borderRadius: 16,
+    marginLeft: 15
+  },
+  trash: {
+    width: 26,
+    height: 26
+  },
+  hour:{
+    color: '#4b4b4b',
+    fontSize: 12, 
+    fontWeight: '400', 
+    fontFamily: FontFamily.outfitLight
+  },
+  add_circle:{
+    width: 20,
+    height: 20
+  },
+  newChat:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5
+  },
+  newChatText:{
+    color: '#ef9f27',
+    fontSize: 14, 
+    fontWeight: '500', 
+    fontFamily: FontFamily.sourceSerifPro
+  },
+  current:{
+    fontSize: 18, 
+    fontWeight: '500', 
+    color: "#000",
+    fontFamily: FontFamily.sourceSerifPro
+  },
   cardRightContent:{
     alignItems: 'center',
     justifyContent: 'center',
@@ -172,7 +280,10 @@ const styles = StyleSheet.create({
     gap: 10
   },
   chatSubject: {
-    
+    fontFamily: FontFamily.outfitRegular,
+    fontWeight: '400',
+    fontSize: 14,
+    color: '#4b4b4b'
   },
   chatContainer:{
    flex: 1
@@ -209,10 +320,14 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: '#fff',
     borderRadius: 10,
-    marginVertical: 12,
+    // marginVertical: 12,
+    minHeight: 60,
   },
   chatName: {
-    fontSize: 18,
+    fontSize: 15, 
+    fontWeight: '500', 
+    color: "#000",
+    fontFamily: FontFamily.sourceSerifPro
   },
 });
 

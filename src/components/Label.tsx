@@ -1,12 +1,12 @@
 import { ActivityIndicator, Image, StyleSheet, View, Text } from 'react-native';
 
-const Label = ({ icon, label }: any) => {
+const Label = ({ icon, label, style }: any) => {
     // console.log("label", label)
     return (
         <View style={styles.container}>
             {icon &&
                 <Image
-                    style={styles.vuesaxlinearprofileCircleIcon}
+                    style={[styles.vuesaxlinearprofileCircleIcon, style]}
                     resizeMode="contain"
                     source={icon}
                 />

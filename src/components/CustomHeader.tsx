@@ -8,7 +8,7 @@ import TopHeader from "./TopHeader";
 import HeaderBack from "./HeaderBack";
 import ProfileHeader from "./ProfileHeader";
 
-const CustomHeader = ({name, type, back = ''}: any) => {
+const CustomHeader = ({name, type, back = '', subject=""}: any) => {
     const navigation = useNavigation();
     // console.log("custom header name", name);
 
@@ -56,6 +56,7 @@ const CustomHeader = ({name, type, back = ''}: any) => {
                   goBack={goBack}
                   vuesaxlineararrowLeft={require("../assets/vuesaxlineararrowleft.png")}
                   getStarted={name}
+                  subject={subject}
                 />
             </LinearGradient>
           );

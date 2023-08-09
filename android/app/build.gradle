@@ -153,6 +153,10 @@ android {
 
         }
     }
+
+    packagingOptions {
+        pickFirst '**/*.so'
+    }
 }
 
 dependencies {
@@ -162,6 +166,10 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
     
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+
+    implementation 'us.zoom.videosdk:ZoomVideoSDK:1.8.5'
+
+    implementation project(':mobilertc')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {

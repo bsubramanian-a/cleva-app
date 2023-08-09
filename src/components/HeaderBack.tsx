@@ -9,12 +9,13 @@ import {
   Pressable,
 } from "react-native";
 import { Border, Color, Padding, FontSize, FontFamily } from "../GlobalStyles";
+import ThreeDotMenu from "./ThreeDotMenu";
 
 type HeaderBackType = {
   vuesaxlineararrowLeft?: ImageSourcePropType;
   getStarted?: string;
   goBack?:Function;
-
+  subject?: ""
   /** Style props */
   pageHeadingMarginLeft?: number | string;
 };
@@ -28,7 +29,8 @@ const HeaderBack = ({
   vuesaxlineararrowLeft,
   pageHeadingMarginLeft,
   getStarted,
-  goBack
+  goBack,
+  subject
 }: HeaderBackType) => {
   const pageHeadingStyle = useMemo(() => {
     return {
@@ -36,8 +38,12 @@ const HeaderBack = ({
     };
   }, [pageHeadingMarginLeft]);
 
+  const options = [
+    { label: 'Delete', onClick: console.log("delete"), icon: require("../assets/trashAcc.png") },
+  ];
+
   return (
-    <View style={[styles.topMenu, styles.mt_12, styles.topMenuFlexBox]}>
+    <View style={[styles.topMenu, styles.mt_12, styles.topMenuFlexBox, subject && {borderBottomColor: "#dddd", borderBottomWidth: 1, paddingBottom: 20}]}>
       <Pressable style={styles.menu} onPress={goBack}>
         <Image
           style={styles.vuesaxlineararrowLeftIcon}
@@ -45,21 +51,49 @@ const HeaderBack = ({
           source={vuesaxlineararrowLeft}
         />
       </Pressable>
-      <View
-        style={[
-          styles.pageHeading,
-          styles.ml83,
-          styles.topMenuFlexBox,
-          pageHeadingStyle,
-        ]}
-      >
-        <Text style={styles.getStarted}>{getStarted}</Text>
-      </View>
+      {subject != '' ? 
+        <View style={[styles.ml83, {flexDirection: 'row', gap: 6, marginLeft: 18}]}>
+          <Image
+            style={styles.user_img}
+            resizeMode="cover"
+            source={require("../assets/user.png")}
+          />
+          <View
+            style={[
+              styles.pageHeading,
+              // styles.topMenuFlexBox,
+              pageHeadingStyle,
+              {flexDirection: 'column', flex: 0}
+            ]}
+          >
+            <Text style={styles.getStarted}>{getStarted}</Text>
+            <Text>{subject}</Text>
+          </View>
+        </View> :
+        <View
+          style={[
+            styles.pageHeading,
+            styles.ml83,
+            styles.topMenuFlexBox,
+            pageHeadingStyle,
+          ]}
+        >
+          <Text style={styles.getStarted}>{getStarted}</Text>
+          <Text>{subject}</Text>
+        </View>
+      }
+      {subject != '' && <View style={{marginLeft: 'auto'}}>
+        <ThreeDotMenu icon={require('../assets/more1.png')} options={options}/>
+      </View>}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  user_img:{
+    width: 40,
+    height: 40
+  },
   ml83: {
     // marginLeft: 60,
     justifyContent: 'center'

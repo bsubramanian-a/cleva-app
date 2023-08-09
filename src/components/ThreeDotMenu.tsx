@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { TouchableOpacity, Text, View, Image } from 'react-native';
 import { FontFamily } from '../GlobalStyles';
 
-const ThreeDotMenu = ({ options }:any) => {
+const ThreeDotMenu = ({ options, icon=null }:any) => {
+  console.log("icon", icon);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (clickFunction:any) => {
@@ -13,11 +14,19 @@ const ThreeDotMenu = ({ options }:any) => {
   return (
     <View style={{ position: 'relative', zIndex: 1000000 }}>
       <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
-      <Image
-          style={{ width: 22, height: 22 }}
-          resizeMode="cover"
-          source={require('../assets/more.png')}
-        />
+        {icon ? (
+          <Image
+            style={{ width: 22, height: 22 }}
+            resizeMode="cover"
+            source={icon}
+          />
+        ) : (
+          <Image
+            style={{ width: 22, height: 22 }}
+            resizeMode="cover"
+            source={require('../assets/more.png')}
+          />
+        )}
       </TouchableOpacity>
       {isOpen && (
         <View style={{ position: 'absolute', top: -7, right: 20, backgroundColor: '#FFF', borderWidth: 1, borderColor:  "#DEDEDE", padding: 10, width: 100, borderRadius: 14, zIndex: 1000000 , elevation: 5}}>

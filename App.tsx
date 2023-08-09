@@ -30,6 +30,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import CustomFlashMessageProvider from './src/components/CustomFlashMessage';
 import ChatProvider from './src/providers/ChatProvider';
+import { ZoomVideoSdkProvider, useZoom,  EventType } from '@zoom/react-native-videosdk';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -48,7 +49,14 @@ function App(): JSX.Element {
       <CustomFlashMessageProvider>
         <ChatProvider>
           <NavigationContainer>
-            <Routes />
+            <ZoomVideoSdkProvider
+              config={{
+              appGroupId: '{Your Apple Group ID here}',
+              domain: 'zoom.us',
+              enableLog: true,
+            }}>
+              <Routes />
+            </ZoomVideoSdkProvider>
           </NavigationContainer>
         </ChatProvider>
       </CustomFlashMessageProvider> 

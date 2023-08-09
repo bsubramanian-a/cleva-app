@@ -54,8 +54,10 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>Cleva needs access to your device's camera to allow you to take photos and record videos within the app. We will not use your camera for any other purposes and respect your privacy.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Cleva requires access to your device's microphone to enable voice chat functionality and allow you to record audio messages within the app. This feature enhances communication with other users in real-time. We will not use your microphone for any other purposes and respect your privacy.</string>
 	<key>REVERSE_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.443739967199-aqt4tluhchtf41d9vue0djdcs956i03b</string>
 	<key>UIAppFonts</key>
@@ -82,6 +84,8 @@
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Cleva needs access to your Photo Library to allow you to upload photos. We will not use your photos for any other purposes and respect your privacy</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
