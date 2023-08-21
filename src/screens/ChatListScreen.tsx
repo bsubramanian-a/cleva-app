@@ -11,7 +11,7 @@ import ThreeDotMenu from '../components/ThreeDotMenu';
 import NewChatModal from '../components/NewChatModal';
 import { FontFamily } from '../GlobalStyles';
 import { RectButton, Swipeable } from 'react-native-gesture-handler';
-import { useZoom } from '@zoom/react-native-videosdk';
+// import { useZoom } from '@zoom/react-native-videosdk';
 import { useSelector } from 'react-redux';
 
 const ChatListScreen = () => {
@@ -23,7 +23,7 @@ const ChatListScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [subject, setSubject] = useState("");
   const swipeableRef = useRef<Swipeable>(null);
-  const zoom = useZoom();
+  // const zoom = useZoom();
   const token = useSelector((state: any) => state?.auth?.userData?.token);
 
   // Function to delete the chat from history
@@ -47,20 +47,19 @@ const ChatListScreen = () => {
   }, []);
 
   const joinZoom = async () => {
-    await zoom.joinSession({
-      sessionName: 'name of video session',
-      token,
-      userName: 'name of user',
-      audioOptions: {
-        connect: true,
-        mute: false,
-      },
-      videoOptions: {
-        localVideoOn: true,
-      },
-      sessionIdleTimeoutMins: 40,
-    });
-    
+    // await zoom.joinSession({
+    //   sessionName: 'name of video session',
+    //   token,
+    //   userName: 'name of user',
+    //   audioOptions: {
+    //     connect: true,
+    //     mute: false,
+    //   },
+    //   videoOptions: {
+    //     localVideoOn: true,
+    //   },
+    //   sessionIdleTimeoutMins: 40,
+    // });
   } 
 
   async function fetchChats() {

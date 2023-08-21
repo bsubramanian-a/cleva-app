@@ -394,6 +394,8 @@ PODS:
     - React-Core
   - react-native-webview (11.26.0):
     - React-Core
+  - react-native-zoom-video-sdk (1.6.2):
+    - React-Core
   - React-perflogger (0.71.6)
   - React-RCTActionSheet (0.71.6):
     - React-Core/RCTActionSheetHeaders (= 0.71.6)
@@ -586,6 +588,7 @@ DEPENDENCIES:
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-video (from `../node_modules/react-native-video`)
   - react-native-webview (from `../node_modules/react-native-webview`)
+  - "react-native-zoom-video-sdk (from `../node_modules/@zoom/react-native-videosdk`)"
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -696,6 +699,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-video"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
+  react-native-zoom-video-sdk:
+    :path: "../node_modules/@zoom/react-native-videosdk"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -800,6 +805,7 @@ SPEC CHECKSUMS:
   react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
   react-native-video: fee89269ad07556d960721f3b62e39be6ace3c90
   react-native-webview: 994b9f8fbb504d6314dc40d83f94f27c6831b3bf
+  react-native-zoom-video-sdk: 47b8b63a246e2800a9d56fdbe42e94b6d2391d6b
   React-perflogger: 43392072a5b867a504e2b4857606f8fc5a403d7f
   React-RCTActionSheet: c7b67c125bebeda9fb19fc7b200d85cb9d6899c4
   React-RCTAnimation: c2de79906f607986633a7114bee44854e4c7e2f5
