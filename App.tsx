@@ -51,7 +51,6 @@ function App(): JSX.Element {
           <NavigationContainer>
             <ZoomVideoSdkProvider
               config={{
-              appGroupId: '{Your Apple Group ID here}',
               domain: 'zoom.us',
               enableLog: true,
             }}>

@@ -6,7 +6,7 @@ import actions from "../../actions";
 import Loader from "../components/Loader";
 import CKeyboard from "../components/CKeyboard";
 
-const EmailLogin = ({ navigation }: any) => {
+const EmailLogin = ({ navigation,route }: any) => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -24,11 +24,11 @@ const EmailLogin = ({ navigation }: any) => {
     setError("");
     try {
       const res: any = await actions.verifyEmail({
-        email,
+        email, user_type: route.params.user_type
       });
       console.log('res==>>>>>', res);
       if (res?.isUserExist === true) {
-        navigation.navigate('OTPScreen')
+        navigation.navigate('OTPScreen', { user_type: route.params.user_type })
       } else {
         setError("User doesn't exist, please register first");
       }
@@ -67,7 +67,7 @@ const EmailLogin = ({ navigation }: any) => {
         <View
           style={[styles.nextprevious, styles.emailLoginSpaceBlock]}
         >
-          <Pressable onPress={() => navigation.navigate("LoginSignup")} style={styles.next}>
+          <Pressable onPress={() => navigation.navigate("LoginSignup", { user_type: route.params.user_type })} style={styles.next}>
             <Image
               style={styles.iconleftarrow}
               resizeMode="cover"

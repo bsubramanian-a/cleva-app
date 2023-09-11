@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import CKeyboard from "../components/CKeyboard";
 
-const PasswordLogin = ({ navigation }: any) => {
+const PasswordLogin = ({ navigation, route }: any) => {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -20,6 +20,7 @@ const PasswordLogin = ({ navigation }: any) => {
       const res: any = await actions.login({
         email,
         password,
+        user_type: route.params.user_type
       });
       console.log('res==>>>>>', res);
 

@@ -9,30 +9,28 @@ import { StatusBar } from 'react-native';
 import CustomHeader from '../components/CustomHeader';
 import ThreeDotMenu from '../components/ThreeDotMenu';
 import { FontFamily } from '../GlobalStyles';
-
-const selectedSubject = "Financial Review";
+import { useSelector } from 'react-redux';
 
 const CoachListPage = () => {
   const navigation: any = useNavigation();
   const client = useChatClient();
   const route: any = useRoute();
-  const { subject } = route.params;
+  // const { subject } = route.params;
+  const userData = useSelector((state: any) => state?.auth?.userData?.user);
+  console.log("userData", userData);
 
   // Sample data for users, replace with actual data from the server
   const users = [
-    { id: 'user1', name: 'User 1' },
-    { id: 'user2', name: 'User 2' },
-    // Add more user data as needed
+    { id: userData?.owner?.id, name: userData?.owner?.name }
   ];
 
   // Function to handle the user click
   const handleUserClick = async (selectedUser: any) => {
-    const currentUserID = 'current-user-id'; // Replace this with the ID of the current user
-    const channel = await client.channel('messaging', {
+    const currentUserID = userData?.id;
+    const otherUserID = selectedUser.id;
+    const channelId = currentUserID < otherUserID ? `${currentUserID}_${otherUserID}` : `${otherUserID}_${currentUserID}`;
+    const channel = await client.channel('chat', channelId, {
       members: [currentUserID, selectedUser.id],
-      extra_data: {
-        subject: selectedSubject,
-      },
     });
 
     try {
@@ -81,7 +79,8 @@ const CoachListPage = () => {
       <TouchableOpacity
         style={styles.chatItem}
         onPress={() => {
-          navigation.navigate('ChatInnerScreen', { chatId: item?.id });
+          // navigation.navigate('ChatInnerScreen', { chatId: item?.id });
+          handleUserClick(item);
         }}
       >
         <View style={styles.cardLeftContent}>
@@ -90,7 +89,7 @@ const CoachListPage = () => {
           </View>
           <View>
             <Text style={styles.chatName}>{item?.name}</Text>
-            <Text style={styles.chatSubject}>Financial Review</Text>
+            {/* <Text style={styles.chatSubject}>Financial Review</Text> */}
           </View>
         </View>
       </TouchableOpacity>

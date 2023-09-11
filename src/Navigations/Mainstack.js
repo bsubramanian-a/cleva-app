@@ -37,6 +37,7 @@ import AddAccount from '../screens/AddAccount';
 import ChatListScreen from '../screens/ChatListScreen';
 import ChatInnerScreen from '../screens/ChatInnerScreen';
 import CoachListPage from '../screens/CoachListPage';
+import { CallScreen } from '../screens/callScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -202,6 +203,7 @@ const Mainstack = (Drawer, userData) => {
       <Drawer.Screen name="EditIncome" component={EditIncome} />
       <Drawer.Screen name="EditInsurance" component={EditInsurance} />
       <Drawer.Screen name="EditRetirement" component={EditRetirement} />
+      <Drawer.Screen name="CallScreen" component={CallScreen} />
       <Drawer.Screen
         name="AddANewGoalGoalDate"
         component={AddANewGoalGoalDate}

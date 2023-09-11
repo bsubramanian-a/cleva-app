@@ -1,5 +1,4 @@
 rootProject.name = 'Cleva'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
-include ':mobilertc'
-include ':app'
+include ':app', ':mobilertc'
 includeBuild('../node_modules/react-native-gradle-plugin')

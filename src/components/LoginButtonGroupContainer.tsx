@@ -32,7 +32,8 @@ type LoginButtonGroupContainerType = {
   /** Style props */
   propBackgroundColor?: string;
   showRMessage?:Function,
-  onVerifyAppleEmail?:Function
+  onVerifyAppleEmail?:Function,
+  user_type:string
 };
 
 const getStyleValue = (key: string, value: string | number | undefined) => {
@@ -48,7 +49,8 @@ const LoginButtonGroupContainer = ({
   navigation,
   onVerifyEmail,
   onVerifyAppleEmail,
-  showRMessage
+  showRMessage,
+  user_type
 }: LoginButtonGroupContainerType) => {
   const [loginError, setLoginError] = useState("");
   const appleLoginStyle = useMemo(() => {
@@ -136,6 +138,7 @@ const LoginButtonGroupContainer = ({
         <LoginButton
           loginButtonMarginTop="unset"
           acceptToContinue={acceptToContinue}
+          user_type={user_type}
         />
         {/* <SignupButton /> */}
       </View>

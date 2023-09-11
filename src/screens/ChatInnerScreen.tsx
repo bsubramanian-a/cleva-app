@@ -4,25 +4,48 @@ import { useCustomFlashMessage } from '../components/CustomFlashMessage';
 import { useChatClient } from '../providers/ChatProvider';
 import CustomHeader from '../components/CustomHeader';
 import { FontFamily } from '../GlobalStyles';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
 
-const ChatInnerScreen = ({ route }: any) => {
+const ChatInnerScreen = ({ navigation, route }: any) => {
   const { chatId } = route.params;
   const [messages, setMessages] = useState<any>([]);
   const chatClient = useChatClient();
   const { showFlashMessage } = useCustomFlashMessage();
   const [inputMessage, setInputMessage] = useState('');
+  const userData = useSelector((state: any) => state?.auth?.userData?.user);
 
   useEffect(() => {
-    fetchMessages();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchMessages();
+    });
+
+    // Subscribe to new message events when the component mounts
+    chatClient.on('message.new', handleNewMessage);
+
+    return () => {
+      unsubscribe();
+      // Unsubscribe from message events when the component unmounts
+      chatClient.off('message.new', handleNewMessage);
+    };
+  }, [navigation, chatId]);
+
+  const handleNewMessage = (event: any) => {
+    // Update the messages state with the new message
+    setMessages((prevMessages: any) => [...prevMessages, event.message]);
+  };
 
   async function fetchMessages() {
     try {
       // Get the chat channel based on the selected chat ID
-      const channel = chatClient.channel('messaging', chatId);
+      const channel = chatClient.channel('chat', chatId);
+
+      // console.log("channel details", channel);
 
       // Fetch messages for the selected chat channel
       const response = await channel.query({ messages: { limit: 100 } });
+
+      // console.log("messages---", response?.messages[0]?.user?.id);
 
       setMessages(response.messages);
     } catch (error) {
@@ -32,21 +55,21 @@ const ChatInnerScreen = ({ route }: any) => {
   }
 
   // Temporary message array with user and my messages
-  const tempMessages = [
-    {
-      id: '1',
-      text: 'Hello, how are you?',
-      user: { name: 'User', image: require('../assets/user.png') },
-      created_at: new Date(),
-    },
-    {
-      id: '2',
-      text: 'I am doing great! Thanks.',
-      user: { name: 'Me', image: require('../assets/user.png') },
-      created_at: new Date(),
-    },
-    // Add more messages as needed
-  ];
+  // const tempMessages = [
+  //   {
+  //     id: '1',
+  //     text: 'Hello, how are you?',
+  //     user: { name: 'User', image: require('../assets/user.png') },
+  //     created_at: new Date(),
+  //   },
+  //   {
+  //     id: '2',
+  //     text: 'I am doing great! Thanks.',
+  //     user: { name: 'Me', image: require('../assets/user.png') },
+  //     created_at: new Date(),
+  //   },
+  //   // Add more messages as needed
+  // ];
 
   // Function to send a new message to the chat channel
   const sendMessage = async () => {
@@ -54,7 +77,7 @@ const ChatInnerScreen = ({ route }: any) => {
 
     try {
       // Get the chat channel based on the selected chat ID
-      const channel = chatClient.channel('messaging', chatId);
+      const channel = chatClient.channel('chat', chatId);
 
       // Send the new message to the chat channel
       await channel.sendMessage({ text: inputMessage });
@@ -67,13 +90,50 @@ const ChatInnerScreen = ({ route }: any) => {
     }
   };
 
+  // console.log("userdata", userData?.id);
+
+  const getInitials = (name="") => {
+    const initials = name
+        ? name.split(' ').length === 1
+            ? name.substring(0, 2)
+            : name
+                .split(' ')
+                .map((word:string) => word.charAt(0))
+                .join('')
+        : '';
+
+    return initials;
+  }
+
+  const formattedTimestamp = (created_at: string) => {
+    const currentTime = moment();
+    const messageTime = moment(created_at);
+  
+    const timeDifference = currentTime.diff(messageTime, 'days');
+  
+    let formattedTimestamp;
+  
+    if (timeDifference === 0) {
+      // If the chat is today, show the time only
+      formattedTimestamp = messageTime.format('h:mm A');
+    } else if (timeDifference < 7) {
+      // If the chat is within the current week, show the day and time
+      formattedTimestamp = messageTime.format('dddd, h:mm A');
+    } else {
+      // If the chat is older than a week, show the full date and time
+      formattedTimestamp = messageTime.format('MMMM Do YYYY, h:mm A');
+    }
+  
+    return formattedTimestamp;
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
       <CustomHeader name="Jakob Gouse" type={2} subject="Financial Review"/>
 
       <FlatList
-        data={tempMessages}
+        data={messages}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View
@@ -82,22 +142,23 @@ const ChatInnerScreen = ({ route }: any) => {
             ]}
           >
             <View style={styles.messageContent}>
-              {item.user.name === 'User' && (
-                <View style={styles.userImageWrap}>
-                  <Image source={item.user.image} style={styles.userImage} />
+              {item.user.id === userData?.id && (
+                <View style={[styles.initialWrapper, { backgroundColor: "#fbb142" }]}>
+                  <Text style={styles.initialText}>{getInitials(item?.user?.name)}</Text>
                 </View>
               )}
-              <View style={item.user.name === 'User' ? {marginRight: 'auto'} : {marginLeft: 'auto'}}>
-                <View style={item.user.name === 'User' ? styles.userMessage : styles.myMessage}>
-                  <Text style={[styles.messageText, item.user.name === 'User' ? styles.userMessageText : styles.myMessageText]}>{item.text}</Text>
+              {/* <Text>{userData?.id}</Text> */}
+              <View style={item.user.id == userData?.id ? {marginRight: 'auto'} : {marginLeft: 'auto'}}>
+                <View style={item.user.id == userData?.id ? styles.userMessage : styles.myMessage}>
+                  <Text style={[styles.messageText, item.user.id == userData?.id ? styles.userMessageText : styles.myMessageText]}>{item.text}</Text>
                 </View>
-                <Text style={[item.user.name === 'User' ? (styles.userMessageText, {marginLeft: 20, marginTop: 8}) : (styles.myMessageText, {marginTop: 8, textAlign: 'right'}), styles.messageTime]}>
-                    {item.created_at.toLocaleTimeString()}
+                <Text style={[item.user.id === userData?.id ? (styles.userMessageText, {marginLeft: 20, marginTop: 8}) : (styles.myMessageText, {marginTop: 8, textAlign: 'right', marginRight: 20}), styles.messageTime]}>
+                    {formattedTimestamp(item?.created_at)}
                 </Text>
               </View>
-              {item.user.name === 'Me' && (
-                <View style={styles.myImageWrap}>
-                  <Image source={item.user.image} style={styles.myImage} />
+              {item.user.id !== userData?.id && (
+                <View style={[styles.initialWrapper, { backgroundColor: "#42fbcd" }]}>
+                  <Text style={styles.initialText}>{getInitials(item?.user?.name)}</Text>
                 </View>
               )}
             </View>
@@ -126,6 +187,16 @@ const ChatInnerScreen = ({ route }: any) => {
 };
 
 const styles = StyleSheet.create({
+  initialWrapper:{
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  initialText: {
+    color: '#fff'
+  },
   chatInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -167,7 +238,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     fontWeight: '400',
-    fontFamily: FontFamily.outfitRegular
+    fontFamily: FontFamily.outfitRegular,
   },
   userImageWrap: {
     borderRadius: 20,
@@ -212,12 +283,13 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomRightRadius: 0,
     // width: Dimensions.get('window').width - 100,
-    textAlign: 'right'
+    textAlign: 'right',
+    marginRight: 20
   },
   messageContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: Dimensions.get('window').width - 50
+    width: Dimensions.get('window').width - 50,
   },
   myImage: {
     width: 44,

@@ -7,7 +7,7 @@ import { Color, FontFamily, FontSize, Margin, Padding } from '../GlobalStyles';
 import actions from '../../actions';
 import { useSelector } from 'react-redux';
 
-const OTPScreen = ({ navigation }: any) => {
+const OTPScreen = ({ navigation, route }: any) => {
   const [otp, setOTP] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -28,7 +28,7 @@ const OTPScreen = ({ navigation }: any) => {
       });
       console.log('res==>>>>>', res);
       if (res?.isCorrect === true) {
-        navigation.navigate('PasswordLogin')
+        navigation.navigate('PasswordLogin', { user_type: route.params.user_type })
       } else {
         setError(res?.error);
       }
@@ -63,7 +63,7 @@ const OTPScreen = ({ navigation }: any) => {
         <View
           style={[styles.nextprevious, styles.emailLoginSpaceBlock]}
         >
-          <Pressable onPress={() => navigation.navigate("EmailLogin")} style={styles.next}>
+          <Pressable onPress={() => navigation.navigate("EmailLogin", { user_type: route.params.user_type })} style={styles.next}>
             <Image
               style={styles.iconleftarrow}
               resizeMode="cover"
