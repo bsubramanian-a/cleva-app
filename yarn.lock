@@ -1910,6 +1910,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-native@0.62.16":
+  version "0.62.16"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.62.16.tgz#17b05b37482c70126055172e57f5eb110cff7087"
+  integrity sha512-0f5MF4zzqZpZpDmwTmGS0Pd206k2K3rsVjaz0/iuBPZkpWC9r8+/A6WvTTJXgfP2mhRUcMfAqEY0iyz7Xk75qw==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-test-renderer@^18.0.0":
   version "18.0.0"
   resolved "https://registry.npmjs.org/@types/react-test-renderer/-/react-test-renderer-18.0.0.tgz"
@@ -2065,7 +2072,7 @@
 
 "@zoom/react-native-videosdk@^1.6.2":
   version "1.6.2"
-  resolved "https://registry.npmjs.org/@zoom/react-native-videosdk/-/react-native-videosdk-1.6.2.tgz"
+  resolved "https://registry.yarnpkg.com/@zoom/react-native-videosdk/-/react-native-videosdk-1.6.2.tgz#6667e84cc8b859494f7638ece5a2bdca0aff708e"
   integrity sha512-3l+MP2LlvB3ZooBoqNT9VLS90gwatYP6vXla3pAYOir/Fxqrz0qjdKxVtsAeJph6agZ144Tvtb1F7q4yQ53roQ==
   dependencies:
     assert "^2.0.0"
@@ -5686,6 +5693,11 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "^1.2.6"
 
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
@@ -6393,6 +6405,13 @@ react-native-iphone-screen-helper@^2.0.2:
   version "2.0.3"
   resolved "https://registry.npmjs.org/react-native-iphone-screen-helper/-/react-native-iphone-screen-helper-2.0.3.tgz"
   integrity sha512-gbSnV0iYWQ3hne3inYoueatSJL/Un49biIkHLGKsm7J7QjFhL+/WSPB1sZhQ87lNIANwFh33nvxcjixxR4T+NQ==
+
+react-native-keyboard-area@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-area/-/react-native-keyboard-area-1.0.6.tgz#474c333c60477182c8160b8a719282cd26c78262"
+  integrity sha512-soRpHc0dG+mvtWoL0sUzo0R6XQ12Ug5FSOfqlyqoTO4odtECL+/8tXrs+FpT0mvaf0hNMK7dh2OhCDqLq3w9SQ==
+  dependencies:
+    "@types/react-native" "0.62.16"
 
 react-native-linear-gradient@^2.6.2:
   version "2.6.2"

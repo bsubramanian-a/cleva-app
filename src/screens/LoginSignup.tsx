@@ -8,7 +8,7 @@ import Loader from "../components/Loader";
 import { showMessage } from "react-native-flash-message";
 import { useCustomFlashMessage } from "../components/CustomFlashMessage";
 
-const LoginSignup = ({navigation}:any) => {
+const LoginSignup = ({navigation, route}:any) => {
   const { showFlashMessage } = useCustomFlashMessage();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -32,7 +32,7 @@ const LoginSignup = ({navigation}:any) => {
     setError("");
     try {
       const res:any = await actions.verifyAppleEmail({
-        email, apple_user_id
+        email, apple_user_id, user_type: route.params.type
       });
       console.log('res==>>>>>', res);
       if(res?.status){
@@ -55,7 +55,7 @@ const LoginSignup = ({navigation}:any) => {
     setError("");
     try {
       const res:any = await actions.verifySocialEmail({
-        email,
+        email, user_type: route.params.type
       });
       console.log('res==>>>>>', res);
       if(res?.status){
@@ -104,6 +104,7 @@ const LoginSignup = ({navigation}:any) => {
         onVerifyEmail={onVerifyEmail}
         onVerifyAppleEmail={onVerifyAppleEmail}
         showRMessage={showRMessage}
+        user_type= {route.params.user_type}
       />
     </ScrollView>
   );

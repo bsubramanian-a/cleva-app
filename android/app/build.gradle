@@ -100,6 +100,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
 
     splits {
@@ -167,7 +168,7 @@ dependencies {
     
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
 
-    implementation 'us.zoom.videosdk:ZoomVideoSDK:1.8.5'
+    implementation 'us.zoom.videosdk:ZoomVideoSDK:1.6.2'
 
     implementation project(':mobilertc')
 

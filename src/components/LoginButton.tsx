@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 
 type LoginButtonType = {
   acceptToContinue?: String;
-
+  user_type:string;
   /** Style props */
   loginButtonMarginTop?: number | string;
   acceptToContinueLineHeight?: number | string;
@@ -21,6 +21,7 @@ const LoginButton = ({
   loginButtonMarginTop,
   acceptToContinue,
   acceptToContinueLineHeight,
+  user_type
 }: LoginButtonType) => {
   const loginButtonStyle = useMemo(() => {
     return {
@@ -34,10 +35,10 @@ const LoginButton = ({
     };
   }, [acceptToContinueLineHeight]);
 
-  const navigation = useNavigation();
+  const navigation: any = useNavigation();
 
   return (
-    <Pressable onPress={() => navigation.navigate('EmailLogin')} style={[styles.loginButton, styles.mt24, loginButtonStyle]}>
+    <Pressable onPress={() => navigation.navigate('EmailLogin', { user_type })} style={[styles.loginButton, styles.mt24, loginButtonStyle]}>
       <Text style={[styles.acceptToContinue, acceptToContinueStyle]}>
         {acceptToContinue}
       </Text>

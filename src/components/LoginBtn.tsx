@@ -2,9 +2,9 @@ import * as React from "react";
 import { Pressable, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { FontSize, FontFamily, Color, Border, Padding } from "../GlobalStyles";
 
-const LoginBtn = ({onPress}:any) => {
+const LoginBtn = ({onPress, cstyles={}}:any) => {
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.loginButton, styles.mt72]}>
+    <TouchableOpacity onPress={onPress} style={[styles.loginButton, styles.mt72, cstyles]}>
       <Text style={styles.login}>Login</Text>
     </TouchableOpacity>
   );

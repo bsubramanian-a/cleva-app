@@ -271,9 +271,9 @@ const Profile = () => {
               { icon: require("../assets/document-text.png"), name: 'Do you have a POA?', value: profile[0]?.Do_you_have_a_POA[0] },
             ]
           },
-          profile[0]?.accounts?.length > 0 && profile[0]?.accounts[0]?.Email && {
+          profile?.length > 0 && profile[0]?.accounts?.length > 0 && profile[0]?.accounts[0]?.Email && {
             subHeading: profile[0]?.accounts[0]?.Preferred_1st_Name,
-            id: profile[0]?.dependants[1]?.id,
+            id: profile[0]?.accounts[1]?.id,
             item: [
               { icon: require("../assets/profile.png"), name: 'Do you have a beneficiary for your super fund?', value: profile[0]?.accounts[0]?.Super_Fund_Beneficiary?.includes('Yes') ? "Yes, " + profile[0]?.accounts[0]?.If_Yes_Beneficiary_Name_s : "No" },
               { icon: require("../assets/document-text.png"), name: 'Do you have a Will?\nIs it current?', value: `${profile[0]?.Do_you_have_a_Will}\n${profile[0]?.accounts[0]?.Is_it_up_to_date}` },
