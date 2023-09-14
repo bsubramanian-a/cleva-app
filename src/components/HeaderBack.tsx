@@ -42,6 +42,19 @@ const HeaderBack = ({
     { label: 'Delete', onClick: console.log("delete"), icon: require("../assets/trashAcc.png") },
   ];
 
+  const getInitials = (name="") => {
+    const initials = name
+        ? name.split(' ').length === 1
+            ? name.substring(0, 2)
+            : name
+                .split(' ')
+                .map((word:string) => word.charAt(0))
+                .join('')
+        : '';
+
+    return initials;
+  }
+
   return (
     <View style={[styles.topMenu, styles.mt_12, styles.topMenuFlexBox, subject && {borderBottomColor: "#dddd", borderBottomWidth: 1, paddingBottom: 20}]}>
       <Pressable style={styles.menu} onPress={goBack}>
@@ -53,11 +66,9 @@ const HeaderBack = ({
       </Pressable>
       {subject != '' ? 
         <View style={[styles.ml83, {flexDirection: 'row', gap: 6, marginLeft: 18}]}>
-          <Image
-            style={styles.user_img}
-            resizeMode="cover"
-            source={require("../assets/user.png")}
-          />
+         <View style={[styles.initialWrapper, { backgroundColor: "#fbb142" }]}>
+            <Text style={styles.initialText}>{getInitials(getStarted)}</Text>
+          </View>
           <View
             style={[
               styles.pageHeading,
@@ -90,6 +101,16 @@ const HeaderBack = ({
 };
 
 const styles = StyleSheet.create({
+  initialWrapper:{
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  initialText: {
+    color: '#fff'
+  },
   user_img:{
     width: 40,
     height: 40

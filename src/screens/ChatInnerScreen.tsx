@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Image, StatusBar, Dimensions, TextInput, TouchableOpacity } from 'react-native';
 import { useCustomFlashMessage } from '../components/CustomFlashMessage';
 import { useChatClient } from '../providers/ChatProvider';
@@ -6,9 +6,10 @@ import CustomHeader from '../components/CustomHeader';
 import { FontFamily } from '../GlobalStyles';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
+import DynamicFlatList from '../components/DyanamicFlatList';
 
 const ChatInnerScreen = ({ navigation, route }: any) => {
-  const { chatId } = route.params;
+  const { chatId, name } = route.params;
   const [messages, setMessages] = useState<any>([]);
   const chatClient = useChatClient();
   const { showFlashMessage } = useCustomFlashMessage();
@@ -130,12 +131,12 @@ const ChatInnerScreen = ({ navigation, route }: any) => {
   return (
     <View style={styles.container}>
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
-      <CustomHeader name="Jakob Gouse" type={2} subject="Financial Review"/>
+      <CustomHeader name={name} type={2} subject="Coach"/>
 
-      <FlatList
+      <DynamicFlatList
         data={messages}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
+        keyExtractor={(item: any) => item.id}
+        renderItem={({ item }: any) => (
           <View
             style={[
               styles.messageItem,

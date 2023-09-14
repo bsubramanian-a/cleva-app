@@ -75,7 +75,7 @@ const ChatListScreen = () => {
 
   const joinZoom = async () => {
     // console.log("join zoom1");
-    navigation.navigate("CallScreen", { sessionName: "Cool Cars", sessionPassword: "Test@123", displayName: "user123", sessionIdleTimeoutMins: 60,  })
+    navigation.navigate("CallScreen", { sessionName: "Cool Cars", sessionPassword: "Test@123", displayName: "user123", sessionIdleTimeoutMins: 60,  });
     // try {
     //   // await zoom.joinSession({
     //   //   sessionName: 'Cool Cars',
@@ -219,7 +219,7 @@ const ChatListScreen = () => {
           <TouchableOpacity
             style={styles.chatItem}
             onPress={() => {
-              navigation.navigate('ChatInnerScreen', { chatId: item?.id });
+              navigation.navigate('ChatInnerScreen', { chatId: item?.id, name: member?.user?.name });
             }}
           >
             <View style={styles.cardLeftContent}>
@@ -228,7 +228,7 @@ const ChatListScreen = () => {
               </View>
               <View>
                 <Text style={styles.chatName}>{member?.user?.name}</Text>
-                <Text style={styles.chatSubject}>{(item?.state?.messageSets?.length > 0 && item?.state?.messageSets[0]?.messages?.length > 0)? item?.state?.messageSets[0]?.messages[item?.state?.messageSets[0]?.messages?.length - 1]?.text : ""}</Text>
+                <Text style={styles.chatSubject}>{(item?.state?.messageSets?.length > 0 && item?.state?.messageSets[0]?.messages?.length > 0)? item?.state?.messageSets[0]?.messages[item?.state?.messageSets[0]?.messages?.length - 1]?.text?.slice(0, 30): ""}</Text>
               </View>
             </View>
             <View style={styles.cardRightContent}>

@@ -33,6 +33,18 @@ const CoachListPage = () => {
       members: [currentUserID, selectedUser.id],
     });
 
+    const member: any =  Object.values(channel.state.members).find(
+      (user: any) => {
+        // console.log("user", user?.user?.id);
+        // console.log('platform============', Platform.OS);
+        // console.log("userId++++++++++", user.id);
+        // console.log("current userId", userData?.id);
+        // console.log("condition", user.id !== userData?.id);
+        return user?.user?.id !== userData?.id
+      }
+    );
+    
+
     try {
       // Check if the channel exists in Stream Chat
       await channel.watch();
@@ -44,7 +56,7 @@ const CoachListPage = () => {
     const chatID = channel.id;
 
     // Navigate to the ChatInnerScreen with the chat ID
-    navigation.navigate('ChatInnerScreen', { chatId: chatID });
+    navigation.navigate('ChatInnerScreen', { chatId: chatID, name: member?.user?.name });
   };
 
   const getRandomColor = () => {
