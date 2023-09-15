@@ -7,6 +7,7 @@ import { FontFamily } from '../GlobalStyles';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import DynamicFlatList from '../components/DyanamicFlatList';
+import DeletePopup from '../components/DeletePopup';
 
 const ChatInnerScreen = ({ navigation, route }: any) => {
   const { chatId, name } = route.params;
@@ -15,6 +16,7 @@ const ChatInnerScreen = ({ navigation, route }: any) => {
   const { showFlashMessage } = useCustomFlashMessage();
   const [inputMessage, setInputMessage] = useState('');
   const userData = useSelector((state: any) => state?.auth?.userData?.user);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -128,11 +130,35 @@ const ChatInnerScreen = ({ navigation, route }: any) => {
     return formattedTimestamp;
   };
 
+  const deleteChat = async () => {
+    try {
+      // Delete the chat channel
+      await chatClient.deleteChannels([`chat:${chatId}`]);
+  
+      // Show a success flash message
+      showFlashMessage('Chat deleted successfully', 'success');
+
+      setIsDeleteModalVisible(false);
+  
+      navigation.goBack();
+    } catch (error) {
+      console.error('Error deleting chat:', error);
+      // Show an error flash message
+      showFlashMessage('Error deleting chat', 'failure');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
-      <CustomHeader name={name} type={2} subject="Coach"/>
-
+      <CustomHeader name={name} type={2} subject="Coach" deleteChat={() => setIsDeleteModalVisible(true)}/>
+      <DeletePopup
+        key={`chat:${chatId}`}
+        isVisible={isDeleteModalVisible}
+        onDelete={deleteChat}
+        onCancel={() => setIsDeleteModalVisible(false)}
+        id={`chat:${chatId}`}
+      />
       <DynamicFlatList
         data={messages}
         keyExtractor={(item: any) => item.id}

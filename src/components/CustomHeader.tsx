@@ -8,7 +8,7 @@ import TopHeader from "./TopHeader";
 import HeaderBack from "./HeaderBack";
 import ProfileHeader from "./ProfileHeader";
 
-const CustomHeader = ({name, type, back = '', subject=""}: any) => {
+const CustomHeader = ({name, type, back = '', subject="", deleteChat=null}: any) => {
     const navigation = useNavigation();
     // console.log("custom header name", name);
 
@@ -57,6 +57,7 @@ const CustomHeader = ({name, type, back = '', subject=""}: any) => {
                   vuesaxlineararrowLeft={require("../assets/vuesaxlineararrowleft.png")}
                   getStarted={name}
                   subject={subject}
+                  deleteChat={deleteChat}
                 />
             </LinearGradient>
           );

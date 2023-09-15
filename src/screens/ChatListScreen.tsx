@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.outfitRegular,
     fontWeight: '400',
     fontSize: 14,
-    color: '#4b4b4b'
+    color: '#4b4b4b',
   },
   chatContainer:{
    flex: 1
@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     // marginVertical: 12,
-    minHeight: 60,
+    minHeight: 72,
   },
   chatName: {
     fontSize: 15, 

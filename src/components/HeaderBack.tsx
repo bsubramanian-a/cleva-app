@@ -18,6 +18,7 @@ type HeaderBackType = {
   subject?: ""
   /** Style props */
   pageHeadingMarginLeft?: number | string;
+  deleteChat?:Function;
 };
 
 const getStyleValue = (key: string, value: string | number | undefined) => {
@@ -30,7 +31,8 @@ const HeaderBack = ({
   pageHeadingMarginLeft,
   getStarted,
   goBack,
-  subject
+  subject,
+  deleteChat
 }: HeaderBackType) => {
   const pageHeadingStyle = useMemo(() => {
     return {
@@ -39,7 +41,7 @@ const HeaderBack = ({
   }, [pageHeadingMarginLeft]);
 
   const options = [
-    { label: 'Delete', onClick: console.log("delete"), icon: require("../assets/trashAcc.png") },
+    { label: 'Delete', onClick: deleteChat, icon: require("../assets/trashAcc.png") },
   ];
 
   const getInitials = (name="") => {
@@ -56,7 +58,7 @@ const HeaderBack = ({
   }
 
   return (
-    <View style={[styles.topMenu, styles.mt_12, styles.topMenuFlexBox, subject && {borderBottomColor: "#dddd", borderBottomWidth: 1, paddingBottom: 20}]}>
+    <View style={[styles.topMenu, styles.mt_12, styles.topMenuFlexBox, subject && {borderBottomColor: "#dddd", borderBottomWidth: 1, paddingBottom: 10}]}>
       <Pressable style={styles.menu} onPress={goBack}>
         <Image
           style={styles.vuesaxlineararrowLeftIcon}
@@ -74,11 +76,11 @@ const HeaderBack = ({
               styles.pageHeading,
               // styles.topMenuFlexBox,
               pageHeadingStyle,
-              {flexDirection: 'column', flex: 0}
+              {flexDirection: 'column', flex: 0, alignItems: 'flex-start'}
             ]}
           >
             <Text style={styles.getStarted}>{getStarted}</Text>
-            <Text>{subject}</Text>
+            <Text style={{color: '#000'}}>{subject}</Text>
           </View>
         </View> :
         <View

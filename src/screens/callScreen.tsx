@@ -102,8 +102,9 @@ export function CallScreen({navigation, route}: CallScreenProps) {
   useEffect(() => {
     (async () => {
       const {params} = route;
-      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfa2V5IjoieTJsTVRYUVdqTjE0b3lDY1B3U2NQaVIyZlNmZ1Y2azZtYzhTIiwidHBjIjoiQ29vbCBDYXJzIiwicm9sZV90eXBlIjoxLCJzZXNzaW9uX2tleSI6InNlc3Npb24xMjMiLCJ1c2VyX2lkZW50aXR5IjoidXNlcjEyMyIsInZlcnNpb24iOjEsImlhdCI6MTY5Mzg5OTU1NywiZXhwIjoxNjkzOTA2NzU3fQ.E8suBTzzIt_g7vXSFtkC9ssyhz69Y0xtKwP7Tb9WcIA";
+      const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6ImNtbnhZYlFBUm1PTHQ4Vy1tMjZhLWciLCJleHAiOjE2OTQ3NjY4MDksImlhdCI6MTY5NDc2MTQxMH0.McdQCuNSAp9OlTmW9_-MaQQH9nyYgzIKB09ZLD5E67M";
       try {
+        console.log("zoom join..........");
         await zoom.joinSession({
           sessionName: params.sessionName,
           sessionPassword: params.sessionPassword,

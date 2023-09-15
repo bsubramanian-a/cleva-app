@@ -41,7 +41,7 @@ const ThreeDotMenu = ({ options, icon=null }:any) => {
                     resizeMode="cover"
                     source={option?.icon}
                 />
-                <Text style={{ fontSize: 14, fontWeight: "300", fontFamily: FontFamily.outfitLight }}>{option.label}</Text>
+                <Text style={{ fontSize: 14, fontWeight: "300", fontFamily: FontFamily.outfitLight, color: '#000'}}>{option.label}</Text>
             </TouchableOpacity>
           ))}
         </View>

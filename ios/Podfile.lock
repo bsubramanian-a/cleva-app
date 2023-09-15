@@ -493,6 +493,8 @@ PODS:
   - RNGoogleSignin (10.0.1):
     - GoogleSignIn (~> 7.0)
     - React-Core
+  - RNKeyboard (1.0.6):
+    - React
   - RNReanimated (2.14.4):
     - DoubleConversion
     - FBLazyVector
@@ -608,6 +610,7 @@ DEPENDENCIES:
   - RNExitApp (from `../node_modules/react-native-exit-app`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
+  - RNKeyboard (from `../node_modules/react-native-keyboard-area`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -739,6 +742,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNGoogleSignin:
     :path: "../node_modules/@react-native-google-signin/google-signin"
+  RNKeyboard:
+    :path: "../node_modules/react-native-keyboard-area"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -825,6 +830,7 @@ SPEC CHECKSUMS:
   RNExitApp: 00036cabe7bacbb413d276d5520bf74ba39afa6a
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNGoogleSignin: ccaa4a81582cf713eea562c5dd9dc1961a715fd0
+  RNKeyboard: 14793d75953d99c6d950090b8e9698b234c5d08c
   RNReanimated: cc5e3aa479cb9170bcccf8204291a6950a3be128
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315

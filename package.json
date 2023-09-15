@@ -19,7 +19,7 @@
     "@react-navigation/native": "^6.1.4",
     "@react-navigation/stack": "^6.3.14",
     "@reduxjs/toolkit": "^1.9.5",
-    "@zoom/react-native-videosdk": "^1.6.2",
+    "@zoom/react-native-videosdk": "1.6.2",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",
     "moment": "^2.29.4",

@@ -2070,7 +2070,7 @@
     "@typescript-eslint/types" "5.52.0"
     eslint-visitor-keys "^3.3.0"
 
-"@zoom/react-native-videosdk@^1.6.2":
+"@zoom/react-native-videosdk@1.6.2":
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/@zoom/react-native-videosdk/-/react-native-videosdk-1.6.2.tgz#6667e84cc8b859494f7638ece5a2bdca0aff708e"
   integrity sha512-3l+MP2LlvB3ZooBoqNT9VLS90gwatYP6vXla3pAYOir/Fxqrz0qjdKxVtsAeJph6agZ144Tvtb1F7q4yQ53roQ==
