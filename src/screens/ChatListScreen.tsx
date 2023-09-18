@@ -75,7 +75,7 @@ const ChatListScreen = () => {
 
   const joinZoom = async () => {
     // console.log("join zoom1");
-    navigation.navigate("CallScreen", { sessionName: "Cool Cars", sessionPassword: "Test@123", displayName: "user123", sessionIdleTimeoutMins: 60,  });
+    navigation.navigate("CallScreen");
     // try {
     //   // await zoom.joinSession({
     //   //   sessionName: 'Cool Cars',

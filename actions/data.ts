@@ -30,7 +30,8 @@ import {
   CREATEGOAL,
   UPDATEGOALS,
   CHARTDATA,
-  ACCOUNTS
+  ACCOUNTS,
+  GETZOOMTOKEN
 } from '../urls';
 import store from '../store';
 import types from '../types';
@@ -373,3 +374,16 @@ export const logout = () => {
     payload: {},
   });
 };
+
+export const getZoomToken = (subject: any, userId: any) => {
+  return new Promise((resolve, reject) => {
+    return apiGet(`${GETZOOMTOKEN}?subject=${subject}&userId=${userId}`)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+

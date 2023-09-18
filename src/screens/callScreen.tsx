@@ -53,6 +53,8 @@ import {
   RNKeyboard,
   SoftInputMode,
 } from 'react-native-keyboard-area';
+import actions from '../../actions';
+import { useSelector } from 'react-redux';
 
 type CallScreenProps = {
   navigation: any;
@@ -96,20 +98,22 @@ export function CallScreen({navigation, route}: CallScreenProps) {
   const [isOriginalAspectRatio, setIsOriginalAspectRatio] = useState(false);
   const [isVideoMirrored, setIsVideoMirrored] = useState(true);
   const [isReceiveSpokenLanguageContentEnabled, setIsReceiveSpokenLanguageContentEnabled] = useState(false);
+  const userData = useSelector((state: any) => state?.auth?.userData?.user);
   let touchTimer: NodeJS.Timeout;
   isLongTouchRef.current = isLongTouch;
 
   useEffect(() => {
     (async () => {
       const {params} = route;
-      const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6ImNtbnhZYlFBUm1PTHQ4Vy1tMjZhLWciLCJleHAiOjE2OTQ3NjY4MDksImlhdCI6MTY5NDc2MTQxMH0.McdQCuNSAp9OlTmW9_-MaQQH9nyYgzIKB09ZLD5E67M";
+      const token: any = await actions.getZoomToken("Financial Review 3", userData?.id);
+      console.log("token+++++++++++", token);
       try {
         console.log("zoom join..........");
+        // leaveSession(true);
         await zoom.joinSession({
-          sessionName: params.sessionName,
-          sessionPassword: params.sessionPassword,
+          sessionName: "Financial Review 3",
           token: token,
-          userName: params.displayName,
+          userName: userData?.name,
           audioOptions: {
             connect: true,
             mute: true,
@@ -117,7 +121,7 @@ export function CallScreen({navigation, route}: CallScreenProps) {
           videoOptions: {
             localVideoOn: true,
           },
-          sessionIdleTimeoutMins: parseInt(params.sessionIdleTimeoutMins, 10),
+          sessionIdleTimeoutMins: 1,
         });
       } catch (e) {
         console.log(e);
@@ -619,6 +623,7 @@ export function CallScreen({navigation, route}: CallScreenProps) {
   };
 
   const leaveSession = (endSession: boolean) => {
+    console.log("leaveSession--------", endSession);
     zoom.leaveSession(endSession);
     navigation.goBack();
   };
@@ -627,6 +632,7 @@ export function CallScreen({navigation, route}: CallScreenProps) {
     const mySelf = await zoom.session.getMySelf();
     const muted = await mySelf.audioStatus.isMuted();
     setIsMuted(muted);
+    console.log("muted", muted);
     muted
       ? await zoom.audioHelper.unmuteAudio(mySelf.userId)
       : await zoom.audioHelper.muteAudio(mySelf.userId);
@@ -830,6 +836,7 @@ export function CallScreen({navigation, route}: CallScreenProps) {
   };
 
   const onPressLeave = async () => {
+    console.log("onPressLeave");
     const mySelf = await zoom.session.getMySelf();
     const options = [
       {
@@ -961,9 +968,9 @@ export function CallScreen({navigation, route}: CallScreenProps) {
             <View style={styles.sessionInfo}>
               <View style={styles.sessionInfoHeader}>
                 <Text style={styles.sessionName}>{sessionName}</Text>
-                <Icon
+                {/* <Icon
                   name={route.params.sessionPassword ? 'locked' : 'unlocked'}
-                />
+                /> */}
               </View>
               <Text style={styles.numberOfUsers}>
                 {`Participants: ${users.length}`}
@@ -1052,7 +1059,7 @@ export function CallScreen({navigation, route}: CallScreenProps) {
           </View>
         </Animated.View>
 
-        <View style={styles.bottomWrapper} pointerEvents="box-none">
+        {/* <View style={styles.bottomWrapper} pointerEvents="box-none">
           {isInSession && isKeyboardOpen && (
             <FlatList
               style={styles.userList}
@@ -1100,7 +1107,7 @@ export function CallScreen({navigation, route}: CallScreenProps) {
               </Animated.View>
             </View>
           </Animated.View>
-        </View>
+        </View> */}
 
         <Modal
           animationType="fade"

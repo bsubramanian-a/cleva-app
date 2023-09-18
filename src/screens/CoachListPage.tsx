@@ -44,7 +44,6 @@ const CoachListPage = () => {
       }
     );
     
-
     try {
       // Check if the channel exists in Stream Chat
       await channel.watch();
@@ -55,8 +54,10 @@ const CoachListPage = () => {
 
     const chatID = channel.id;
 
+    // console.log("selectedUser", selectedUser);
+
     // Navigate to the ChatInnerScreen with the chat ID
-    navigation.navigate('ChatInnerScreen', { chatId: chatID, name: member?.user?.name });
+    navigation.navigate('ChatInnerScreen', { chatId: chatID, name: member?.user?.name || selectedUser?.name });
   };
 
   const getRandomColor = () => {

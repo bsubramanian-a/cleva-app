@@ -37,6 +37,7 @@ const UserType = ({navigation}:any) => {
       </View>
 
       <DropdownComponent
+        style={{height: 60}}
         values={[{ label: 'Advisor Coach', value: 'advisor_coach' }, { label: 'User', value: 'user' }]}
         defaultValue={type}
         onValueChange={(value: any) => setType(value)}

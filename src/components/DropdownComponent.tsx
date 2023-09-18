@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
-const DropdownComponent = ({ values, defaultValue, onValueChange }:any) => {
+const DropdownComponent = ({ values, defaultValue, onValueChange, style }:any) => {
     const [value, setValue] = useState(defaultValue);
     const [isFocus, setIsFocus] = useState(false);
     // console.log("values", values);
@@ -15,7 +15,7 @@ const DropdownComponent = ({ values, defaultValue, onValueChange }:any) => {
 
     return (
       <Dropdown
-        style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+        style={[styles.dropdown, isFocus && { borderColor: 'blue' }, style]}
         data={filteredValues}
         value={value}
         selectedTextStyle={{ fontSize: 14, color: '#000', fontWeight: '600' }}

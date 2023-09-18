@@ -35,3 +35,4 @@ export const CREATEGOAL = getApiURL('goals');
 export const UPDATEGOALS = getApiURL('goals/updategoals');
 export const CHARTDATA = getApiURL('goals/chartData');
 export const ACCOUNTS = getApiURL('accounts');
+export const GETZOOMTOKEN = getApiURL('get-zoom-token');
