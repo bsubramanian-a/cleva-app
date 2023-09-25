@@ -140,7 +140,7 @@ const ChatInnerScreen = ({ navigation, route }: any) => {
 
       setIsDeleteModalVisible(false);
   
-      navigation.goBack();
+      navigation.navigate('Coach');
     } catch (error) {
       console.error('Error deleting chat:', error);
       // Show an error flash message

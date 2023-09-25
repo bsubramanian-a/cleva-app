@@ -35,7 +35,7 @@ const ChatListScreen = () => {
 
   // Function to delete the chat from history
   const deleteChat = async (cid: any) => {
-    // console.log("delette cid--------", cid);
+    console.log("delette cid--------", cid);
     await chatClient.deleteChannels([cid]);
     // For now, we'll just show a flash message
     showFlashMessage('Chat deleted successfully', 'failure');
@@ -103,6 +103,7 @@ const ChatListScreen = () => {
 
       // console.log("chatlist------------", response[0]?.state?.messageSets);
       // console.log("chatlist------------", response[0]?.state?.members);
+      console.log("chatlist------------", response[0]?.state);
 
 
       setChats(response);
@@ -357,9 +358,9 @@ const styles = StyleSheet.create({
     gap: 10
   },
   initialWrapper:{
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 46,
+    height: 46,
+    borderRadius: 23,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -396,7 +397,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   chatItem: {
-    padding: 10,
+    paddingHorizontal: 10,
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
@@ -408,12 +409,12 @@ const styles = StyleSheet.create({
       height: 4,
     },
     shadowColor: "rgba(32, 34, 36, 0.08)",
-    alignSelf: "stretch",
-    overflow: "hidden",
+    // alignSelf: "stretch",
+    // overflow: "hidden",
     backgroundColor: '#fff',
     borderRadius: 10,
     // marginVertical: 12,
-    minHeight: 72,
+    minHeight: 80,
   },
   chatName: {
     fontSize: 15, 

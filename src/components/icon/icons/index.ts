@@ -7,6 +7,8 @@ export const icons = {
   muted: require('./muted.png'),
   shareOn: require('./share-on.png'),
   shareOff: require('./share-off.png'),
+  recordOn: require('./share-on.png'),
+  recordOff: require('./share-off.png'),
   speakerOn: require('./speaker-on.png'),
   speakerOff: require('./speaker-off.png'),
   switchCamera: require('./switch-camera.png'),

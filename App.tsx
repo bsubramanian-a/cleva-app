@@ -30,7 +30,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import CustomFlashMessageProvider from './src/components/CustomFlashMessage';
 import ChatProvider from './src/providers/ChatProvider';
-import { ZoomVideoSdkProvider, useZoom,  EventType } from '@zoom/react-native-videosdk';
+import { ZoomVideoSdkProvider, useZoom,  EventType } from '@zoom/react-native-videosdk';  
 
 type SectionProps = PropsWithChildren<{
   title: string;

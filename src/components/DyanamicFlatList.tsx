@@ -5,13 +5,13 @@ const DynamicFlatList = ({ data, renderItem, keyExtractor, onContentSizeChange, 
   const scrollViewRef: any = useRef(null);
 
   useEffect(() => {
-    if (scrollViewRef.current) {
+    if (scrollViewRef?.current) {
         console.log("scrolling to end");
         setTimeout(() => {
-            scrollViewRef.current.scrollToEnd({ animated: false });
+            scrollViewRef?.current?.scrollToEnd({ animated: false });
         }, 100); // Add a small delay here, e.g., 100ms
     }
-  }, [data]);
+  }, [data, scrollViewRef.current]);
 
   return (
     <ScrollView

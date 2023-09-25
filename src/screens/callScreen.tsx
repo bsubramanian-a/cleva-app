@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, useCallback} from 'react';
 import {
   Alert,
   SafeAreaView,
@@ -14,6 +14,10 @@ import {
   Platform,
   ActionSheetIOS,
   useWindowDimensions,
+  BackHandler,
+  Image,
+  Pressable,
+  PermissionsAndroid,
 } from 'react-native';
 import {VideoView} from '../components/video-view'; 
 import {Icon} from '../components/icon';
@@ -55,6 +59,9 @@ import {
 } from 'react-native-keyboard-area';
 import actions from '../../actions';
 import { useSelector } from 'react-redux';
+import HeaderBack from '../components/HeaderBack';
+import { Border, Color, Padding } from '../GlobalStyles';
+import { useFocusEffect } from '@react-navigation/native';
 
 type CallScreenProps = {
   navigation: any;
@@ -103,48 +110,112 @@ export function CallScreen({navigation, route}: CallScreenProps) {
   isLongTouchRef.current = isLongTouch;
 
   useEffect(() => {
-    (async () => {
-      const {params} = route;
-      const token: any = await actions.getZoomToken("Financial Review 3", userData?.id);
-      console.log("token+++++++++++", token);
-      try {
-        console.log("zoom join..........");
-        // leaveSession(true);
-        await zoom.joinSession({
-          sessionName: "Financial Review 3",
-          token: token,
-          userName: userData?.name,
-          audioOptions: {
-            connect: true,
-            mute: true,
-          },
-          videoOptions: {
-            localVideoOn: true,
-          },
-          sessionIdleTimeoutMins: 1,
-        });
-      } catch (e) {
-        console.log(e);
-        Alert.alert('Failed to join the session');
-        setTimeout(() => navigation.goBack(), 1000);
-      }
-    })();
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
 
-    if (Platform.OS === 'android') {
-      // RNKeyboard.setWindowSoftInputMode(
-      //   SoftInputMode.SOFT_INPUT_ADJUST_NOTHING
-      // );
-    }
-
-    return () => {
-      if (Platform.OS === 'android') {
-        // RNKeyboard.setWindowSoftInputMode(
-        //   SoftInputMode.SOFT_INPUT_ADJUST_RESIZE
-        // );
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // Return a cleanup function to remove the event listener when the component unmounts.
+    return () => backHandler.remove();
   }, []);
+
+  const handleBackPress = () => {
+    onPressLeave();
+
+    return true;
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        const {params} = route;
+        const sessionName = "Financial Review 5";
+        const token: any = await actions.getZoomToken(sessionName, userData?.id);
+        console.log("token+++++++++++", token);
+        try {
+          console.log("zoom join..........", userData?.name, userData?.id);
+          // leaveSession(true);
+  
+          const options = {
+            sessionName: sessionName,
+            sessionPassword: "Test123",
+            token: token,
+            userName: userData?.name,
+            audioOptions: {
+              connect: true,
+              mute: true,
+              autoAdjustSpeakerVolume: false
+            },
+            videoOptions: {
+              localVideoOn: true,
+            },
+            sessionIdleTimeoutMins: 1,
+          }
+          console.log("zoom++++++++++++++++++++++++++", zoom);
+  
+          console.log("options", options);
+  
+          await zoom.joinSession(options);
+        } catch (e) {
+          console.log(e);
+          Alert.alert('Failed to join the session');
+          setTimeout(() => navigation.goBack(), 1000);
+        }
+      })();
+
+      // Return a cleanup function if needed
+      return () => {
+        // Cleanup logic if needed
+      };
+    }, [])
+  );
+
+  // useEffect(() => {
+  //   (async () => {
+  //     const {params} = route;
+  //     const token: any = await actions.getZoomToken("Financial Review 20", userData?.id);
+  //     console.log("token+++++++++++", token);
+  //     try {
+  //       console.log("zoom join..........", userData?.name, userData?.id);
+  //       // leaveSession(true);
+
+  //       const options = {
+  //         sessionName: "Financial Review 20",
+  //         token: token,
+  //         userName: userData?.name,
+  //         password: "Test@123",
+  //         audioOptions: {
+  //           connect: true,
+  //           mute: true,
+  //         },
+  //         videoOptions: {
+  //           localVideoOn: false,
+  //         },
+  //         sessionIdleTimeoutMins: 1,
+  //       }
+
+  //       console.log("options", options);
+
+  //       await zoom.joinSession(options);
+  //     } catch (e) {
+  //       console.log(e);
+  //       Alert.alert('Failed to join the session');
+  //       setTimeout(() => navigation.goBack(), 1000);
+  //     }
+  //   })();
+
+  //   if (Platform.OS === 'android') {
+  //     // RNKeyboard.setWindowSoftInputMode(
+  //     //   SoftInputMode.SOFT_INPUT_ADJUST_NOTHING
+  //     // );
+  //   }
+
+  //   return () => {
+  //     if (Platform.OS === 'android') {
+  //       // RNKeyboard.setWindowSoftInputMode(
+  //       //   SoftInputMode.SOFT_INPUT_ADJUST_RESIZE
+  //       // );
+  //     }
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
     const updateVideoInfo = () => {
@@ -624,18 +695,44 @@ export function CallScreen({navigation, route}: CallScreenProps) {
 
   const leaveSession = (endSession: boolean) => {
     console.log("leaveSession--------", endSession);
-    zoom.leaveSession(endSession);
+    // zoom.leaveSession(endSession);
+    console.log("zoom", zoom)
+    console.log(zoom.leaveSession(true))
     navigation.goBack();
   };
 
+  async function checkAudioPermission() {
+    const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO);
+    return granted;
+  }
+
+  async function requestAudioPermission() {
+    const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO);
+    return granted;
+  }
+
   const onPressAudio = async () => {
+    const hasAudioPermission = await checkAudioPermission();
+
+    if (!hasAudioPermission) {
+      const granted = await requestAudioPermission();
+      console.log("granted", granted);
+      if (!granted || granted == "never_ask_again") {
+        // The user denied the audio permission.
+        console.log("give audio permission in settings to activate mic")
+        return;
+      }
+    }
+
     const mySelf = await zoom.session.getMySelf();
+    // console.log("mySelf", mySelf);
     const muted = await mySelf.audioStatus.isMuted();
-    setIsMuted(muted);
-    console.log("muted", muted);
-    muted
-      ? await zoom.audioHelper.unmuteAudio(mySelf.userId)
-      : await zoom.audioHelper.muteAudio(mySelf.userId);
+    // console.log("muted", muted);
+    if (muted) {
+      await zoom.audioHelper.unmuteAudio(mySelf.userId);
+    } else {
+      await zoom.audioHelper.muteAudio(mySelf.userId);
+    }
   };
 
   const onPressVideo = async () => {
@@ -933,8 +1030,8 @@ export function CallScreen({navigation, route}: CallScreenProps) {
 
   return (
     <View style={contentStyles}>
-      <StatusBar hidden />
-      <View style={styles.fullScreenVideo}>
+      <StatusBar />
+      {/* <View style={styles.fullScreenVideo}>
         <VideoView
           user={fullScreenUser}
           sharing={fullScreenUser?.userId === sharingUser?.userId}
@@ -946,7 +1043,7 @@ export function CallScreen({navigation, route}: CallScreenProps) {
           }}
           fullScreen
         />
-      </View>
+      </View> */}
 
       <LinearGradient
         style={styles.fullScreenVideo}
@@ -961,23 +1058,49 @@ export function CallScreen({navigation, route}: CallScreenProps) {
       />
 
       <SafeAreaView style={styles.safeArea} pointerEvents="box-none">
-        <Animated.View
+        {isInSession && <>
+        <View>
+          <View style={styles.header}>
+            <Pressable style={styles.menu} onPress={onPressLeave}>
+              <Image
+                style={styles.vuesaxlineararrowLeftIcon}
+                resizeMode="cover"
+                source={require("../assets/vuesaxlineararrowleft.png")}
+              />
+            </Pressable>
+            <View style={{ alignItems: "center", flex: 1 }}><Text style={{color: "#fff"}}>Jacob Gouse</Text></View>
+          </View>
+          <View
+            style={[styles.frWrapper, styles.wrapperLayout]}
+          >
+            <Text style={styles.dr}>
+              JG
+              {/* {profile?.length > 0 && (
+                (profile[0]?.First_Name && profile[0]?.Last_Name)
+                  ? (profile[0]?.First_Name.charAt(0) + profile[0]?.Last_Name.charAt(0))
+                  : ((profile[0]?.First_Name || profile[0]?.Last_Name) || '').slice(0, 2)
+              )} */}
+            </Text>
+          </View>
+        </View>
+        {/* <Animated.View
           style={[styles.contents, uiOpacityAnimatedStyle]}
-          pointerEvents="box-none">
+          pointerEvents="box-none"> */}
+        <>
           <View style={styles.topWrapper} pointerEvents="box-none">
-            <View style={styles.sessionInfo}>
+            {/* <View style={styles.sessionInfo}>
               <View style={styles.sessionInfoHeader}>
                 <Text style={styles.sessionName}>{sessionName}</Text>
-                {/* <Icon
+                <Icon
                   name={route.params.sessionPassword ? 'locked' : 'unlocked'}
-                /> */}
+                />
               </View>
               <Text style={styles.numberOfUsers}>
                 {`Participants: ${users.length}`}
               </Text>
-            </View>
+            </View> */}
 
-            <View style={styles.topRightWrapper}>
+            {/* <View style={styles.topRightWrapper}>
               <TouchableOpacity
                 style={styles.leaveButton}
                 onPress={onPressLeave}>
@@ -988,10 +1111,10 @@ export function CallScreen({navigation, route}: CallScreenProps) {
                   <Text style={styles.videoInfoText}>{videoInfo}</Text>
                 </View>
               )}
-            </View>
+            </View> */}
           </View>
 
-          <View style={styles.middleWrapper} pointerEvents="box-none">
+          {/* <View style={styles.middleWrapper} pointerEvents="box-none">
             <FlatList
               contentContainerStyle={styles.chatList}
               onTouchStart={onListTouchStart}
@@ -1056,8 +1179,41 @@ export function CallScreen({navigation, route}: CallScreenProps) {
                 onPress={onPressMore}
               />
             </View>
+          </View> */}
+          <View style={{flexDirection: 'column', alignItems: 'center'}}>
+            <View style={styles.sessionInfo}>
+              <View style={styles.sessionInfoHeader}>
+                <Text style={styles.sessionName}>{sessionName}</Text>
+                <Icon
+                  name={route?.params?.sessionPassword ? 'locked' : 'unlocked'}
+                />
+              </View>
+              <Text style={styles.numberOfUsers}>
+                {`Participants: ${users.length}`}
+              </Text>
+            </View>
+            <View style={{flexDirection: 'row', justifyContent: 'center', gap: 30}}>
+              <Icon
+                containerStyle={styles.controlButton}
+                name={isMuted ? 'unmute' : 'mute'}
+                onPress={onPressAudio}
+              />
+              <Icon
+                containerStyle={styles.controlButton}
+                name={isSharing ? 'recordOff' : 'recordOn'}
+                onPress={onPressAudio}
+              />
+            </View>
+            <View style={styles.topRightWrapper}>
+              <TouchableOpacity
+                style={styles.leaveButton}
+                onPress={onPressLeave}>
+                <Text style={styles.leaveText}>End</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </Animated.View>
+        </>
+        {/* </Animated.View> */}
 
         {/* <View style={styles.bottomWrapper} pointerEvents="box-none">
           {isInSession && isKeyboardOpen && (
@@ -1109,7 +1265,7 @@ export function CallScreen({navigation, route}: CallScreenProps) {
           </Animated.View>
         </View> */}
 
-        <Modal
+        {/* <Modal
           animationType="fade"
           transparent={true}
           visible={isRenameModalVisible}
@@ -1151,7 +1307,7 @@ export function CallScreen({navigation, route}: CallScreenProps) {
               </View>
             </View>
           </TouchableOpacity>
-        </Modal>
+        </Modal> */}
 
         {/* @ts-ignore: only calculates the keyboard height */}
         {/* <KeyboardArea
@@ -1159,6 +1315,7 @@ export function CallScreen({navigation, route}: CallScreenProps) {
           isOpen={false}
           onChange={keyboardHeightChange}
         /> */}
+        </>}
 
         {!isInSession && (
           <View style={styles.connectingWrapper}>
@@ -1171,6 +1328,38 @@ export function CallScreen({navigation, route}: CallScreenProps) {
 }
 
 const styles = StyleSheet.create({
+  frWrapper: {
+    backgroundColor: "#9755b6",
+    alignSelf: 'center',
+    marginTop: 35
+  },
+  wrapperLayout: {
+    justifyContent: "center",
+    height: 104,
+    width: 104,
+    borderRadius: 52,
+    padding: 5,
+    alignItems: "center",
+    overflow: "hidden",
+  },
+  menu: {
+    position: 'absolute',
+    left: 10
+  },
+  vuesaxlineararrowLeftIcon: {
+    width: 22,
+    height: 22,
+  },
+  header: {
+    flexDirection: "row",
+    marginTop: 40,
+    paddingHorizontal: 38
+  },
+  mainvector1Icon: {
+    width: 164,
+    height: 63,
+    overflow: "hidden",
+  },
   container: {
     width: '100%',
     height: '100%',
@@ -1199,16 +1388,20 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
+    justifyContent: 'space-between'
   },
   contents: {
     flex: 1,
     alignItems: 'stretch',
+    justifyContent: 'space-between'
   },
   sessionInfo: {
     width: 200,
     padding: 8,
     borderRadius: 8,
     backgroundColor: 'rgba(0,0,0,0.6)',
+    alignSelf: 'center',
+    marginBottom: 20
   },
   sessionInfoHeader: {
     flexDirection: 'row',
