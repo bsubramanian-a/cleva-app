@@ -13,6 +13,7 @@ import { useZoom } from '@zoom/react-native-videosdk';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import DeletePopup from '../components/DeletePopup';
+import SchedulePopup from '../components/SchedulePopup';
 
 const ChatListScreen = () => {
   const navigation: any = useNavigation();
@@ -28,6 +29,7 @@ const ChatListScreen = () => {
   const userData = useSelector((state: any) => state?.auth?.userData?.user);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [deleteId, setDeleteId] = useState();
+  const [scheduleVisible, setScheduleVisible] = useState(false);
 
   // console.log("userData", userData);
 
@@ -242,6 +244,76 @@ const ChatListScreen = () => {
     );
   };
 
+  const callRenderItem = ({ item }: any) => {
+    const randomColor = getRandomColor();
+    // console.log("item.state.members.............", item.state.members);
+    const member: any =  Object.values(item.state.members).find(
+      (user: any) => {
+        // console.log("user", user?.user?.id);
+        // console.log('platform============', Platform.OS);
+        // console.log("userId++++++++++", user.id);
+        // console.log("current userId", userData?.id);
+        // console.log("condition", user.id !== userData?.id);
+        return user?.user?.id !== userData?.id
+      }
+    );
+
+    return (
+      <View style={styles.swipeableContainer}>
+        <Swipeable
+          ref={swipeableRef}
+          renderRightActions={() => (
+            <>
+              <RectButton onPress={() => onDeleteClick(item?.cid)}>
+                <View style={[styles.deleteButton, styles.rescheduleButton]}>
+                  <Image
+                    style={styles.trash}
+                    resizeMode="cover"
+                    source={require("../assets/trash.png")}
+                  />
+                  <Text style={styles.actionText}>Reschedule</Text>
+                </View>
+              </RectButton>
+              <RectButton onPress={() => onDeleteClick(item?.cid)}>
+                <View style={styles.deleteButton}>
+                  <Image
+                    style={styles.trash}
+                    resizeMode="cover"
+                    source={require("../assets/trash.png")}
+                  />
+                  <Text style={styles.actionText}>Cancel</Text>
+                </View>
+              </RectButton>
+            </>
+          )}
+          onSwipeableClose={() => swipeableRef.current?.close()}
+          containerStyle={{width: '100%'}}
+        >
+          <TouchableOpacity
+            style={styles.chatItem}
+            onPress={() => {
+              setScheduleVisible(true);
+            }}
+          >
+            <View style={styles.cardLeftContent}>
+              <View style={[styles.initialWrapper, { backgroundColor: randomColor }]}>
+                <Text style={styles.initialText}>{getInitials(member?.user?.name)}</Text>
+              </View>
+              <View>
+                <Text style={styles.chatName}>{member?.user?.name}</Text>
+                <Text style={styles.chatSubject}>With {(item?.state?.messageSets?.length > 0 && item?.state?.messageSets[0]?.messages?.length > 0)? item?.state?.messageSets[0]?.messages[item?.state?.messageSets[0]?.messages?.length - 1]?.text?.slice(0, 30): ""}</Text>
+              </View>
+            </View>
+            <View style={[styles.cardRightContent, {flexDirection: 'column'}]}>
+              <Text style={styles.hour}>7/6/2023</Text>
+              <Text style={styles.hour}>6:00 PM</Text>
+            </View>
+          </TouchableOpacity>
+        </Swipeable>
+      </View>
+    );
+  };
+
   const onSubjectSelection = (subject: string) => {
     console.log("subject selected", subject);
     setSubject(subject);
@@ -254,6 +326,7 @@ const ChatListScreen = () => {
 
   return (
     <View style={styles.container}>
+      <SchedulePopup visible={scheduleVisible} onClose={() => setScheduleVisible(false)}/>
       <DeletePopup
         key={deleteId}
         isVisible={isDeleteModalVisible}
@@ -294,11 +367,29 @@ const ChatListScreen = () => {
 
           {
             activeTab == 1 && 
-              <>
-                <TouchableOpacity onPress={joinZoom}>
-                  <Text>Join zoom</Text>
-                </TouchableOpacity>
-              </>
+              // <>
+              //   <TouchableOpacity onPress={joinZoom}>
+              //     <Text>Join zoom</Text>
+              //   </TouchableOpacity>
+              // </>
+              <View style={styles.chatContainer}>
+                <View style={styles.titleRow}>
+                  <Text style={styles.current}>Opening Bookings</Text>
+                 {userData?.userType != 'advisor_coach' && <Pressable style={styles.newChat} onPress={newChat}>
+                    <Image
+                      style={styles.add_circle}
+                      resizeMode="cover"
+                      source={require("../assets/add-circle.png")}
+                    />
+                    <Text style={styles.newChatText}>New Calls</Text>
+                  </Pressable>}
+                </View>
+                <FlatList
+                  data={chats}
+                  keyExtractor={(item) => item.id}
+                  renderItem={callRenderItem} 
+                />
+              </View>
           }
         </View>
     </View>
@@ -306,6 +397,9 @@ const ChatListScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  actionText:{
+    fontSize: 10
+  },
   swipeableContainer: {
     alignItems: 'center',
     flex: 1,
@@ -319,6 +413,9 @@ const styles = StyleSheet.create({
     width: 62,
     borderRadius: 16,
     marginLeft: 15
+  },
+  rescheduleButton: {
+   width: 75
   },
   trash: {
     width: 26,
