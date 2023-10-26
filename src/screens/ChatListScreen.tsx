@@ -31,6 +31,10 @@ const ChatListScreen = () => {
   const [deleteId, setDeleteId] = useState();
   const [scheduleVisible, setScheduleVisible] = useState(false);
 
+  const coaches = [
+    { id: userData?.owner?.id, name: userData?.owner?.name }
+  ];
+
   // console.log("userData", userData);
 
   // console.log("Platform.OS_________", Platform.OS, userData?.id);
@@ -246,17 +250,6 @@ const ChatListScreen = () => {
 
   const callRenderItem = ({ item }: any) => {
     const randomColor = getRandomColor();
-    // console.log("item.state.members.............", item.state.members);
-    const member: any =  Object.values(item.state.members).find(
-      (user: any) => {
-        // console.log("user", user?.user?.id);
-        // console.log('platform============', Platform.OS);
-        // console.log("userId++++++++++", user.id);
-        // console.log("current userId", userData?.id);
-        // console.log("condition", user.id !== userData?.id);
-        return user?.user?.id !== userData?.id
-      }
-    );
 
     return (
       <View style={styles.swipeableContainer}>
@@ -297,10 +290,10 @@ const ChatListScreen = () => {
           >
             <View style={styles.cardLeftContent}>
               <View style={[styles.initialWrapper, { backgroundColor: randomColor }]}>
-                <Text style={styles.initialText}>{getInitials(member?.user?.name)}</Text>
+                <Text style={styles.initialText}>{getInitials(item?.name)}</Text>
               </View>
               <View>
-                <Text style={styles.chatName}>{member?.user?.name}</Text>
+                <Text style={styles.chatName}>{item?.name}</Text>
                 <Text style={styles.chatSubject}>With {(item?.state?.messageSets?.length > 0 && item?.state?.messageSets[0]?.messages?.length > 0)? item?.state?.messageSets[0]?.messages[item?.state?.messageSets[0]?.messages?.length - 1]?.text?.slice(0, 30): ""}</Text>
               </View>
             </View>
@@ -367,29 +360,29 @@ const ChatListScreen = () => {
 
           {
             activeTab == 1 && 
-              // <>
-              //   <TouchableOpacity onPress={joinZoom}>
-              //     <Text>Join zoom</Text>
-              //   </TouchableOpacity>
-              // </>
-              <View style={styles.chatContainer}>
-                <View style={styles.titleRow}>
-                  <Text style={styles.current}>Opening Bookings</Text>
-                 {userData?.userType != 'advisor_coach' && <Pressable style={styles.newChat} onPress={newChat}>
-                    <Image
-                      style={styles.add_circle}
-                      resizeMode="cover"
-                      source={require("../assets/add-circle.png")}
-                    />
-                    <Text style={styles.newChatText}>New Calls</Text>
-                  </Pressable>}
-                </View>
-                <FlatList
-                  data={chats}
-                  keyExtractor={(item) => item.id}
-                  renderItem={callRenderItem} 
-                />
-              </View>
+              <>
+                <TouchableOpacity onPress={joinZoom}>
+                  <Text>Join zoom</Text>
+                </TouchableOpacity>
+              </>
+              // <View style={styles.chatContainer}>
+              //   <View style={styles.titleRow}>
+              //     <Text style={styles.current}>Opening Bookings</Text>
+              //    {userData?.userType != 'advisor_coach' && <Pressable style={styles.newChat} onPress={newChat}>
+              //       <Image
+              //         style={styles.add_circle}
+              //         resizeMode="cover"
+              //         source={require("../assets/add-circle.png")}
+              //       />
+              //       <Text style={styles.newChatText}>New Calls</Text>
+              //     </Pressable>}
+              //   </View>
+              //   <FlatList
+              //     data={coaches}
+              //     keyExtractor={(item) => item.id}
+              //     renderItem={callRenderItem} 
+              //   />
+              // </View>
           }
         </View>
     </View>

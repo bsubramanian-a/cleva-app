@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import Loader from "./Loader";
 import CTextInput from "./CTextInput";
 import CustomCalendar from "./Calendar";
+import RadioButtonGroup from "./RadioButtonGroup";
 
 const SchedulePopup = ({visible, onClose}: any) => {
   const [datas, setDatas] = useState<any>([]);
@@ -25,6 +26,21 @@ const SchedulePopup = ({visible, onClose}: any) => {
         return updatedDatas;
       }
     });
+  };
+
+  // Define a function to generate time intervals from 9:00 AM to 6:00 PM in 30-minute increments
+  const generateTimeIntervals = () => {
+    const options = [];
+    let startTime = new Date();
+    startTime.setHours(9, 0, 0, 0); // Set the start time to 9:00 AM
+
+    while (startTime.getHours() < 18) { // Loop until 6:00 PM (18:00)
+      const timeString = startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      options.push({ value: timeString });
+      startTime.setMinutes(startTime.getMinutes() + 30); // Increment by 30 minutes
+    }
+
+    return options;
   };
 
   return (
@@ -62,15 +78,54 @@ const SchedulePopup = ({visible, onClose}: any) => {
 
                 <CustomCalendar />
 
-                <Pressable
-                  style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <LinearGradient
-                      style={[styles.bottom, styles.bottomFlexBox]}
-                      locations={[0, 1]}
-                      colors={['#fbb142', '#f6a326']}
-                      useAngle={true}
-                      angle={180}>
-                        <Text style={[styles.edit, styles.ml4]}>Save</Text>
+                <Text style={styles.subheading}>
+                    Select Time
+                </Text>
+                
+                <RadioButtonGroup
+                    key="StatusRadioButtonGroup"
+                    // defaultValue={goal?.Status || ""}
+                    options={generateTimeIntervals()}
+                    onChange={(value:any) => updateState(value, 'Status')}
+                    orientation={"horizontal"}
+                    count={3}
+                    cselectedOptionBackground={{height: 25, padding: 4}}
+                    coptionView={styles.coptionView}
+                    coptionContainer={{
+                      height: 50,
+                      paddingVertical: 0,
+                      backgroundColor: '#fff',
+                      borderRadius: 12,
+                    }}
+                    coptionDescription={{
+                      textAlign: 'center',
+                      color: '#000',
+                      fontSize: 14,
+                    }}
+                    coptionTextStyle={{
+                      textAlign: 'center',
+                      color: '#000',
+                      fontSize: 14,
+                      fontWeight: 600,
+                    }}
+                />
+
+                <Pressable style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                  <LinearGradient
+                    style={[styles.bottom, styles.bottomFlexBox]}
+                    locations={[0, 1]}
+                    colors={['#fbb142', '#f6a326']}
+                    useAngle={true}
+                    angle={180}>
+                      <View style={styles.buttonView}>
+                        <View>
+                          <Text style={[styles.buttonTime, styles.ml4]}>14 June 2023 at 9:30am</Text>
+                          <Text style={[styles.buttonConfirm, styles.ml4]}>Confirm & Add to Calendar</Text>
+                        </View>
+                        <View>
+                          <Image source={require('../components/icon/icons/arrow-circle-right.png')} style={styles.customArrow} />
+                        </View>
+                      </View>
                   </LinearGradient>
                 </Pressable>
             </ScrollView>
@@ -82,6 +137,38 @@ const SchedulePopup = ({visible, onClose}: any) => {
 };
 
 const styles = StyleSheet.create({
+  buttonTime: {
+    fontSize: 12,
+    color: '#fff'
+  },
+  buttonConfirm: {
+    fontSize: 15,
+    color: '#fff'
+  },
+  buttonView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: 35
+  },
+  customArrow: {
+    width: 20, 
+    height: 20, 
+  },
+  subheading: {
+    fontFamily: FontFamily.sourceSerifPro,
+    fontSize: 16,
+    fontWeight: '500',
+    marginBottom: 10,
+    marginTop: 20
+  },
+  coptionView: {
+    borderRadius: 12,
+    height: 50,
+    justifyContent: 'center',
+    overflow: 'hidden',
+    paddingHorizontal: 10,
+  },
   edit: {
     color: Color.white1,
     fontFamily: FontFamily.openSansRegular,
@@ -95,16 +182,16 @@ const styles = StyleSheet.create({
   },
   bottom: {
     alignSelf: 'center',
-    borderRadius: 60,
+    borderRadius: 12,
     marginVertical: 28,
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     paddingVertical: 14,
-    width: 180,
+    width: '100%'
   },
   bottomFlexBox: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // overflow: 'hidden',
   },
   save200PerTypo: {
     color: Color.darkslategray_100,
@@ -198,7 +285,8 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
-    padding: 14
+    padding: 14,
+    overflow: 'scroll'
   },
 });
 

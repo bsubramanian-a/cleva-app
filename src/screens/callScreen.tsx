@@ -135,7 +135,7 @@ export function CallScreen({navigation, route}: CallScreenProps) {
   
           const options = {
             sessionName: sessionName,
-            sessionPassword: "Test123",
+            // sessionPassword: "Test123",
             token: token,
             userName: userData?.name,
             audioOptions: {
@@ -147,13 +147,14 @@ export function CallScreen({navigation, route}: CallScreenProps) {
               localVideoOn: true,
             },
             sessionIdleTimeoutMins: 1,
+            sessionId: "82696825077"
           }
           console.log("zoom++++++++++++++++++++++++++", zoom);
   
           console.log("options", options);
   
           await zoom.joinSession(options);
-        } catch (e) {
+        } catch (e) { 
           console.log(e);
           Alert.alert('Failed to join the session');
           setTimeout(() => navigation.goBack(), 1000);
