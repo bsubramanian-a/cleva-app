@@ -26,16 +26,14 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import Routes from './src/Navigations/Routes';
 import {NavigationContainer} from '@react-navigation/native';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import store from './store';
 import CustomFlashMessageProvider from './src/components/CustomFlashMessage';
 import ChatProvider from './src/providers/ChatProvider';
-import { ZoomVideoSdkProvider, useZoom,  EventType } from '@zoom/react-native-videosdk';  
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
-
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -49,16 +47,10 @@ function App(): JSX.Element {
       <CustomFlashMessageProvider>
         <ChatProvider>
           <NavigationContainer>
-            <ZoomVideoSdkProvider
-              config={{
-              domain: 'zoom.us',
-              enableLog: true,
-            }}>
-              <Routes />
-            </ZoomVideoSdkProvider>
+            <Routes />
           </NavigationContainer>
         </ChatProvider>
-      </CustomFlashMessageProvider> 
+      </CustomFlashMessageProvider>
     </Provider>
   );
 }

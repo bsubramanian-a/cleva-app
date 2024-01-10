@@ -62,18 +62,19 @@ const EditGoalModal = ({visible, onClose, goal, navigation}: any) => {
   futureDate.setFullYear(today.getFullYear() + 100);
 
   useEffect(() => {
-    // ...
-  
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
-        scrollViewRef.current.scrollToEnd({ animated: true });
+        if (scrollViewRef?.current) {
+          scrollViewRef.current.scrollToEnd({ animated: true });
+        }
       }
     );
   
-    // ...
-  }, []);
-    
+    return () => {
+      keyboardDidShowListener.remove();
+    };
+  }, [scrollViewRef]);
 
   return (
     <Modal visible={visible} onRequestClose={onClose} transparent>

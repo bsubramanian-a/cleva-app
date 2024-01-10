@@ -1,9 +1,9 @@
-// export const API_BASE_URL = "http://192.168.18.178:3000/";
-export const API_BASE_URL = 'http://192.168.18.190:3000/';
+// export const API_BASE_URL = "http://192.168.1.5:3000/";
+// export const API_BASE_URL = 'http://192.168.1.6:3000/';
 // export const API_BASE_URL = "http://192.168.18.98:3000/";
 // export const API_BASE_URL = "http://192.168.18.134:3000/";
 // export const API_BASE_URL = "https://cleva-backend.onrender.com/";
-// export const API_BASE_URL = "http://3.106.56.137:3000/";
+export const API_BASE_URL = "http://3.106.56.137:3000/";
 
 export const getApiURL = endpoint => API_BASE_URL + endpoint;
 
@@ -35,4 +35,5 @@ export const CREATEGOAL = getApiURL('goals');
 export const UPDATEGOALS = getApiURL('goals/updategoals');
 export const CHARTDATA = getApiURL('goals/chartData');
 export const ACCOUNTS = getApiURL('accounts');
-export const GETZOOMTOKEN = getApiURL('get-zoom-token');
+export const CREATE_MEETING = getApiURL('create-meeting');
+export const GET_MEETING = getApiURL('meetings');

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
-const CustomCalendar = () => {
+const CustomCalendar = ({onChange}: any) => {
   const [selectedDate, setSelectedDate] = useState('');
   const [currentMonth, setCurrentMonth] = useState(new Date().toISOString().split('T')[0]);
 
   const handleDayPress = (day: any) => {
     setSelectedDate(day.dateString);
+    onChange(day?.dateString);
   };
 
   // Custom function to render the left arrow
