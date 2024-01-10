@@ -369,8 +369,8 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     alignSelf: 'flex-end',
-    right: -25,
-    top: 0,
+    right: -20,
+    top: 10,
     position: 'absolute',
     zIndex: 1000000,
   },

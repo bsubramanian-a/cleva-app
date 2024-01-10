@@ -11,9 +11,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		6B3856E8DDB2101FFE17D277 /* libPods-Cleva-ClevaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F627E9CCCEC6C838B0B3A65 /* libPods-Cleva-ClevaTests.a */; };
+		665F095A18D6D7BFE496DFE8 /* libPods-Cleva.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE36E93612ECE6316DB1B20 /* libPods-Cleva.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8431C764D169C0286605DBD8 /* libPods-Cleva.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 770E11FD19B2021970B8220F /* libPods-Cleva.a */; };
+		CB608F22609239DA4559A644 /* libPods-Cleva-ClevaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9E8818C90B09063B049740 /* libPods-Cleva-ClevaTests.a */; };
 		FC3606612A36EE8B008BF688 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC3606602A36EE8B008BF688 /* GoogleService-Info.plist */; };
 		FC94E2F12A1B580E0040480E /* Outfit_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC94E2DE2A1B58070040480E /* Outfit_light.ttf */; };
 		FC94E2F22A1B580E0040480E /* Open_Sans_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC94E2DF2A1B58070040480E /* Open_Sans_bold.ttf */; };
@@ -63,21 +63,21 @@
 		00E356EE1AD99517003FC87E /* ClevaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClevaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ClevaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClevaTests.m; sourceTree = "<group>"; };
+		12AB6C7FE7CBCF3BEE02C23B /* Pods-Cleva-ClevaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cleva-ClevaTests.debug.xcconfig"; path = "Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Cleva.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cleva.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Cleva/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Cleva/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Cleva/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Cleva/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Cleva/main.m; sourceTree = "<group>"; };
-		3F627E9CCCEC6C838B0B3A65 /* libPods-Cleva-ClevaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cleva-ClevaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		770E11FD19B2021970B8220F /* libPods-Cleva.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cleva.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Cleva/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		92A7FBC7BC5AD0DCDA0FDCC8 /* Pods-Cleva.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cleva.release.xcconfig"; path = "Target Support Files/Pods-Cleva/Pods-Cleva.release.xcconfig"; sourceTree = "<group>"; };
 		9527AB7E2AA6F0D70014EBB0 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		95BFEC722A44CFEC00589FFE /* Cleva.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Cleva.entitlements; path = Cleva/Cleva.entitlements; sourceTree = "<group>"; };
-		9D84837C72FF543013F67665 /* Pods-Cleva-ClevaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cleva-ClevaTests.debug.xcconfig"; path = "Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests.debug.xcconfig"; sourceTree = "<group>"; };
-		BEADB92567171B078DE15F88 /* Pods-Cleva-ClevaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cleva-ClevaTests.release.xcconfig"; path = "Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests.release.xcconfig"; sourceTree = "<group>"; };
-		D42D05772CC7582FC28D0283 /* Pods-Cleva.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cleva.debug.xcconfig"; path = "Target Support Files/Pods-Cleva/Pods-Cleva.debug.xcconfig"; sourceTree = "<group>"; };
+		C584875520FCDAD3C9B6FE63 /* Pods-Cleva.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cleva.release.xcconfig"; path = "Target Support Files/Pods-Cleva/Pods-Cleva.release.xcconfig"; sourceTree = "<group>"; };
+		CE536D37538AC10CF781E8AA /* Pods-Cleva.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cleva.debug.xcconfig"; path = "Target Support Files/Pods-Cleva/Pods-Cleva.debug.xcconfig"; sourceTree = "<group>"; };
+		CE9E8818C90B09063B049740 /* libPods-Cleva-ClevaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cleva-ClevaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEE36E93612ECE6316DB1B20 /* libPods-Cleva.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cleva.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1C3DD4C3ED53594D1151C32 /* Pods-Cleva-ClevaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cleva-ClevaTests.release.xcconfig"; path = "Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FC3606602A36EE8B008BF688 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FC94E2DE2A1B58070040480E /* Outfit_light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Outfit_light.ttf; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B3856E8DDB2101FFE17D277 /* libPods-Cleva-ClevaTests.a in Frameworks */,
+				CB608F22609239DA4559A644 /* libPods-Cleva-ClevaTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8431C764D169C0286605DBD8 /* libPods-Cleva.a in Frameworks */,
+				665F095A18D6D7BFE496DFE8 /* libPods-Cleva.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,8 +157,8 @@
 			children = (
 				9527AB7E2AA6F0D70014EBB0 /* VideoToolbox.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				770E11FD19B2021970B8220F /* libPods-Cleva.a */,
-				3F627E9CCCEC6C838B0B3A65 /* libPods-Cleva-ClevaTests.a */,
+				CEE36E93612ECE6316DB1B20 /* libPods-Cleva.a */,
+				CE9E8818C90B09063B049740 /* libPods-Cleva-ClevaTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -199,10 +199,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D42D05772CC7582FC28D0283 /* Pods-Cleva.debug.xcconfig */,
-				92A7FBC7BC5AD0DCDA0FDCC8 /* Pods-Cleva.release.xcconfig */,
-				9D84837C72FF543013F67665 /* Pods-Cleva-ClevaTests.debug.xcconfig */,
-				BEADB92567171B078DE15F88 /* Pods-Cleva-ClevaTests.release.xcconfig */,
+				CE536D37538AC10CF781E8AA /* Pods-Cleva.debug.xcconfig */,
+				C584875520FCDAD3C9B6FE63 /* Pods-Cleva.release.xcconfig */,
+				12AB6C7FE7CBCF3BEE02C23B /* Pods-Cleva-ClevaTests.debug.xcconfig */,
+				D1C3DD4C3ED53594D1151C32 /* Pods-Cleva-ClevaTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -240,12 +240,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ClevaTests" */;
 			buildPhases = (
-				E7E180507FD2FD762327811D /* [CP] Check Pods Manifest.lock */,
+				AC2E6DB2A1D8ECE8240FFF73 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				914C49D3D920AC723C652D9F /* [CP] Embed Pods Frameworks */,
-				CD9F2B55699BFA5FBDD2C675 /* [CP] Copy Pods Resources */,
+				ED7DE349A050CEF0DD074CF7 /* [CP] Embed Pods Frameworks */,
+				3BB7EDED856E9A757B24FB70 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -261,15 +261,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Cleva" */;
 			buildPhases = (
-				01ED5950E78438E6669E59D1 /* [CP] Check Pods Manifest.lock */,
+				5182249CB73EB0DC27505066 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				95DF61592A8A426D00DDE6B8 /* Embed Frameworks */,
-				87B15A5E9FB6DC965071C1E2 /* [CP] Embed Pods Frameworks */,
-				9762E2084AA8668ED723150F /* [CP] Copy Pods Resources */,
+				5FB724738C02F205097BE3C2 /* [CP] Embed Pods Frameworks */,
+				270F6B1BD260C39E7FD3E36B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -373,7 +373,41 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		01ED5950E78438E6669E59D1 /* [CP] Check Pods Manifest.lock */ = {
+		270F6B1BD260C39E7FD3E36B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cleva/Pods-Cleva-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cleva/Pods-Cleva-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cleva/Pods-Cleva-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3BB7EDED856E9A757B24FB70 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5182249CB73EB0DC27505066 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -395,7 +429,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		87B15A5E9FB6DC965071C1E2 /* [CP] Embed Pods Frameworks */ = {
+		5FB724738C02F205097BE3C2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -412,58 +446,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cleva/Pods-Cleva-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		914C49D3D920AC723C652D9F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9762E2084AA8668ED723150F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Cleva/Pods-Cleva-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Cleva/Pods-Cleva-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cleva/Pods-Cleva-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CD9F2B55699BFA5FBDD2C675 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E7E180507FD2FD762327811D /* [CP] Check Pods Manifest.lock */ = {
+		AC2E6DB2A1D8ECE8240FFF73 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -483,6 +466,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ED7DE349A050CEF0DD074CF7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cleva-ClevaTests/Pods-Cleva-ClevaTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -537,7 +537,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9D84837C72FF543013F67665 /* Pods-Cleva-ClevaTests.debug.xcconfig */;
+			baseConfigurationReference = 12AB6C7FE7CBCF3BEE02C23B /* Pods-Cleva-ClevaTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -546,7 +546,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = ClevaTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -565,13 +565,13 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BEADB92567171B078DE15F88 /* Pods-Cleva-ClevaTests.release.xcconfig */;
+			baseConfigurationReference = D1C3DD4C3ED53594D1151C32 /* Pods-Cleva-ClevaTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = ClevaTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -590,7 +590,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D42D05772CC7582FC28D0283 /* Pods-Cleva.debug.xcconfig */;
+			baseConfigurationReference = CE536D37538AC10CF781E8AA /* Pods-Cleva.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -598,31 +598,28 @@
 				CODE_SIGN_ENTITLEMENTS = Cleva/Cleva.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GQUUG4N798;
 				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = Cleva/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Cleva;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesSwift/Promises.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit/YogaKit.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-video/react_native_video.modulemap\"",
 					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FBLPromises/PromisesObjC.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FlipperKit/FlipperKit.modulemap\"",
 					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/GoogleSignIn/GoogleSignIn.modulemap\"",
 					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/RCTTypeSafety/RCTTypeSafety.modulemap\"",
 					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/React/React-Core.modulemap\"",
 					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/ReactCommon/ReactCommon.modulemap\"",
 					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/React_Codegen/React-Codegen.modulemap\"",
 					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/folly/RCT-Folly.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/yoga/Yoga.modulemap\"",
 					"$(inherited)",
 					"-DFOLLY_NO_CONFIG",
 					"-DFOLLY_MOBILE=1",
@@ -652,7 +649,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92A7FBC7BC5AD0DCDA0FDCC8 /* Pods-Cleva.release.xcconfig */;
+			baseConfigurationReference = C584875520FCDAD3C9B6FE63 /* Pods-Cleva.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -660,21 +657,21 @@
 				CODE_SIGN_ENTITLEMENTS = Cleva/Cleva.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GQUUG4N798;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = Cleva/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Cleva;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesSwift/Promises.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit/YogaKit.modulemap\"",
-					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-video/react_native_video.modulemap\"",
 					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FBLPromises/PromisesObjC.modulemap\"",
 					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/GoogleSignIn/GoogleSignIn.modulemap\"",
 					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/RCTTypeSafety/RCTTypeSafety.modulemap\"",
@@ -682,7 +679,6 @@
 					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/ReactCommon/ReactCommon.modulemap\"",
 					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/React_Codegen/React-Codegen.modulemap\"",
 					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/folly/RCT-Folly.modulemap\"",
-					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/yoga/Yoga.modulemap\"",
 					"$(inherited)",
 					"-DFOLLY_NO_CONFIG",
 					"-DFOLLY_MOBILE=1",
@@ -758,7 +754,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -823,7 +819,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
