@@ -169,7 +169,7 @@ dependencies {
     
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
 
-    implementation project(':mobilertc')
+    // implementation project(':mobilertc')
 
     // implementation ('us.zoom.videosdk:ZoomVideoSDK:1.8.10') {
     //     exclude group: 'com.zipow.cmmlib', module: 'ZoomVideoSDK'

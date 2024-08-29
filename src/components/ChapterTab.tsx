@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Color } from '../GlobalStyles';
 
-const ChapterTab = ({ tabs, activeTab, onTabPress }:any) => {
+const ChapterTab = ({ tabs, activeTab, onTabPress, type }:any) => {
   return (
     <View style={styles.tabsContainer}>
       {tabs.map((tab:any, index:any) => (
@@ -22,7 +22,8 @@ const ChapterTab = ({ tabs, activeTab, onTabPress }:any) => {
           >
             {tab}
           </Text>
-          {activeTab === index && <View style={[styles.activeTabItemLine, {left: index == 1 ? 39 : (index == 2 ? 44 : 36) } ]} />}
+          {(activeTab === index && type == "tab") && <View style={[styles.activeTabItemLine, {left: index == 0 ? 16 : (index == 1 ? 12 : (index == 2)? 22 : 12) } ]} />}
+          {(activeTab === index && type == "subtab") && <View style={[styles.activeTabItemLine, {left: index == 0 ? 30 : (index == 1 ? 20 : (index == 2)? 43 : 12) } ]} />}
         </TouchableOpacity>
       ))}
     </View>
@@ -35,6 +36,7 @@ const styles = StyleSheet.create({
   },
   tabsContainer: {
     flexDirection: 'row',
+    marginBottom:20
   },
   tabItem: {
     flex: 1,

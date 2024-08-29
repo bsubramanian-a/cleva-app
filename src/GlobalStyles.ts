@@ -11,6 +11,18 @@ const fontNames = Platform.select({
     outfitSemibold: "Outfit",
     outfitBold: "Outfit",
     outfitLight: "Outfit",
+    TiemposHeadlineSemiboldItalic:"TiemposHeadline-SemiboldItalic",
+    TiemposHeadlineSemibold:"TiemposHeadline-Semibold",
+    TiemposHeadlineRegularItalic:"TiemposHeadline-RegularItalic",
+    TiemposHeadlineRegular:"TiemposHeadline-Regular",
+    TiemposHeadlineMediumItalic:"TiemposHeadline-MediumItalic",
+    TiemposHeadlineMedium:"TiemposHeadline-Medium",
+    TiemposHeadlineLightItalic:"TiemposHeadline-LightItalic",
+    TiemposHeadlineLight:"TiemposHeadline-Light",
+    TiemposHeadlineBoldItalic:"TiemposHeadline-BoldItalic",
+    TiemposHeadlineBold:"TiemposHeadline-Bold",
+    TiemposHeadlineBlackItalic:"TiemposHeadline-BlackItalic",
+    TiemposHeadlineBlack:"TiemposHeadline-Black"
     // Add more iOS font entries here
   },
   android: {
@@ -23,6 +35,18 @@ const fontNames = Platform.select({
     outfitSemibold: "Outfit",
     outfitBold: "Outfit",
     outfitLight: "Outfit",
+    TiemposHeadlineSemiboldItalic:"TiemposHeadline-SemiboldItalic",
+    TiemposHeadlineSemibold:"TiemposHeadline-Semibold",
+    TiemposHeadlineRegularItalic:"TiemposHeadline-RegularItalic",
+    TiemposHeadlineRegular:"TiemposHeadline-Regular",
+    TiemposHeadlineMediumItalic:"TiemposHeadline-MediumItalic",
+    TiemposHeadlineMedium:"TiemposHeadline-Medium",
+    TiemposHeadlineLightItalic:"TiemposHeadline-LightItalic",
+    TiemposHeadlineLight:"TiemposHeadline-Light",
+    TiemposHeadlineBoldItalic:"TiemposHeadline-BoldItalic",
+    TiemposHeadlineBold:"TiemposHeadline-Bold",
+    TiemposHeadlineBlackItalic:"TiemposHeadline-BlackItalic",
+    TiemposHeadlineBlack:"TiemposHeadline-Black"
     // Add more Android font entries here
   },
 });
@@ -49,6 +73,8 @@ export const Color = {
   royalblue: "#2e54d9",
   white1: "#fff",
   cadetblue: "#00a9c0",
+  grey_text: "#4b4b4b",
+  warning_red: "#f44336",
 };
 /* Paddings */
 export const Padding = {

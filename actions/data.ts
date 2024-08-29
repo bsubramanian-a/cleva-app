@@ -31,13 +31,29 @@ import {
   UPDATEGOALS,
   CHARTDATA,
   ACCOUNTS,
-  GETZOOMTOKEN
+  GETZOOMTOKEN,
+  SUPERSORTED,
+  ROLLING_ACCOUNT_BALANCE,
+  NOTES
 } from '../urls';
 import store from '../store';
 import types from '../types';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const {dispatch} = store;
+
+
+export const getMeetings = (type: string) => {
+  return new Promise((resolve, reject) => {
+    return apiGet(`${GET_MEETING}/${type}`)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
 
 export const getJournals = () => {
   return new Promise((resolve, reject) => {
@@ -61,6 +77,59 @@ export const getExercises = () => {
       .then(res => {
         dispatch({
           type: types.EXERCISES,
+          payload: res.data,
+        });
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const getSuperSorted = () => {
+  return new Promise((resolve, reject) => {
+    return apiGet(SUPERSORTED)
+      .then(res => {
+        dispatch({
+          type: types.SUPERSORTED,
+          payload: res.data,
+        });
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const getRollingAccountBalance = () => {
+  return new Promise((resolve, reject) => {
+    console.log("ROLLING_ACCOUNT_BALANCE",ROLLING_ACCOUNT_BALANCE);
+    return apiGet(ROLLING_ACCOUNT_BALANCE)
+      .then(res => {
+        console.log("getRollingAccountBalance res data",res.data);
+        dispatch({
+          type: types.ROLLING_ACCOUNT_BALANCE,
+          payload: res.data,
+        });
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+
+
+export const getNotes = () => {
+  return new Promise((resolve, reject) => {
+    return apiGet(NOTES)
+      .then(res => {
+        console.log("notes",res.data)
+        dispatch({
+          type: types.NOTES,
           payload: res.data,
         });
         resolve(res);
@@ -375,9 +444,9 @@ export const logout = () => {
   });
 };
 
-export const getZoomToken = (subject: any, userId: any) => {
+export const createZoomMeeting = (data: any) => {
   return new Promise((resolve, reject) => {
-    return apiGet(`${GETZOOMTOKEN}?subject=${subject}&userId=${userId}`)
+    return apiPost(CREATE_MEETING, data)
       .then(res => {
         resolve(res);
       })

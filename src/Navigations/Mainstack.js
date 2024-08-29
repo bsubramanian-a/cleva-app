@@ -9,7 +9,7 @@ import Journal from '../screens/Journal';
 import Library from '../screens/Library';
 import Coach from '../screens/Coach';
 import LinearGradient from 'react-native-linear-gradient';
-import GetStarted from '../screens/GetStarted';
+import GetStarted from '../screens/SwiperScreens/GetStarted';
 import Profile from '../screens/Profile';
 import WealthAssets from '../screens/WealthAssets';
 import SOP from '../screens/SOP';
@@ -37,7 +37,6 @@ import AddAccount from '../screens/AddAccount';
 import ChatListScreen from '../screens/ChatListScreen';
 import ChatInnerScreen from '../screens/ChatInnerScreen';
 import CoachListPage from '../screens/CoachListPage';
-import { CallScreen } from '../screens/callScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -182,7 +181,7 @@ const Mainstack = (Drawer, userData) => {
       initialRouteName={'Tab'}
       backBehavior="history"
       drawerPosition="right"
-      openByDefault={false}
+      defaultStatus="closed"
       drawerWidth={200}
       screenOptions={{headerShown: false}}>
       <Drawer.Screen name="TermsAndCondition" component={TermsAndCondition} />
@@ -203,7 +202,6 @@ const Mainstack = (Drawer, userData) => {
       <Drawer.Screen name="EditIncome" component={EditIncome} />
       <Drawer.Screen name="EditInsurance" component={EditInsurance} />
       <Drawer.Screen name="EditRetirement" component={EditRetirement} />
-      <Drawer.Screen name="CallScreen" component={CallScreen} />
       <Drawer.Screen
         name="AddANewGoalGoalDate"
         component={AddANewGoalGoalDate}

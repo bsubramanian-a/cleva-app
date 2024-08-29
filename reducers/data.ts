@@ -8,9 +8,12 @@ const initialState = {
     assets : {},
     liabilities : {},
     profile : {},
-    goals: {},
+    goals: {} as any,
     addGoals: {},
-    accounts: {}
+    accounts: {},
+    supersorted: {},
+    rollingAccountBalance: {},
+    notes:{}
 };
 
 const data = (state = initialState, action:any) => {
@@ -21,6 +24,12 @@ const data = (state = initialState, action:any) => {
         return {...state, journals: data};
     case types.EXERCISES:
         return {...state, exercises: data};
+    case types.SUPERSORTED:
+        return {...state, supersorted: data};
+    case types.ROLLING_ACCOUNT_BALANCE:
+        return {...state, rollingAccountBalance: data};
+    case types.NOTES:
+        return {...state, notes: data};
     case types.SUMMARY:
         return {...state, summary: data};
     case types.ADVICE:

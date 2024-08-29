@@ -15,7 +15,7 @@ const HeroSection = ({item}:any) => {
   const navigation:any = useNavigation(); 
 
   return (
-    <Pressable style={styles.herosection} onPress={() => navigation.navigate('GetStarted')}>
+    <Pressable style={styles.herosection} onPress={() => navigation.navigate('GetStarted',{item:item})}>
       <ImageBackground
         style={styles.sliderIcon}
         resizeMode="cover"
@@ -29,9 +29,9 @@ const HeroSection = ({item}:any) => {
               styles.getchapgroupFlexBox,
             ]}
           >
-            <Text style={styles.getStarted}>Get Started</Text>
+            <Text style={styles.getStarted}>{item?.Name}</Text>
             <View style={[styles.chaptergroup, styles.getchapgroupFlexBox]}>
-              <Text style={styles.chapter1}>{item?.Name}</Text>
+              <Text style={styles.chapter1}></Text>
               <Image
                 style={[styles.vuesaxlineararrowCircleRigIcon, styles.ml6]}
                 resizeMode="cover"

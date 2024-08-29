@@ -13,7 +13,7 @@ const FlashMessageContext = createContext<FlashMessageContextProps>({
 
 export const useCustomFlashMessage = () => useContext(FlashMessageContext);
 
-const CustomFlashMessageProvider: React.FC = ({ children }: any) => {
+const CustomFlashMessageProvider: React.FC<{ children: React.ReactNode }> = ({ children }: any) => {
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'failure'>('success');

@@ -8,7 +8,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 
 const Routes = () => {
   const userData = useSelector(state => state.auth.userData);
-  // console.log("route access token", userData?.token);
+  console.log("route access token", userData?.token);
   const Stack = createStackNavigator();
   const Drawer = createDrawerNavigator();
 

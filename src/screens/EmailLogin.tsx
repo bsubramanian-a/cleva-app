@@ -11,7 +11,8 @@ const EmailLogin = ({ navigation,route }: any) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   // useEffect(() => {
-  //   getJournals();
+  //   setEmail("testawebon1@gmial.com")
+  //   console.log("setting email")
   // })
 
   // const getJournals = async() => {

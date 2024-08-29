@@ -54,8 +54,9 @@ const LoginSignup = ({navigation, route}:any) => {
     setLoading(true);
     setError("");
     try {
+      console.log("route params", route.params);
       const res:any = await actions.verifySocialEmail({
-        email, user_type: route.params.type
+        email, user_type: route.params.user_type
       });
       console.log('res==>>>>>', res);
       if(res?.status){

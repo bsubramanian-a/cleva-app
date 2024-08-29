@@ -139,8 +139,8 @@ const styles = StyleSheet.create({
   },
   getStarted: {
     fontSize: 20,
-    fontWeight: "600",
-    fontFamily: FontFamily.sourceSerifPro,
+    fontWeight: "500",
+    fontFamily: FontFamily.TiemposHeadlineBold,
     color: Color.black,
     textAlign: "center",
   },

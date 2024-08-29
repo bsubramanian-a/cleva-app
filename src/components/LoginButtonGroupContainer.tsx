@@ -22,6 +22,7 @@ import {
 } from "../GlobalStyles";
 import AppleLogin from "./AppleLogin";
 import { useSafeAreaFrame } from "react-native-safe-area-context";
+import SignupButton from "./SignupButton";
 
 type LoginButtonGroupContainerType = {
   socialLoginImageUrl?: ImageSourcePropType;

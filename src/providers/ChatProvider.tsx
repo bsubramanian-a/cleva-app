@@ -18,7 +18,7 @@ const ChatContext = createContext(client);
 // Custom hook to access the ChatContext
 export const useChatClient = () => useContext(ChatContext);
 
-const ChatProvider: React.FC = ({ children }: any) => {
+const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children }: any) => {
   const userData = useSelector((state: any) => state?.auth?.userData?.user);
   const token = useSelector((state: any) => state?.auth?.userData?.token);
   // console.log("userData.......................", userData, token);

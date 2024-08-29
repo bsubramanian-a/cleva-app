@@ -20,6 +20,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import Loader from "../components/Loader";
 
 const Goals = ({navigation}:any) => {
+  console.log("Goals");
   const [selectedFilter, setSelectedFilter] = useState('6 mo');
   const [modalVisible, setModalVisible] = useState(false);
   const [isCateoryModalVisible, setIsCategoryModalVisible] = useState(false);
