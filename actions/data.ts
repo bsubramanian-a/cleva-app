@@ -42,6 +42,19 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const {dispatch} = store;
 
+
+export const getMeetings = (type: string) => {
+  return new Promise((resolve, reject) => {
+    return apiGet(`${GET_MEETING}/${type}`)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
 export const getJournals = () => {
   return new Promise((resolve, reject) => {
     return apiGet(JOURNALS)
@@ -431,9 +444,9 @@ export const logout = () => {
   });
 };
 
-export const getZoomToken = (subject: any, userId: any) => {
+export const createZoomMeeting = (data: any) => {
   return new Promise((resolve, reject) => {
-    return apiGet(`${GETZOOMTOKEN}?subject=${subject}&userId=${userId}`)
+    return apiPost(CREATE_MEETING, data)
       .then(res => {
         resolve(res);
       })

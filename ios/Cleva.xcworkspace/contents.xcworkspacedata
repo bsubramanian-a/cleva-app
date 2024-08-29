@@ -5,6 +5,9 @@
       location = "group:Cleva.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:/Users/shafinshamsu/Documents/Projects/Cleva/cleva-app/ios/Pods/Pods">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

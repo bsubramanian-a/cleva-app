@@ -17,12 +17,11 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import Routes from './src/Navigations/Routes';
 import {NavigationContainer} from '@react-navigation/native';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import store from './store';
 import CustomFlashMessageProvider from './src/components/CustomFlashMessage';
 import ChatProvider from './src/providers/ChatProvider';
 import { LogBox } from 'react-native';
-
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -45,7 +44,7 @@ function App(): JSX.Element {
               <Routes />
           </NavigationContainer>
         </ChatProvider>
-      </CustomFlashMessageProvider> 
+      </CustomFlashMessageProvider>
     </Provider>
   );
 }
