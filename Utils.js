@@ -5,13 +5,16 @@ import store from './store';
 
 const { dispatch, getState } = store;
  
-export async function getHeaders() {
+export function getHeaders() {
 	const state = getState();
 	const userData = state.auth.userData;
+	console.log("userData", userData);
 	
 	if (userData) {
+		console.log("token", userData.token);
+		axios.defaults.headers.common['Authorization'] = `Bearer ${userData.token}`;
 		return {
-			authorization: `Bearer ${userData.token}`,
+			Authorization: `Bearer ${userData.token}`,
 		};
 	}
 	return {};
@@ -24,25 +27,38 @@ export async function apiReq(
 	headers,
 	requestOptions = {}
 ) {
-	console.log("api request");
+	console.log("api request",endPoint);
+	console.log("api data",data);
 	return new Promise(async (res, rej) => {
-		const getTokenHeader = await getHeaders();
+		const getTokenHeader = getHeaders();
+		console.log("getTokenHeader",getTokenHeader)
 		headers = {
 			...getTokenHeader,
 			...headers
 		};
 
+		console.log("headers",headers)
+		console.log("method",method)
+
 		if (method === 'get' || method === 'delete') {
-			data = {
-				...requestOptions,
-				...data,
-				headers
-			};
+			if (data != undefined) {
+				data = {
+					...requestOptions,
+					...data,
+					headers
+				};	
+			}
 		}
 
-		axios[method](endPoint, data, { headers })
-			.then(result => {
+		console.log("api data",data)
+		console.log("api headers",headers)
+		console.log("api method",method)
+		console.log("api endPoint",endPoint)
+		
 
+		axios[method](endPoint, data)
+			.then(result => {
+				console.log("api success", result);
 				const { data } = result;
 
 				if (data.status === false) {
@@ -52,7 +68,7 @@ export async function apiReq(
 				return res(data);
 			})
 			.catch(error => {
-				console.log(error)
+				console.log("error",error)
 				console.log(error && error.response, 'the error respne')
 				if (error && error.response && error.response.status === 401) {
 					clearUserData();
@@ -105,48 +121,71 @@ export async function apiReqFormData(
 			};
 		}
 
-		axios[method](endPoint, data, { headers, transformRequest: (dataNew, headers) => {
-			return data;
-		  }, })
-			.then(result => {
-				console.log("api success", result);
-				const { data } = result;
+		try {
+			const result = await axios[method](endPoint, data, { headers }); // Use await here
+			console.log("api success", result);
+	  
+			if (result.data.status === false) {
+			  return reject(result.data);
+			}
+	  
+			return resolve(result.data);
+		  } catch (error) {
+			console.error("api request error:", error);
+	  
+			if (error && error.response && error.response.status === 401) {
+			  // Handle unauthorized error (e.g., clear user data)
+			} else if (error && error.response && error.response.data) {
+			  // Handle API-specific errors
+			  return reject(error.response.data);
+			} else {
+			  // Handle network or other errors
+			  return reject({ message: "Network Error" });
+			}
+		  }
 
-				if (data.status === false) {
-					return rej(data);
-				}
+		// axios[method](endPoint, data, { headers, transformRequest: (dataNew, headers) => {
+		// 	return data;
+		//   }, })
+		// 	.then(result => {
+		// 		console.log("api success", result);
+		// 		const { data } = result;
 
-				return res(data);
-			})
-			.catch(error => {
-				console.log("api failure", error);
-				console.log(error)
-				console.log(error && error.response, 'the error respne')
-				if (error && error.response && error.response.status === 401) {
-					clearUserData();
-					// NavigationService.resetNavigation();
-					//NavigationService.navigate('loginUsingEmailScreen');
-					dispatch({
-						type: types.CLEAR_REDUX_STATE,
-						payload: {}
-					});
-					dispatch({
-						type: types.NO_INTERNET,
-						payload: { internetConnection: true },
-					});
+		// 		if (data.status === false) {
+		// 			return rej(data);
+		// 		}
+
+		// 		return res(data);
+		// 	})
+		// 	.catch(error => {
+		// 		console.log("api failure", error);
+		// 		console.log(error)
+		// 		console.log(error && error.response, 'the error respne')
+		// 		if (error && error.response && error.response.status === 401) {
+		// 			clearUserData();
+		// 			// NavigationService.resetNavigation();
+		// 			//NavigationService.navigate('loginUsingEmailScreen');
+		// 			dispatch({
+		// 				type: types.CLEAR_REDUX_STATE,
+		// 				payload: {}
+		// 			});
+		// 			dispatch({
+		// 				type: types.NO_INTERNET,
+		// 				payload: { internetConnection: true },
+		// 			});
 
 
-				}
-				if (error && error.response && error.response.data) {
-					if (!error.response.data.message) {
-						return rej({ ...error.response.data, msg: error.response.data.message || "Network Error" })
-					}
-					return rej(error.response.data)
-				} else {
-					return rej({ message: "Network Error", msg: "Network Error" });
-				}
-				return rej(error);
-			});
+		// 		}
+		// 		if (error && error.response && error.response.data) {
+		// 			if (!error.response.data.message) {
+		// 				return rej({ ...error.response.data, msg: error.response.data.message || "Network Error" })
+		// 			}
+		// 			return rej(error.response.data)
+		// 		} else {
+		// 			return rej({ message: "Network Error", msg: "Network Error" });
+		// 		}
+		// 		return rej(error);
+		// 	});
 	});
 }
 
@@ -169,6 +208,7 @@ export async function apiGet(endPoint, data, headers = {}, requestOptions) {
 	// 	...getTokenHeader,
 	// 	...headers
 	// };
+	console.log("api get",endPoint, data, 'get', headers, requestOptions)
 	return apiReq(endPoint, data, 'get', headers, requestOptions);
 }
 

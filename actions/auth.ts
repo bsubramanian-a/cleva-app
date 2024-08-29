@@ -1,5 +1,5 @@
 import { apiGet, apiPost, clearUserData, setUserData, apiPostFormData, apiDelete } from "../Utils"
-import { VERIFY_EMAIL, LOGIN, VERIFY_SOCIAL_EMAIL, VERIFY_OTP, VERIFY_APPLE_EMAIL } from "../urls";
+import { VERIFY_EMAIL, LOGIN, VERIFY_SOCIAL_EMAIL, VERIFY_OTP, VERIFY_APPLE_EMAIL, PROFILE } from "../urls";
 import store from "../store";
 import types from "../types";
 
@@ -9,7 +9,7 @@ export const login = (data:any) => {
     // console.log("login.....", data);
     return new Promise((resolve, reject) => {
         return apiPost(LOGIN, data).then((res) => {
-            // console.log("res in login action",res);   
+            console.log("res in login action",res);   
             if(res?.token) 
                 dispatch({
                     type: types.ACCESS_TOKEN,
@@ -21,6 +21,8 @@ export const login = (data:any) => {
         })
     })
 }
+
+
 
 export const verifyEmail = (data:any) => {
     // console.log("verifyEmail.....", data);

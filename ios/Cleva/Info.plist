@@ -81,6 +81,18 @@
 		<string>Source_Serif_Pro_regular.ttf</string>
 		<string>Source_Serif_Pro_semibold.ttf</string>
 		<string>Source_Serif_Pro.ttf</string>
+		<string>TiemposHeadline-Regular.ttf</string>
+		<string>TiemposHeadline-SemiboldItalic.ttf</string>
+		<string>TiemposHeadline-Semibold.ttf</string>
+		<string>TiemposHeadline-RegularItalic.ttf</string>
+		<string>TiemposHeadline-MediumItalic.ttf</string>
+		<string>TiemposHeadline-Medium.ttf</string>
+		<string>TiemposHeadline-LightItalic.ttf</string>
+		<string>TiemposHeadline-Light.ttf</string>
+		<string>TiemposHeadline-BoldItalic.ttf</string>
+		<string>TiemposHeadline-Bold.ttf</string>
+		<string>TiemposHeadline-BlackItalic.ttf</string>
+		<string>TiemposHeadline-Black.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>

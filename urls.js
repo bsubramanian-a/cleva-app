@@ -1,9 +1,11 @@
 // export const API_BASE_URL = "http://192.168.18.178:3000/";
-export const API_BASE_URL = 'http://192.168.18.190:3000/';
+//export const API_BASE_URL = 'http://192.168.18.190:3000/';
 // export const API_BASE_URL = "http://192.168.18.98:3000/";
 // export const API_BASE_URL = "http://192.168.18.134:3000/";
 // export const API_BASE_URL = "https://cleva-backend.onrender.com/";
 // export const API_BASE_URL = "http://3.106.56.137:3000/";
+//export const API_BASE_URL = 'http://192.168.1.10:3000/';
+export const API_BASE_URL = 'http://10.0.2.2:3000/';
 
 export const getApiURL = endpoint => API_BASE_URL + endpoint;
 
@@ -36,3 +38,6 @@ export const UPDATEGOALS = getApiURL('goals/updategoals');
 export const CHARTDATA = getApiURL('goals/chartData');
 export const ACCOUNTS = getApiURL('accounts');
 export const GETZOOMTOKEN = getApiURL('get-zoom-token');
+export const SUPERSORTED = getApiURL('supersorted');
+export const ROLLING_ACCOUNT_BALANCE = getApiURL('rollingaccountbalance');
+export const NOTES = getApiURL('notes');

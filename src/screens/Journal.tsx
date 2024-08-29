@@ -4,16 +4,20 @@ import { Margin, Padding, Border, FontFamily, Color } from "../GlobalStyles";
 import CustomHeader from "../components/CustomHeader";
 import SwipeCard from "../components/SwipeCard";
 import { useSelector } from "react-redux";
+import JournalSlider from "../components/JournalSlider";
+import JournalSlider1 from "../components/JournalSlider1";
 
 const Journal = () => {
-  const journals = useSelector((state:any) => state.data.journals);
+  //const journals = useSelector((state:any) => state.data.journals);
+
+  
 
   return (
     <ScrollView
       style={styles.journal}
     >
-      <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content"/>
-      <CustomHeader name="Journal" type={1}/>
+      <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
+      <CustomHeader name="Journal" type={1} />
       <View
         style={styles.frameParent}
       >
@@ -27,8 +31,8 @@ const Journal = () => {
         </View>
         {/* <View style={[styles.frameGroup, styles.frameSpaceBlock]}>
           <View style={styles.slider2Parent}>
-            <JournalSlider />
-            <JournalSlider1 />
+             <JournalSlider />
+            <JournalSlider1 /> 
           </View>
           <View style={[styles.sliderindicator, styles.mt13]}>
             <View style={[styles.indicator1, styles.indicator1Layout]} />
@@ -50,7 +54,7 @@ const Journal = () => {
             />
           </View>
         </View> */}
-          {journals?.length > 0 && <SwipeCard cards={journals}/>}
+        <SwipeCard />
       </View>
     </ScrollView>
   );

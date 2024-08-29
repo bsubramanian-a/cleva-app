@@ -9,7 +9,7 @@ import Journal from '../screens/Journal';
 import Library from '../screens/Library';
 import Coach from '../screens/Coach';
 import LinearGradient from 'react-native-linear-gradient';
-import GetStarted from '../screens/GetStarted';
+import GetStarted from '../screens/SwiperScreens/GetStarted';
 import Profile from '../screens/Profile';
 import WealthAssets from '../screens/WealthAssets';
 import SOP from '../screens/SOP';
@@ -182,7 +182,7 @@ const Mainstack = (Drawer, userData) => {
       initialRouteName={'Tab'}
       backBehavior="history"
       drawerPosition="right"
-      openByDefault={false}
+      defaultStatus="closed"
       drawerWidth={200}
       screenOptions={{headerShown: false}}>
       <Drawer.Screen name="TermsAndCondition" component={TermsAndCondition} />

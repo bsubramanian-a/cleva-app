@@ -8,11 +8,56 @@ const Card = ({ item }:any) => (
     <HeroSection item={item}/>
 );
 
-const SwipeCard = ({cards}:any) => {
+const SwipeCard = () => {
   const renderCard = (card:any) => <Card item={card} key={card.id} />;
 
+  const [cards, setCards] = React.useState([
+    {
+      Name: "Super Sorted",
+      progress: 40,
+      id:1
+    },
+    {
+      Name: "Plan B: Estate Plan/Will",
+      progress: 47,
+      id:2
+    },
+    {
+      Name: "Money on Autodrive",
+      progress: 47,
+      id:3
+    },
+    {
+      Name: "Plan B Emergency Fund",
+      progress: 47,
+      id:4
+    },
+    {
+      Name: "Plan B Insurance",
+      progress: 47,
+      id:5
+    },
+    {
+      Name: "Debtonate Debt",
+      progress: 47,
+      id:6
+    }
+  ]);
+
+  const onSwiped = (cardIndex: number) => {
+    console.log('Swiped');
+    // const newCards = [...cards]; // Create a copy of the cards array
+    // console.log("cardIndex", cardIndex);
+    // console.log("cards", cards);
+    // console.log("newCards", newCards);
+    // newCards.push(newCards.splice(cardIndex, 1)[0]);
+    // console.log("after push newCards", newCards);
+    // setCards(newCards);
+    // console.log("after set cards", cards);
+  };
+
   const onSwipedLeft = () => {
-    console.log('Swiped left');
+    console.log('Swiped left');    
   };
 
   const onSwipedRight = () => {
@@ -24,13 +69,14 @@ const SwipeCard = ({cards}:any) => {
       <DeckSwiper
         cards={cards}
         renderCard={renderCard}
-        onSwipedLeft={onSwipedLeft}
-        onSwipedRight={onSwipedRight}
+        onSwiped={onSwiped}
         cardIndex={0}
         backgroundColor={'transparent'}
         stackSize={2}
         stackSeparation={15}
         cardVerticalMargin={30}
+        keyExtractor={(card) => card.id.toString()}
+        infinite={true}
         // overlayLabels={{
         //   left: {
         //     title: 'NOPE',

@@ -21,6 +21,7 @@ import Loader from "../components/Loader";
 import RNExitApp from 'react-native-exit-app';
 
 const Home = () => {
+  console.log("Home");
   const navigation:any = useNavigation();
   const [activeTab, setActiveTab] = useState(0);
   const journals = useSelector((state:any) => state.data.journals);
@@ -80,15 +81,16 @@ const Home = () => {
   };
   
   useEffect(() => {
-    getDatas();
+    setTimeout(() =>  getDatas(), 10000); // 2 seconds () => {
   }, [])
 
-  const getDatas = async() => {
-    await actions.getProfile();
-    await actions.getJournals();
-    await actions.getAssets();
-    await actions.getLiabilities();
-    setLoading(false);
+  const getDatas = async() => {    
+      await actions.getProfile();
+      await actions.getJournals();
+      await actions.getAssets();
+      await actions.getLiabilities();
+      setLoading(false);
+   
   }
 
   useEffect(() => {
