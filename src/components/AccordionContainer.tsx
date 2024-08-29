@@ -8,20 +8,15 @@ import { useNavigation } from '@react-navigation/native';
 const AccordionItem = ({ icon, name, value }: any) => {
   return (
     <View style={styles.itemContainer}>
-      {name && 
-        <View style={styles.itemContent}>
-          {icon && <Image
-            style={styles.vuesaxlinearprofileCircle}
-            resizeMode="contain"
-            source={icon}
-          />}
-          <Text style={styles.name}>{name}</Text>
-        </View>}
-        {typeof value === 'object' ? (
-          value
-        ) : (
-          <Text style={styles.value}>{value || ""}</Text>
-        )}
+      <View style={styles.itemContent}>
+        <Image
+          style={styles.vuesaxlinearprofileCircle}
+          resizeMode="contain"
+          source={icon}
+        />
+        <Text style={styles.name}>{name}</Text>
+      </View>
+      <Text style={styles.value}>{value}</Text>
     </View>
   );
 };
@@ -33,7 +28,6 @@ const Accordion = ({
   activeAccordion,
   setActiveAccordion,
   navigation,
-  link
 }: any) => {
   const isActive = activeAccordion === title;
 
@@ -45,8 +39,8 @@ const Accordion = ({
     }
   };
 
-  const editProfile = (type: string, id:any) => {
-    navigation.navigate(link, { type, id });
+  const editProfile = (type: string) => {
+    navigation.navigate('EditProfile', { type: type });
   };
 
   return (
@@ -81,24 +75,26 @@ const Accordion = ({
       </TouchableOpacity>
       {isActive && (
         <View>
-          {items?.map((section: any, index: any) => (
+          {items.map((section: any, index: any) => (
             <View key={index.toString()}>
               {index == 0 && <View style={styles.lineStyle} />}
               <View style={styles.editRow}>
                 <Text style={styles.subHeading}>{section.subHeading}</Text>
-                {section?.isLink != false && <Pressable onPress={() => editProfile((index == 0 ? 'user1' : 'user2'), section?.id)} style={{ marginTop: 5 }}>
+                <Pressable onPress={() => editProfile(index == 0 ? 'user1' : 'user2')} style={{ marginTop: 5 }}>
                   <Image
                     style={styles.vuesaxlinearedit}
                     resizeMode="cover"
                     source={require('../assets/edit.png')}
                   />
-                </Pressable>}
+                </Pressable>
               </View>
-              {section.item.map((item: any, itemIndex: any) => (
-                <React.Fragment key={itemIndex.toString()}>
+              {section.item.map((item: any, itemIndex: any) => {
+                const currentIcon = "../assets/profile.png";
+                const currentLabel = "Date Of Birth";
+                return (<React.Fragment key={itemIndex.toString()}>
                   <AccordionItem
-                    icon={item.icon}
-                    name={item.name}
+                    icon={require(currentIcon)}
+                    name={currentLabel}
                     value={item.value}
                   />
                   <View
@@ -108,8 +104,8 @@ const Accordion = ({
                       styles.childBorder,
                     ]}
                   />
-                </React.Fragment>
-              ))}
+                </React.Fragment>)
+              })}
             </View>
           ))}
         </View>
@@ -123,14 +119,13 @@ const AccordionContainer = ({ accordions }: any) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.accordionContainer}>
+    <View style={styles.accordionContainer}>    
       {accordions.map((accordion: any, index: any) => (
         <Accordion
           key={index.toString()}
           title={accordion.title}
           items={accordion.items}
           icon={accordion.icon}
-          link={accordion?.link}
           activeAccordion={activeAccordion}
           setActiveAccordion={setActiveAccordion}
           navigation={navigation}
@@ -175,8 +170,12 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   accordionContainer: {
+    borderWidth: 1,
+    borderRadius: 16,
+    borderColor: "#eaeaea",
     marginHorizontal: 30,
-    marginTop: 20
+    marginTop: 20,
+    paddingBottom: 20
   },
   excercise1: {
     justifyContent: "space-between",
@@ -212,8 +211,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     overflow: "hidden",
     backgroundColor: Color.white1,
-    borderWidth: 1,
-    borderColor: "#eaeaea",
+    marginBottom:10,
   },
   vuesaxlinearsmsParent: {
     flexDirection: "row",
@@ -267,7 +265,7 @@ const styles = StyleSheet.create({
     height: 18,
   },
   container: {
-    marginBottom: 15,
+    // marginBottom: 10,
   },
   title: {
     fontSize: 18,
@@ -289,16 +287,13 @@ const styles = StyleSheet.create({
   itemContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: "50%",
   },
   name: {
     marginRight: 10,
-    color: '#4B4B4B',
+    color: '#4B4B4B'
   },
   value: {
     fontWeight: 'bold',
-    color: '#000',
-    width: "47%",
-    textAlign: 'right'
+    color: '#000'
   },
 });
