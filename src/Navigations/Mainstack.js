@@ -37,6 +37,12 @@ import AddAccount from '../screens/AddAccount';
 import ChatListScreen from '../screens/ChatListScreen';
 import ChatInnerScreen from '../screens/ChatInnerScreen';
 import CoachListPage from '../screens/CoachListPage';
+import SuperSorted from '../screens/SwiperScreens/SuperSorted';
+import PlanBEstatePlanWill from '../screens/SwiperScreens/PlanBEstatePlanWill';
+import MoneyAutoDrive from '../screens/SwiperScreens/MoneyAutoDrive';
+import PlanBEmergencyFund from '../screens/SwiperScreens/PlanBEmergencyFund';
+import PlanBInsurance from '../screens/SwiperScreens/PlanBInsurance';
+import DebtonateDebt from '../screens/SwiperScreens/DebtonateDebt';
 
 const Tab = createBottomTabNavigator();
 
@@ -189,6 +195,12 @@ const Mainstack = (Drawer, userData) => {
         {props => <Tabs {...props} userData={userData} />}
       </Drawer.Screen>
       <Drawer.Screen name="GetStarted" component={GetStarted} />
+      <Drawer.Screen name="SuperSorted" component={SuperSorted} />
+      <Drawer.Screen name="PlanBEstatePlanWill" component={PlanBEstatePlanWill} />
+      <Drawer.Screen name="MoneyAutoDrive" component={MoneyAutoDrive} />
+      <Drawer.Screen name="PlanBEmergencyFund" component={PlanBEmergencyFund} />
+      <Drawer.Screen name="PlanBInsurance" component={PlanBInsurance} />
+      <Drawer.Screen name="DebtonateDebt" component={DebtonateDebt} />
       <Drawer.Screen name="Profile" component={Profile} />
       <Drawer.Screen name="WealthAssets" component={WealthAssets} />
       <Drawer.Screen name="SOP" component={SOP} />

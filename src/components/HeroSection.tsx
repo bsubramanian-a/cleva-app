@@ -12,10 +12,10 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 const HeroSection = ({item}:any) => {
-  const navigation:any = useNavigation(); 
+  const navigation:any = useNavigation();
 
   return (
-    <Pressable style={styles.herosection} onPress={() => navigation.navigate('GetStarted',{item:item})}>
+    <Pressable style={styles.herosection} onPress={() => navigation.navigate(item.Component,{item:item})}>
       <ImageBackground
         style={styles.sliderIcon}
         resizeMode="cover"
@@ -29,7 +29,7 @@ const HeroSection = ({item}:any) => {
               styles.getchapgroupFlexBox,
             ]}
           >
-            <Text style={styles.getStarted}>{item?.Name}</Text>
+            <Text style={styles.getStarted}>{item?.Name} - {item?.Component}</Text>
             <View style={[styles.chaptergroup, styles.getchapgroupFlexBox]}>
               <Text style={styles.chapter1}></Text>
               <Image
@@ -40,7 +40,7 @@ const HeroSection = ({item}:any) => {
             </View>
           </View>
         </View>
-        <LinearGradient
+        {/* <LinearGradient
           style={[styles.progressgroupParent, styles.getchapgroupSpaceBlock]}
           locations={[0, 1]}
           colors={["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.83)"]}
@@ -57,7 +57,7 @@ const HeroSection = ({item}:any) => {
             <View style={[styles.groupChild, styles.groupPosition, {backgroundColor: '#ffffff30', width: Dimensions.get('window').width - 118}]} />
             <View style={[styles.groupItem, styles.groupPosition, {width: (((Dimensions.get('window').width - 107) * 0.01) * (item?.progress || 40))}]} />
           </View>
-        </LinearGradient>
+        </LinearGradient> */}
       </ImageBackground>
       <View
         style={[styles.chaptergroup, styles.mt10, styles.getchapgroupFlexBox]}
