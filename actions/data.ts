@@ -33,8 +33,16 @@ import {
   ACCOUNTS,
   GETZOOMTOKEN,
   SUPERSORTED,
+  PLAN_B_ESTATE_PLAN_WILL,
+  MONEY_ON_AUTO_DRIVE,
+  PLAN_B_EMERGENCY_FUND,
+  PLAN_B_INSURANCE,
+  DEBTONATE_DEBT,
+  HOUSEHOLD_EXP,
   ROLLING_ACCOUNT_BALANCE,
-  NOTES
+  NOTES,
+  COACHNOTES,
+  GET_MEETING
 } from '../urls';
 import store from '../store';
 import types from '../types';
@@ -103,6 +111,102 @@ export const getSuperSorted = () => {
   });
 };
 
+export const getPlanBEstatePlanWill = () => {
+  return new Promise((resolve, reject) => {
+    return apiGet(PLAN_B_ESTATE_PLAN_WILL)
+      .then(res => {
+        dispatch({
+          type: types.PLAN_B_ESTATE_PLAN_WILL,
+          payload: res.data,
+        });
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const getMoneyOnAutoDrive = () => {
+  return new Promise((resolve, reject) => {
+    return apiGet(MONEY_ON_AUTO_DRIVE)
+      .then(res => {
+        dispatch({
+          type: types.MONEY_ON_AUTO_DRIVE,
+          payload: res.data,
+        });
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const getPlanBEmergencyFund = () => {
+  return new Promise((resolve, reject) => {
+    return apiGet(PLAN_B_EMERGENCY_FUND)
+      .then(res => {
+        dispatch({
+          type: types.PLAN_B_EMERGENCY_FUND,
+          payload: res.data,
+        });
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const getPlanBInsurance = () => {
+  return new Promise((resolve, reject) => {
+    return apiGet(PLAN_B_INSURANCE)
+      .then(res => {
+        dispatch({
+          type: types.PLAN_B_INSURANCE,
+          payload: res.data,
+        });
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const getDebtonateDebt = () => {
+  return new Promise((resolve, reject) => {
+    return apiGet(DEBTONATE_DEBT)
+      .then(res => {
+        dispatch({
+          type: types.DEBTONATE_DEBT,
+          payload: res.data,
+        });
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const getHouseHoldExpenses = () => {
+  return new Promise((resolve, reject) => {
+    return apiGet(HOUSEHOLD_EXP)
+      .then(res => {
+        dispatch({
+          type: types.HOUSEHOLD_EXP,
+          payload: res.data,
+        });
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
 export const getRollingAccountBalance = () => {
   return new Promise((resolve, reject) => {
     console.log("ROLLING_ACCOUNT_BALANCE",ROLLING_ACCOUNT_BALANCE);
@@ -130,6 +234,23 @@ export const getNotes = () => {
         console.log("notes",res.data)
         dispatch({
           type: types.NOTES,
+          payload: res.data,
+        });
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const getCoachNotes = () => {
+  return new Promise((resolve, reject) => {
+    return apiGet(COACHNOTES)
+      .then(res => {
+        console.log("COACHNOTES",res.data)
+        dispatch({
+          type: types.COACHNOTES,
           payload: res.data,
         });
         resolve(res);

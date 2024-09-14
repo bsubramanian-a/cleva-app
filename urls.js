@@ -39,5 +39,14 @@ export const CHARTDATA = getApiURL('goals/chartData');
 export const ACCOUNTS = getApiURL('accounts');
 export const GETZOOMTOKEN = getApiURL('get-zoom-token');
 export const SUPERSORTED = getApiURL('supersorted');
+export const PLAN_B_ESTATE_PLAN_WILL = getApiURL('planbestateplanwill');
+export const MONEY_ON_AUTO_DRIVE = getApiURL('moneyonautodrive');
+export const PLAN_B_EMERGENCY_FUND = getApiURL('planbemergencyfund');
+export const PLAN_B_INSURANCE = getApiURL('planbinsurance');
+export const DEBTONATE_DEBT = getApiURL('debtonatedebt');
+export const HOUSEHOLD_EXP = getApiURL('householdexpenses');
 export const ROLLING_ACCOUNT_BALANCE = getApiURL('rollingaccountbalance');
 export const NOTES = getApiURL('notes');
+export const COACHNOTES = getApiURL('coachnotes');
+export const GET_MEETING = getApiURL('getmeeting');
+

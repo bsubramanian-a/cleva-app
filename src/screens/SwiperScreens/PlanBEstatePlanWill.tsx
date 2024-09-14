@@ -28,7 +28,7 @@ import { useSelector } from "react-redux";
 import actions from "../../../actions";
 import Loader from "../../components/Loader";
 import VideoPlayer from "../../components/VideoPlayer";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import {
   LineChart,
@@ -41,7 +41,8 @@ import {
 import PerformanceTable from "../../components/PerformanceTable";
 import AssetAllocation from "../../components/AssetAllocation";
 
-const GetStarted = () => {
+const PlanBEstatePlanWill = () => {
+  const navigation: any = useNavigation();
   const route: any = useRoute();
   const data = route.params?.item;
   console.log("data", data)
@@ -49,19 +50,23 @@ const GetStarted = () => {
   // const exercises = useSelector((state: any) => state.data.exercises);
   // const summary = useSelector((state: any) => state.data.summary);
   // const advices = useSelector((state: any) => state.data.advices);
-  const supersorted = useSelector((state: any) => state.data.supersorted);
-  const rollingAccountBalance: any = useSelector((state: any) => state.data.rollingAccountBalance);
+  const planBEstatePlanWill = useSelector((state: any) => state.data.planBEstatePlanWill);
+  // const supersorted = useSelector((state: any) => state.data.supersorted);
+  // const rollingAccountBalance: any = useSelector((state: any) => state.data.rollingAccountBalance);
   const notes = useSelector((state: any) => state.data.notes);
-  const profile = useSelector((state: any) => state.data.profile);
-  const assets = useSelector((state: any) => state.data.assets);
-  const liabilities = useSelector((state: any) => state.data.liabilities);
-  const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
+  const coachnotes = useSelector((state: any) => state.data.coachnotes);
+  // const profile = useSelector((state: any) => state.data.profile);
+  // const assets = useSelector((state: any) => state.data.assets);
+  // const liabilities = useSelector((state: any) => state.data.liabilities);
+  // const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
 
-  console.log("profile", profile);
-  // console.log("advices", advices);
-  console.log("supersorted", supersorted);
-  console.log("rollingAccountBalance", rollingAccountBalance);
+  // console.log("profile", profile);
+  // // console.log("advices", advices);
+  // console.log("supersorted", supersorted);
+  // console.log("rollingAccountBalance", rollingAccountBalance);
   console.log("notes", notes);
+  console.log("coachnotes", coachnotes);
+  console.log("planBEstatePlanWill", planBEstatePlanWill);
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
 
@@ -71,117 +76,117 @@ const GetStarted = () => {
   const [performanceData, setPerformanceData] = useState<any>(null);
   const [assetData, setAssetData] = useState<any>(null);
 
-  useEffect(() => {
-    if (rollingAccountBalance && Object.keys(rollingAccountBalance).length > 0) {
-      // Perform calculations here
-      console.log('rollingAccountBalance loaded:', rollingAccountBalance);
-      setData(rollingAccountBalance)
-    }
-  }, [rollingAccountBalance]);
+  // useEffect(() => {
+  //   if (rollingAccountBalance && Object.keys(rollingAccountBalance).length > 0) {
+  //     // Perform calculations here
+  //     console.log('rollingAccountBalance loaded:', rollingAccountBalance);
+  //     setData(rollingAccountBalance)
+  //   }
+  // }, [rollingAccountBalance]);
 
-  useEffect(() => {
-    if (supersorted && supersorted.length > 0) {
-      // Perform calculations here
-      console.log('supersorted loaded:', supersorted);
-      setPData(supersorted)
-      setAData(supersorted)
-    }
-  }, [supersorted]);
+  // useEffect(() => {
+  //   if (supersorted && supersorted.length > 0) {
+  //     // Perform calculations here
+  //     console.log('supersorted loaded:', supersorted);
+  //     setPData(supersorted)
+  //     setAData(supersorted)
+  //   }
+  // }, [supersorted]);
 
-  const setPData = (supersorted: any) => {
-    const performanceData = [
-      ['', '6M', '1Y', '3Y', '5Y'],
-      ['Actual', supersorted[0].Month_Actual + "%", supersorted[0].Year_Actual1 + "%",supersorted[0].Year_Actual2 + "%",supersorted[0].Year_Actual + "%"],
-      ['Benchmark', supersorted[0].Month_Benchmark + "%", supersorted[0].Year_Benchmark2 + "%",supersorted[0].Year_Benchmark + "%",supersorted[0].Year_Benchmark1 + "%"],
-      ['Outperformance', supersorted[0].Month_Outperformance + "%", supersorted[0].Year_Outperformance + "%",supersorted[0].Year_Outperformance2 + "%",supersorted[0].Year_Outperformance1 + "%"],
-    ];
-    setPerformanceData(performanceData);
-  }
+  // const setPData = (supersorted: any) => {
+  //   const performanceData = [
+  //     ['', '6M', '1Y', '3Y', '5Y'],
+  //     ['Actual', supersorted[0].Month_Actual + "%", supersorted[0].Year_Actual1 + "%",supersorted[0].Year_Actual2 + "%",supersorted[0].Year_Actual + "%"],
+  //     ['Benchmark', supersorted[0].Month_Benchmark + "%", supersorted[0].Year_Benchmark2 + "%",supersorted[0].Year_Benchmark + "%",supersorted[0].Year_Benchmark1 + "%"],
+  //     ['Outperformance', supersorted[0].Month_Outperformance + "%", supersorted[0].Year_Outperformance + "%",supersorted[0].Year_Outperformance2 + "%",supersorted[0].Year_Outperformance1 + "%"],
+  //   ];
+  //   setPerformanceData(performanceData);
+  // }
 
-  const setAData = (supersorted: any) => {
-    const assetData = [
-      ['Actual Asset Allocation Total', supersorted[0].Formula_2 ?? 0, 'Target Asset Allocation Total', supersorted[0].Formula_1 ?? 0],
-      ['International Equities', (supersorted[0].International_Equities_Actual ?? 0) + "%", (supersorted[0].International_Equities ?? 0) + "%", 'Australian Equities', (supersorted[0].Australian_Equities_Actual ?? 0) + "%", (supersorted[0].Australian_Equities ?? 0) + "%"],
-      ['Property', (supersorted[0].Property_Actual ?? 0) + "%", (supersorted[0].Property ?? 0) + "%", 'Infrastructure', (supersorted[0].Infrastructure_Actual ?? 0) + "%", (supersorted[0].Infrastructure ?? 0) + "%"],
-      ['International Fixed Income', (supersorted[0].Intnl_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Intnl_Fixed_Income ?? 0) + "%", 'Australian Fixed Income', (supersorted[0].Aust_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Aust_Fixed_Income ?? 0) + "%"],
-    ];
+  // const setAData = (supersorted: any) => {
+  //   const assetData = [
+  //     ['Actual Asset Allocation Total', supersorted[0].Formula_2 ?? 0, 'Target Asset Allocation Total', supersorted[0].Formula_1 ?? 0],
+  //     ['International Equities', (supersorted[0].International_Equities_Actual ?? 0) + "%", (supersorted[0].International_Equities ?? 0) + "%", 'Australian Equities', (supersorted[0].Australian_Equities_Actual ?? 0) + "%", (supersorted[0].Australian_Equities ?? 0) + "%"],
+  //     ['Property', (supersorted[0].Property_Actual ?? 0) + "%", (supersorted[0].Property ?? 0) + "%", 'Infrastructure', (supersorted[0].Infrastructure_Actual ?? 0) + "%", (supersorted[0].Infrastructure ?? 0) + "%"],
+  //     ['International Fixed Income', (supersorted[0].Intnl_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Intnl_Fixed_Income ?? 0) + "%", 'Australian Fixed Income', (supersorted[0].Aust_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Aust_Fixed_Income ?? 0) + "%"],
+  //   ];
     
-    setAssetData(assetData);
-  }
+  //   setAssetData(assetData);
+  // }
 
-  const setData = (rollingAccountBalance: any) => {
-    // 1) Find the total of all Current_Balance
-    const totalCurrentBalance = rollingAccountBalance.reduce((acc: any, item: { Current_Balance: any; }) => acc + item.Current_Balance, 0);
-    console.log("Total Current Balance:", totalCurrentBalance);
+  // const setData = (rollingAccountBalance: any) => {
+  //   // 1) Find the total of all Current_Balance
+  //   const totalCurrentBalance = rollingAccountBalance.reduce((acc: any, item: { Current_Balance: any; }) => acc + item.Current_Balance, 0);
+  //   console.log("Total Current Balance:", totalCurrentBalance);
 
-    setTotalCurrentBalance(totalCurrentBalance);
+  //   setTotalCurrentBalance(totalCurrentBalance);
 
-    // 2) Find the total Current_Balance grouped by owner name
-    const balanceByOwner = rollingAccountBalance.reduce((acc: { [x: string]: any; }, item: { Owner: { name: any; }; Current_Balance: any; }) => {
-      const ownerName = item.Owner.name;
-      acc[ownerName] = (acc[ownerName] || 0) + item.Current_Balance;
-      return acc;
-    }, {});
-    console.log("Balance by Owner:", balanceByOwner);
+  //   // 2) Find the total Current_Balance grouped by owner name
+  //   const balanceByOwner = rollingAccountBalance.reduce((acc: { [x: string]: any; }, item: { Owner: { name: any; }; Current_Balance: any; }) => {
+  //     const ownerName = item.Owner.name;
+  //     acc[ownerName] = (acc[ownerName] || 0) + item.Current_Balance;
+  //     return acc;
+  //   }, {});
+  //   console.log("Balance by Owner:", balanceByOwner);
 
-    setBalanceByOwner(balanceByOwner);
+  //   setBalanceByOwner(balanceByOwner);
 
-    // 3) Create an array of unique As_At_Date for the current year and month
-    const currentYear = new Date().getFullYear();
-    const uniqueAsAtDates = rollingAccountBalance
-      .filter((item: { As_At_Date: string | number | Date; }) => {
-        const asAtDate = new Date(item.As_At_Date);
-        return asAtDate.getFullYear() === currentYear;
-      })
-      .map((item: { As_At_Date: string | number | Date; }) => {
-        const date = new Date(item.As_At_Date);
-        return `${date.toLocaleString('en-US', { month: 'short' })} ${date.getDate()}`;
-      })
-      .filter((value: any, index: any, self: string | any[]) => self.indexOf(value) === index);
-    console.log("Unique As_At_Dates:", uniqueAsAtDates);
+  //   // 3) Create an array of unique As_At_Date for the current year and month
+  //   const currentYear = new Date().getFullYear();
+  //   const uniqueAsAtDates = rollingAccountBalance
+  //     .filter((item: { As_At_Date: string | number | Date; }) => {
+  //       const asAtDate = new Date(item.As_At_Date);
+  //       return asAtDate.getFullYear() === currentYear;
+  //     })
+  //     .map((item: { As_At_Date: string | number | Date; }) => {
+  //       const date = new Date(item.As_At_Date);
+  //       return `${date.toLocaleString('en-US', { month: 'short' })} ${date.getDate()}`;
+  //     })
+  //     .filter((value: any, index: any, self: string | any[]) => self.indexOf(value) === index);
+  //   console.log("Unique As_At_Dates:", uniqueAsAtDates);
 
-    const currentBalanceByOwnerAndDate = rollingAccountBalance.reduce((acc: { [x: string]: { [x: string]: any; }; }, item: { Owner: { name: any; }; As_At_Date: string | number | Date; Current_Balance: any; }) => {
-      const ownerName = item.Owner.name;
-      const asAtDate = new Date(item.As_At_Date);
-      const dateKey = `${asAtDate.toLocaleString('en-US', { month: 'short' })} ${asAtDate.getDate()}`;
+  //   const currentBalanceByOwnerAndDate = rollingAccountBalance.reduce((acc: { [x: string]: { [x: string]: any; }; }, item: { Owner: { name: any; }; As_At_Date: string | number | Date; Current_Balance: any; }) => {
+  //     const ownerName = item.Owner.name;
+  //     const asAtDate = new Date(item.As_At_Date);
+  //     const dateKey = `${asAtDate.toLocaleString('en-US', { month: 'short' })} ${asAtDate.getDate()}`;
 
-      if (!acc[dateKey]) {
-        acc[dateKey] = {};
-      }
+  //     if (!acc[dateKey]) {
+  //       acc[dateKey] = {};
+  //     }
 
-      if (!acc[dateKey][ownerName]) {
-        acc[dateKey][ownerName] = 0;
-      }
+  //     if (!acc[dateKey][ownerName]) {
+  //       acc[dateKey][ownerName] = 0;
+  //     }
 
-      acc[dateKey][ownerName] += item.Current_Balance;
-      return acc;
-    }, {});
+  //     acc[dateKey][ownerName] += item.Current_Balance;
+  //     return acc;
+  //   }, {});
 
-    // Convert the object to an array of objects
-    const currentBalanceArray = Object.entries(currentBalanceByOwnerAndDate).map(([date, balances]) => ({
-      date,
-      balances
-    }));
+  //   // Convert the object to an array of objects
+  //   const currentBalanceArray = Object.entries(currentBalanceByOwnerAndDate).map(([date, balances]) => ({
+  //     date,
+  //     balances
+  //   }));
 
-    console.log("Current Balance by Owner and Date:", currentBalanceArray);
+  //   console.log("Current Balance by Owner and Date:", currentBalanceArray);
 
-    const colors = ['rgba(151, 85, 182, 1)', 'rgba(239, 159, 39, 1)'];
+  //   const colors = ['rgba(151, 85, 182, 1)', 'rgba(239, 159, 39, 1)'];
 
-    // Create the desired JSON structure
-    const data = {
-      labels: uniqueAsAtDates,
-      datasets: Object.entries(currentBalanceByOwnerAndDate).map(([date, balances] : any, index) => ({ // Assuming only one owner per date
-        data: Object.values(balances),
-        color: (opacity = 1) => colors[index % colors.length], // Adjust color as needed
-        strokeWidth: 2 // Adjust strokeWidth as needed
-      })),
-      legend: Object.keys(balanceByOwner)
-    };
+  //   // Create the desired JSON structure
+  //   const data = {
+  //     labels: uniqueAsAtDates,
+  //     datasets: Object.entries(currentBalanceByOwnerAndDate).map(([date, balances] : any, index) => ({ // Assuming only one owner per date
+  //       data: Object.values(balances),
+  //       color: (opacity = 1) => colors[index % colors.length], // Adjust color as needed
+  //       strokeWidth: 2 // Adjust strokeWidth as needed
+  //     })),
+  //     legend: Object.keys(balanceByOwner)
+  //   };
 
-    console.log(data);
+  //   console.log(data);
 
-    setChartData(data);
-  }
+  //   setChartData(data);
+  // }
 
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
@@ -191,50 +196,43 @@ const GetStarted = () => {
     setActiveSubTab(tabNumber);
   };
 
-  useEffect(() => {
-    let totalAssets = 0;
-    let totalLiabilities = 0;
-
-    if (assets?.length > 0) {
-      totalAssets = parseFloat(assets.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
-    }
-
-    if (liabilities?.length > 0) {
-      totalLiabilities = parseFloat(liabilities.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
-    }
-
-    setTotalNetWorth(parseFloat((totalAssets - totalLiabilities)?.toFixed(1)));
-  }, [assets, liabilities])
-
-  useEffect(() => {
-    try {
-      getDatas();      
-    } catch (err) {
-      console.log("err", err);
-      setLoading(false);
-    }
-  }, [])
-
   // useEffect(() => {
-  //   if (rollingAccountBalance.some((item: any) => item)) {
-  //     console.log("rollingAccountBalance inside", rollingAccountBalance);
-  //     const lineData = getChartData(rollingAccountBalance);
-  //     setChartData(lineData);
-  //   }    
-  // }, [rollingAccountBalance]);
+  //   let totalAssets = 0;
+  //   let totalLiabilities = 0;
 
+  //   if (assets?.length > 0) {
+  //     totalAssets = parseFloat(assets.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
+  //   }
+
+  //   if (liabilities?.length > 0) {
+  //     totalLiabilities = parseFloat(liabilities.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
+  //   }
+
+  //   setTotalNetWorth(parseFloat((totalAssets - totalLiabilities)?.toFixed(1)));
+  // }, [assets, liabilities])
+
+  useEffect(() => {    
+
+    // Trigger the fetch when the navigation state changes
+    navigation.addListener('focus', getDatas);
+
+    // Cleanup the listener when the component unmounts
+    return () => {
+      navigation.removeListener('focus', getDatas);
+    };
+
+  }, [navigation])
 
 
   const getDatas = async () => {
     setLoading(true);
-    await actions.getRollingAccountBalance();
-
-    await actions.getProfile();
-    await actions.getSuperSorted();
-    await actions.getNotes();
-    // await actions.getExercises();
-    // await actions.getSummary();
-    // await actions.getAdvices();
+    try {
+      await actions.getPlanBEstatePlanWill();
+      await actions.getNotes();
+      await actions.getCoachNotes();
+    } catch (err) {
+      console.log("err", err);      
+    }
     setLoading(false);
   }
 
@@ -242,6 +240,7 @@ const GetStarted = () => {
     'Yes': require('../../assets/yes.png'),
     'Maybe/Work to Do': require('../../assets/maybe.png'),
     'No/Not Sure': require('../../assets/no.png'),
+    'No': require('../../assets/no.png'),
   };
 
   const screenWidth = Dimensions.get("window").width;
@@ -257,42 +256,42 @@ const GetStarted = () => {
     decimalPlaces: 0,
   };
 
-  const lineGraphData = {
-    labels: ["Jun 18", "Jun 19"],
-    datasets: [
-      {
-        data: [275032],
-        color: (opacity = 1) => `rgba(239, 159, 39, ${opacity})`, // optional
-        strokeWidth: 2 // optional
-      },
-      {
-        data: [550081, 275046],
-        color: (opacity = 1) => `rgba(151, 85, 182, ${opacity})`, // optional
-        strokeWidth: 2 // optional
-      }
-    ],
-    legend: ["Dan Rake", "Daniel Rake"] // optional
-  };
+  // const lineGraphData = {
+  //   labels: ["Jun 18", "Jun 19"],
+  //   datasets: [
+  //     {
+  //       data: [275032],
+  //       color: (opacity = 1) => `rgba(239, 159, 39, ${opacity})`, // optional
+  //       strokeWidth: 2 // optional
+  //     },
+  //     {
+  //       data: [550081, 275046],
+  //       color: (opacity = 1) => `rgba(151, 85, 182, ${opacity})`, // optional
+  //       strokeWidth: 2 // optional
+  //     }
+  //   ],
+  //   legend: ["Dan Rake", "Daniel Rake"] // optional
+  // };
 
   
 
   return (
     <>
-      {(supersorted.length > 0) ?
+      {(planBEstatePlanWill.length > 0) ?
         <View
-          style={styles.getStarted}
+          style={styles.planBEstatePlanWill}
         >
           <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-          <CustomHeader name={supersorted[0].Name} type={2} />         
+          <CustomHeader name={planBEstatePlanWill[0].Name} type={2} />         
 
           <ScrollView
             style={styles.videoSectionParent}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.getStartedScrollViewContent}
+            contentContainerStyle={styles.planBEstatePlanWillScrollViewContent}
           >
             <Text style={styles.goaltitle}>My Goal</Text>
-            <Text style={styles.goaltext}>{supersorted[0].Retirement_Goal_Text}</Text>
+            <Text style={styles.goaltext}>{planBEstatePlanWill[0].Plan_B_EPW_Goal_Statement}</Text>
             {/* <ImageBackground
             style={[styles.videoSectionInner, styles.bottomFlexBox]}
             resizeMode="cover"
@@ -317,7 +316,7 @@ const GetStarted = () => {
               type="tab"
             />
             {activeTab == 0 &&
-              <>
+              <>              
                 <View style={[styles.summary1]}>
                   <Text
                     style={[
@@ -325,12 +324,12 @@ const GetStarted = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Retirement Goal?
+                    Have a Will/Estate Plan?
                   </Text>
                   <Image
                     style={[styles.frameChild]}
                     resizeMode="cover"
-                    source={imageMap[supersorted[0].Retirement_Goal]}
+                    source={imageMap[planBEstatePlanWill[0].Have_a_Will_Estate_Plan]}
                   />
 
                 </View>
@@ -341,12 +340,12 @@ const GetStarted = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Have Enough/On Track?
+                    Estate Plan Will Up To Date?
                   </Text>
                   <Image
                     style={styles.frameChild}
                     resizeMode="cover"
-                    source={imageMap[supersorted[0].Have_Enough_On_Track]}
+                    source={imageMap[planBEstatePlanWill[0].Estate_Plan_Will_Up_To_Date]}
                   />
                 </View>
                 <View style={[styles.summary1]}>
@@ -356,12 +355,12 @@ const GetStarted = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Invested Needs,Goals & Objectives
+                    Key Life Changes Since Last Review? 
                   </Text>
                   <Image
                     style={styles.frameChild}
                     resizeMode="cover"
-                    source={imageMap[supersorted[0].Invested_Needs_Goals_Objectives]}
+                    source={imageMap[planBEstatePlanWill[0].Key_Life_Changes_Since_Last_Review]}
                   />
                 </View>
                 <View style={[styles.summary1]}>
@@ -371,94 +370,15 @@ const GetStarted = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Invested Above Average Super Fund?
-                  </Text>
-                  <Image
-                    style={styles.frameChild}
-                    resizeMode="cover"
-                    source={imageMap[supersorted[0].Invested_Above_Average_Super_Fund]}
-                  />
-                </View>
-                <View style={[styles.summary1]}>
-                  <Text
-                    style={[
-                      styles.loremIpsumIs,
-                      styles.myExercisesTypo,
-                    ]}
-                  >
-                    Fees/Insurance Multiple Accounts
-                  </Text>
-                  <Image
-                    style={styles.frameChild}
-                    resizeMode="cover"
-                    source={imageMap[supersorted[0].Fees_Insurance_Multiple_Accounts]}
-                  />
-                </View>
-                <View style={[styles.summary1]}>
-                  <Text
-                    style={[
-                      styles.loremIpsumIs,
-                      styles.myExercisesTypo,
-                    ]}
-                  >
-                    Understanding of Insurance in Super
-                  </Text>
-                  <Image
-                    style={styles.frameChild}
-                    resizeMode="cover"
-                    source={imageMap[supersorted[0].Understanding_of_Insurance_in_Super]}
-                  />
-                </View>
-                <View style={[styles.summary1]}>
-                  <Text
-                    style={[
-                      styles.loremIpsumIs,
-                      styles.myExercisesTypo,
-                    ]}
-                  >
-                    Valid Death Benefit
-                  </Text>
-                  <Image
-                    style={styles.frameChild}
-                    resizeMode="cover"
-                    source={imageMap[supersorted[0].Valid_Death_Benefit]}
-                  />
-                </View>
-                <View style={[styles.summary1]}>
-                  <Text
-                    style={[
-                      styles.loremIpsumIs,
-                      styles.myExercisesTypo,
-                    ]}
-                  >
-                    Contribute a Bit More
-                  </Text>
-                  <Image
-                    style={styles.frameChild}
-                    resizeMode="cover"
-                    source={imageMap[supersorted[0].Contribute_a_Bit_More]}
-                  />
-                </View>
-                <View style={[styles.summary1]}>
-                  <Text
-                    style={[
-                      styles.loremIpsumIs,
-                      styles.myExercisesTypo,
-                    ]}
-                  >
-                    Advantage Rules & Tax Benefits
-                  </Text>
-                  <Image
-                    style={styles.frameChild}
-                    resizeMode="cover"
-                    source={imageMap[supersorted[0].Advantage_Rules_Tax_Benefits]}
-                  />
+                    Date last reviewed : {planBEstatePlanWill[0].Date_last_reviewed}
+                  </Text>                  
                 </View>
               </>
             }
             {activeTab == 1 &&
               <>
-                <View style={[styles.advice]}>
+                <Text>DashBoard Tab</Text>
+                {/* <View style={[styles.advice]}>
                   <View style={styles.users}>
                     <View style={styles.loginuser}>
                       <View
@@ -525,7 +445,7 @@ const GetStarted = () => {
                 <View>
                   <Text style={styles.performance}>Asset Allocation</Text>
                   <AssetAllocation assetData={assetData} />
-                </View>
+                </View> */}
               </>
             }
             {activeTab == 2 &&
@@ -537,7 +457,37 @@ const GetStarted = () => {
                   type="subtab"
                 />
                 {activeSubTab == 0 &&
-                  <><Text style={styles.notodos}>No Notes Yet</Text></>
+                  <>
+                    <View style={[styles.advicecontainer]}>
+                      <Text style={[styles.adviceAssignedBy, styles.summaryTypo]}>
+                        My Notes
+                      </Text>
+                      <View
+                        style={[styles.advice2, styles.advice2Layout, styles.adviceBg]}
+                      >
+                        <View style={[styles.advice1Parent, styles.mt10]}>
+                          {notes?.length > 0 && <>
+                            {notes?.map((note: any) => {
+                              if (note?.Current == "Yes" && note?.Module == "Estate Plan/Will") {
+                                return (
+                                  <>
+                                    <View style={styles.advice11}>
+                                      <View style={styles.dot1Wrapper}>
+                                        <View style={styles.dot1} />
+                                      </View>
+                                      <Text style={[styles.loremIpsumIs, styles.ml5, { marginBottom: 14 }]}>
+                                        {note?.My_Notes}
+                                      </Text>
+                                    </View>
+                                  </>
+                                )
+                              }
+                            })}
+                          </>}
+                        </View>
+                      </View>
+                    </View>
+                  </>
                 }
                 {activeSubTab == 1 &&
                   <>
@@ -549,9 +499,9 @@ const GetStarted = () => {
                         style={[styles.advice2, styles.advice2Layout, styles.adviceBg]}
                       >
                         <View style={[styles.advice1Parent, styles.mt10]}>
-                          {notes?.length > 0 && <>
-                            {notes?.map((note: any) => {
-                              if (note?.Current == "Yes" && note?.Module == "Super Sorted") {
+                          {coachnotes?.length > 0 && <>
+                            {coachnotes?.map((note: any) => {
+                              if (note?.Current == "Yes" && note?.Module == "Estate Plan/Will") {
                                 return (
                                   <>
                                     <View style={styles.advice11}>
@@ -559,7 +509,7 @@ const GetStarted = () => {
                                         <View style={styles.dot1} />
                                       </View>
                                       <Text style={[styles.loremIpsumIs, styles.ml5, { marginBottom: 14 }]}>
-                                        {note?.My_Notes}
+                                        {note?.Coaches_Notes}
                                       </Text>
                                     </View>
                                   </>
@@ -592,7 +542,7 @@ const GetStarted = () => {
             </LinearGradient>
           } */}
         </View>
-        : <View style={styles.getStarted}>
+        : <View style={styles.planBEstatePlanWill}>
           {/* <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
           <CustomHeader name={"Super Sorted"} type={2} />
           <Text style={styles.dataNotAvailable}>Data not available</Text> */}
@@ -832,7 +782,7 @@ const styles = StyleSheet.create({
   frameScrollViewContent: {
     flexDirection: "column",
   },
-  getStartedScrollViewContent: {
+  planBEstatePlanWillScrollViewContent: {
     flexDirection: "column",
   },
   bottomFlexBox: {
@@ -1007,7 +957,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     flex: 1,
   },
-  getStarted: {
+  planBEstatePlanWill: {
     width: "100%",
     maxWidth: "100%",
     overflow: "hidden",
@@ -1023,4 +973,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default GetStarted;
+export default PlanBEstatePlanWill;

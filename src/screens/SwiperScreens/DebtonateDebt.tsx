@@ -28,24 +28,165 @@ import { useSelector } from "react-redux";
 import actions from "../../../actions";
 import Loader from "../../components/Loader";
 import VideoPlayer from "../../components/VideoPlayer";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart
+} from "react-native-chart-kit";
+import PerformanceTable from "../../components/PerformanceTable";
+import AssetAllocation from "../../components/AssetAllocation";
 
 const DebtonateDebt = () => {
+  const navigation: any = useNavigation();
   const route: any = useRoute();
   const data = route.params?.item;
   console.log("data", data)
   const [loading, setLoading] = useState(false);
-  const exercises = useSelector((state: any) => state.data.exercises);
-  const summary = useSelector((state: any) => state.data.summary);
-  const advices = useSelector((state: any) => state.data.advices);
-  const supersorted = useSelector((state: any) => state.data.supersorted);
+  // const exercises = useSelector((state: any) => state.data.exercises);
+  // const summary = useSelector((state: any) => state.data.summary);
+  // const advices = useSelector((state: any) => state.data.advices);
+  const planBEstatePlanWill = useSelector((state: any) => state.data.planBEstatePlanWill);
+  // const supersorted = useSelector((state: any) => state.data.supersorted);
+  // const rollingAccountBalance: any = useSelector((state: any) => state.data.rollingAccountBalance);
   const notes = useSelector((state: any) => state.data.notes);
-  // console.log("summary", summary);
-  // console.log("advices", advices);
-  console.log("supersorted", supersorted);
+  const coachnotes = useSelector((state: any) => state.data.coachnotes);
+  // const profile = useSelector((state: any) => state.data.profile);
+  // const assets = useSelector((state: any) => state.data.assets);
+  // const liabilities = useSelector((state: any) => state.data.liabilities);
+  // const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
+
+  // console.log("profile", profile);
+  // // console.log("advices", advices);
+  // console.log("supersorted", supersorted);
+  // console.log("rollingAccountBalance", rollingAccountBalance);
   console.log("notes", notes);
+  console.log("coachnotes", coachnotes);
+  console.log("planBEstatePlanWill", planBEstatePlanWill);
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
+
+  const [totalCurrentBalance, setTotalCurrentBalance] = useState<number>(0);
+  const [balanceByOwner, setBalanceByOwner] = useState<any>(null);
+  const [charData, setChartData]  = useState<any>(null);
+  const [performanceData, setPerformanceData] = useState<any>(null);
+  const [assetData, setAssetData] = useState<any>(null);
+
+  // useEffect(() => {
+  //   if (rollingAccountBalance && Object.keys(rollingAccountBalance).length > 0) {
+  //     // Perform calculations here
+  //     console.log('rollingAccountBalance loaded:', rollingAccountBalance);
+  //     setData(rollingAccountBalance)
+  //   }
+  // }, [rollingAccountBalance]);
+
+  // useEffect(() => {
+  //   if (supersorted && supersorted.length > 0) {
+  //     // Perform calculations here
+  //     console.log('supersorted loaded:', supersorted);
+  //     setPData(supersorted)
+  //     setAData(supersorted)
+  //   }
+  // }, [supersorted]);
+
+  // const setPData = (supersorted: any) => {
+  //   const performanceData = [
+  //     ['', '6M', '1Y', '3Y', '5Y'],
+  //     ['Actual', supersorted[0].Month_Actual + "%", supersorted[0].Year_Actual1 + "%",supersorted[0].Year_Actual2 + "%",supersorted[0].Year_Actual + "%"],
+  //     ['Benchmark', supersorted[0].Month_Benchmark + "%", supersorted[0].Year_Benchmark2 + "%",supersorted[0].Year_Benchmark + "%",supersorted[0].Year_Benchmark1 + "%"],
+  //     ['Outperformance', supersorted[0].Month_Outperformance + "%", supersorted[0].Year_Outperformance + "%",supersorted[0].Year_Outperformance2 + "%",supersorted[0].Year_Outperformance1 + "%"],
+  //   ];
+  //   setPerformanceData(performanceData);
+  // }
+
+  // const setAData = (supersorted: any) => {
+  //   const assetData = [
+  //     ['Actual Asset Allocation Total', supersorted[0].Formula_2 ?? 0, 'Target Asset Allocation Total', supersorted[0].Formula_1 ?? 0],
+  //     ['International Equities', (supersorted[0].International_Equities_Actual ?? 0) + "%", (supersorted[0].International_Equities ?? 0) + "%", 'Australian Equities', (supersorted[0].Australian_Equities_Actual ?? 0) + "%", (supersorted[0].Australian_Equities ?? 0) + "%"],
+  //     ['Property', (supersorted[0].Property_Actual ?? 0) + "%", (supersorted[0].Property ?? 0) + "%", 'Infrastructure', (supersorted[0].Infrastructure_Actual ?? 0) + "%", (supersorted[0].Infrastructure ?? 0) + "%"],
+  //     ['International Fixed Income', (supersorted[0].Intnl_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Intnl_Fixed_Income ?? 0) + "%", 'Australian Fixed Income', (supersorted[0].Aust_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Aust_Fixed_Income ?? 0) + "%"],
+  //   ];
+    
+  //   setAssetData(assetData);
+  // }
+
+  // const setData = (rollingAccountBalance: any) => {
+  //   // 1) Find the total of all Current_Balance
+  //   const totalCurrentBalance = rollingAccountBalance.reduce((acc: any, item: { Current_Balance: any; }) => acc + item.Current_Balance, 0);
+  //   console.log("Total Current Balance:", totalCurrentBalance);
+
+  //   setTotalCurrentBalance(totalCurrentBalance);
+
+  //   // 2) Find the total Current_Balance grouped by owner name
+  //   const balanceByOwner = rollingAccountBalance.reduce((acc: { [x: string]: any; }, item: { Owner: { name: any; }; Current_Balance: any; }) => {
+  //     const ownerName = item.Owner.name;
+  //     acc[ownerName] = (acc[ownerName] || 0) + item.Current_Balance;
+  //     return acc;
+  //   }, {});
+  //   console.log("Balance by Owner:", balanceByOwner);
+
+  //   setBalanceByOwner(balanceByOwner);
+
+  //   // 3) Create an array of unique As_At_Date for the current year and month
+  //   const currentYear = new Date().getFullYear();
+  //   const uniqueAsAtDates = rollingAccountBalance
+  //     .filter((item: { As_At_Date: string | number | Date; }) => {
+  //       const asAtDate = new Date(item.As_At_Date);
+  //       return asAtDate.getFullYear() === currentYear;
+  //     })
+  //     .map((item: { As_At_Date: string | number | Date; }) => {
+  //       const date = new Date(item.As_At_Date);
+  //       return `${date.toLocaleString('en-US', { month: 'short' })} ${date.getDate()}`;
+  //     })
+  //     .filter((value: any, index: any, self: string | any[]) => self.indexOf(value) === index);
+  //   console.log("Unique As_At_Dates:", uniqueAsAtDates);
+
+  //   const currentBalanceByOwnerAndDate = rollingAccountBalance.reduce((acc: { [x: string]: { [x: string]: any; }; }, item: { Owner: { name: any; }; As_At_Date: string | number | Date; Current_Balance: any; }) => {
+  //     const ownerName = item.Owner.name;
+  //     const asAtDate = new Date(item.As_At_Date);
+  //     const dateKey = `${asAtDate.toLocaleString('en-US', { month: 'short' })} ${asAtDate.getDate()}`;
+
+  //     if (!acc[dateKey]) {
+  //       acc[dateKey] = {};
+  //     }
+
+  //     if (!acc[dateKey][ownerName]) {
+  //       acc[dateKey][ownerName] = 0;
+  //     }
+
+  //     acc[dateKey][ownerName] += item.Current_Balance;
+  //     return acc;
+  //   }, {});
+
+  //   // Convert the object to an array of objects
+  //   const currentBalanceArray = Object.entries(currentBalanceByOwnerAndDate).map(([date, balances]) => ({
+  //     date,
+  //     balances
+  //   }));
+
+  //   console.log("Current Balance by Owner and Date:", currentBalanceArray);
+
+  //   const colors = ['rgba(151, 85, 182, 1)', 'rgba(239, 159, 39, 1)'];
+
+  //   // Create the desired JSON structure
+  //   const data = {
+  //     labels: uniqueAsAtDates,
+  //     datasets: Object.entries(currentBalanceByOwnerAndDate).map(([date, balances] : any, index) => ({ // Assuming only one owner per date
+  //       data: Object.values(balances),
+  //       color: (opacity = 1) => colors[index % colors.length], // Adjust color as needed
+  //       strokeWidth: 2 // Adjust strokeWidth as needed
+  //     })),
+  //     legend: Object.keys(balanceByOwner)
+  //   };
+
+  //   console.log(data);
+
+  //   setChartData(data);
+  // }
 
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
@@ -55,59 +196,112 @@ const DebtonateDebt = () => {
     setActiveSubTab(tabNumber);
   };
 
-  useEffect(() => {
-    try {
-      getDatas();
-    } catch (err) {
-      console.log("err", err);
-      setLoading(false);
-    }
-  }, [])
+  // useEffect(() => {
+  //   let totalAssets = 0;
+  //   let totalLiabilities = 0;
+
+  //   if (assets?.length > 0) {
+  //     totalAssets = parseFloat(assets.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
+  //   }
+
+  //   if (liabilities?.length > 0) {
+  //     totalLiabilities = parseFloat(liabilities.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
+  //   }
+
+  //   setTotalNetWorth(parseFloat((totalAssets - totalLiabilities)?.toFixed(1)));
+  // }, [assets, liabilities])
+
+  useEffect(() => {    
+
+    // Trigger the fetch when the navigation state changes
+    navigation.addListener('focus', getDatas);
+
+    // Cleanup the listener when the component unmounts
+    return () => {
+      navigation.removeListener('focus', getDatas);
+    };
+
+  }, [navigation])
+
 
   const getDatas = async () => {
     setLoading(true);
-    await actions.getSuperSorted();
-    await actions.getNotes();
-    await actions.getExercises();
-    await actions.getSummary();
-    await actions.getAdvices();
+    try {
+      await actions.getPlanBEstatePlanWill();
+      await actions.getNotes();
+      await actions.getCoachNotes();
+    } catch (err) {
+      console.log("err", err);      
+    }
     setLoading(false);
   }
 
   const imageMap: any = {
-    'Yes': require('../assets/yes.png'),
-    'Maybe/Work to Do': require('../assets/maybe.png'),
-    'No/Not Sure': require('../assets/no.png'),
+    'Yes': require('../../assets/yes.png'),
+    'Maybe/Work to Do': require('../../assets/maybe.png'),
+    'No/Not Sure': require('../../assets/no.png'),
+    'No': require('../../assets/no.png'),
   };
+
+  const screenWidth = Dimensions.get("window").width;
+
+  const chartConfig = {
+    color: (opacity = 1) => `rgba(0,0, 0, ${opacity})`,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false,
+    backgroundColor: "#ffffff",
+    backgroundGradientFrom: "#ffffff",
+    backgroundGradientTo: "#ffffff",
+    decimalPlaces: 0,
+  };
+
+  // const lineGraphData = {
+  //   labels: ["Jun 18", "Jun 19"],
+  //   datasets: [
+  //     {
+  //       data: [275032],
+  //       color: (opacity = 1) => `rgba(239, 159, 39, ${opacity})`, // optional
+  //       strokeWidth: 2 // optional
+  //     },
+  //     {
+  //       data: [550081, 275046],
+  //       color: (opacity = 1) => `rgba(151, 85, 182, ${opacity})`, // optional
+  //       strokeWidth: 2 // optional
+  //     }
+  //   ],
+  //   legend: ["Dan Rake", "Daniel Rake"] // optional
+  // };
+
+  
 
   return (
     <>
-      {(supersorted.length > 0) ?
+      {(planBEstatePlanWill.length > 0) ?
         <View
-          style={styles.getStarted}
+          style={styles.planBEstatePlanWill}
         >
           <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-          <CustomHeader name={supersorted[0].Name} type={2} />
-          <Loader visible={loading} />
+          <CustomHeader name={planBEstatePlanWill[0].Name} type={2} />         
 
           <ScrollView
             style={styles.videoSectionParent}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.getStartedScrollViewContent}
+            contentContainerStyle={styles.planBEstatePlanWillScrollViewContent}
           >
             <Text style={styles.goaltitle}>My Goal</Text>
-            <Text style={styles.goaltext}>{supersorted[0].Retirement_Goal_Text}</Text>
+            <Text style={styles.goaltext}>{planBEstatePlanWill[0].Plan_B_EPW_Goal_Statement}</Text>
             {/* <ImageBackground
             style={[styles.videoSectionInner, styles.bottomFlexBox]}
             resizeMode="cover"
-            source={require("../assets/frame526.png")}
+            source={require("../../assets/frame526.png")}
           >
             <View style={styles.polygonWrapper}>
               <Image
                 style={styles.frameChild}
                 resizeMode="cover"
-                source={require("../assets/polygon-2.png")}
+                source={require("../../assets/polygon-2.png")}
               />
             </View>
           </ImageBackground> */}
@@ -122,7 +316,7 @@ const DebtonateDebt = () => {
               type="tab"
             />
             {activeTab == 0 &&
-              <>
+              <>              
                 <View style={[styles.summary1]}>
                   <Text
                     style={[
@@ -130,12 +324,12 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Retirement Goal?
+                    Have a Will/Estate Plan?
                   </Text>
                   <Image
                     style={[styles.frameChild]}
                     resizeMode="cover"
-                    source={imageMap[supersorted[0].Retirement_Goal]}
+                    source={imageMap[planBEstatePlanWill[0].Have_a_Will_Estate_Plan]}
                   />
 
                 </View>
@@ -146,12 +340,12 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Have Enough/On Track?
+                    Estate Plan Will Up To Date?
                   </Text>
                   <Image
                     style={styles.frameChild}
                     resizeMode="cover"
-                    source={imageMap[supersorted[0].Have_Enough_On_Track]}
+                    source={imageMap[planBEstatePlanWill[0].Estate_Plan_Will_Up_To_Date]}
                   />
                 </View>
                 <View style={[styles.summary1]}>
@@ -161,12 +355,12 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Invested Needs,Goals & Objectives
+                    Key Life Changes Since Last Review? 
                   </Text>
                   <Image
                     style={styles.frameChild}
                     resizeMode="cover"
-                    source={imageMap[supersorted[0].Invested_Needs_Goals_Objectives]}
+                    source={imageMap[planBEstatePlanWill[0].Key_Life_Changes_Since_Last_Review]}
                   />
                 </View>
                 <View style={[styles.summary1]}>
@@ -176,129 +370,82 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Invested Above Average Super Fund?
-                  </Text>
-                  <Image
-                    style={styles.frameChild}
-                    resizeMode="cover"
-                    source={imageMap[supersorted[0].Invested_Above_Average_Super_Fund]}
-                  />
-                </View>
-                <View style={[styles.summary1]}>
-                  <Text
-                    style={[
-                      styles.loremIpsumIs,
-                      styles.myExercisesTypo,
-                    ]}
-                  >
-                    Fees/Insurance Multiple Accounts
-                  </Text>
-                  <Image
-                    style={styles.frameChild}
-                    resizeMode="cover"
-                    source={imageMap[supersorted[0].Fees_Insurance_Multiple_Accounts]}
-                  />
-                </View>
-                <View style={[styles.summary1]}>
-                  <Text
-                    style={[
-                      styles.loremIpsumIs,
-                      styles.myExercisesTypo,
-                    ]}
-                  >
-                    Understanding of Insurance in Super
-                  </Text>
-                  <Image
-                    style={styles.frameChild}
-                    resizeMode="cover"
-                    source={imageMap[supersorted[0].Understanding_of_Insurance_in_Super]}
-                  />
-                </View>
-                <View style={[styles.summary1]}>
-                  <Text
-                    style={[
-                      styles.loremIpsumIs,
-                      styles.myExercisesTypo,
-                    ]}
-                  >
-                    Valid Death Benefit
-                  </Text>
-                  <Image
-                    style={styles.frameChild}
-                    resizeMode="cover"
-                    source={imageMap[supersorted[0].Valid_Death_Benefit]}
-                  />
-                </View>
-                <View style={[styles.summary1]}>
-                  <Text
-                    style={[
-                      styles.loremIpsumIs,
-                      styles.myExercisesTypo,
-                    ]}
-                  >
-                    Contribute a Bit More
-                  </Text>
-                  <Image
-                    style={styles.frameChild}
-                    resizeMode="cover"
-                    source={imageMap[supersorted[0].Contribute_a_Bit_More]}
-                  />
-                </View>
-                <View style={[styles.summary1]}>
-                  <Text
-                    style={[
-                      styles.loremIpsumIs,
-                      styles.myExercisesTypo,
-                    ]}
-                  >
-                    Advantage Rules & Tax Benefits
-                  </Text>
-                  <Image
-                    style={styles.frameChild}
-                    resizeMode="cover"
-                    source={imageMap[supersorted[0].Advantage_Rules_Tax_Benefits]}
-                  />
+                    Date last reviewed : {planBEstatePlanWill[0].Date_last_reviewed}
+                  </Text>                  
                 </View>
               </>
             }
             {activeTab == 1 &&
               <>
-                <View style={styles.excercisesParent}>
-                  <View style={styles.excercises}>
-                    <View style={styles.excercise1}>
-                      <View style={styles.frameParent}>
-                        <View style={[styles.wrapper, styles.wrapperLayout]}>
-                          <Text style={[styles.text, styles.textClr]}>
-                            <Text style={styles.text1}>#1</Text>
-                          </Text>
-                        </View>
-                        <Text
-                          style={[
-                            styles.earlyHappyMemory,
-                            styles.ml10,
-                            styles.text2Typo,
-                            styles.textClr,
-                          ]}
-                        >
-                          Retirement_Goal : {supersorted[0].Retirement_Goal}
+                <Text>DashBoard Tab</Text>
+                {/* <View style={[styles.advice]}>
+                  <View style={styles.users}>
+                    <View style={styles.loginuser}>
+                      <View
+                        style={[styles.frWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && { marginRight: -5 }]}
+                      >
+                        <Text style={styles.dr}>
+                          {profile?.length > 0 && (
+                            (profile[0]?.First_Name && profile[0]?.Last_Name)
+                              ? (profile[0]?.First_Name.charAt(0) + profile[0]?.Last_Name.charAt(0))
+                              : ((profile[0]?.First_Name || profile[0]?.Last_Name) || '').slice(0, 2)
+                          )}
                         </Text>
                       </View>
-                      <LinearGradient
-                        style={styles.vectorWrapper}
-                        locations={[0, 1]}
-                        colors={["#fbb142", "#f6a326"]}
-                        useAngle={true}
-                        angle={180}
-                      >
-                        <Image
-                          style={styles.vectorIcon}
-                          resizeMode="cover"
-                          source={require("../assets/vector.png")}
-                        />
-                      </LinearGradient>
+                      {
+                        profile[0]?.accounts?.length > 0 &&
+                        <View style={[styles.drWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && { marginLeft: -5 }]}>
+                          <Text style={styles.dr}>
+                            {profile[0]?.accounts?.length > 0 && (
+                              (profile[0]?.accounts[0]?.First_Name && profile[0]?.accounts[0]?.Last_Name)
+                                ? (profile[0]?.accounts[0]?.First_Name.charAt(0) + profile[0]?.accounts[0]?.Last_Name.charAt(0))
+                                : ((profile[0]?.accounts[0]?.First_Name || profile[0]?.accounts[0]?.Last_Name) || '').slice(0, 2)
+                            )}
+                          </Text>
+                        </View>
+                      }
                     </View>
+                    <Text
+                      style={[
+                        styles.danFleur,
+                        styles.mt26,
+                        styles.mTypo,
+                        styles.danFleurClr,
+                      ]}
+                    >{profile[0]?.Account_Name?.name}</Text>
                   </View>
                 </View>
+                <View style={[styles.balance]}>
+                  <Text style={[styles.balanceText]}>${totalCurrentBalance?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
+                  <Text>{Object.keys(balanceByOwner)[0]} : ${balanceByOwner[Object.keys(balanceByOwner)[0]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
+                  {Object.keys(balanceByOwner)[1] && <Text>{Object.keys(balanceByOwner)[1]} : ${balanceByOwner[Object.keys(balanceByOwner)[1]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>}
+                  
+
+                  <Text style={[styles.balanceNextLine]}>Balance</Text>
+                </View>
+                <View>
+                  {charData && <LineChart
+                    data={charData}
+                    width={screenWidth - 10}
+                    height={220}
+                    chartConfig={chartConfig}
+                    bezier
+                    yAxisLabel="$"
+                    style={{
+                      marginLeft: 10,
+                      marginRight: 10,
+                      borderRadius: 16
+                    }}
+                  />}
+                </View>
+                <View>
+                  <Text style={styles.performance}>Performance</Text>
+                  <PerformanceTable performanceData={performanceData} />
+                </View>
+                <View>
+                  <Text style={styles.performance}>Asset Allocation</Text>
+                  <AssetAllocation assetData={assetData} />
+                </View> */}
               </>
             }
             {activeTab == 2 &&
@@ -310,7 +457,37 @@ const DebtonateDebt = () => {
                   type="subtab"
                 />
                 {activeSubTab == 0 &&
-                  <><Text style={styles.notodos}>No Notes Yet</Text></>
+                  <>
+                    <View style={[styles.advicecontainer]}>
+                      <Text style={[styles.adviceAssignedBy, styles.summaryTypo]}>
+                        My Notes
+                      </Text>
+                      <View
+                        style={[styles.advice2, styles.advice2Layout, styles.adviceBg]}
+                      >
+                        <View style={[styles.advice1Parent, styles.mt10]}>
+                          {notes?.length > 0 && <>
+                            {notes?.map((note: any) => {
+                              if (note?.Current == "Yes" && note?.Module == "Estate Plan/Will") {
+                                return (
+                                  <>
+                                    <View style={styles.advice11}>
+                                      <View style={styles.dot1Wrapper}>
+                                        <View style={styles.dot1} />
+                                      </View>
+                                      <Text style={[styles.loremIpsumIs, styles.ml5, { marginBottom: 14 }]}>
+                                        {note?.My_Notes}
+                                      </Text>
+                                    </View>
+                                  </>
+                                )
+                              }
+                            })}
+                          </>}
+                        </View>
+                      </View>
+                    </View>
+                  </>
                 }
                 {activeSubTab == 1 &&
                   <>
@@ -322,19 +499,19 @@ const DebtonateDebt = () => {
                         style={[styles.advice2, styles.advice2Layout, styles.adviceBg]}
                       >
                         <View style={[styles.advice1Parent, styles.mt10]}>
-                          {notes?.length > 0 && <>
-                            {notes?.map((note: any) => {
-                              if (note?.Current == "Yes" && note?.Module == "Super Sorted") {
+                          {coachnotes?.length > 0 && <>
+                            {coachnotes?.map((note: any) => {
+                              if (note?.Current == "Yes" && note?.Module == "Estate Plan/Will") {
                                 return (
                                   <>
-                                  <View style={styles.advice11}>
-                                    <View style={styles.dot1Wrapper}>
-                                      <View style={styles.dot1} />
+                                    <View style={styles.advice11}>
+                                      <View style={styles.dot1Wrapper}>
+                                        <View style={styles.dot1} />
+                                      </View>
+                                      <Text style={[styles.loremIpsumIs, styles.ml5, { marginBottom: 14 }]}>
+                                        {note?.Coaches_Notes}
+                                      </Text>
                                     </View>
-                                    <Text style={[styles.loremIpsumIs, styles.ml5, { marginBottom: 14 }]}>
-                                      {note?.My_Notes}
-                                    </Text>
-                                  </View>
                                   </>
                                 )
                               }
@@ -365,16 +542,108 @@ const DebtonateDebt = () => {
             </LinearGradient>
           } */}
         </View>
-        : <View style={styles.getStarted}>
-            <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-            <CustomHeader name={"Super Sorted"} type={2} />
-            <Text style={styles.getStarted}>Data not available</Text>
-          </View>}
+        : <View style={styles.planBEstatePlanWill}>
+          {/* <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
+          <CustomHeader name={"Super Sorted"} type={2} />
+          <Text style={styles.dataNotAvailable}>Data not available</Text> */}
+          <Loader visible={loading} />
+        </View>}
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  performance: {
+    color: Color.black,
+    fontSize: 16,
+    fontWeight: "600",
+    marginTop: 20,
+    marginLeft:10,
+    marginBottom:10
+  },
+  balanceNextLine: {
+    fontSize: 12,
+    color: Color.black
+  },
+  balanceText: {
+    fontSize: 26,
+    color: Color.black
+  },
+  balance: {
+    backgroundColor: "#FFF9F1",
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    paddingHorizontal: Padding.p_md,
+    paddingVertical: Padding.p_sm,
+    borderRadius: 8,
+    marginLeft: 30,
+    marginRight: 30,
+    alignItems: "center",
+  },
+  adviceShadowBox: {
+    shadowOpacity: 1,
+    elevation: 40,
+    shadowRadius: 40,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowColor: "rgba(32, 34, 36, 0.5)",
+    borderRadius: 16,
+    alignItems: "center",
+    paddingHorizontal: Padding.p_sm,
+    alignSelf: "stretch",
+    overflow: "hidden",
+    backgroundColor: Color.white1,
+    marginTop: 20
+  },
+  advice: {
+    borderWidth: 0,
+    borderColor: "#eaeaea",
+    paddingTop: 28,
+    paddingBottom: Padding.p_lg,
+    alignItems: "center",
+  },
+  mt26: {
+    marginTop: 26,
+  },
+  mTypo: {
+    textAlign: "left",
+    fontFamily: FontFamily.sourceSerifPro,
+    fontWeight: "500",
+    color: '#FBB142',
+  },
+  danFleurClr: {
+    color: Color.black,
+    textAlign: "left",
+  },
+  dr: {
+    fontSize: FontSize.size_sm,
+    color: Color.white1,
+    textAlign: "center",
+    fontFamily: FontFamily.sourceSerifPro,
+    fontWeight: "600",
+    lineHeight: 22,
+  },
+  danFleur: {
+    fontSize: 18,
+    fontFamily: FontFamily.sourceSerifPro
+  },
+  drWrapper: {
+    backgroundColor: '#EF9F27',
+  },
+  frWrapper: {
+    backgroundColor: "#9755b6",
+  },
+  loginuser: {
+    flexDirection: "row",
+  },
+  users: {
+    alignItems: "center",
+    alignSelf: "stretch",
+  },
   notodos: {
     textAlign: "center",
     paddingTop: 10,
@@ -452,7 +721,7 @@ const styles = StyleSheet.create({
     color: Color.black,
     textAlign: "left",
     fontFamily: FontFamily.openSansRegular,
-    marginLeft:24
+    marginLeft: 24
   },
   adviceAssignedBy: {
     fontSize: FontSize.textMediumBoldText1_size,
@@ -468,7 +737,7 @@ const styles = StyleSheet.create({
   advice11: {
     // width: 324,
     flexDirection: "row",
-    marginLeft:20
+    marginLeft: 20
   },
   advice1Parent: {
     paddingBottom: Padding.p_2xs,
@@ -513,7 +782,7 @@ const styles = StyleSheet.create({
   frameScrollViewContent: {
     flexDirection: "column",
   },
-  getStartedScrollViewContent: {
+  planBEstatePlanWillScrollViewContent: {
     flexDirection: "column",
   },
   bottomFlexBox: {
@@ -524,12 +793,14 @@ const styles = StyleSheet.create({
   wrapperLayout: {
     paddingVertical: Padding.p_2xs,
     paddingHorizontal: Padding.p_2xs,
-    borderRadius: 12,
+    borderRadius: 50,
     borderWidth: 1,
     borderStyle: "solid",
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
+    width: 100,
+    height: 100
   },
   textClr: {
     color: Color.black,
@@ -686,13 +957,20 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     flex: 1,
   },
-  getStarted: {
+  planBEstatePlanWill: {
     width: "100%",
     maxWidth: "100%",
     overflow: "hidden",
     flex: 1,
     backgroundColor: Color.white1,
   },
+  dataNotAvailable: {
+    alignItems: "center",
+    textAlign: "center",
+    color: Color.warning_red,
+    marginTop: 50,
+    fontSize: 20,
+  }
 });
 
 export default DebtonateDebt;

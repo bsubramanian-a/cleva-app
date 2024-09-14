@@ -12,8 +12,15 @@ const initialState = {
     addGoals: {},
     accounts: {},
     supersorted: {},
+    planBEstatePlanWill: {},
+    moneyOnAutoDrive: {},
+    planBEmergencyFund: {},
+    planBInsurance: {},
+    debtonateDebt: {},
+    householdExpenses: {},
     rollingAccountBalance: {},
-    notes:{}
+    notes:{},
+    coachnotes:{}
 };
 
 const data = (state = initialState, action:any) => {
@@ -26,10 +33,24 @@ const data = (state = initialState, action:any) => {
         return {...state, exercises: data};
     case types.SUPERSORTED:
         return {...state, supersorted: data};
+    case types.PLAN_B_ESTATE_PLAN_WILL:
+        return {...state, planBEstatePlanWill: data};
+    case types.MONEY_ON_AUTO_DRIVE:
+        return {...state, moneyOnAutoDrive: data};
+    case types.PLAN_B_EMERGENCY_FUND:
+        return {...state, planBEmergencyFund: data};  
+    case types.PLAN_B_INSURANCE:
+        return {...state, planBInsurance: data}; 
+    case types.DEBTONATE_DEBT:
+        return {...state, debtonateDebt: data};
+    case types.HOUSEHOLD_EXP:
+        return {...state, householdExpenses: data};
     case types.ROLLING_ACCOUNT_BALANCE:
         return {...state, rollingAccountBalance: data};
     case types.NOTES:
         return {...state, notes: data};
+    case types.COACHNOTES:
+        return {...state, coachnotes: data};
     case types.SUMMARY:
         return {...state, summary: data};
     case types.ADVICE:
