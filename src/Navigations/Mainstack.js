@@ -159,6 +159,8 @@ const Tabs = ({userData}) => {
     },
   };
 
+  console.log('userData', userData);
+
   return (
     <Tab.Navigator
       tabBar={props => <CustomTabBar {...props} images={images} />}

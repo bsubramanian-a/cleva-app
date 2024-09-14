@@ -26,7 +26,7 @@ const OTPScreen = ({ navigation, route }: any) => {
         otp,
         email
       });
-      console.log('res==>>>>>', res);
+      console.log('res4==>>>>>', res);
       if (res?.isCorrect === true) {
         navigation.navigate('PasswordLogin', { user_type: route.params.user_type })
       } else {

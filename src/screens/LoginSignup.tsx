@@ -34,7 +34,7 @@ const LoginSignup = ({navigation, route}:any) => {
       const res:any = await actions.verifyAppleEmail({
         email, apple_user_id, user_type: route.params.type
       });
-      console.log('res==>>>>>', res);
+      console.log('res2==>>>>>', res);
       if(res?.status){
         if(res?.status == "failed"){
           setError(res?.message);
@@ -58,7 +58,7 @@ const LoginSignup = ({navigation, route}:any) => {
       const res:any = await actions.verifySocialEmail({
         email, user_type: route.params.user_type
       });
-      console.log('res==>>>>>', res);
+      console.log('res3==>>>>>', res);
       if(res?.status){
         // navigation.navigate('PasswordLogin')
       }else{

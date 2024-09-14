@@ -22,7 +22,7 @@ const PasswordLogin = ({ navigation, route }: any) => {
         password,
         user_type: route.params.user_type
       });
-      console.log('res==>>>>>', res);
+      console.log('res5==>>>>>', res);
 
       if (res?.status) {
         if (res?.status == 403) {

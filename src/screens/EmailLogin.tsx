@@ -27,7 +27,7 @@ const EmailLogin = ({ navigation,route }: any) => {
       const res: any = await actions.verifyEmail({
         email, user_type: route.params.user_type
       });
-      console.log('res==>>>>>', res);
+      console.log('res1==>>>>>', res);
       if (res?.isUserExist === true) {
         navigation.navigate('OTPScreen', { user_type: route.params.user_type })
       } else {
