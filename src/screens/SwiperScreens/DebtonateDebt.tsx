@@ -50,7 +50,7 @@ const DebtonateDebt = () => {
   // const exercises = useSelector((state: any) => state.data.exercises);
   // const summary = useSelector((state: any) => state.data.summary);
   // const advices = useSelector((state: any) => state.data.advices);
-  const planBEstatePlanWill = useSelector((state: any) => state.data.planBEstatePlanWill);
+  const debtonateDebt = useSelector((state: any) => state.data.debtonateDebt);
   // const supersorted = useSelector((state: any) => state.data.supersorted);
   // const rollingAccountBalance: any = useSelector((state: any) => state.data.rollingAccountBalance);
   const notes = useSelector((state: any) => state.data.notes);
@@ -66,7 +66,7 @@ const DebtonateDebt = () => {
   // console.log("rollingAccountBalance", rollingAccountBalance);
   console.log("notes", notes);
   console.log("coachnotes", coachnotes);
-  console.log("planBEstatePlanWill", planBEstatePlanWill);
+  console.log("debtonateDebt", debtonateDebt);
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
 
@@ -277,21 +277,21 @@ const DebtonateDebt = () => {
 
   return (
     <>
-      {(planBEstatePlanWill.length > 0) ?
+      {(debtonateDebt.length > 0) ?
         <View
-          style={styles.planBEstatePlanWill}
+          style={styles.debtonateDebt}
         >
           <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-          <CustomHeader name={planBEstatePlanWill[0].Name} type={2} />         
+          <CustomHeader name={debtonateDebt[0].Name} type={2} />         
 
           <ScrollView
             style={styles.videoSectionParent}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.planBEstatePlanWillScrollViewContent}
+            contentContainerStyle={styles.debtonateDebtScrollViewContent}
           >
             <Text style={styles.goaltitle}>My Goal</Text>
-            <Text style={styles.goaltext}>{planBEstatePlanWill[0].Plan_B_EPW_Goal_Statement}</Text>
+            <Text style={styles.goaltext}>{debtonateDebt[0].Debtonate_Debt_Goal_Statement}</Text>
             {/* <ImageBackground
             style={[styles.videoSectionInner, styles.bottomFlexBox]}
             resizeMode="cover"
@@ -329,7 +329,7 @@ const DebtonateDebt = () => {
                   <Image
                     style={[styles.frameChild]}
                     resizeMode="cover"
-                    source={imageMap[planBEstatePlanWill[0].Have_a_Will_Estate_Plan]}
+                    source={imageMap[debtonateDebt[0].Have_a_Will_Estate_Plan]}
                   />
 
                 </View>
@@ -345,7 +345,7 @@ const DebtonateDebt = () => {
                   <Image
                     style={styles.frameChild}
                     resizeMode="cover"
-                    source={imageMap[planBEstatePlanWill[0].Estate_Plan_Will_Up_To_Date]}
+                    source={imageMap[debtonateDebt[0].Estate_Plan_Will_Up_To_Date]}
                   />
                 </View>
                 <View style={[styles.summary1]}>
@@ -360,7 +360,7 @@ const DebtonateDebt = () => {
                   <Image
                     style={styles.frameChild}
                     resizeMode="cover"
-                    source={imageMap[planBEstatePlanWill[0].Key_Life_Changes_Since_Last_Review]}
+                    source={imageMap[debtonateDebt[0].Key_Life_Changes_Since_Last_Review]}
                   />
                 </View>
                 <View style={[styles.summary1]}>
@@ -370,7 +370,7 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Date last reviewed : {planBEstatePlanWill[0].Date_last_reviewed}
+                    Date last reviewed : {debtonateDebt[0].Date_last_reviewed}
                   </Text>                  
                 </View>
               </>
@@ -542,7 +542,7 @@ const DebtonateDebt = () => {
             </LinearGradient>
           } */}
         </View>
-        : <View style={styles.planBEstatePlanWill}>
+        : <View style={styles.debtonateDebt}>
           {/* <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
           <CustomHeader name={"Super Sorted"} type={2} />
           <Text style={styles.dataNotAvailable}>Data not available</Text> */}
@@ -782,7 +782,7 @@ const styles = StyleSheet.create({
   frameScrollViewContent: {
     flexDirection: "column",
   },
-  planBEstatePlanWillScrollViewContent: {
+  debtonateDebtScrollViewContent: {
     flexDirection: "column",
   },
   bottomFlexBox: {
@@ -957,7 +957,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     flex: 1,
   },
-  planBEstatePlanWill: {
+  debtonateDebt: {
     width: "100%",
     maxWidth: "100%",
     overflow: "hidden",
