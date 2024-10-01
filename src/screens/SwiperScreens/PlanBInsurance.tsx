@@ -227,7 +227,7 @@ const PlanBInsurance = () => {
   const getDatas = async () => {
     setLoading(true);
     try {
-      await actions.getPlanBEstatePlanWill();
+      await actions.getPlanBInsurance();
       await actions.getNotes();
       await actions.getCoachNotes();
     } catch (err) {
@@ -291,7 +291,7 @@ const PlanBInsurance = () => {
             contentContainerStyle={styles.planBInsuranceScrollViewContent}
           >
             <Text style={styles.goaltitle}>My Goal</Text>
-            <Text style={styles.goaltext}>{planBInsurance[0].Plan_B_EPW_Goal_Statement}</Text>
+            <Text style={styles.goaltext}>{planBInsurance[0].Plan_B_Insurance_Goal_Statement}</Text>
             {/* <ImageBackground
             style={[styles.videoSectionInner, styles.bottomFlexBox]}
             resizeMode="cover"
@@ -324,12 +324,12 @@ const PlanBInsurance = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Have a Will/Estate Plan?
+                    Have an INA?
                   </Text>
                   <Image
                     style={[styles.frameChild]}
                     resizeMode="cover"
-                    source={imageMap[planBInsurance[0].Have_a_Will_Estate_Plan]}
+                    source={imageMap[planBInsurance[0].Have_an_INA]}
                   />
 
                 </View>
@@ -340,12 +340,12 @@ const PlanBInsurance = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Estate Plan Will Up To Date?
+                    Paying for the right amount?
                   </Text>
                   <Image
                     style={styles.frameChild}
                     resizeMode="cover"
-                    source={imageMap[planBInsurance[0].Estate_Plan_Will_Up_To_Date]}
+                    source={imageMap[planBInsurance[0].Paying_for_the_right_amount]}
                   />
                 </View>
                 <View style={[styles.summary1]}>
@@ -355,12 +355,12 @@ const PlanBInsurance = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Key Life Changes Since Last Review? 
+                    Have Life Cover? 
                   </Text>
                   <Image
                     style={styles.frameChild}
                     resizeMode="cover"
-                    source={imageMap[planBInsurance[0].Key_Life_Changes_Since_Last_Review]}
+                    source={imageMap[planBInsurance[0].Have_Life_Cover]}
                   />
                 </View>
                 <View style={[styles.summary1]}>
@@ -370,9 +370,90 @@ const PlanBInsurance = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Date last reviewed : {planBInsurance[0].Date_last_reviewed}
-                  </Text>                  
+                    Have IP Cover? 
+                  </Text>
+                  <Image
+                    style={styles.frameChild}
+                    resizeMode="cover"
+                    source={imageMap[planBInsurance[0].Have_IP_Cover]}
+                  />
                 </View>
+                <View style={[styles.summary1]}>
+                  <Text
+                    style={[
+                      styles.loremIpsumIs,
+                      styles.myExercisesTypo,
+                    ]}
+                  >
+                    Have TPD Cover? 
+                  </Text>
+                  <Image
+                    style={styles.frameChild}
+                    resizeMode="cover"
+                    source={imageMap[planBInsurance[0].Have_TPD_Cover]}
+                  />
+                </View>
+                <View style={[styles.summary1]}>
+                  <Text
+                    style={[
+                      styles.loremIpsumIs,
+                      styles.myExercisesTypo,
+                    ]}
+                  >
+                    Have Trauma Cover? 
+                  </Text>
+                  <Image
+                    style={styles.frameChild}
+                    resizeMode="cover"
+                    source={imageMap[planBInsurance[0].Have_Trauma_Cover]}
+                  />
+                </View>
+                <View style={[styles.summary1]}>
+                  <Text
+                    style={[
+                      styles.loremIpsumIs,
+                      styles.myExercisesTypo,
+                    ]}
+                  >
+                    Have Child Trauma Cover? 
+                  </Text>
+                  <Image
+                    style={styles.frameChild}
+                    resizeMode="cover"
+                    source={imageMap[planBInsurance[0].Have_Child_Trauma_Cover]}
+                  />
+                </View>
+                <View style={[styles.summary1]}>
+                  <Text
+                    style={[
+                      styles.loremIpsumIs,
+                      styles.myExercisesTypo,
+                    ]}
+                  >
+                    Have Health Cover? 
+                  </Text>
+                  <Image
+                    style={styles.frameChild}
+                    resizeMode="cover"
+                    source={imageMap[planBInsurance[0].Have_Health_Cover]}
+                  />
+                </View>
+                <View style={[styles.summary1]}>
+                  <Text
+                    style={[
+                      styles.loremIpsumIs,
+                      styles.myExercisesTypo,
+                    ]}
+                  >
+                    Premiums are Competitive? 
+                  </Text>
+                  <Image
+                    style={styles.frameChild}
+                    resizeMode="cover"
+                    source={imageMap[planBInsurance[0].Premiums_are_Competitive]}
+                  />
+                </View>
+                
               </>
             }
             {activeTab == 1 &&
@@ -468,7 +549,7 @@ const PlanBInsurance = () => {
                         <View style={[styles.advice1Parent, styles.mt10]}>
                           {notes?.length > 0 && <>
                             {notes?.map((note: any) => {
-                              if (note?.Current == "Yes" && note?.Module == "Estate Plan/Will") {
+                              if (note?.Current == "Yes" && note?.Module == "Insurance") {
                                 return (
                                   <>
                                     <View style={styles.advice11}>
@@ -501,7 +582,7 @@ const PlanBInsurance = () => {
                         <View style={[styles.advice1Parent, styles.mt10]}>
                           {coachnotes?.length > 0 && <>
                             {coachnotes?.map((note: any) => {
-                              if (note?.Current == "Yes" && note?.Module == "Estate Plan/Will") {
+                              if (note?.Current == "Yes" && note?.Module == "Insurance") {
                                 return (
                                   <>
                                     <View style={styles.advice11}>
