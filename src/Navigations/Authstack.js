@@ -17,14 +17,14 @@ const Authstack = (Stack) => {
         <Stack.Navigator screenOptions={{
             headerShown: false
           }}>
-            <Stack.Screen name="StartupScreen" component={StartupScreen} />
-            <Stack.Screen name="LoginSignup" component={LoginSignup} />
-            <Stack.Screen name="LoginSignup1" component={LoginSignup1} />
             <Stack.Screen name="PasswordLogin" component={PasswordLogin} />
-            <Stack.Screen name="Splash" component={Splash} />
-            <Stack.Screen name="EmailLogin" component={EmailLogin} />
+            {/* <Stack.Screen name="EmailLogin" component={EmailLogin} />
+            <Stack.Screen name="LoginSignup" component={LoginSignup} />
+            <Stack.Screen name="StartupScreen" component={StartupScreen} />            
+            <Stack.Screen name="LoginSignup1" component={LoginSignup1} />            
+            <Stack.Screen name="Splash" component={Splash} />             */}
             <Stack.Screen name="OTPScreen" component={OTPScreen} />
-            <Stack.Screen name="UserType" component={UserType} />
+            {/* <Stack.Screen name="UserType" component={UserType} /> */}
         </Stack.Navigator>
     );
 };

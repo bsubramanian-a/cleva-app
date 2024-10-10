@@ -3,7 +3,7 @@ import { Text, StyleSheet, View } from "react-native";
 import PasswordInput from "./PasswordInput";
 import { Margin, FontSize, FontFamily, Color } from "../GlobalStyles";
 
-const LoginForm = ({setText, error}:any) => {
+const LoginForm = ({setText, error, initialValue}:any) => {
   return (
     <View style={styles.heading}>
       <Text style={styles.loginWithEmailContainer}>
@@ -11,7 +11,7 @@ const LoginForm = ({setText, error}:any) => {
         <Text style={styles.withEmail}>with email</Text>
       </Text>
       <View style={[styles.heading, styles.mt48]}>
-        <PasswordInput isPassword={true} setText={setText} emailInputPlaceholder="Password" />
+        <PasswordInput isPassword={true} initialValue={initialValue} setText={setText} emailInputPlaceholder="Password" />
         {error != "" && 
           <Text style={{color: 'red'}}>{error}</Text>
         }
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     marginTop: Margin.m_md,
   },
   login: {
-    marginBlockStart: 0,
-    marginBlockEnd: 0,
+    marginTop: 0,
+    marginBottom: 0,
   },
   withEmail: {
     margin: Margin.m_3xs,
@@ -53,5 +53,4 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
 });
-
 export default LoginForm;

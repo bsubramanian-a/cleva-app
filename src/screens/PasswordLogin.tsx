@@ -9,18 +9,25 @@ import CKeyboard from "../components/CKeyboard";
 
 const PasswordLogin = ({ navigation, route }: any) => {
   const [loading, setLoading] = useState(false);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("Test@123");
   const [error, setError] = useState("");
-  const email = useSelector((state: any) => state.auth.email);
+  //const email = useSelector((state: any) => state.auth.email);
+  const email = "testawebon3@gmail.com";
+  const [user_type, setUserType] = useState("user");
 
   const onLogin = async () => {
     setLoading(true);
     setError("");
     try {
+      // const res: any = await actions.login({
+      //   email,
+      //   password,
+      //   user_type: route.params.user_type
+      // });
       const res: any = await actions.login({
         email,
         password,
-        user_type: route.params.user_type
+        user_type
       });
       console.log('res5==>>>>>', res);
 
@@ -44,7 +51,7 @@ const PasswordLogin = ({ navigation, route }: any) => {
     <View style={[styles.passwordLogin, styles.nextpreviousSpaceBlock]}>
       <Loader visible={loading} />
       <CKeyboard>
-        <LoginForm setText={setPassword} error={error} />
+        <LoginForm setText={setPassword} error={error} initialValue={password} />
 
         <View
           style={[

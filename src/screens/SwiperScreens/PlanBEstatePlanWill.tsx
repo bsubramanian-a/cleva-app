@@ -55,12 +55,12 @@ const PlanBEstatePlanWill = () => {
   // const rollingAccountBalance: any = useSelector((state: any) => state.data.rollingAccountBalance);
   const notes = useSelector((state: any) => state.data.notes);
   const coachnotes = useSelector((state: any) => state.data.coachnotes);
-  // const profile = useSelector((state: any) => state.data.profile);
+  const profile = useSelector((state: any) => state.data.profile);
   // const assets = useSelector((state: any) => state.data.assets);
   // const liabilities = useSelector((state: any) => state.data.liabilities);
   // const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
 
-  // console.log("profile", profile);
+  console.log("profile", profile);
   // // console.log("advices", advices);
   // console.log("supersorted", supersorted);
   // console.log("rollingAccountBalance", rollingAccountBalance);
@@ -69,12 +69,21 @@ const PlanBEstatePlanWill = () => {
   console.log("planBEstatePlanWill", planBEstatePlanWill);
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
+  const [activeUserTab, setActiveUserTab] = useState(0);
 
   const [totalCurrentBalance, setTotalCurrentBalance] = useState<number>(0);
   const [balanceByOwner, setBalanceByOwner] = useState<any>(null);
-  const [charData, setChartData]  = useState<any>(null);
+  const [charData, setChartData] = useState<any>(null);
   const [performanceData, setPerformanceData] = useState<any>(null);
   const [assetData, setAssetData] = useState<any>(null);
+  const users = ["User 1 : Daniel", "User 2: Fleur"];
+  const [user1Image, setUser1Image] = useState<any>("");
+
+  useEffect(() => {
+    if (profile[0]?.Record_Image) {
+      setUser1Image("https://www.zohoapis.com/crm/v2/Contacts/"+profile[0]?.Record_Image+"/photo")
+    }
+  }, [profile]);
 
   // useEffect(() => {
   //   if (rollingAccountBalance && Object.keys(rollingAccountBalance).length > 0) {
@@ -110,7 +119,7 @@ const PlanBEstatePlanWill = () => {
   //     ['Property', (supersorted[0].Property_Actual ?? 0) + "%", (supersorted[0].Property ?? 0) + "%", 'Infrastructure', (supersorted[0].Infrastructure_Actual ?? 0) + "%", (supersorted[0].Infrastructure ?? 0) + "%"],
   //     ['International Fixed Income', (supersorted[0].Intnl_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Intnl_Fixed_Income ?? 0) + "%", 'Australian Fixed Income', (supersorted[0].Aust_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Aust_Fixed_Income ?? 0) + "%"],
   //   ];
-    
+
   //   setAssetData(assetData);
   // }
 
@@ -196,6 +205,10 @@ const PlanBEstatePlanWill = () => {
     setActiveSubTab(tabNumber);
   };
 
+  const handleUserTabPress = (tabNumber: number) => {
+    setActiveUserTab(tabNumber);
+  };
+
   // useEffect(() => {
   //   let totalAssets = 0;
   //   let totalLiabilities = 0;
@@ -211,7 +224,7 @@ const PlanBEstatePlanWill = () => {
   //   setTotalNetWorth(parseFloat((totalAssets - totalLiabilities)?.toFixed(1)));
   // }, [assets, liabilities])
 
-  useEffect(() => {    
+  useEffect(() => {
 
     // Trigger the fetch when the navigation state changes
     navigation.addListener('focus', getDatas);
@@ -231,7 +244,7 @@ const PlanBEstatePlanWill = () => {
       await actions.getNotes();
       await actions.getCoachNotes();
     } catch (err) {
-      console.log("err", err);      
+      console.log("err", err);
     }
     setLoading(false);
   }
@@ -273,7 +286,7 @@ const PlanBEstatePlanWill = () => {
   //   legend: ["Dan Rake", "Daniel Rake"] // optional
   // };
 
-  
+
 
   return (
     <>
@@ -282,7 +295,7 @@ const PlanBEstatePlanWill = () => {
           style={styles.planBEstatePlanWill}
         >
           <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-          <CustomHeader name={planBEstatePlanWill[0].Name} type={2} />         
+          <CustomHeader name={planBEstatePlanWill[0].Name} type={2} />
 
           <ScrollView
             style={styles.videoSectionParent}
@@ -316,7 +329,7 @@ const PlanBEstatePlanWill = () => {
               type="tab"
             />
             {activeTab == 0 &&
-              <>              
+              <>
                 <View style={[styles.summary1]}>
                   <Text
                     style={[
@@ -355,7 +368,7 @@ const PlanBEstatePlanWill = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Key Life Changes Since Last Review? 
+                    Key Life Changes Since Last Review?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -371,14 +384,59 @@ const PlanBEstatePlanWill = () => {
                     ]}
                   >
                     Date last reviewed : {planBEstatePlanWill[0].Date_last_reviewed}
-                  </Text>                  
+                  </Text>
                 </View>
               </>
             }
             {activeTab == 1 &&
               <>
-                <Text>DashBoard Tab</Text>
-                {/* <View style={[styles.advice]}>
+                <ChapterTab
+                  tabs={users}
+                  activeTab={activeUserTab}
+                  onTabPress={handleUserTabPress}
+                  type="tab"
+                />
+                {activeUserTab == 0 &&
+                  <>
+                    <View style={[styles.advicecontainer]}>
+                      <Text style={[styles.adviceAssignedBy, styles.summaryTypo]}>
+                      User 1 
+                      </Text>
+                      <View
+                        style={[styles.advice2, styles.advice2Layout, styles.adviceBg]}
+                      >
+                        <View style={[styles.advice1Parent, styles.mt10]}>
+
+                          {profile[0]?.Record_Image && 
+                            <>
+                            <Text>{profile[0]?.Record_Image}:{user1Image}</Text>
+                            <Image source={{ uri: user1Image }} style={{ width: 500, height: 500,borderWidth: 1 }} />
+                            </>                            
+                          }
+                        
+                        </View>
+                      </View>
+                    </View>
+                  </>
+                }
+                {activeUserTab == 1 &&
+                  <>
+                    <View style={[styles.advicecontainer]}>
+                      <Text style={[styles.adviceAssignedBy, styles.summaryTypo]}>
+                        User 2
+                      </Text>
+                      <View
+                        style={[styles.advice2, styles.advice2Layout, styles.adviceBg]}
+                      >
+                        <View style={[styles.advice1Parent, styles.mt10]}>
+                          <Text>User 2</Text>
+                        </View>
+                      </View>
+                    </View>
+                  </>
+                }
+                {/*           
+                <View style={[styles.advice]}>
                   <View style={styles.users}>
                     <View style={styles.loginuser}>
                       <View
@@ -414,16 +472,16 @@ const PlanBEstatePlanWill = () => {
                       ]}
                     >{profile[0]?.Account_Name?.name}</Text>
                   </View>
-                </View>
-                <View style={[styles.balance]}>
+                </View>*/}
+                {/* <View style={[styles.balance]}>
                   <Text style={[styles.balanceText]}>${totalCurrentBalance?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
                   <Text>{Object.keys(balanceByOwner)[0]} : ${balanceByOwner[Object.keys(balanceByOwner)[0]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
                   {Object.keys(balanceByOwner)[1] && <Text>{Object.keys(balanceByOwner)[1]} : ${balanceByOwner[Object.keys(balanceByOwner)[1]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>}
                   
 
                   <Text style={[styles.balanceNextLine]}>Balance</Text>
-                </View>
-                <View>
+                </View> */}
+                {/* <View>
                   {charData && <LineChart
                     data={charData}
                     width={screenWidth - 10}
@@ -437,8 +495,8 @@ const PlanBEstatePlanWill = () => {
                       borderRadius: 16
                     }}
                   />}
-                </View>
-                <View>
+                </View> */}
+                {/* <View>
                   <Text style={styles.performance}>Performance</Text>
                   <PerformanceTable performanceData={performanceData} />
                 </View>
@@ -558,8 +616,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     marginTop: 20,
-    marginLeft:10,
-    marginBottom:10
+    marginLeft: 10,
+    marginBottom: 10
   },
   balanceNextLine: {
     fontSize: 12,

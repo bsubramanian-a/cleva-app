@@ -16,6 +16,7 @@ type EmailInputType = {
   emailInputMarginTop?: number | string;
   setText?:any;
   isPassword?:boolean;
+  initialValue?:string;
 };
 
 const getStyleValue = (key: string, value: string | number | undefined) => {
@@ -33,7 +34,8 @@ const PasswordInput = ({
   emailInputPaddingVertical,
   emailInputMarginTop,
   setText,
-  isPassword
+  isPassword,
+  initialValue
 }: EmailInputType) => {
   const emailInputStyle = useMemo(() => {
     return {
@@ -67,6 +69,7 @@ const PasswordInput = ({
         placeholderTextColor={"#AAA9A8"}
         secureTextEntry={!isPasswordVisible}
         onChangeText={(text) => setText(text)}
+        value={initialValue}
       />
       <TouchableOpacity
         style={styles.eyeIconContainer}
