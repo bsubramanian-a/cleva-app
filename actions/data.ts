@@ -473,6 +473,19 @@ export const updateProfile = (data: any) => {
   });
 };
 
+export const updatePlanBEstatePlanWill = (data: any) => {
+  console.log("updatePlanBEstatePlanWill data coming in action", data);
+  return new Promise((resolve, reject) => {
+    return apiPut(PLAN_B_ESTATE_PLAN_WILL, data)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
 export const updateOtherProfileDetails = (data: any, url: string) => {
   return new Promise((resolve, reject) => {
     return apiPut(url, data)
@@ -576,4 +589,8 @@ export const createZoomMeeting = (data: any) => {
       });
   });
 };
+
+function CREATE_MEETING(CREATE_MEETING: any, data: any) {
+  throw new Error('Function not implemented.');
+}
 

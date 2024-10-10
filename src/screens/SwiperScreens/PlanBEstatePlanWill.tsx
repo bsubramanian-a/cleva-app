@@ -59,6 +59,7 @@ const PlanBEstatePlanWill = () => {
   // const assets = useSelector((state: any) => state.data.assets);
   // const liabilities = useSelector((state: any) => state.data.liabilities);
   // const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
+  const activeUsers: string[] = [];
 
   console.log("profile", profile);
   // // console.log("advices", advices);
@@ -76,12 +77,17 @@ const PlanBEstatePlanWill = () => {
   const [charData, setChartData] = useState<any>(null);
   const [performanceData, setPerformanceData] = useState<any>(null);
   const [assetData, setAssetData] = useState<any>(null);
-  const users = ["User 1 : Daniel", "User 2: Fleur"];
   const [user1Image, setUser1Image] = useState<any>("");
 
   useEffect(() => {
-    if (profile[0]?.Record_Image) {
-      setUser1Image("https://www.zohoapis.com/crm/v2/Contacts/"+profile[0]?.Record_Image+"/photo")
+    // if (profile[0]?.Record_Image) {
+    //   setUser1Image("https://www.zohoapis.com/crm/v2/Contacts/"+profile[0]?.Record_Image+"/photo")
+    // }
+    if (profile[0]?.Full_Name) {
+      activeUsers.push(`User 1 : ${profile[0]?.Full_Name}`);
+    }
+    if (profile[1]?.Full_Name) {
+      activeUsers.push(`User 2 : ${profile[1]?.Full_Name}`);
     }
   }, [profile]);
 
@@ -286,7 +292,9 @@ const PlanBEstatePlanWill = () => {
   //   legend: ["Dan Rake", "Daniel Rake"] // optional
   // };
 
-
+  const editProfile = (profile: any) => {
+    navigation.navigate('EditPlanBEstatePlanWill', { profile });
+  };
 
   return (
     <>
@@ -391,35 +399,103 @@ const PlanBEstatePlanWill = () => {
             {activeTab == 1 &&
               <>
                 <ChapterTab
-                  tabs={users}
+                  tabs={activeUsers}
                   activeTab={activeUserTab}
                   onTabPress={handleUserTabPress}
-                  type="tab"
+                  type="user-tab"
                 />
-                {activeUserTab == 0 &&
+                {activeUserTab == 0 && profile[0]?.Full_Name &&
                   <>
-                    <View style={[styles.advicecontainer]}>
-                      <Text style={[styles.adviceAssignedBy, styles.summaryTypo]}>
-                      User 1 
-                      </Text>
-                      <View
-                        style={[styles.advice2, styles.advice2Layout, styles.adviceBg]}
-                      >
-                        <View style={[styles.advice1Parent, styles.mt10]}>
-
-                          {profile[0]?.Record_Image && 
-                            <>
-                            <Text>{profile[0]?.Record_Image}:{user1Image}</Text>
-                            <Image source={{ uri: user1Image }} style={{ width: 500, height: 500,borderWidth: 1 }} />
-                            </>                            
-                          }
-                        
-                        </View>
-                      </View>
+                    <View style={styles.editRow}>
+                      <Text style={styles.subHeading}>{profile[0]?.Full_Name}</Text>
+                      <Pressable onPress={() => editProfile(profile)} style={{ marginTop: 5 }}>
+                        <Image
+                          style={styles.vuesaxlinearedit}
+                          resizeMode="cover"
+                          source={require('../../assets/edit.png')}
+                        />
+                      </Pressable>
                     </View>
+                    <View style={styles.itemContainer}>
+                      <View style={styles.itemContent}>
+                        {/* <Image
+                          style={styles.vuesaxlinearprofileCircle}
+                          resizeMode="contain"
+                          source={icon}
+                        /> */}
+                        <Text style={styles.name}>Do you have a benificiery for your super fund?</Text>
+                      </View>
+                      <Text style={styles.value}>{profile[0].Super_Fund_Beneficiary}</Text>
+                    </View>
+                    <View style={styles.itemContainer}>
+                      <View style={styles.itemContent}>
+                        {/* <Image
+                          style={styles.vuesaxlinearprofileCircle}
+                          resizeMode="contain"
+                          source={icon}
+                        /> */}
+                        <Text style={styles.name}>Beneficiary Name </Text>
+                      </View>
+                      <Text style={styles.value}>{profile[0].If_Yes_Beneficiary_Name_s}</Text>
+                    </View>
+                    <View style={styles.itemContainer}>
+                      <View style={styles.itemContent}>
+                        {/* <Image
+                          style={styles.vuesaxlinearprofileCircle}
+                          resizeMode="contain"
+                          source={icon}
+                        /> */}
+                        <Text style={styles.name}>Do you have a Will?</Text>
+                      </View>
+                      <Text style={styles.value}>{profile[0].Do_you_have_a_Will}</Text>
+                    </View>
+                    <View style={styles.itemContainer}>
+                      <View style={styles.itemContent}>
+                        {/* <Image
+                          style={styles.vuesaxlinearprofileCircle}
+                          resizeMode="contain"
+                          source={icon}
+                        /> */}
+                        <Text style={styles.name}>is it current?</Text>
+                      </View>
+                      <Text style={styles.value}>{profile[0].Is_it_up_to_date}</Text>
+                    </View>
+                    <View style={styles.itemContainer}>
+                      <View style={styles.itemContent}>
+                        {/* <Image
+                          style={styles.vuesaxlinearprofileCircle}
+                          resizeMode="contain"
+                          source={icon}
+                        /> */}
+                        <Text style={styles.name}>Location of Will</Text>
+                      </View>
+                      <Text style={styles.value}>{profile[0].Location_of_Will}</Text>
+                    </View>
+                    <View style={styles.itemContainer}>
+                      <View style={styles.itemContent}>
+                        {/* <Image
+                          style={styles.vuesaxlinearprofileCircle}
+                          resizeMode="contain"
+                          source={icon}
+                        /> */}
+                        <Text style={styles.name}>Executor of Will</Text>
+                      </View>
+                      <Text style={styles.value}>{profile[0].Executor_of_the_Will}</Text>
+                    </View>
+                    <View style={styles.itemContainer}>
+                      <View style={styles.itemContent}>
+                        {/* <Image
+                          style={styles.vuesaxlinearprofileCircle}
+                          resizeMode="contain"
+                          source={icon}
+                        /> */}
+                        <Text style={styles.name}>Do you have a POA?</Text>
+                      </View>
+                      <Text style={styles.value}>{profile[0].Do_you_have_a_POA[0]}</Text>
+                    </View>                    
                   </>
                 }
-                {activeUserTab == 1 &&
+                {activeUserTab == 1 && profile[1]?.Full_Name &&
                   <>
                     <View style={[styles.advicecontainer]}>
                       <Text style={[styles.adviceAssignedBy, styles.summaryTypo]}>
@@ -435,75 +511,6 @@ const PlanBEstatePlanWill = () => {
                     </View>
                   </>
                 }
-                {/*           
-                <View style={[styles.advice]}>
-                  <View style={styles.users}>
-                    <View style={styles.loginuser}>
-                      <View
-                        style={[styles.frWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && { marginRight: -5 }]}
-                      >
-                        <Text style={styles.dr}>
-                          {profile?.length > 0 && (
-                            (profile[0]?.First_Name && profile[0]?.Last_Name)
-                              ? (profile[0]?.First_Name.charAt(0) + profile[0]?.Last_Name.charAt(0))
-                              : ((profile[0]?.First_Name || profile[0]?.Last_Name) || '').slice(0, 2)
-                          )}
-                        </Text>
-                      </View>
-                      {
-                        profile[0]?.accounts?.length > 0 &&
-                        <View style={[styles.drWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && { marginLeft: -5 }]}>
-                          <Text style={styles.dr}>
-                            {profile[0]?.accounts?.length > 0 && (
-                              (profile[0]?.accounts[0]?.First_Name && profile[0]?.accounts[0]?.Last_Name)
-                                ? (profile[0]?.accounts[0]?.First_Name.charAt(0) + profile[0]?.accounts[0]?.Last_Name.charAt(0))
-                                : ((profile[0]?.accounts[0]?.First_Name || profile[0]?.accounts[0]?.Last_Name) || '').slice(0, 2)
-                            )}
-                          </Text>
-                        </View>
-                      }
-                    </View>
-                    <Text
-                      style={[
-                        styles.danFleur,
-                        styles.mt26,
-                        styles.mTypo,
-                        styles.danFleurClr,
-                      ]}
-                    >{profile[0]?.Account_Name?.name}</Text>
-                  </View>
-                </View>*/}
-                {/* <View style={[styles.balance]}>
-                  <Text style={[styles.balanceText]}>${totalCurrentBalance?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
-                  <Text>{Object.keys(balanceByOwner)[0]} : ${balanceByOwner[Object.keys(balanceByOwner)[0]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
-                  {Object.keys(balanceByOwner)[1] && <Text>{Object.keys(balanceByOwner)[1]} : ${balanceByOwner[Object.keys(balanceByOwner)[1]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>}
-                  
-
-                  <Text style={[styles.balanceNextLine]}>Balance</Text>
-                </View> */}
-                {/* <View>
-                  {charData && <LineChart
-                    data={charData}
-                    width={screenWidth - 10}
-                    height={220}
-                    chartConfig={chartConfig}
-                    bezier
-                    yAxisLabel="$"
-                    style={{
-                      marginLeft: 10,
-                      marginRight: 10,
-                      borderRadius: 16
-                    }}
-                  />}
-                </View> */}
-                {/* <View>
-                  <Text style={styles.performance}>Performance</Text>
-                  <PerformanceTable performanceData={performanceData} />
-                </View>
-                <View>
-                  <Text style={styles.performance}>Asset Allocation</Text>
-                  <AssetAllocation assetData={assetData} />
-                </View> */}
               </>
             }
             {activeTab == 2 &&
@@ -611,6 +618,49 @@ const PlanBEstatePlanWill = () => {
 };
 
 const styles = StyleSheet.create({
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    // marginBottom: 5,
+    width: '100%',
+    padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  itemContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  }, 
+  vuesaxlinearprofileCircle: {
+    width: 20,
+    height: 20,
+    marginRight: 9
+  }, 
+  name: {
+    marginRight: 10,
+    color: '#4B4B4B'
+  },
+  value: {
+    fontWeight: 'bold',
+    color: '#000'
+  },
+  vuesaxlinearedit: {
+    width: 20,
+    height: 20,
+  },
+  editRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop:5,
+  },
+  subHeading: {
+    color: "#FBB142",
+    fontSize: 14,
+    fontWeight: "600"
+  },
   performance: {
     color: Color.black,
     fontSize: 16,

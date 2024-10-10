@@ -24,6 +24,9 @@ const ChapterTab = ({ tabs, activeTab, onTabPress, type }:any) => {
           </Text>
           {(activeTab === index && type == "tab") && <View style={[styles.activeTabItemLine, {left: index == 0 ? 16 : (index == 1 ? 12 : (index == 2)? 22 : 12) } ]} />}
           {(activeTab === index && type == "subtab") && <View style={[styles.activeTabItemLine, {left: index == 0 ? 30 : (index == 1 ? 20 : (index == 2)? 43 : 12) } ]} />}
+          {(activeTab === index && type == "user-tab") && <View style={[styles.activeTabItemLine, {left: index == 0 ? 30 : (index == 1 ? 20 : (index == 2)? 43 : 12) } ]} />}
+
+          
         </TouchableOpacity>
       ))}
     </View>
@@ -36,7 +39,7 @@ const styles = StyleSheet.create({
   },
   tabsContainer: {
     flexDirection: 'row',
-    marginBottom:20
+    marginBottom:5
   },
   tabItem: {
     flex: 1,
