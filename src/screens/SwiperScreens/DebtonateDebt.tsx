@@ -227,7 +227,7 @@ const DebtonateDebt = () => {
   const getDatas = async () => {
     setLoading(true);
     try {
-      await actions.getPlanBEstatePlanWill();
+      await actions.getDebtonateDebt();
       await actions.getNotes();
       await actions.getCoachNotes();
     } catch (err) {
@@ -324,12 +324,12 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Have a Will/Estate Plan?
+                    Current Debt IR & Fees?
                   </Text>
                   <Image
                     style={[styles.frameChild]}
                     resizeMode="cover"
-                    source={imageMap[debtonateDebt[0].Have_a_Will_Estate_Plan]}
+                    source={imageMap[debtonateDebt[0].Current_Debt_IR_Fees]}
                   />
 
                 </View>
@@ -340,12 +340,12 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Estate Plan Will Up To Date?
+                    Have a Plan and Priority?
                   </Text>
                   <Image
                     style={styles.frameChild}
                     resizeMode="cover"
-                    source={imageMap[debtonateDebt[0].Estate_Plan_Will_Up_To_Date]}
+                    source={imageMap[debtonateDebt[0].Have_a_Plan_and_Priority]}
                   />
                 </View>
                 <View style={[styles.summary1]}>
@@ -355,12 +355,12 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Key Life Changes Since Last Review? 
+                    12 Month Goal? 
                   </Text>
                   <Image
                     style={styles.frameChild}
                     resizeMode="cover"
-                    source={imageMap[debtonateDebt[0].Key_Life_Changes_Since_Last_Review]}
+                    source={imageMap[debtonateDebt[0].Month_Goal]}
                   />
                 </View>
                 <View style={[styles.summary1]}>
@@ -370,8 +370,58 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Date last reviewed : {debtonateDebt[0].Date_last_reviewed}
-                  </Text>                  
+                    Control CC & PD? 
+                  </Text>
+                  <Image
+                    style={styles.frameChild}
+                    resizeMode="cover"
+                    source={imageMap[debtonateDebt[0].Control_CC_PD]}
+                  />
+                </View>
+                <View style={[styles.summary1]}>
+                  <Text
+                    style={[
+                      styles.loremIpsumIs,
+                      styles.myExercisesTypo,
+                    ]}
+                  >
+                    Avoid Buy Now Pay Later? 
+                  </Text>
+                  <Image
+                    style={styles.frameChild}
+                    resizeMode="cover"
+                    source={imageMap[debtonateDebt[0].Avoid_Buy_Now_Pay_Later]}
+                  />
+                </View>
+                <View style={[styles.summary1]}>
+                  <Text
+                    style={[
+                      styles.loremIpsumIs,
+                      styles.myExercisesTypo,
+                    ]}
+                  >
+                    Contribute Just a Bit More? 
+                  </Text>
+                  <Image
+                    style={styles.frameChild}
+                    resizeMode="cover"
+                    source={imageMap[debtonateDebt[0].Contribute_Just_a_Bit_More]}
+                  />
+                </View>
+                <View style={[styles.summary1]}>
+                  <Text
+                    style={[
+                      styles.loremIpsumIs,
+                      styles.myExercisesTypo,
+                    ]}
+                  >
+                    Align to Pay Cycle? 
+                  </Text>
+                  <Image
+                    style={styles.frameChild}
+                    resizeMode="cover"
+                    source={imageMap[debtonateDebt[0].Align_to_Pay_Cycle]}
+                  />
                 </View>
               </>
             }
@@ -468,7 +518,7 @@ const DebtonateDebt = () => {
                         <View style={[styles.advice1Parent, styles.mt10]}>
                           {notes?.length > 0 && <>
                             {notes?.map((note: any) => {
-                              if (note?.Current == "Yes" && note?.Module == "Estate Plan/Will") {
+                              if (note?.Current == "Yes" && note?.Module == "Debtonate Debt") {
                                 return (
                                   <>
                                     <View style={styles.advice11}>
@@ -501,7 +551,7 @@ const DebtonateDebt = () => {
                         <View style={[styles.advice1Parent, styles.mt10]}>
                           {coachnotes?.length > 0 && <>
                             {coachnotes?.map((note: any) => {
-                              if (note?.Current == "Yes" && note?.Module == "Estate Plan/Will") {
+                              if (note?.Current == "Yes" && note?.Module == "r") {
                                 return (
                                   <>
                                     <View style={styles.advice11}>
