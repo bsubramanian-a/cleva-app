@@ -30,16 +30,6 @@ import Loader from "../../components/Loader";
 import VideoPlayer from "../../components/VideoPlayer";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
-} from "react-native-chart-kit";
-import PerformanceTable from "../../components/PerformanceTable";
-import AssetAllocation from "../../components/AssetAllocation";
 
 const MoneyAutoDrive = () => {
   const navigation: any = useNavigation();
@@ -47,146 +37,17 @@ const MoneyAutoDrive = () => {
   const data = route.params?.item;
   console.log("data", data)
   const [loading, setLoading] = useState(false);
-  // const exercises = useSelector((state: any) => state.data.exercises);
-  // const summary = useSelector((state: any) => state.data.summary);
-  // const advices = useSelector((state: any) => state.data.advices);
   const moneyOnAutoDrive = useSelector((state: any) => state.data.moneyOnAutoDrive);
-  // const supersorted = useSelector((state: any) => state.data.supersorted);
-  // const rollingAccountBalance: any = useSelector((state: any) => state.data.rollingAccountBalance);
   const notes = useSelector((state: any) => state.data.notes);
   const coachnotes = useSelector((state: any) => state.data.coachnotes);
-  // const profile = useSelector((state: any) => state.data.profile);
-  // const assets = useSelector((state: any) => state.data.assets);
-  // const liabilities = useSelector((state: any) => state.data.liabilities);
-  // const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
+  const houseHoldExpenses = useSelector((state: any) => state.data.householdExpenses);
 
-  // console.log("profile", profile);
-  // // console.log("advices", advices);
-  // console.log("supersorted", supersorted);
-  // console.log("rollingAccountBalance", rollingAccountBalance);
+  console.log("houseHoldExpenses", houseHoldExpenses);
   console.log("notes", notes);
   console.log("coachnotes", coachnotes);
   console.log("moneyOnAutoDrive", moneyOnAutoDrive);
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
-
-  const [totalCurrentBalance, setTotalCurrentBalance] = useState<number>(0);
-  const [balanceByOwner, setBalanceByOwner] = useState<any>(null);
-  const [charData, setChartData]  = useState<any>(null);
-  const [performanceData, setPerformanceData] = useState<any>(null);
-  const [assetData, setAssetData] = useState<any>(null);
-
-  // useEffect(() => {
-  //   if (rollingAccountBalance && Object.keys(rollingAccountBalance).length > 0) {
-  //     // Perform calculations here
-  //     console.log('rollingAccountBalance loaded:', rollingAccountBalance);
-  //     setData(rollingAccountBalance)
-  //   }
-  // }, [rollingAccountBalance]);
-
-  // useEffect(() => {
-  //   if (supersorted && supersorted.length > 0) {
-  //     // Perform calculations here
-  //     console.log('supersorted loaded:', supersorted);
-  //     setPData(supersorted)
-  //     setAData(supersorted)
-  //   }
-  // }, [supersorted]);
-
-  // const setPData = (supersorted: any) => {
-  //   const performanceData = [
-  //     ['', '6M', '1Y', '3Y', '5Y'],
-  //     ['Actual', supersorted[0].Month_Actual + "%", supersorted[0].Year_Actual1 + "%",supersorted[0].Year_Actual2 + "%",supersorted[0].Year_Actual + "%"],
-  //     ['Benchmark', supersorted[0].Month_Benchmark + "%", supersorted[0].Year_Benchmark2 + "%",supersorted[0].Year_Benchmark + "%",supersorted[0].Year_Benchmark1 + "%"],
-  //     ['Outperformance', supersorted[0].Month_Outperformance + "%", supersorted[0].Year_Outperformance + "%",supersorted[0].Year_Outperformance2 + "%",supersorted[0].Year_Outperformance1 + "%"],
-  //   ];
-  //   setPerformanceData(performanceData);
-  // }
-
-  // const setAData = (supersorted: any) => {
-  //   const assetData = [
-  //     ['Actual Asset Allocation Total', supersorted[0].Formula_2 ?? 0, 'Target Asset Allocation Total', supersorted[0].Formula_1 ?? 0],
-  //     ['International Equities', (supersorted[0].International_Equities_Actual ?? 0) + "%", (supersorted[0].International_Equities ?? 0) + "%", 'Australian Equities', (supersorted[0].Australian_Equities_Actual ?? 0) + "%", (supersorted[0].Australian_Equities ?? 0) + "%"],
-  //     ['Property', (supersorted[0].Property_Actual ?? 0) + "%", (supersorted[0].Property ?? 0) + "%", 'Infrastructure', (supersorted[0].Infrastructure_Actual ?? 0) + "%", (supersorted[0].Infrastructure ?? 0) + "%"],
-  //     ['International Fixed Income', (supersorted[0].Intnl_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Intnl_Fixed_Income ?? 0) + "%", 'Australian Fixed Income', (supersorted[0].Aust_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Aust_Fixed_Income ?? 0) + "%"],
-  //   ];
-    
-  //   setAssetData(assetData);
-  // }
-
-  // const setData = (rollingAccountBalance: any) => {
-  //   // 1) Find the total of all Current_Balance
-  //   const totalCurrentBalance = rollingAccountBalance.reduce((acc: any, item: { Current_Balance: any; }) => acc + item.Current_Balance, 0);
-  //   console.log("Total Current Balance:", totalCurrentBalance);
-
-  //   setTotalCurrentBalance(totalCurrentBalance);
-
-  //   // 2) Find the total Current_Balance grouped by owner name
-  //   const balanceByOwner = rollingAccountBalance.reduce((acc: { [x: string]: any; }, item: { Owner: { name: any; }; Current_Balance: any; }) => {
-  //     const ownerName = item.Owner.name;
-  //     acc[ownerName] = (acc[ownerName] || 0) + item.Current_Balance;
-  //     return acc;
-  //   }, {});
-  //   console.log("Balance by Owner:", balanceByOwner);
-
-  //   setBalanceByOwner(balanceByOwner);
-
-  //   // 3) Create an array of unique As_At_Date for the current year and month
-  //   const currentYear = new Date().getFullYear();
-  //   const uniqueAsAtDates = rollingAccountBalance
-  //     .filter((item: { As_At_Date: string | number | Date; }) => {
-  //       const asAtDate = new Date(item.As_At_Date);
-  //       return asAtDate.getFullYear() === currentYear;
-  //     })
-  //     .map((item: { As_At_Date: string | number | Date; }) => {
-  //       const date = new Date(item.As_At_Date);
-  //       return `${date.toLocaleString('en-US', { month: 'short' })} ${date.getDate()}`;
-  //     })
-  //     .filter((value: any, index: any, self: string | any[]) => self.indexOf(value) === index);
-  //   console.log("Unique As_At_Dates:", uniqueAsAtDates);
-
-  //   const currentBalanceByOwnerAndDate = rollingAccountBalance.reduce((acc: { [x: string]: { [x: string]: any; }; }, item: { Owner: { name: any; }; As_At_Date: string | number | Date; Current_Balance: any; }) => {
-  //     const ownerName = item.Owner.name;
-  //     const asAtDate = new Date(item.As_At_Date);
-  //     const dateKey = `${asAtDate.toLocaleString('en-US', { month: 'short' })} ${asAtDate.getDate()}`;
-
-  //     if (!acc[dateKey]) {
-  //       acc[dateKey] = {};
-  //     }
-
-  //     if (!acc[dateKey][ownerName]) {
-  //       acc[dateKey][ownerName] = 0;
-  //     }
-
-  //     acc[dateKey][ownerName] += item.Current_Balance;
-  //     return acc;
-  //   }, {});
-
-  //   // Convert the object to an array of objects
-  //   const currentBalanceArray = Object.entries(currentBalanceByOwnerAndDate).map(([date, balances]) => ({
-  //     date,
-  //     balances
-  //   }));
-
-  //   console.log("Current Balance by Owner and Date:", currentBalanceArray);
-
-  //   const colors = ['rgba(151, 85, 182, 1)', 'rgba(239, 159, 39, 1)'];
-
-  //   // Create the desired JSON structure
-  //   const data = {
-  //     labels: uniqueAsAtDates,
-  //     datasets: Object.entries(currentBalanceByOwnerAndDate).map(([date, balances] : any, index) => ({ // Assuming only one owner per date
-  //       data: Object.values(balances),
-  //       color: (opacity = 1) => colors[index % colors.length], // Adjust color as needed
-  //       strokeWidth: 2 // Adjust strokeWidth as needed
-  //     })),
-  //     legend: Object.keys(balanceByOwner)
-  //   };
-
-  //   console.log(data);
-
-  //   setChartData(data);
-  // }
 
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
@@ -196,22 +57,7 @@ const MoneyAutoDrive = () => {
     setActiveSubTab(tabNumber);
   };
 
-  // useEffect(() => {
-  //   let totalAssets = 0;
-  //   let totalLiabilities = 0;
-
-  //   if (assets?.length > 0) {
-  //     totalAssets = parseFloat(assets.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
-  //   }
-
-  //   if (liabilities?.length > 0) {
-  //     totalLiabilities = parseFloat(liabilities.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
-  //   }
-
-  //   setTotalNetWorth(parseFloat((totalAssets - totalLiabilities)?.toFixed(1)));
-  // }, [assets, liabilities])
-
-  useEffect(() => {    
+  useEffect(() => {
 
     // Trigger the fetch when the navigation state changes
     navigation.addListener('focus', getDatas);
@@ -230,8 +76,9 @@ const MoneyAutoDrive = () => {
       await actions.getMoneyOnAutoDrive();
       await actions.getNotes();
       await actions.getCoachNotes();
+      await actions.getHouseHoldExpenses();
     } catch (err) {
-      console.log("err", err);      
+      console.log("err", err);
     }
     setLoading(false);
   }
@@ -243,37 +90,9 @@ const MoneyAutoDrive = () => {
     'No': require('../../assets/no.png'),
   };
 
-  const screenWidth = Dimensions.get("window").width;
-
-  const chartConfig = {
-    color: (opacity = 1) => `rgba(0,0, 0, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false,
-    backgroundColor: "#ffffff",
-    backgroundGradientFrom: "#ffffff",
-    backgroundGradientTo: "#ffffff",
-    decimalPlaces: 0,
+  const editHouseHold = (houseHoldExpenses: any) => {
+    navigation.navigate('EditMoneyAutoDrive', { houseHoldExpenses });
   };
-
-  // const lineGraphData = {
-  //   labels: ["Jun 18", "Jun 19"],
-  //   datasets: [
-  //     {
-  //       data: [275032],
-  //       color: (opacity = 1) => `rgba(239, 159, 39, ${opacity})`, // optional
-  //       strokeWidth: 2 // optional
-  //     },
-  //     {
-  //       data: [550081, 275046],
-  //       color: (opacity = 1) => `rgba(151, 85, 182, ${opacity})`, // optional
-  //       strokeWidth: 2 // optional
-  //     }
-  //   ],
-  //   legend: ["Dan Rake", "Daniel Rake"] // optional
-  // };
-
-  
 
   return (
     <>
@@ -282,7 +101,7 @@ const MoneyAutoDrive = () => {
           style={styles.moneyOnAutoDrive}
         >
           <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-          <CustomHeader name={moneyOnAutoDrive[0].Name} type={2} />         
+          <CustomHeader name={moneyOnAutoDrive[0].Name} type={2} />
 
           <ScrollView
             style={styles.videoSectionParent}
@@ -316,7 +135,7 @@ const MoneyAutoDrive = () => {
               type="tab"
             />
             {activeTab == 0 &&
-              <>              
+              <>
                 <View style={[styles.summary1]}>
                   <Text
                     style={[
@@ -355,7 +174,7 @@ const MoneyAutoDrive = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Turn On & Maintain MOAD? 
+                    Turn On & Maintain MOAD?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -370,14 +189,14 @@ const MoneyAutoDrive = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Review Every 12 months? 
+                    Review Every 12 months?
                   </Text>
                   <Image
                     style={styles.frameChild}
                     resizeMode="cover"
                     source={imageMap[moneyOnAutoDrive[0].Review_Every_12_months]}
                   />
-                </View>                
+                </View>
                 <View style={[styles.summary1]}>
                   <Text
                     style={[
@@ -386,81 +205,66 @@ const MoneyAutoDrive = () => {
                     ]}
                   >
                     Date last reviewed : {moneyOnAutoDrive[0].Last_Reviewed}
-                  </Text>                  
+                  </Text>
                 </View>
               </>
             }
             {activeTab == 1 &&
               <>
-                <Text>DashBoard Tab</Text>
-                {/* <View style={[styles.advice]}>
-                  <View style={styles.users}>
-                    <View style={styles.loginuser}>
-                      <View
-                        style={[styles.frWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && { marginRight: -5 }]}
-                      >
-                        <Text style={styles.dr}>
-                          {profile?.length > 0 && (
-                            (profile[0]?.First_Name && profile[0]?.Last_Name)
-                              ? (profile[0]?.First_Name.charAt(0) + profile[0]?.Last_Name.charAt(0))
-                              : ((profile[0]?.First_Name || profile[0]?.Last_Name) || '').slice(0, 2)
-                          )}
-                        </Text>
-                      </View>
+                <View style={styles.editRow}>
+                  <Text style={styles.subHeading}>{houseHoldExpenses[0]?.Name}</Text>
+                  <Pressable onPress={() => editHouseHold(houseHoldExpenses)} style={{ marginTop: 5 }}>
+                    <Image
+                      style={styles.vuesaxlinearedit}
+                      resizeMode="cover"
+                      source={require('../../assets/edit.png')}
+                    />
+                  </Pressable>
+                </View>                
+                
+                <View style={styles.listContainer}>
+                  <View style={styles.listContent}>
+                    <Text style={styles.listName}>Gas</Text>                    
+                  </View> 
+                  {
+                    houseHoldExpenses && houseHoldExpenses[0]?.Gas_p_a ?
+                      <Text style={styles.listValue}>${houseHoldExpenses[0].Gas_p_a} p.a.</Text>
+                      :
+                      <Text style={styles.listValue}>N/A</Text>
+                    }                 
+                  <Pressable onPress={() => editHouseHold(houseHoldExpenses)} style={styles.editButton}>
+                    <Image
+                      style={styles.editIcon}
+                      resizeMode="cover"
+                      source={require('../../assets/up.png')}
+                    />
+                  </Pressable>
+                </View>
+                <View style={styles.subListContainer}>
+                  <View style={styles.subListContent}>
+                    {
+                      houseHoldExpenses && houseHoldExpenses[0]?.Gas_Pay_Frequency ?
+                        <Text style={styles.subListName}>Frequency : {houseHoldExpenses[0].Gas_Pay_Frequency}</Text>
+                        :
+                        <Text style={styles.subListName}>Frequency : N/A</Text>
+                    }
+                    {
+                      houseHoldExpenses && houseHoldExpenses[0]?.Gas_Pay_Amount ?
+                        <Text style={styles.subListName}>Payment Amount :{houseHoldExpenses[0].Gas_Pay_Amount}</Text>
+                        :
+                        <Text style={styles.subListName}>Payment Amount : N/A</Text>
+                    }
+                  </View>
+                  <View style={styles.subListContent}>
+                    <View>
+                      <Text style={styles.subListName}>Paid by : 
                       {
-                        profile[0]?.accounts?.length > 0 &&
-                        <View style={[styles.drWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && { marginLeft: -5 }]}>
-                          <Text style={styles.dr}>
-                            {profile[0]?.accounts?.length > 0 && (
-                              (profile[0]?.accounts[0]?.First_Name && profile[0]?.accounts[0]?.Last_Name)
-                                ? (profile[0]?.accounts[0]?.First_Name.charAt(0) + profile[0]?.accounts[0]?.Last_Name.charAt(0))
-                                : ((profile[0]?.accounts[0]?.First_Name || profile[0]?.accounts[0]?.Last_Name) || '').slice(0, 2)
-                            )}
-                          </Text>
-                        </View>
+                        houseHoldExpenses && houseHoldExpenses[0]?.Household.name?" "+houseHoldExpenses[0]?.Household.name:'N/A'
                       }
+                      </Text>
                     </View>
-                    <Text
-                      style={[
-                        styles.danFleur,
-                        styles.mt26,
-                        styles.mTypo,
-                        styles.danFleurClr,
-                      ]}
-                    >{profile[0]?.Account_Name?.name}</Text>
                   </View>
                 </View>
-                <View style={[styles.balance]}>
-                  <Text style={[styles.balanceText]}>${totalCurrentBalance?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
-                  <Text>{Object.keys(balanceByOwner)[0]} : ${balanceByOwner[Object.keys(balanceByOwner)[0]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
-                  {Object.keys(balanceByOwner)[1] && <Text>{Object.keys(balanceByOwner)[1]} : ${balanceByOwner[Object.keys(balanceByOwner)[1]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>}
-                  
-
-                  <Text style={[styles.balanceNextLine]}>Balance</Text>
-                </View>
-                <View>
-                  {charData && <LineChart
-                    data={charData}
-                    width={screenWidth - 10}
-                    height={220}
-                    chartConfig={chartConfig}
-                    bezier
-                    yAxisLabel="$"
-                    style={{
-                      marginLeft: 10,
-                      marginRight: 10,
-                      borderRadius: 16
-                    }}
-                  />}
-                </View>
-                <View>
-                  <Text style={styles.performance}>Performance</Text>
-                  <PerformanceTable performanceData={performanceData} />
-                </View>
-                <View>
-                  <Text style={styles.performance}>Asset Allocation</Text>
-                  <AssetAllocation assetData={assetData} />
-                </View> */}
               </>
             }
             {activeTab == 2 &&
@@ -543,24 +347,8 @@ const MoneyAutoDrive = () => {
               </View>
             }
           </ScrollView>
-          {/* {(activeTab == 1 || activeTab == 2) &&
-            <LinearGradient
-              style={[styles.bottom, styles.bottomFlexBox]}
-              locations={[0, 1]}
-              colors={["#fbb142", "#f6a326"]}
-              useAngle={true}
-              angle={180}
-            >
-              <Pressable>
-                <Text style={{ color: "#fff" }}>Continue</Text>
-              </Pressable>
-            </LinearGradient>
-          } */}
         </View>
         : <View style={styles.moneyOnAutoDrive}>
-          {/* <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-          <CustomHeader name={"Super Sorted"} type={2} />
-          <Text style={styles.dataNotAvailable}>Data not available</Text> */}
           <Loader visible={loading} />
         </View>}
     </>
@@ -568,13 +356,96 @@ const MoneyAutoDrive = () => {
 };
 
 const styles = StyleSheet.create({
+  subListContainer: {
+    display: 'flex'
+  },
+  subListContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  subListName: {
+    marginLeft:10,
+    marginTop:3,
+    marginRight:10
+  },
+  listContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding:10,
+    paddingBottom:2,
+    borderColor: '#ddd',
+  },
+  listContent: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  listName: {
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  listValue: {
+    fontSize: 14,
+    marginLeft: 200
+  },
+  editButton: {
+    padding: 5
+  },
+  editIcon: {
+    width: 20,
+    height: 20,
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  itemContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  vuesaxlinearprofileCircle: {
+    width: 20,
+    height: 20,
+    marginRight: 9
+  },
+  name: {
+    marginRight: 10,
+    color: '#4B4B4B'
+  },
+  value: {
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  vuesaxlinearedit: {
+    width: 20,
+    height: 20,
+  },
+  editRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 5,
+  },
+  subHeading: {
+    color: "#FBB142",
+    fontSize: 14,
+    fontWeight: "600"
+  },
   performance: {
     color: Color.black,
     fontSize: 16,
     fontWeight: "600",
     marginTop: 20,
-    marginLeft:10,
-    marginBottom:10
+    marginLeft: 10,
+    marginBottom: 10
   },
   balanceNextLine: {
     fontSize: 12,

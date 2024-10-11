@@ -47,24 +47,13 @@ const PlanBEstatePlanWill = () => {
   const data = route.params?.item;
   console.log("data", data)
   const [loading, setLoading] = useState(false);
-  // const exercises = useSelector((state: any) => state.data.exercises);
-  // const summary = useSelector((state: any) => state.data.summary);
-  // const advices = useSelector((state: any) => state.data.advices);
   const planBEstatePlanWill = useSelector((state: any) => state.data.planBEstatePlanWill);
-  // const supersorted = useSelector((state: any) => state.data.supersorted);
-  // const rollingAccountBalance: any = useSelector((state: any) => state.data.rollingAccountBalance);
   const notes = useSelector((state: any) => state.data.notes);
   const coachnotes = useSelector((state: any) => state.data.coachnotes);
   const profile = useSelector((state: any) => state.data.profile);
-  // const assets = useSelector((state: any) => state.data.assets);
-  // const liabilities = useSelector((state: any) => state.data.liabilities);
-  // const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
   const activeUsers: string[] = [];
 
   console.log("profile", profile);
-  // // console.log("advices", advices);
-  // console.log("supersorted", supersorted);
-  // console.log("rollingAccountBalance", rollingAccountBalance);
   console.log("notes", notes);
   console.log("coachnotes", coachnotes);
   console.log("planBEstatePlanWill", planBEstatePlanWill);
@@ -72,12 +61,6 @@ const PlanBEstatePlanWill = () => {
   const [activeSubTab, setActiveSubTab] = useState(0);
   const [activeUserTab, setActiveUserTab] = useState(0);
 
-  const [totalCurrentBalance, setTotalCurrentBalance] = useState<number>(0);
-  const [balanceByOwner, setBalanceByOwner] = useState<any>(null);
-  const [charData, setChartData] = useState<any>(null);
-  const [performanceData, setPerformanceData] = useState<any>(null);
-  const [assetData, setAssetData] = useState<any>(null);
-  const [user1Image, setUser1Image] = useState<any>("");
 
   useEffect(() => {
     // if (profile[0]?.Record_Image) {
@@ -91,118 +74,6 @@ const PlanBEstatePlanWill = () => {
     }
   }, [profile]);
 
-  // useEffect(() => {
-  //   if (rollingAccountBalance && Object.keys(rollingAccountBalance).length > 0) {
-  //     // Perform calculations here
-  //     console.log('rollingAccountBalance loaded:', rollingAccountBalance);
-  //     setData(rollingAccountBalance)
-  //   }
-  // }, [rollingAccountBalance]);
-
-  // useEffect(() => {
-  //   if (supersorted && supersorted.length > 0) {
-  //     // Perform calculations here
-  //     console.log('supersorted loaded:', supersorted);
-  //     setPData(supersorted)
-  //     setAData(supersorted)
-  //   }
-  // }, [supersorted]);
-
-  // const setPData = (supersorted: any) => {
-  //   const performanceData = [
-  //     ['', '6M', '1Y', '3Y', '5Y'],
-  //     ['Actual', supersorted[0].Month_Actual + "%", supersorted[0].Year_Actual1 + "%",supersorted[0].Year_Actual2 + "%",supersorted[0].Year_Actual + "%"],
-  //     ['Benchmark', supersorted[0].Month_Benchmark + "%", supersorted[0].Year_Benchmark2 + "%",supersorted[0].Year_Benchmark + "%",supersorted[0].Year_Benchmark1 + "%"],
-  //     ['Outperformance', supersorted[0].Month_Outperformance + "%", supersorted[0].Year_Outperformance + "%",supersorted[0].Year_Outperformance2 + "%",supersorted[0].Year_Outperformance1 + "%"],
-  //   ];
-  //   setPerformanceData(performanceData);
-  // }
-
-  // const setAData = (supersorted: any) => {
-  //   const assetData = [
-  //     ['Actual Asset Allocation Total', supersorted[0].Formula_2 ?? 0, 'Target Asset Allocation Total', supersorted[0].Formula_1 ?? 0],
-  //     ['International Equities', (supersorted[0].International_Equities_Actual ?? 0) + "%", (supersorted[0].International_Equities ?? 0) + "%", 'Australian Equities', (supersorted[0].Australian_Equities_Actual ?? 0) + "%", (supersorted[0].Australian_Equities ?? 0) + "%"],
-  //     ['Property', (supersorted[0].Property_Actual ?? 0) + "%", (supersorted[0].Property ?? 0) + "%", 'Infrastructure', (supersorted[0].Infrastructure_Actual ?? 0) + "%", (supersorted[0].Infrastructure ?? 0) + "%"],
-  //     ['International Fixed Income', (supersorted[0].Intnl_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Intnl_Fixed_Income ?? 0) + "%", 'Australian Fixed Income', (supersorted[0].Aust_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Aust_Fixed_Income ?? 0) + "%"],
-  //   ];
-
-  //   setAssetData(assetData);
-  // }
-
-  // const setData = (rollingAccountBalance: any) => {
-  //   // 1) Find the total of all Current_Balance
-  //   const totalCurrentBalance = rollingAccountBalance.reduce((acc: any, item: { Current_Balance: any; }) => acc + item.Current_Balance, 0);
-  //   console.log("Total Current Balance:", totalCurrentBalance);
-
-  //   setTotalCurrentBalance(totalCurrentBalance);
-
-  //   // 2) Find the total Current_Balance grouped by owner name
-  //   const balanceByOwner = rollingAccountBalance.reduce((acc: { [x: string]: any; }, item: { Owner: { name: any; }; Current_Balance: any; }) => {
-  //     const ownerName = item.Owner.name;
-  //     acc[ownerName] = (acc[ownerName] || 0) + item.Current_Balance;
-  //     return acc;
-  //   }, {});
-  //   console.log("Balance by Owner:", balanceByOwner);
-
-  //   setBalanceByOwner(balanceByOwner);
-
-  //   // 3) Create an array of unique As_At_Date for the current year and month
-  //   const currentYear = new Date().getFullYear();
-  //   const uniqueAsAtDates = rollingAccountBalance
-  //     .filter((item: { As_At_Date: string | number | Date; }) => {
-  //       const asAtDate = new Date(item.As_At_Date);
-  //       return asAtDate.getFullYear() === currentYear;
-  //     })
-  //     .map((item: { As_At_Date: string | number | Date; }) => {
-  //       const date = new Date(item.As_At_Date);
-  //       return `${date.toLocaleString('en-US', { month: 'short' })} ${date.getDate()}`;
-  //     })
-  //     .filter((value: any, index: any, self: string | any[]) => self.indexOf(value) === index);
-  //   console.log("Unique As_At_Dates:", uniqueAsAtDates);
-
-  //   const currentBalanceByOwnerAndDate = rollingAccountBalance.reduce((acc: { [x: string]: { [x: string]: any; }; }, item: { Owner: { name: any; }; As_At_Date: string | number | Date; Current_Balance: any; }) => {
-  //     const ownerName = item.Owner.name;
-  //     const asAtDate = new Date(item.As_At_Date);
-  //     const dateKey = `${asAtDate.toLocaleString('en-US', { month: 'short' })} ${asAtDate.getDate()}`;
-
-  //     if (!acc[dateKey]) {
-  //       acc[dateKey] = {};
-  //     }
-
-  //     if (!acc[dateKey][ownerName]) {
-  //       acc[dateKey][ownerName] = 0;
-  //     }
-
-  //     acc[dateKey][ownerName] += item.Current_Balance;
-  //     return acc;
-  //   }, {});
-
-  //   // Convert the object to an array of objects
-  //   const currentBalanceArray = Object.entries(currentBalanceByOwnerAndDate).map(([date, balances]) => ({
-  //     date,
-  //     balances
-  //   }));
-
-  //   console.log("Current Balance by Owner and Date:", currentBalanceArray);
-
-  //   const colors = ['rgba(151, 85, 182, 1)', 'rgba(239, 159, 39, 1)'];
-
-  //   // Create the desired JSON structure
-  //   const data = {
-  //     labels: uniqueAsAtDates,
-  //     datasets: Object.entries(currentBalanceByOwnerAndDate).map(([date, balances] : any, index) => ({ // Assuming only one owner per date
-  //       data: Object.values(balances),
-  //       color: (opacity = 1) => colors[index % colors.length], // Adjust color as needed
-  //       strokeWidth: 2 // Adjust strokeWidth as needed
-  //     })),
-  //     legend: Object.keys(balanceByOwner)
-  //   };
-
-  //   console.log(data);
-
-  //   setChartData(data);
-  // }
-
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
   };
@@ -215,20 +86,6 @@ const PlanBEstatePlanWill = () => {
     setActiveUserTab(tabNumber);
   };
 
-  // useEffect(() => {
-  //   let totalAssets = 0;
-  //   let totalLiabilities = 0;
-
-  //   if (assets?.length > 0) {
-  //     totalAssets = parseFloat(assets.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
-  //   }
-
-  //   if (liabilities?.length > 0) {
-  //     totalLiabilities = parseFloat(liabilities.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
-  //   }
-
-  //   setTotalNetWorth(parseFloat((totalAssets - totalLiabilities)?.toFixed(1)));
-  // }, [assets, liabilities])
 
   useEffect(() => {
 
@@ -275,22 +132,6 @@ const PlanBEstatePlanWill = () => {
     decimalPlaces: 0,
   };
 
-  // const lineGraphData = {
-  //   labels: ["Jun 18", "Jun 19"],
-  //   datasets: [
-  //     {
-  //       data: [275032],
-  //       color: (opacity = 1) => `rgba(239, 159, 39, ${opacity})`, // optional
-  //       strokeWidth: 2 // optional
-  //     },
-  //     {
-  //       data: [550081, 275046],
-  //       color: (opacity = 1) => `rgba(151, 85, 182, ${opacity})`, // optional
-  //       strokeWidth: 2 // optional
-  //     }
-  //   ],
-  //   legend: ["Dan Rake", "Daniel Rake"] // optional
-  // };
 
   const editProfile = (profile: any) => {
     navigation.navigate('EditPlanBEstatePlanWill', { profile });
@@ -492,7 +333,7 @@ const PlanBEstatePlanWill = () => {
                         <Text style={styles.name}>Do you have a POA?</Text>
                       </View>
                       <Text style={styles.value}>{profile[0].Do_you_have_a_POA[0]}</Text>
-                    </View>                    
+                    </View>
                   </>
                 }
                 {activeUserTab == 1 && profile[1]?.Full_Name &&
@@ -593,24 +434,8 @@ const PlanBEstatePlanWill = () => {
               </View>
             }
           </ScrollView>
-          {/* {(activeTab == 1 || activeTab == 2) &&
-            <LinearGradient
-              style={[styles.bottom, styles.bottomFlexBox]}
-              locations={[0, 1]}
-              colors={["#fbb142", "#f6a326"]}
-              useAngle={true}
-              angle={180}
-            >
-              <Pressable>
-                <Text style={{ color: "#fff" }}>Continue</Text>
-              </Pressable>
-            </LinearGradient>
-          } */}
         </View>
         : <View style={styles.planBEstatePlanWill}>
-          {/* <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-          <CustomHeader name={"Super Sorted"} type={2} />
-          <Text style={styles.dataNotAvailable}>Data not available</Text> */}
           <Loader visible={loading} />
         </View>}
     </>
@@ -631,12 +456,12 @@ const styles = StyleSheet.create({
   itemContent: {
     flexDirection: 'row',
     alignItems: 'center',
-  }, 
+  },
   vuesaxlinearprofileCircle: {
     width: 20,
     height: 20,
     marginRight: 9
-  }, 
+  },
   name: {
     marginRight: 10,
     color: '#4B4B4B'
@@ -654,7 +479,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingTop:5,
+    paddingTop: 5,
   },
   subHeading: {
     color: "#FBB142",

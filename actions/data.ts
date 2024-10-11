@@ -195,6 +195,7 @@ export const getHouseHoldExpenses = () => {
   return new Promise((resolve, reject) => {
     return apiGet(HOUSEHOLD_EXP)
       .then(res => {
+        console.log("getHouseHoldExpenses res data",res.data);
         dispatch({
           type: types.HOUSEHOLD_EXP,
           payload: res.data,
