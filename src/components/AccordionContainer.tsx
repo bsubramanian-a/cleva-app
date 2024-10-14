@@ -28,8 +28,9 @@ const Accordion = ({
   activeAccordion,
   setActiveAccordion,
   navigation,
+  editable,
 }: any) => {
-  const isActive = activeAccordion === title;
+  const isActive = activeAccordion === title; 
 
   const toggleAccordion = () => {
     if (isActive) {
@@ -44,19 +45,31 @@ const Accordion = ({
   };
 
   return (
-    <View style={[styles.container, styles.aboutCard]}>
+    //{editable && (
+    <View style={[styles.container, !editable?styles.aboutCard:styles.normalCard]}>
       <TouchableOpacity
         style={[styles.excercise1, styles.frameParentFlexBox]}
         onPress={toggleAccordion}
       >
         <View style={styles.vuesaxlinearsmsParent}>
+        {!editable && (
           <View style={styles.vuesaxlinearprofileCircleWrapper}>
-            <Image
-              style={styles.vuesaxlinearprofileCircleIcon}
-              resizeMode="cover"
-              source={icon}
-            />
-          </View>
+          <Image
+            style={styles.vuesaxlinearprofileCircleIcon}
+            resizeMode="cover"
+            source={icon}
+          />
+        </View>
+        )}
+        {editable && (
+          <View>
+          <Image            
+            resizeMode="cover"
+            source={icon}
+          />
+        </View>
+        )}
+          
           <Text
             style={[
               styles.aboutYou,
@@ -78,8 +91,8 @@ const Accordion = ({
           {items.map((section: any, index: any) => (
             <View key={index.toString()}>
               {index == 0 && <View style={styles.lineStyle} />}
-              <View style={styles.editRow}>
-                <Text style={styles.subHeading}>{section.subHeading}</Text>
+              {!editable && <View style={styles.editRow}>
+                <Text style={styles.subHeading}>{section.subHeading} Editable : {editable}</Text>
                 <Pressable onPress={() => editProfile(index == 0 ? 'user1' : 'user2')} style={{ marginTop: 5 }}>
                   <Image
                     style={styles.vuesaxlinearedit}
@@ -87,10 +100,11 @@ const Accordion = ({
                     source={require('../assets/edit.png')}
                   />
                 </Pressable>
-              </View>
+              </View>}
+              
               {section.item.map((item: any, itemIndex: any) => {
                 const currentIcon = "../assets/profile.png";
-                const currentLabel = "Date Of Birth";
+                const currentLabel = item.name;
                 return (<React.Fragment key={itemIndex.toString()}>
                   <AccordionItem
                     icon={require(currentIcon)}
@@ -129,6 +143,7 @@ const AccordionContainer = ({ accordions }: any) => {
           activeAccordion={activeAccordion}
           setActiveAccordion={setActiveAccordion}
           navigation={navigation}
+          editable={accordion.editable}
         />
       ))}
     </View>
@@ -212,6 +227,9 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: Color.white1,
     marginBottom:10,
+  },
+  normalCard: {
+    padding: 10
   },
   vuesaxlinearsmsParent: {
     flexDirection: "row",

@@ -29,6 +29,7 @@ import actions from "../../../actions";
 import Loader from "../../components/Loader";
 import VideoPlayer from "../../components/VideoPlayer";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import AccordionContainer from "../../components/AccordionContainer";
 
 
 const MoneyAutoDrive = () => {
@@ -41,6 +42,8 @@ const MoneyAutoDrive = () => {
   const notes = useSelector((state: any) => state.data.notes);
   const coachnotes = useSelector((state: any) => state.data.coachnotes);
   const houseHoldExpenses = useSelector((state: any) => state.data.householdExpenses);
+  const [accordionHouseHold, setHouseHoldAccordion] = useState<any>([]);
+  const [accordionLoan, setLoanAccordion] = useState<any>([]);
 
   console.log("houseHoldExpenses", houseHoldExpenses);
   console.log("notes", notes);
@@ -69,6 +72,10 @@ const MoneyAutoDrive = () => {
 
   }, [navigation])
 
+  useEffect(() => {
+    setAccordions();
+  }, [houseHoldExpenses])
+
 
   const getDatas = async () => {
     setLoading(true);
@@ -94,6 +101,575 @@ const MoneyAutoDrive = () => {
     navigation.navigate('EditMoneyAutoDrive', { houseHoldExpenses });
   };
 
+  const calculatePaymentAmount = (pAMount: number, paymentFrequency: string) => {
+    switch (paymentFrequency) {
+      case "Weekly":
+        return (pAMount / 52).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      case "Fortnightly":
+        return (pAMount / 26).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      case "Monthly":
+        return (pAMount / 12).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      case "Quarterly":
+        return (pAMount / 4).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      case "Twice Yearly":
+        return (pAMount / 2).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      case "Annual":
+        return pAMount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      default:
+        return 0;
+    }
+  };
+
+  const setAccordions = () => {
+    setHouseHoldAccordion([
+      {
+        title: <>
+        <View style={styles.listContent}>
+          <Text style={styles.listName}>Gas</Text>  
+          {
+          houseHoldExpenses && houseHoldExpenses[0]?.Gas_p_a ?
+            <Text style={styles.listValue}>${(houseHoldExpenses[0]?.Gas_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} p.a.</Text>
+            :
+            <Text style={styles.listValue}>N/A</Text>
+          }                  
+        </View>         
+      </>,
+        icon: require("../../assets/money-send.png"),
+        link: 'EditProfile',
+        editable: true,
+        items: [
+          {
+            subHeading: "Gas",
+            item: [
+              { 
+                icon: "", 
+                name: 'Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Gas_p_a ? "$"+(houseHoldExpenses[0]?.Gas_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" p.a.":"N/A"
+              },
+              { 
+                icon: "", 
+                name: 'Frequency', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Gas_Pay_Frequency ? houseHoldExpenses[0].Gas_Pay_Frequency:"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Payment Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Gas_p_a ? "$" + calculatePaymentAmount(houseHoldExpenses[0]?.Gas_p_a, houseHoldExpenses[0]?.Gas_Pay_Frequency):"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Paid by', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Household?.name ? houseHoldExpenses[0]?.Household?.name:"N/A" 
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: <>
+        <View style={styles.listContent}>
+          <Text style={styles.listName}>Electricity</Text>  
+          {
+          houseHoldExpenses && houseHoldExpenses[0]?.Electricity_p_a ?
+            <Text style={styles.listValue}>${(houseHoldExpenses[0]?.Electricity_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} p.a.</Text>
+            :
+            <Text style={styles.listValue}>N/A</Text>
+          }                  
+        </View>         
+      </>,
+        icon: require("../../assets/money-send.png"),
+        link: 'EditProfile',
+        editable: true,
+        items: [
+          {
+            subHeading: "Electricity",
+            item: [
+              { 
+                icon: "", 
+                name: 'Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Electricity_p_a ? "$"+(houseHoldExpenses[0].Electricity_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" p.a.":"N/A"
+              },
+              { 
+                icon: "", 
+                name: 'Frequency', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Electricity_Pay_Frequency ? houseHoldExpenses[0].Electricity_Pay_Frequency:"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Payment Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Electricity_p_a ? "$" + calculatePaymentAmount(houseHoldExpenses[0]?.Electricity_p_a, houseHoldExpenses[0]?.Electricity_Pay_Frequency):"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Paid by', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Household?.name ? houseHoldExpenses[0]?.Household?.name:"N/A" 
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: <>
+        <View style={styles.listContent}>
+          <Text style={styles.listName}>Water</Text>  
+          {
+          houseHoldExpenses && houseHoldExpenses[0]?.Water_p_a ?
+            <Text style={styles.listValue}>${(houseHoldExpenses[0]?.Water_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} p.a.</Text>
+            :
+            <Text style={styles.listValue}>N/A</Text>
+          }                  
+        </View>         
+      </>,
+        icon: require("../../assets/money-send.png"),
+        link: 'EditProfile',
+        editable: true,
+        items: [
+          {
+            subHeading: "Water",
+            item: [
+              { 
+                icon: "", 
+                name: 'Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Water_p_a ? "$"+(houseHoldExpenses[0].Water_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" p.a.":"N/A"
+              },
+              { 
+                icon: "", 
+                name: 'Frequency', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Water_Pay_Frequency ? houseHoldExpenses[0].Water_Pay_Frequency:"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Payment Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Water_p_a ? "$" + calculatePaymentAmount(houseHoldExpenses[0]?.Water_p_a, houseHoldExpenses[0]?.Water_Pay_Frequency):"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Paid by', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Household?.name ? houseHoldExpenses[0]?.Household?.name:"N/A" 
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: <>
+        <View style={styles.listContent}>
+          <Text style={styles.listName}>Home/Contents Insurance</Text>  
+          {
+          houseHoldExpenses && houseHoldExpenses[0]?.Home_Contents_Insurance_p_a ?
+            <Text style={styles.listValue}>${(houseHoldExpenses[0]?.Home_Contents_Insurance_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} p.a.</Text>
+            :
+            <Text style={styles.listValue}>N/A</Text>
+          }                  
+        </View>         
+      </>,
+        icon: require("../../assets/money-send.png"),
+        link: 'EditProfile',
+        editable: true,
+        items: [
+          {
+            subHeading: "Home/Contents Insurance",
+            item: [
+              { 
+                icon: "", 
+                name: 'Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Home_Contents_Insurance_p_a ? "$"+(houseHoldExpenses[0]?.Home_Contents_Insurance_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" p.a.":"N/A"
+              },
+              { 
+                icon: "", 
+                name: 'Frequency', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Home_Contents_Pay_Frequency ? houseHoldExpenses[0]?.Home_Contents_Pay_Frequency:"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Payment Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Home_Contents_Insurance_p_a ? "$" + calculatePaymentAmount(houseHoldExpenses[0]?.Home_Contents_Insurance_p_a, houseHoldExpenses[0]?.Home_Contents_Pay_Frequency):"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Paid by', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Household?.name ? houseHoldExpenses[0]?.Household?.name:"N/A" 
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: <>
+        <View style={styles.listContent}>
+          <Text style={styles.listName}>Car Insurance</Text>  
+          {
+          houseHoldExpenses && houseHoldExpenses[0]?.Car_Insurance_p_a ?
+            <Text style={styles.listValue}>${(houseHoldExpenses[0]?.Car_Insurance_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} p.a.</Text>
+            :
+            <Text style={styles.listValue}>N/A</Text>
+          }                  
+        </View>         
+      </>,
+        icon: require("../../assets/money-send.png"),
+        link: 'EditProfile',
+        editable: true,
+        items: [
+          {
+            subHeading: "Car Insurance",
+            item: [
+              { 
+                icon: "", 
+                name: 'Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Car_Insurance_p_a ? "$"+(houseHoldExpenses[0]?.Car_Insurance_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" p.a.":"N/A"
+              },
+              { 
+                icon: "", 
+                name: 'Frequency', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Car_Insurance_Pay_Frequency ? houseHoldExpenses[0]?.Car_Insurance_Pay_Frequency:"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Payment Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Car_Insurance_p_a ? "$" + calculatePaymentAmount(houseHoldExpenses[0]?.Car_Insurance_p_a, houseHoldExpenses[0]?.Car_Insurance_Pay_Frequency):"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Paid by', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Household?.name ? houseHoldExpenses[0]?.Household?.name:"N/A" 
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: <>
+        <View style={styles.listContent}>
+          <Text style={styles.listName}>Private Health Insurance</Text>  
+          {
+          houseHoldExpenses && houseHoldExpenses[0]?.Private_Health_Insurance_p_a ?
+            <Text style={styles.listValue}>${(houseHoldExpenses[0]?.Private_Health_Insurance_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} p.a.</Text>
+            :
+            <Text style={styles.listValue}>N/A</Text>
+          }                  
+        </View>         
+      </>,
+        icon: require("../../assets/money-send.png"),
+        link: 'EditProfile',
+        editable: true,
+        items: [
+          {
+            subHeading: "Private Health Insurance",
+            item: [
+              { 
+                icon: "", 
+                name: 'Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Private_Health_Insurance_p_a ? "$"+(houseHoldExpenses[0]?.Private_Health_Insurance_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" p.a.":"N/A"
+              },
+              { 
+                icon: "", 
+                name: 'Frequency', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Private_Health_Pay_Frequency ? houseHoldExpenses[0]?.Private_Health_Pay_Frequency:"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Payment Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Private_Health_Insurance_p_a ? "$" + calculatePaymentAmount(houseHoldExpenses[0]?.Private_Health_Insurance_p_a, houseHoldExpenses[0]?.Private_Health_Pay_Frequency):"N/A"  
+              },
+              { 
+                icon: "", 
+                name: 'Paid by', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Household?.name ? houseHoldExpenses[0]?.Household?.name:"N/A" 
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: <>
+        <View style={[{ flexWrap: 'wrap', display: 'flex' }]}>
+          <View style={styles.listContent}>
+            <Text style={styles.listName}>General Non-Utilities</Text>
+          </View>
+          <View style={styles.listContent}>
+            {houseHoldExpenses && houseHoldExpenses[0]?.General_Non_Utilities_Household ? (
+              <Text style={styles.listValue}>${(houseHoldExpenses[0]?.General_Non_Utilities_Household).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} p.a.</Text>
+            ) : (
+              <Text style={styles.listValue}>N/A</Text>
+            )}
+          </View>
+        </View>                       
+      </>,
+        icon: require("../../assets/money-send.png"),
+        link: 'EditProfile',
+        editable: true,
+        items: [
+          {
+            subHeading: "General Non-Utilities",
+            item: [
+              { 
+                icon: "", 
+                name: 'Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.General_Non_Utilities_Household ? "$"+(houseHoldExpenses[0]?.General_Non_Utilities_Household).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" p.a.":"N/A"
+              },
+              { 
+                icon: "", 
+                name: 'Frequency', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.General_Non_Utilities_Payment_Frequency ? houseHoldExpenses[0]?.General_Non_Utilities_Payment_Frequency:"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Payment Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.General_Non_Utilities_Household ? "$" + calculatePaymentAmount(houseHoldExpenses[0]?.General_Non_Utilities_Household, houseHoldExpenses[0]?.General_Non_Utilities_Payment_Frequency):"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Paid by', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Household?.name ? houseHoldExpenses[0]?.Household?.name:"N/A" 
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      }
+    ])
+
+    setLoanAccordion([
+      {
+        title: <>
+        <View style={styles.listContent}>
+          <Text style={styles.listName}>Home </Text>  
+          {
+          houseHoldExpenses && houseHoldExpenses[0]?.Home_Loan ?
+            <Text style={styles.listValue}>${(houseHoldExpenses[0]?.Home_Loan).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} p.a.</Text>
+            :
+            <Text style={styles.listValue}>N/A</Text>
+          }                  
+        </View>         
+      </>,
+        icon: require("../../assets/money-send.png"),
+        link: 'EditProfile',
+        editable: true,
+        items: [
+          {
+            subHeading: "Home",
+            item: [
+              { 
+                icon: "", 
+                name: 'Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Home_Loan ? "$"+(houseHoldExpenses[0].Home_Loan).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" p.a.":"N/A"
+              },
+              { 
+                icon: "", 
+                name: 'Frequency', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Home_Loan_Repayment_Frequency ? houseHoldExpenses[0].Home_Loan_Repayment_Frequency:"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Payment Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Home_Loan ? "$" + calculatePaymentAmount(houseHoldExpenses[0]?.Home_Loan, houseHoldExpenses[0]?.Home_Loan_Repayment_Frequency):"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Paid by', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Household?.name ? houseHoldExpenses[0]?.Household?.name:"N/A" 
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: <>
+        <View style={styles.listContent}>
+          <Text style={styles.listName}>Investment Property </Text>  
+          {
+          houseHoldExpenses && houseHoldExpenses[0]?.Investment_Property_Loan_p_a ?
+            <Text style={styles.listValue}>${(houseHoldExpenses[0]?.Investment_Property_Loan_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} p.a.</Text>
+            :
+            <Text style={styles.listValue}>N/A</Text>
+          }                  
+        </View>         
+      </>,
+        icon: require("../../assets/money-send.png"),
+        link: 'EditProfile',
+        editable: true,
+        items: [
+          {
+            subHeading: "Investment Property ",
+            item: [
+              { 
+                icon: "", 
+                name: 'Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Electricity_p_a ? "$"+(houseHoldExpenses[0].Investment_Property_Loan_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" p.a.":"N/A"
+              },
+              { 
+                icon: "", 
+                name: 'Frequency', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Invest_Property_Pay_Frequency ? houseHoldExpenses[0].Invest_Property_Pay_Frequency:"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Payment Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Investment_Property_Loan_p_a ? "$" + calculatePaymentAmount(houseHoldExpenses[0]?.Investment_Property_Loan_p_a, houseHoldExpenses[0]?.Invest_Property_Pay_Frequency):"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Paid by', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Household?.name ? houseHoldExpenses[0]?.Household?.name:"N/A" 
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: <>
+        <View style={styles.listContent}>
+          <Text style={styles.listName}>Other Investments</Text>  
+          {
+          houseHoldExpenses && houseHoldExpenses[0]?.Other_Investment_Loan_p_a ?
+            <Text style={styles.listValue}>${(houseHoldExpenses[0]?.Other_Investment_Loan_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} p.a.</Text>
+            :
+            <Text style={styles.listValue}>N/A</Text>
+          }                  
+        </View>         
+      </>,
+        icon: require("../../assets/money-send.png"),
+        link: 'EditProfile',
+        editable: true,
+        items: [
+          {
+            subHeading: "Water",
+            item: [
+              { 
+                icon: "", 
+                name: 'Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Other_Investment_Loan_p_a ? "$"+(houseHoldExpenses[0].Other_Investment_Loan_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" p.a.":"N/A"
+              },
+              { 
+                icon: "", 
+                name: 'Frequency', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Other_Investment_Loan_Pay_Freq ? houseHoldExpenses[0].Other_Investment_Loan_Pay_Freq:"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Payment Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Other_Investment_Loan_p_a ? "$" + calculatePaymentAmount(houseHoldExpenses[0]?.Other_Investment_Loan_p_a, houseHoldExpenses[0]?.Other_Investment_Loan_Pay_Freq):"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Paid by', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Household?.name ? houseHoldExpenses[0]?.Household?.name:"N/A" 
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: <>
+        <View style={styles.listContent}>
+          <Text style={styles.listName}>Personal</Text>  
+          {
+          houseHoldExpenses && houseHoldExpenses[0]?.Personal_Loan_p_a ?
+            <Text style={styles.listValue}>${(houseHoldExpenses[0]?.Personal_Loan_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} p.a.</Text>
+            :
+            <Text style={styles.listValue}>N/A</Text>
+          }                  
+        </View>         
+      </>,
+        icon: require("../../assets/money-send.png"),
+        link: 'EditProfile',
+        editable: true,
+        items: [
+          {
+            subHeading: "Personal",
+            item: [
+              { 
+                icon: "", 
+                name: 'Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Personal_Loan_p_a ? "$"+(houseHoldExpenses[0]?.Personal_Loan_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" p.a.":"N/A"
+              },
+              { 
+                icon: "", 
+                name: 'Frequency', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Personal_Laon_Pay_Freq ? houseHoldExpenses[0]?.Personal_Laon_Pay_Freq:"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Payment Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Personal_Loan_p_a ? "$" + calculatePaymentAmount(houseHoldExpenses[0]?.Personal_Loan_p_a, houseHoldExpenses[0]?.Personal_Laon_Pay_Freq):"N/A" 
+              },
+              { 
+                icon: "", 
+                name: 'Paid by', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Household?.name ? houseHoldExpenses[0]?.Household?.name:"N/A" 
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: <>
+        <View style={styles.listContent}>
+          <Text style={styles.listName}>Credit Cards</Text>  
+          {
+          houseHoldExpenses && houseHoldExpenses[0]?.Credit_Cards_per_month ?
+            <Text style={styles.listValue}>${(houseHoldExpenses[0]?.Credit_Cards_per_month).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} p.a.</Text>
+            :
+            <Text style={styles.listValue}>N/A</Text>
+          }                  
+        </View>         
+      </>,
+        icon: require("../../assets/money-send.png"),
+        link: 'EditProfile',
+        editable: true,
+        items: [
+          {
+            subHeading: "Credit Cards",
+            item: [
+              { 
+                icon: "", 
+                name: 'Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Credit_Cards_per_month ? "$"+(houseHoldExpenses[0]?.Credit_Cards_per_month).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" p.a.":"N/A"
+              },
+              { 
+                icon: "", 
+                name: 'Paid by', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Household?.name ? houseHoldExpenses[0]?.Household?.name:"N/A" 
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: <>
+        <View style={styles.listContent}>
+          <Text style={styles.listName}>Other Expenses</Text>  
+          {
+          houseHoldExpenses && houseHoldExpenses[0]?.Other_Expenses_p_a ?
+            <Text style={styles.listValue}>${(houseHoldExpenses[0]?.Other_Expenses_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} p.a.</Text>
+            :
+            <Text style={styles.listValue}>N/A</Text>
+          }                  
+        </View>         
+      </>,
+        icon: require("../../assets/money-send.png"),
+        link: 'EditProfile',
+        editable: true,
+        items: [
+          {
+            subHeading: "Other Expenses",
+            item: [
+              { 
+                icon: "", 
+                name: 'Amount', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Other_Expenses_p_a ? "$"+(houseHoldExpenses[0]?.Other_Expenses_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" p.a.":"N/A"
+              },              
+              { 
+                icon: "", 
+                name: 'Paid by', 
+                value: houseHoldExpenses && houseHoldExpenses[0]?.Household?.name ? houseHoldExpenses[0]?.Household?.name:"N/A" 
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      }
+    ])
+  }
+
   return (
     <>
       {(moneyOnAutoDrive.length > 0) ?
@@ -101,7 +677,7 @@ const MoneyAutoDrive = () => {
           style={styles.moneyOnAutoDrive}
         >
           <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-          <CustomHeader name={moneyOnAutoDrive[0].Name} type={2} />
+          <CustomHeader name={moneyOnAutoDrive[0]?.Name} type={2} />
 
           <ScrollView
             style={styles.videoSectionParent}
@@ -212,7 +788,7 @@ const MoneyAutoDrive = () => {
             {activeTab == 1 &&
               <>
                 <View style={styles.editRow}>
-                  <Text style={styles.subHeading}>{houseHoldExpenses[0]?.Name}</Text>
+                  <Text style={styles.subHeading}>Household : {houseHoldExpenses[0]?.Name}</Text>
                   <Pressable onPress={() => editHouseHold(houseHoldExpenses)} style={{ marginTop: 5 }}>
                     <Image
                       style={styles.vuesaxlinearedit}
@@ -220,51 +796,12 @@ const MoneyAutoDrive = () => {
                       source={require('../../assets/edit.png')}
                     />
                   </Pressable>
-                </View>                
-                
-                <View style={styles.listContainer}>
-                  <View style={styles.listContent}>
-                    <Text style={styles.listName}>Gas</Text>                    
-                  </View> 
-                  {
-                    houseHoldExpenses && houseHoldExpenses[0]?.Gas_p_a ?
-                      <Text style={styles.listValue}>${houseHoldExpenses[0].Gas_p_a} p.a.</Text>
-                      :
-                      <Text style={styles.listValue}>N/A</Text>
-                    }                 
-                  <Pressable onPress={() => editHouseHold(houseHoldExpenses)} style={styles.editButton}>
-                    <Image
-                      style={styles.editIcon}
-                      resizeMode="cover"
-                      source={require('../../assets/up.png')}
-                    />
-                  </Pressable>
-                </View>
-                <View style={styles.subListContainer}>
-                  <View style={styles.subListContent}>
-                    {
-                      houseHoldExpenses && houseHoldExpenses[0]?.Gas_Pay_Frequency ?
-                        <Text style={styles.subListName}>Frequency : {houseHoldExpenses[0].Gas_Pay_Frequency}</Text>
-                        :
-                        <Text style={styles.subListName}>Frequency : N/A</Text>
-                    }
-                    {
-                      houseHoldExpenses && houseHoldExpenses[0]?.Gas_Pay_Amount ?
-                        <Text style={styles.subListName}>Payment Amount :{houseHoldExpenses[0].Gas_Pay_Amount}</Text>
-                        :
-                        <Text style={styles.subListName}>Payment Amount : N/A</Text>
-                    }
-                  </View>
-                  <View style={styles.subListContent}>
-                    <View>
-                      <Text style={styles.subListName}>Paid by : 
-                      {
-                        houseHoldExpenses && houseHoldExpenses[0]?.Household.name?" "+houseHoldExpenses[0]?.Household.name:'N/A'
-                      }
-                      </Text>
-                    </View>
-                  </View>
-                </View>
+                </View> 
+                <AccordionContainer accordions={accordionHouseHold} />
+                <View style={styles.editRow}>
+                  <Text style={styles.subHeading}>Loan Repayments : {houseHoldExpenses[0]?.Name}</Text>
+                </View> 
+                <AccordionContainer accordions={accordionLoan} />
               </>
             }
             {activeTab == 2 &&
@@ -371,16 +908,13 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding:10,
-    paddingBottom:2,
+    flexDirection: 'row',    
+    alignItems: 'center',    
     borderColor: '#ddd',
   },
-  listContent: {
-    flexDirection: 'row',
-    alignItems: 'center'
+  listContent: {   
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
   },
   listName: {
     fontSize: 16,
@@ -388,7 +922,7 @@ const styles = StyleSheet.create({
   },
   listValue: {
     fontSize: 14,
-    marginLeft: 200
+    marginRight: 10
   },
   editButton: {
     padding: 5
@@ -431,7 +965,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
+    paddingHorizontal: 40,
     paddingTop: 5,
   },
   subHeading: {
