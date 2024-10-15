@@ -81,14 +81,15 @@ const Home = () => {
   };
   
   useEffect(() => {
-    setTimeout(() =>  getDatas(), 10000); // 2 seconds () => {
+    getDatas();
+    //setTimeout(() =>  getDatas(), 10000); // 2 seconds () => {
   }, [])
 
   const getDatas = async() => {    
-      await actions.getProfile();
-      await actions.getJournals();
-      await actions.getAssets();
-      await actions.getLiabilities();
+      // await actions.getProfile();
+      // await actions.getJournals();
+      // await actions.getAssets();
+      // await actions.getLiabilities();
       setLoading(false);
    
   }

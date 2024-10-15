@@ -20,7 +20,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Provider} from 'react-redux';
 import store from './store';
 import CustomFlashMessageProvider from './src/components/CustomFlashMessage';
-import ChatProvider from './src/providers/ChatProvider';
+//import ChatProvider from './src/providers/ChatProvider';
 import { LogBox } from 'react-native';
 
 function App(): JSX.Element {
@@ -36,14 +36,23 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  // return (
+  //   <Provider store={store}>
+  //     <CustomFlashMessageProvider>
+  //       <ChatProvider>
+  //         <NavigationContainer>           
+  //             <Routes />
+  //         </NavigationContainer>
+  //       </ChatProvider>
+  //     </CustomFlashMessageProvider>
+  //   </Provider>
+  // );
   return (
     <Provider store={store}>
       <CustomFlashMessageProvider>
-        <ChatProvider>
-          <NavigationContainer>           
-              <Routes />
-          </NavigationContainer>
-        </ChatProvider>
+        <NavigationContainer>           
+            <Routes />
+        </NavigationContainer>
       </CustomFlashMessageProvider>
     </Provider>
   );
