@@ -41,16 +41,16 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      handleBackButton
-    );
+  // useEffect(() => {
+  //   const backHandler = BackHandler.addEventListener(
+  //     'hardwareBackPress',
+  //     handleBackButton
+  //   );
 
-    return () => {
-      backHandler.remove();
-    };
-  }, []);
+  //   return () => {
+  //     backHandler.remove();
+  //   };
+  // }, []);
 
   const handleBackButton = () => {
     if (navigation.isFocused()) {
@@ -86,10 +86,10 @@ const Home = () => {
   }, [])
 
   const getDatas = async() => {    
-      // await actions.getProfile();
-      // await actions.getJournals();
-      // await actions.getAssets();
-      // await actions.getLiabilities();
+      await actions.getProfile();
+      await actions.getJournals();
+      await actions.getAssets();
+      await actions.getLiabilities();
       setLoading(false);
    
   }

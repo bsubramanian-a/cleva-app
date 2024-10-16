@@ -126,7 +126,7 @@ const MoneyAutoDrive = () => {
     setHouseHoldAccordion([
       {
         title: "Gas",
-        value: houseHoldExpenses && houseHoldExpenses[0]?.Gas_p_a? "$" + (houseHoldExpenses[0].Gas_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
+        value: houseHoldExpenses && houseHoldExpenses[0]?.Gas_p_a ? "$" + (houseHoldExpenses[0].Gas_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
         icon: require("../../assets/money-send.png"),
         link: 'EditProfile',
         editable: true,
@@ -160,7 +160,7 @@ const MoneyAutoDrive = () => {
       },
       {
         title: "Electricity",
-        value: houseHoldExpenses && houseHoldExpenses[0]?.Electricity_p_a? "$" + (houseHoldExpenses[0].Electricity_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
+        value: houseHoldExpenses && houseHoldExpenses[0]?.Electricity_p_a ? "$" + (houseHoldExpenses[0].Electricity_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
         icon: require("../../assets/money-send.png"),
         link: 'EditProfile',
         editable: true,
@@ -194,7 +194,7 @@ const MoneyAutoDrive = () => {
       },
       {
         title: "Water",
-        value: houseHoldExpenses && houseHoldExpenses[0]?.Water_p_a? "$" + (houseHoldExpenses[0].Water_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",        
+        value: houseHoldExpenses && houseHoldExpenses[0]?.Water_p_a ? "$" + (houseHoldExpenses[0].Water_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
         icon: require("../../assets/money-send.png"),
         link: 'EditProfile',
         editable: true,
@@ -228,7 +228,7 @@ const MoneyAutoDrive = () => {
       },
       {
         title: "Home/Contents Insurance",
-        value: houseHoldExpenses && houseHoldExpenses[0]?.Home_Contents_Insurance_p_a? "$" + (houseHoldExpenses[0].Home_Contents_Insurance_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
+        value: houseHoldExpenses && houseHoldExpenses[0]?.Home_Contents_Insurance_p_a ? "$" + (houseHoldExpenses[0].Home_Contents_Insurance_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
         icon: require("../../assets/money-send.png"),
         link: 'EditProfile',
         editable: true,
@@ -262,7 +262,7 @@ const MoneyAutoDrive = () => {
       },
       {
         title: "Car Insurance",
-        value: houseHoldExpenses && houseHoldExpenses[0]?.Car_Insurance_p_a? "$" + (houseHoldExpenses[0].Car_Insurance_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
+        value: houseHoldExpenses && houseHoldExpenses[0]?.Car_Insurance_p_a ? "$" + (houseHoldExpenses[0].Car_Insurance_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
         icon: require("../../assets/money-send.png"),
         link: 'EditProfile',
         editable: true,
@@ -296,7 +296,7 @@ const MoneyAutoDrive = () => {
       },
       {
         title: "Private Health Insurance",
-        value: houseHoldExpenses && houseHoldExpenses[0]?.Private_Health_Insurance_p_a? "$" + (houseHoldExpenses[0].Private_Health_Insurance_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
+        value: houseHoldExpenses && houseHoldExpenses[0]?.Private_Health_Insurance_p_a ? "$" + (houseHoldExpenses[0].Private_Health_Insurance_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
         icon: require("../../assets/money-send.png"),
         link: 'EditProfile',
         editable: true,
@@ -330,7 +330,7 @@ const MoneyAutoDrive = () => {
       },
       {
         title: "General Non-Utilities",
-        value: houseHoldExpenses && houseHoldExpenses[0]?.General_Non_Utilities_Household? "$" + (houseHoldExpenses[0].General_Non_Utilities_Household).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
+        value: houseHoldExpenses && houseHoldExpenses[0]?.General_Non_Utilities_Household ? "$" + (houseHoldExpenses[0].General_Non_Utilities_Household).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
         icon: require("../../assets/money-send.png"),
         link: 'EditProfile',
         editable: true,
@@ -367,7 +367,7 @@ const MoneyAutoDrive = () => {
     setLoanAccordion([
       {
         title: "Home",
-        value: houseHoldExpenses && houseHoldExpenses[0]?.Home_Loan? "$" + (houseHoldExpenses[0].Home_Loan).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
+        value: houseHoldExpenses && houseHoldExpenses[0]?.Home_Loan ? "$" + (houseHoldExpenses[0].Home_Loan).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
         icon: require("../../assets/money-send.png"),
         link: 'EditProfile',
         editable: true,
@@ -401,7 +401,7 @@ const MoneyAutoDrive = () => {
       },
       {
         title: "Investment Property",
-        value: houseHoldExpenses && houseHoldExpenses[0]?.Investment_Property_Loan_p_a? "$" + (houseHoldExpenses[0].Investment_Property_Loan_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
+        value: houseHoldExpenses && houseHoldExpenses[0]?.Investment_Property_Loan_p_a ? "$" + (houseHoldExpenses[0].Investment_Property_Loan_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
         icon: require("../../assets/money-send.png"),
         link: 'EditProfile',
         editable: true,
@@ -435,7 +435,7 @@ const MoneyAutoDrive = () => {
       },
       {
         title: "Other Investments",
-        value: houseHoldExpenses && houseHoldExpenses[0]?.Other_Investment_Loan_p_a? "$" + (houseHoldExpenses[0].Other_Investment_Loan_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
+        value: houseHoldExpenses && houseHoldExpenses[0]?.Other_Investment_Loan_p_a ? "$" + (houseHoldExpenses[0].Other_Investment_Loan_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
         icon: require("../../assets/money-send.png"),
         link: 'EditProfile',
         editable: true,
@@ -469,7 +469,7 @@ const MoneyAutoDrive = () => {
       },
       {
         title: "Personal",
-        value: houseHoldExpenses && houseHoldExpenses[0]?.Personal_Loan_p_a? "$" + (houseHoldExpenses[0].Personal_Loan_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
+        value: houseHoldExpenses && houseHoldExpenses[0]?.Personal_Loan_p_a ? "$" + (houseHoldExpenses[0].Personal_Loan_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
         icon: require("../../assets/money-send.png"),
         link: 'EditProfile',
         editable: true,
@@ -503,7 +503,7 @@ const MoneyAutoDrive = () => {
       },
       {
         title: "Credit Cards",
-        value: houseHoldExpenses && houseHoldExpenses[0]?.Credit_Cards_per_month? "$" + (houseHoldExpenses[0].Credit_Cards_per_month).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
+        value: houseHoldExpenses && houseHoldExpenses[0]?.Credit_Cards_per_month ? "$" + (houseHoldExpenses[0].Credit_Cards_per_month).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
         icon: require("../../assets/money-send.png"),
         link: 'EditProfile',
         editable: true,
@@ -527,7 +527,7 @@ const MoneyAutoDrive = () => {
       },
       {
         title: "Other Expenses",
-        value: houseHoldExpenses && houseHoldExpenses[0]?.Other_Expenses_p_a? "$" + (houseHoldExpenses[0].Other_Expenses_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
+        value: houseHoldExpenses && houseHoldExpenses[0]?.Other_Expenses_p_a ? "$" + (houseHoldExpenses[0].Other_Expenses_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A",
         icon: require("../../assets/money-send.png"),
         link: 'EditProfile',
         editable: true,
@@ -669,10 +669,9 @@ const MoneyAutoDrive = () => {
             }
             {activeTab == 1 &&
               <>
-                
-                  <View style={styles.editRow}>
-                    <Text style={styles.subHeading}>Household : {houseHoldExpenses[0]?.Name}</Text>
-                    {(houseHoldExpenses.length > 0) && <>
+                <View style={styles.editRow}>
+                  <Text style={styles.subHeading}>Household : {houseHoldExpenses[0]?.Name}</Text>
+                  {(houseHoldExpenses.length > 0) && <>
                     <Pressable onPress={() => editHouseHold(houseHoldExpenses)} style={{ marginTop: 5 }}>
                       <Image
                         style={styles.vuesaxlinearedit}
@@ -680,19 +679,31 @@ const MoneyAutoDrive = () => {
                         source={require('../../assets/edit.png')}
                       />
                     </Pressable>
-                    </>}
-                  </View>
-                  {(houseHoldExpenses.length == 0) && <>
-                    {/* <AccordionSkeleton/> */}
-                    <Text>Loading Content...</Text>
                   </>}
+                </View>
+                {(!houseHoldExpenses[0]) && (houseHoldExpenses.length != 0) && <>
+                  <AccordionSkeleton title="Loading HouseHold" />
+                </>}
+                {(houseHoldExpenses.length == 0) && <>
+                  <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20 }}>
+                    <AccordionHeading title="No Data Available" value="No Household is assigned to the contact"></AccordionHeading>
+                  </View>
+                </>}
                 {(houseHoldExpenses.length > 0) && <>
                   <AccordionContainer accordions={accordionHouseHold} />
                 </>}
-                
-                  <View style={styles.editRow}>
-                    <Text style={styles.subHeading}>Loan Repayments : {houseHoldExpenses[0]?.Name}</Text>
+
+                <View style={styles.editRow}>
+                  <Text style={styles.subHeading}>Loan Repayments : {houseHoldExpenses[0]?.Name}</Text>
+                </View>
+                {(!houseHoldExpenses[0]) && (houseHoldExpenses.length != 0) && <>
+                  <AccordionSkeleton title="Loading Loan Repayments" />
+                </>}
+                {(houseHoldExpenses.length == 0) && <>
+                  <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20 }}>
+                    <AccordionHeading title="No Data Available" value="No Loan Repayments to the contact"></AccordionHeading>
                   </View>
+                </>}
                 {(houseHoldExpenses.length > 0) && <>
                   <AccordionContainer accordions={accordionLoan} />
                 </>}
@@ -866,7 +877,7 @@ const styles = StyleSheet.create({
     color: "#FBB142",
     fontSize: 14,
     fontWeight: "600",
-    marginTop:10
+    marginTop: 10
   },
   performance: {
     color: Color.black,

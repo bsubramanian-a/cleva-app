@@ -3,7 +3,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Authstack from './Authstack';
 import Mainstack from './Mainstack';
 import {useSelector} from 'react-redux';
-import {acc} from 'react-native-reanimated';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 const Routes = () => {

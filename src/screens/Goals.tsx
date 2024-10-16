@@ -8,7 +8,6 @@ import GraphModal from "../components/GraphModal";
 import { useCallback, useEffect, useState } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import Tabs from "../components/Tab";
-import { cos } from "react-native-reanimated";
 import LinearGradient from "react-native-linear-gradient";
 import GoalItem from "../components/GoalItem";
 import GoalCategoryModal from "../components/GoalCategoryModal";

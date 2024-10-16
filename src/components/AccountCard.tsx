@@ -15,7 +15,6 @@ import ThreeDotMenu from './ThreeDotMenu';
 import { useNavigation } from '@react-navigation/native';
 import DeletePopup from './DeletePopup';
 import { FontFamily } from '../GlobalStyles';
-import { color } from 'react-native-reanimated';
 
 const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccount, setIsAccountModalVisible, color, index, count }: any) => {
     const navigation: any = useNavigation();

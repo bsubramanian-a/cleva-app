@@ -34,7 +34,7 @@ import GoalImportance from '../screens/GoalImportance';
 import Accounts from '../screens/Accounts';
 import EditAccount from '../screens/EditAccount';
 import AddAccount from '../screens/AddAccount';
-import ChatListScreen from '../screens/ChatListScreen';
+//import ChatListScreen from '../screens/ChatListScreen';
 import ChatInnerScreen from '../screens/ChatInnerScreen';
 import CoachListPage from '../screens/CoachListPage';
 import SuperSorted from '../screens/SwiperScreens/SuperSorted';
@@ -177,7 +177,7 @@ const Tabs = ({userData}) => {
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Journal" component={Journal} />
       <Tab.Screen name="Goals" component={Goals} />
-      <Tab.Screen name="Coach" component={ChatListScreen} />
+      {/* <Tab.Screen name="Coach" component={ChatListScreen} /> */}
       <Tab.Screen name="Library" component={Library} />
     </Tab.Navigator>
   );
