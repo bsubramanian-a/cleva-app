@@ -681,11 +681,18 @@ const MoneyAutoDrive = () => {
                     </Pressable>
                   </>}
                 </View>
+                <Text style={styles.editRow}>
+                food, clothing, entertainment, recreation, transport –exclude utilities
+                </Text>
+                {(houseHoldExpenses.length > 0) && <>
+                  <Text style={[styles.editRow, styles.commentsNotes]}>Comments & Notes</Text>
+                  <Text style={styles.editRow}>{houseHoldExpenses[0]?.Household_Expenses_Notes_Comments}</Text>
+                </>}                
                 {(!houseHoldExpenses[0]) && (houseHoldExpenses.length != 0) && <>
                   <AccordionSkeleton title="Loading HouseHold" />
                 </>}
                 {(houseHoldExpenses.length == 0) && <>
-                  <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20 }}>
+                  <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20  }}>
                     <AccordionHeading title="No Data Available" value="No Household is assigned to the contact"></AccordionHeading>
                   </View>
                 </>}
@@ -696,6 +703,9 @@ const MoneyAutoDrive = () => {
                 <View style={styles.editRow}>
                   <Text style={styles.subHeading}>Loan Repayments : {houseHoldExpenses[0]?.Name}</Text>
                 </View>
+                <Text style={styles.editRow}>
+                Loans, Investments, Credit Cards etc...
+                </Text>
                 {(!houseHoldExpenses[0]) && (houseHoldExpenses.length != 0) && <>
                   <AccordionSkeleton title="Loading Loan Repayments" />
                 </>}
@@ -822,6 +832,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   listName: {
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  commentsNotes: {
     fontSize: 16,
     fontWeight: 'bold'
   },

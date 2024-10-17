@@ -487,6 +487,20 @@ export const updatePlanBEstatePlanWill = (data: any) => {
   });
 };
 
+
+export const updateHouseHoldExpenses = (data: any) => {
+  console.log("updateHouseHoldExpenses data coming in action", data);
+  return new Promise((resolve, reject) => {
+    return apiPut(HOUSEHOLD_EXP, data)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
 export const updateOtherProfileDetails = (data: any, url: string) => {
   return new Promise((resolve, reject) => {
     return apiPut(url, data)
