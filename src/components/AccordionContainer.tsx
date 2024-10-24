@@ -5,35 +5,44 @@ import LinearGradient from 'react-native-linear-gradient';
 import { FontFamily } from '../GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
 import AccordionHeading from './AccordionHeading';
+import { wrapTitle } from '../utils/wrapTitle';
+import InsuranceBox from './InsuranceBox';
 
-const AccordionItem = ({ icon, name, value, editable,index }: any) => {
+const AccordionItem = ({ icon, name, value, editable, index, finAccount, element }: any) => {
+  const wrappedName = name ? wrapTitle(name, 22) : "N/A";
   return (
     <>
       {!editable && (
         <View style={styles.itemContainer}>
           <View style={styles.itemContent}>
-            <Image
+            {/* <Image
               style={styles.vuesaxlinearprofileCircle}
               resizeMode="contain"
-              source={icon}
-            />
-            <Text style={styles.name}>{name}</Text>
+              source={currentIcon}
+            /> */}
+            {icon}
+            <Text style={styles.name}>{wrappedName}</Text>
           </View>
           <Text style={styles.value}>{value}</Text>
         </View>
       )}
-      {editable && (index % 2 === 1) && (
+      {editable && finAccount && (
+        <>
+          <InsuranceBox element={element} name={wrappedName} value={value}/>          
+        </>
+      )}
+      {editable && !finAccount && (index % 2 === 1) && (
         <View>
-          <Text style={[styles.newName, styles.titleRight]}>{name}</Text>
+          <Text style={[styles.newName, styles.titleRight]}>{wrappedName}</Text>
           <Text style={[styles.newValue, styles.titleRight]}>{value}</Text>
         </View>
-      )}    
-      {editable && (index % 2 === 0) && (
+      )}
+      {editable && !finAccount && (index % 2 === 0) && (
         <View>
-          <Text style={[styles.name]}>{name}</Text>
+          <Text style={[styles.name]}>{wrappedName}</Text>
           <Text style={styles.value}>{value}</Text>
         </View>
-      )}  
+      )}
     </>
   );
 };
@@ -46,7 +55,8 @@ const Accordion = ({
   setActiveAccordion,
   navigation,
   editable = false,
-  value = ""
+  value = "",
+  finAccount
 }: any) => {
   const isActive = activeAccordion === title;
 
@@ -64,89 +74,50 @@ const Accordion = ({
 
   return (
     //{editable && (
-    <View style={[styles.container, !editable ? styles.aboutCard : styles.normalCard]}>
-      <TouchableOpacity
-        style={[styles.excercise1, styles.frameParentFlexBox]}
-        onPress={toggleAccordion}
-      >
-        <View style={styles.vuesaxlinearsmsParent}>
-          {!editable && (
-            <View style={styles.vuesaxlinearprofileCircleWrapper}>
-              <Image
-                style={styles.vuesaxlinearprofileCircleIcon}
-                resizeMode="cover"
-                source={icon}
-              />
-            </View>
-          )}
-          {editable && (
-            <View>
-              <Image
-                resizeMode="cover"
-                source={icon}
-              />
-            </View>
-          )}
-          {editable && <View>
-            <AccordionHeading title={title} value={value}></AccordionHeading>            
-          </View>}
-          {!editable && <View>
-            <Text
-            style={[
-              styles.aboutYou,
-              styles.mTypo,
-              styles.danFleurClr,
-            ]}
-          >
-            {title}
-          </Text>
-          </View>}
-
-          
-        </View>
-        <Image
-          style={styles.vuesaxlinearsmsIcon}
-          resizeMode="cover"
-          source={require('../assets/vuesaxlineararrowcircledown.png')}
-        />
-      </TouchableOpacity>
+    // <View style={[styles.container, !editable ? styles.aboutCard : styles.normalCard]}>
+    <View style={[styles.container, styles.aboutCard]}>
+      <AccordionHeading icon={icon} toggleAccordion={toggleAccordion} title={title} value={value} editable={editable}></AccordionHeading>
       {isActive && editable && (
         <View>
           {items.map((section: any, index: any) => (
             <View key={index.toString()}>
               {index == 0 && <View style={styles.lineStyle} />}
               <View style={styles.itemContainerNew}>
-              {section.item.map((item: any, itemIndex: any) => {
-                //const isEven = itemIndex % 2 === 0;
-                const currentIcon = "../assets/profile.png";
-                const currentLabel = item.name;
-                return ((itemIndex == 0 || itemIndex == 1) && <React.Fragment key={itemIndex.toString()}>                  
+                {section.item.map((item: any, itemIndex: any) => {
+                  //const isEven = itemIndex % 2 === 0;
+                  const currentIcon = "../assets/profile.png";
+                  const currentLabel = item.name;
+                  return ((itemIndex == 0 || itemIndex == 1) && <React.Fragment key={itemIndex.toString()}>
                     <AccordionItem
                       icon={require(currentIcon)}
                       name={currentLabel}
                       value={item.value}
                       editable={editable}
                       index={itemIndex}
-                    />                                    
-                </React.Fragment>)
-              })}
-              </View>  
+                      finAccount={finAccount}
+                      element={item.element}
+                    />
+                  </React.Fragment>)
+                })}
+              </View>
               <View style={styles.itemContainerNew}>
-              {section.item.map((item: any, itemIndex: any) => {
-                //const isOdd = itemIndex % 2 === 1;
-                const currentIcon = "../assets/profile.png";
-                const currentLabel = item.name;
-                return ((itemIndex == 2 || itemIndex == 3) && <React.Fragment key={itemIndex.toString()}>                  
+                {section.item.map((item: any, itemIndex: any) => {
+                  //const isOdd = itemIndex % 2 === 1;
+                  const currentIcon = "../assets/profile.png";
+                  const currentLabel = item.name;
+                  return ((itemIndex == 2 || itemIndex == 3) && <React.Fragment key={itemIndex.toString()}>
                     <AccordionItem
                       icon={require(currentIcon)}
                       name={currentLabel}
                       value={item.value}
                       editable={editable}
                       index={itemIndex}
-                    />                                    
-                </React.Fragment>)
-              })}
-              </View>     
+                      finAccount={finAccount}
+                      element={item.element}
+                    />
+                  </React.Fragment>)
+                })}
+              </View>
             </View>
           ))}
         </View>
@@ -168,14 +139,17 @@ const Accordion = ({
               </View>}
 
               {section.item.map((item: any, itemIndex: any) => {
-                const currentIcon = "../assets/profile.png";
+                //const currentIcon = "../assets/profile.png";
+                const currentIcon = item.icon;
                 const currentLabel = item.name;
                 return (<React.Fragment key={itemIndex.toString()}>
                   <AccordionItem
-                    icon={require(currentIcon)}
+                    icon={currentIcon}
                     name={currentLabel}
                     value={item.value}
                     editable={editable}
+                    finAccount={finAccount}
+                    element={item.element}
                   />
                   <View
                     style={[
@@ -199,7 +173,7 @@ const AccordionContainer = ({ accordions }: any) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.accordionContainer}>
+    <View style={[styles.accordionContainer]}>
       {accordions.map((accordion: any, index: any) => (
         <Accordion
           key={index.toString()}
@@ -211,6 +185,7 @@ const AccordionContainer = ({ accordions }: any) => {
           navigation={navigation}
           editable={accordion.editable}
           value={accordion.value}
+          finAccount={accordion.finAccount}
         />
       ))}
     </View>
@@ -252,32 +227,12 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   accordionContainer: {
-    borderWidth: 1,
+    borderWidth: 0,
     borderRadius: 16,
     borderColor: "#eaeaea",
     marginHorizontal: 30,
-    marginTop: 20,
-    paddingBottom: 20
-  },
-  excercise1: {
-    justifyContent: "space-between",
-    alignItems: "center",
-    shadowOpacity: 1,
-    elevation: 40,
-    shadowRadius: 40,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowColor: "rgba(32, 34, 36, 0.08)",
-    alignSelf: "stretch",
-    overflow: "hidden",
-    backgroundColor: Color.white1,
-  },
-  frameParentFlexBox: {
-    justifyContent: "space-between",
-    flexDirection: "row",
-    // width: '100%'
+    marginTop: 3,
+    paddingBottom: 0
   },
   aboutCard: {
     padding: 10,
@@ -298,26 +253,6 @@ const styles = StyleSheet.create({
   normalCard: {
     padding: 10
   },
-  vuesaxlinearsmsParent: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  vuesaxlinearprofileCircleWrapper: {
-    borderRadius: 10,
-    backgroundColor: "#FFF9F1",
-    borderColor: "#ffeccf",
-    borderWidth: 1,
-    width: 40,
-    height: 40,
-    borderStyle: "solid",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-  },
-  vuesaxlinearprofileCircleIcon: {
-    width: 20,
-    height: 20,
-  },
   vuesaxlinearprofileCircle: {
     width: 20,
     height: 20,
@@ -327,27 +262,8 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
-  aboutYou: {
-    marginLeft: 10,
-    fontSize: 15,
-    lineHeight: 24,
-  },
   ml10: {
     marginLeft: Margin.m_2xs,
-  },
-  mTypo: {
-    textAlign: "left",
-    fontFamily: FontFamily.sourceSerifPro,
-    fontWeight: "600",
-    color: '#FBB142',
-  },
-  danFleurClr: {
-    color: Color.black,
-    textAlign: "left",
-  },
-  vuesaxlinearsmsIcon: {
-    width: 18,
-    height: 18,
   },
   container: {
     // marginBottom: 10,
@@ -365,21 +281,21 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 10
   },
-  itemContainerNew:{
+  itemContainerNew: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignItems:"flex-start",
+    alignItems: "flex-start",
     justifyContent: "space-between",
-    marginLeft:12
+    marginLeft: 12
   },
-  itemContainerNewSecond:{
+  itemContainerNewSecond: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignItems:"flex-start",
+    alignItems: "flex-start",
     justifyContent: "space-between",
   },
-  titleRight:{
-    alignSelf:"flex-end",
+  titleRight: {
+    alignSelf: "flex-end",
   },
   icon: {
     fontSize: 20,

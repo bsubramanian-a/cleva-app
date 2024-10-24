@@ -3,15 +3,50 @@ import { View, Text, TouchableOpacity, FlatList, Image, StyleSheet, Pressable } 
 import { Border, Color, FontSize, Margin, Padding } from '../GlobalStyles';
 import LinearGradient from 'react-native-linear-gradient';
 import { FontFamily } from '../GlobalStyles';
-import { useNavigation } from '@react-navigation/native';
+import { wrapTitle } from '../utils/wrapTitle';
 
-const AccordionHeading = ({ title, value }: any) => {
+const AccordionHeading = ({ title, value, editable, toggleAccordion, icon }: any) => {
+    const wrappedTitle = wrapTitle(title, 24);
     return (
         <>
-            <View style={styles.listContent}>
-                <Text style={styles.listName}>{title}</Text>
-                <Text style={styles.listValue}>{value}</Text>
-            </View>
+            <TouchableOpacity
+                style={[styles.excercise1, styles.frameParentFlexBox]}
+                onPress={toggleAccordion}
+            >
+                <View style={styles.vuesaxlinearsmsParent}>
+                    <View style={styles.vuesaxlinearprofileCircleWrapper}>
+                        <Image
+                            resizeMode="cover"
+                            source={icon}
+                            style={styles.vuesaxlinearprofileCircleIcon}
+                        />
+                    </View>
+
+
+                    {editable && <View style={styles.listContent}>
+                        <Text style={styles.listName}>{wrappedTitle}</Text>
+                        <Text style={styles.listValue}>{value}</Text>
+                    </View>}
+
+                    {!editable && <View>
+                        <Text
+                            style={[
+                                styles.aboutYou,
+                                styles.mTypo,
+                                styles.danFleurClr,
+                            ]}
+                        >
+                            {wrappedTitle}
+                        </Text>
+                    </View>}
+
+                </View>
+                <Image
+                    style={styles.vuesaxlinearsmsIcon}
+                    resizeMode="cover"
+                    source={require('../assets/vuesaxlineararrowcircledown.png')}
+                />
+            </TouchableOpacity>
         </>
     );
 };
@@ -32,4 +67,62 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginRight: 10
     },
+    excercise1: {
+        justifyContent: "space-between",
+        alignItems: "center",
+        shadowOpacity: 1,
+        elevation: 40,
+        shadowRadius: 40,
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowColor: "rgba(32, 34, 36, 0.08)",
+        alignSelf: "stretch",
+        overflow: "hidden",
+        backgroundColor: Color.white1,
+    },
+    frameParentFlexBox: {
+        justifyContent: "space-between",
+        flexDirection: "row",
+        // width: '100%'
+    },
+    vuesaxlinearsmsParent: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    vuesaxlinearprofileCircleWrapper: {
+        borderRadius: 10,
+        backgroundColor: "#FFF9F1",
+        borderColor: "#ffeccf",
+        borderWidth: 1,
+        width: 40,
+        height: 40,
+        borderStyle: "solid",
+        justifyContent: "center",
+        alignItems: "center",
+        overflow: "hidden",
+    },
+    vuesaxlinearprofileCircleIcon: {
+        width: 20,
+        height: 20,
+    },
+    aboutYou: {
+        marginLeft: 10,
+        fontSize: 15,
+        lineHeight: 24,
+    },
+    mTypo: {
+        textAlign: "left",
+        fontFamily: FontFamily.sourceSerifPro,
+        fontWeight: '700'
+    },
+    danFleurClr: {
+        textAlign: "left",
+    },
+    vuesaxlinearsmsIcon: {
+        width: 18,
+        height: 18,
+    },
 });
+

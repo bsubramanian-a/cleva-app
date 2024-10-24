@@ -49,4 +49,8 @@ export const ROLLING_ACCOUNT_BALANCE = getApiURL('rollingaccountbalance');
 export const NOTES = getApiURL('notes');
 export const COACHNOTES = getApiURL('coachnotes');
 export const GET_MEETING = getApiURL('getmeeting');
+export const GET_INA = getApiURL('insuranceneedanalysis');
+export const GET_FINANCIAL_ACCOUNTS = getApiURL('financialaccounts');
+
+
 

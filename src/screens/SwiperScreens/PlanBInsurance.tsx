@@ -40,6 +40,10 @@ import {
 } from "react-native-chart-kit";
 import PerformanceTable from "../../components/PerformanceTable";
 import AssetAllocation from "../../components/AssetAllocation";
+import PlanBInsuranceSpeedoMeter from "./PlanBInsuranceSpeedoMeter";
+import AccordionSkeleton from "../../components/skeletons/AccordionSkeleton";
+import AccordionHeading from "../../components/AccordionHeading";
+import AccordionContainer from "../../components/AccordionContainer";
 
 const PlanBInsurance = () => {
   const navigation: any = useNavigation();
@@ -47,146 +51,31 @@ const PlanBInsurance = () => {
   const data = route.params?.item;
   console.log("data", data)
   const [loading, setLoading] = useState(false);
-  // const exercises = useSelector((state: any) => state.data.exercises);
-  // const summary = useSelector((state: any) => state.data.summary);
-  // const advices = useSelector((state: any) => state.data.advices);
   const planBInsurance = useSelector((state: any) => state.data.planBInsurance);
-  // const supersorted = useSelector((state: any) => state.data.supersorted);
-  // const rollingAccountBalance: any = useSelector((state: any) => state.data.rollingAccountBalance);
   const notes = useSelector((state: any) => state.data.notes);
   const coachnotes = useSelector((state: any) => state.data.coachnotes);
-  // const profile = useSelector((state: any) => state.data.profile);
-  // const assets = useSelector((state: any) => state.data.assets);
-  // const liabilities = useSelector((state: any) => state.data.liabilities);
-  // const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
+  const profile = useSelector((state: any) => state.data.profile);
+  const ina = useSelector((state: any) => state.data.ina);
+  const financialAccounts = useSelector((state: any) => state.data.financialAccounts);
 
-  // console.log("profile", profile);
-  // // console.log("advices", advices);
-  // console.log("supersorted", supersorted);
-  // console.log("rollingAccountBalance", rollingAccountBalance);
-  console.log("notes", notes);
-  console.log("coachnotes", coachnotes);
-  console.log("planBInsurance", planBInsurance);
+  console.log("profile", profile);
+  // console.log("notes", notes);
+  // console.log("coachnotes", coachnotes);
+  // console.log("planBInsurance", planBInsurance);
+  console.log("ina", ina);
+  console.log("financialAccounts", financialAccounts)
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
+  const [activeDashboardUser, setActiveDashboardUser] = useState(0);
+  const [accordionINA, setINAAccordion] = useState<any>([]);
+  const [accordionInsurance, setInsurance] = useState<any>([]);
+  const [finAccounts, setFinAccounts] = useState<any>([]);
+  const [dashboardUsers, setDashboardUsers] = useState<any>([]);
 
-  const [totalCurrentBalance, setTotalCurrentBalance] = useState<number>(0);
-  const [balanceByOwner, setBalanceByOwner] = useState<any>(null);
-  const [charData, setChartData]  = useState<any>(null);
-  const [performanceData, setPerformanceData] = useState<any>(null);
-  const [assetData, setAssetData] = useState<any>(null);
+  const [lifeInsuranceAccounts, setLifeInsuranceAccounts] = useState<any>([]);
+  const [tPDAccounts, setTPDAccounts] = useState<any>([]);
+  const [incomeProtectionAccounts, setIncomeProtectionAccounts] = useState<any>([]);
 
-  // useEffect(() => {
-  //   if (rollingAccountBalance && Object.keys(rollingAccountBalance).length > 0) {
-  //     // Perform calculations here
-  //     console.log('rollingAccountBalance loaded:', rollingAccountBalance);
-  //     setData(rollingAccountBalance)
-  //   }
-  // }, [rollingAccountBalance]);
-
-  // useEffect(() => {
-  //   if (supersorted && supersorted.length > 0) {
-  //     // Perform calculations here
-  //     console.log('supersorted loaded:', supersorted);
-  //     setPData(supersorted)
-  //     setAData(supersorted)
-  //   }
-  // }, [supersorted]);
-
-  // const setPData = (supersorted: any) => {
-  //   const performanceData = [
-  //     ['', '6M', '1Y', '3Y', '5Y'],
-  //     ['Actual', supersorted[0].Month_Actual + "%", supersorted[0].Year_Actual1 + "%",supersorted[0].Year_Actual2 + "%",supersorted[0].Year_Actual + "%"],
-  //     ['Benchmark', supersorted[0].Month_Benchmark + "%", supersorted[0].Year_Benchmark2 + "%",supersorted[0].Year_Benchmark + "%",supersorted[0].Year_Benchmark1 + "%"],
-  //     ['Outperformance', supersorted[0].Month_Outperformance + "%", supersorted[0].Year_Outperformance + "%",supersorted[0].Year_Outperformance2 + "%",supersorted[0].Year_Outperformance1 + "%"],
-  //   ];
-  //   setPerformanceData(performanceData);
-  // }
-
-  // const setAData = (supersorted: any) => {
-  //   const assetData = [
-  //     ['Actual Asset Allocation Total', supersorted[0].Formula_2 ?? 0, 'Target Asset Allocation Total', supersorted[0].Formula_1 ?? 0],
-  //     ['International Equities', (supersorted[0].International_Equities_Actual ?? 0) + "%", (supersorted[0].International_Equities ?? 0) + "%", 'Australian Equities', (supersorted[0].Australian_Equities_Actual ?? 0) + "%", (supersorted[0].Australian_Equities ?? 0) + "%"],
-  //     ['Property', (supersorted[0].Property_Actual ?? 0) + "%", (supersorted[0].Property ?? 0) + "%", 'Infrastructure', (supersorted[0].Infrastructure_Actual ?? 0) + "%", (supersorted[0].Infrastructure ?? 0) + "%"],
-  //     ['International Fixed Income', (supersorted[0].Intnl_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Intnl_Fixed_Income ?? 0) + "%", 'Australian Fixed Income', (supersorted[0].Aust_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Aust_Fixed_Income ?? 0) + "%"],
-  //   ];
-    
-  //   setAssetData(assetData);
-  // }
-
-  // const setData = (rollingAccountBalance: any) => {
-  //   // 1) Find the total of all Current_Balance
-  //   const totalCurrentBalance = rollingAccountBalance.reduce((acc: any, item: { Current_Balance: any; }) => acc + item.Current_Balance, 0);
-  //   console.log("Total Current Balance:", totalCurrentBalance);
-
-  //   setTotalCurrentBalance(totalCurrentBalance);
-
-  //   // 2) Find the total Current_Balance grouped by owner name
-  //   const balanceByOwner = rollingAccountBalance.reduce((acc: { [x: string]: any; }, item: { Owner: { name: any; }; Current_Balance: any; }) => {
-  //     const ownerName = item.Owner.name;
-  //     acc[ownerName] = (acc[ownerName] || 0) + item.Current_Balance;
-  //     return acc;
-  //   }, {});
-  //   console.log("Balance by Owner:", balanceByOwner);
-
-  //   setBalanceByOwner(balanceByOwner);
-
-  //   // 3) Create an array of unique As_At_Date for the current year and month
-  //   const currentYear = new Date().getFullYear();
-  //   const uniqueAsAtDates = rollingAccountBalance
-  //     .filter((item: { As_At_Date: string | number | Date; }) => {
-  //       const asAtDate = new Date(item.As_At_Date);
-  //       return asAtDate.getFullYear() === currentYear;
-  //     })
-  //     .map((item: { As_At_Date: string | number | Date; }) => {
-  //       const date = new Date(item.As_At_Date);
-  //       return `${date.toLocaleString('en-US', { month: 'short' })} ${date.getDate()}`;
-  //     })
-  //     .filter((value: any, index: any, self: string | any[]) => self.indexOf(value) === index);
-  //   console.log("Unique As_At_Dates:", uniqueAsAtDates);
-
-  //   const currentBalanceByOwnerAndDate = rollingAccountBalance.reduce((acc: { [x: string]: { [x: string]: any; }; }, item: { Owner: { name: any; }; As_At_Date: string | number | Date; Current_Balance: any; }) => {
-  //     const ownerName = item.Owner.name;
-  //     const asAtDate = new Date(item.As_At_Date);
-  //     const dateKey = `${asAtDate.toLocaleString('en-US', { month: 'short' })} ${asAtDate.getDate()}`;
-
-  //     if (!acc[dateKey]) {
-  //       acc[dateKey] = {};
-  //     }
-
-  //     if (!acc[dateKey][ownerName]) {
-  //       acc[dateKey][ownerName] = 0;
-  //     }
-
-  //     acc[dateKey][ownerName] += item.Current_Balance;
-  //     return acc;
-  //   }, {});
-
-  //   // Convert the object to an array of objects
-  //   const currentBalanceArray = Object.entries(currentBalanceByOwnerAndDate).map(([date, balances]) => ({
-  //     date,
-  //     balances
-  //   }));
-
-  //   console.log("Current Balance by Owner and Date:", currentBalanceArray);
-
-  //   const colors = ['rgba(151, 85, 182, 1)', 'rgba(239, 159, 39, 1)'];
-
-  //   // Create the desired JSON structure
-  //   const data = {
-  //     labels: uniqueAsAtDates,
-  //     datasets: Object.entries(currentBalanceByOwnerAndDate).map(([date, balances] : any, index) => ({ // Assuming only one owner per date
-  //       data: Object.values(balances),
-  //       color: (opacity = 1) => colors[index % colors.length], // Adjust color as needed
-  //       strokeWidth: 2 // Adjust strokeWidth as needed
-  //     })),
-  //     legend: Object.keys(balanceByOwner)
-  //   };
-
-  //   console.log(data);
-
-  //   setChartData(data);
-  // }
 
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
@@ -196,22 +85,11 @@ const PlanBInsurance = () => {
     setActiveSubTab(tabNumber);
   };
 
-  // useEffect(() => {
-  //   let totalAssets = 0;
-  //   let totalLiabilities = 0;
+  const handleDashboardUserTabPress = (tabNumber: number) => {
+    setActiveDashboardUser(tabNumber);
+  };
 
-  //   if (assets?.length > 0) {
-  //     totalAssets = parseFloat(assets.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
-  //   }
-
-  //   if (liabilities?.length > 0) {
-  //     totalLiabilities = parseFloat(liabilities.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
-  //   }
-
-  //   setTotalNetWorth(parseFloat((totalAssets - totalLiabilities)?.toFixed(1)));
-  // }, [assets, liabilities])
-
-  useEffect(() => {    
+  useEffect(() => {
 
     // Trigger the fetch when the navigation state changes
     navigation.addListener('focus', getDatas);
@@ -223,6 +101,77 @@ const PlanBInsurance = () => {
 
   }, [navigation])
 
+  useEffect(() => {
+    let dUsers: any = [];
+    if (ina && ina?.length > 0) {
+      ina?.forEach((element: any) => {
+        dUsers.push(element?.Household?.name)
+      });
+      //console.log("dashboard users : ", dUsers);
+      setAccordions();
+      setDashboardUsers(dUsers);
+    }
+  }, [ina])
+
+  useEffect(() => {
+    if (financialAccounts?.length > 0) {
+      const insFAccounts = financialAccounts.filter((account: any) => account?.Is_Insurance_Financial_Account === true);
+      let lifeInsuranceItems: any = [];
+      let tpdArray: any = [];
+      let iparray: any = [];
+      if (insFAccounts.length > 0) {
+        insFAccounts.forEach((element: any) => {
+
+          lifeInsuranceItems.push({
+            icon: <Image
+              style={styles.vuesaxlinearprofileCircle}
+              resizeMode="contain"
+              source={require("../../assets/dollar-square.png")}
+            />,
+            name: element?.Plan_Name,
+            value: element?.Life_Cover ? "$" + (element?.Life_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A",
+            element:element
+          });
+
+          tpdArray.push({
+            icon: <Image
+              style={styles.vuesaxlinearprofileCircle}
+              resizeMode="contain"
+              source={require("../../assets/dollar-square.png")}
+            />,
+            name: element?.Plan_Name,
+            value: element?.TPD_Cover ? "$" + (element?.TPD_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A",
+            element:element
+          });
+
+          iparray.push({
+            icon: <Image
+              style={styles.vuesaxlinearprofileCircle}
+              resizeMode="contain"
+              source={require("../../assets/dollar-square.png")}
+            />,
+            name: element?.Plan_Name,
+            value: element?.Salary_Continuance ? "$" + (element?.Salary_Continuance).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A",
+            element:element
+          });
+
+        });
+      }
+      console.log("lifeInsuranceItems", lifeInsuranceItems)
+      setLifeInsuranceAccounts(lifeInsuranceItems)
+      setTPDAccounts(tpdArray)
+      setIncomeProtectionAccounts(iparray);
+    }
+  }, [financialAccounts])
+
+  useEffect(() => {
+    console.log("lifeInsuranceAccounts inside useEffect", lifeInsuranceAccounts);
+    if (lifeInsuranceAccounts.length > 0) {
+      setFinAccordions();
+    }
+  }, [lifeInsuranceAccounts, tPDAccounts, incomeProtectionAccounts]);
+
+
 
   const getDatas = async () => {
     setLoading(true);
@@ -230,8 +179,10 @@ const PlanBInsurance = () => {
       await actions.getPlanBInsurance();
       await actions.getNotes();
       await actions.getCoachNotes();
+      await actions.getINA();
+      await actions.getFinancialAccounts();
     } catch (err) {
-      console.log("err", err);      
+      console.log("err", err);
     }
     setLoading(false);
   }
@@ -245,44 +196,195 @@ const PlanBInsurance = () => {
 
   const screenWidth = Dimensions.get("window").width;
 
-  const chartConfig = {
-    color: (opacity = 1) => `rgba(0,0, 0, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false,
-    backgroundColor: "#ffffff",
-    backgroundGradientFrom: "#ffffff",
-    backgroundGradientTo: "#ffffff",
-    decimalPlaces: 0,
+  const setFinAccordions = () => {
+    console.log("lifeInsuranceAccounts", lifeInsuranceAccounts)
+    setInsurance(
+      [{
+        title: "Life Insurance",
+        icon: require("../../assets/shield-tick.png"),
+        link: 'EditProfile',
+        editable: true,
+        finAccount:true,
+        value: <View>
+          <Text>Need : {(profile && profile[0] && profile[0].Life_Insurance_Need) ? "$" + (profile[0].Life_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+          <Text>Have : {(profile && profile[0] && profile[0].Life_Insurance_Have) ? "$" + (profile[0].Life_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+        </View>,
+        items: [
+          {
+            subHeading: "Life Insurance",
+            item: lifeInsuranceAccounts
+          }
+        ].filter(obj => obj),
+      }, {
+        title: "Total and Permanent Disability (TPD)",
+        icon: require("../../assets/shield-tick.png"),
+        link: 'EditProfile',
+        editable: true,
+        finAccount:true,
+        value: <View>
+          <Text>Need : {(profile && profile[0] && profile[0].TPD_Insurance_Need) ? "$" + (profile[0].TPD_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+          <Text>Have : {(profile && profile[0] && profile[0].TPD_Insurance_Have) ? "$" + (profile[0].TPD_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+        </View>,
+        items: [
+          {
+            subHeading: "Total and Permanent Disability (TPD)",
+            item: tPDAccounts
+          }
+        ].filter(obj => obj),
+      }, {
+        title: "Income Protection",
+        icon: require("../../assets/shield-tick.png"),
+        link: 'EditProfile',
+        editable: true,
+        finAccount:true,
+        value: <View>
+          <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+          <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+        </View>,
+        items: [
+          {
+            subHeading: "Insurance Need Analysis",
+            item: incomeProtectionAccounts
+          }
+        ].filter(obj => obj),
+      }
+      // , {
+      //   title: "Trauma/Critical Illness",
+      //   icon: require("../../assets/shield-tick.png"),
+      //   link: 'EditProfile',
+      //   editable: true,
+      //   finAccount:true,
+      //   value: <View>
+      //     <Text>Need : N/A</Text>
+      //     <Text>Have : N/A</Text>
+      //   </View>,
+      //   items: [
+      //     {
+      //       subHeading: "Insurance Need Analysis",
+      //       item: []
+      //     }
+      //   ].filter(obj => obj),
+      // }
+    ]);
+  }
+
+
+
+  const setAccordions = () => {
+    setINAAccordion([]);
+    ina?.map((inaObject: any, index: number) => {
+      pushAccordionData([{
+        title: "Insurance Need Analysis - " + inaObject?.Name,
+        icon: require("../../assets/shield-tick.png"),
+        link: 'EditProfile',
+        items: [
+          {
+            subHeading: "Insurance Need Analysis",
+            item: [
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Total Liabilities',
+                value: inaObject?.Total_Liabilities ? "$" + (inaObject?.Total_Liabilities).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Allowance for Children/Education',
+                value: inaObject?.Child_Edu_Allowance ? "$" + (inaObject?.Child_Edu_Allowance).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Replace Income p.a.',
+                value: inaObject?.Replace_Income_p_a ? "$" + (inaObject?.Replace_Income_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Number of years',
+                value: inaObject?.Number_of_Income_Yrs ? inaObject?.Number_of_Income_Yrs : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Allowance for Medical',
+                value: inaObject?.Allowance_Home_Mods ? "$" + (inaObject?.Allowance_Home_Mods).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Allowance for funeral',
+                value: inaObject?.Allowance_Funeral ? "$" + (inaObject?.Allowance_Funeral).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Allowance for Emergency',
+                value: inaObject?.Allowance_Emergency ? "$" + (inaObject?.Allowance_Emergency).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Allowance for House Modifications',
+                value: inaObject?.Allowance_Home_Mods ? "$" + (inaObject?.Allowance_Home_Mods).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Other Income',
+                value: inaObject?.Other_Allowances_Consideration ? "$" + (inaObject?.Other_Allowances_Consideration).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+              },
+
+            ]
+          }
+        ].filter(obj => obj),
+      }]);
+    });
+  }
+
+  const pushAccordionData = (newObject: any) => {
+    setINAAccordion((prevAccordionINA: any) => {
+      return [...prevAccordionINA, newObject];
+    });
   };
 
-  // const lineGraphData = {
-  //   labels: ["Jun 18", "Jun 19"],
-  //   datasets: [
-  //     {
-  //       data: [275032],
-  //       color: (opacity = 1) => `rgba(239, 159, 39, ${opacity})`, // optional
-  //       strokeWidth: 2 // optional
-  //     },
-  //     {
-  //       data: [550081, 275046],
-  //       color: (opacity = 1) => `rgba(151, 85, 182, ${opacity})`, // optional
-  //       strokeWidth: 2 // optional
-  //     }
-  //   ],
-  //   legend: ["Dan Rake", "Daniel Rake"] // optional
-  // };
-
-  
 
   return (
     <>
-      {(planBInsurance.length > 0) ?
+      {(planBInsurance?.length > 0) ?
         <View
           style={styles.planBInsurance}
         >
           <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-          <CustomHeader name={planBInsurance[0].Name} type={2} />         
+          <CustomHeader name={planBInsurance[0].Name} type={2} />
 
           <ScrollView
             style={styles.videoSectionParent}
@@ -316,7 +418,7 @@ const PlanBInsurance = () => {
               type="tab"
             />
             {activeTab == 0 &&
-              <>              
+              <>
                 <View style={[styles.summary1]}>
                   <Text
                     style={[
@@ -355,7 +457,7 @@ const PlanBInsurance = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Have Life Cover? 
+                    Have Life Cover?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -370,7 +472,7 @@ const PlanBInsurance = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Have IP Cover? 
+                    Have IP Cover?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -385,7 +487,7 @@ const PlanBInsurance = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Have TPD Cover? 
+                    Have TPD Cover?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -400,7 +502,7 @@ const PlanBInsurance = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Have Trauma Cover? 
+                    Have Trauma Cover?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -415,7 +517,7 @@ const PlanBInsurance = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Have Child Trauma Cover? 
+                    Have Child Trauma Cover?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -430,7 +532,7 @@ const PlanBInsurance = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Have Health Cover? 
+                    Have Health Cover?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -445,7 +547,7 @@ const PlanBInsurance = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Premiums are Competitive? 
+                    Premiums are Competitive?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -453,80 +555,51 @@ const PlanBInsurance = () => {
                     source={imageMap[planBInsurance[0].Premiums_are_Competitive]}
                   />
                 </View>
-                
+
               </>
             }
             {activeTab == 1 &&
               <>
-                <Text>DashBoard Tab</Text>
-                {/* <View style={[styles.advice]}>
-                  <View style={styles.users}>
-                    <View style={styles.loginuser}>
-                      <View
-                        style={[styles.frWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && { marginRight: -5 }]}
-                      >
-                        <Text style={styles.dr}>
-                          {profile?.length > 0 && (
-                            (profile[0]?.First_Name && profile[0]?.Last_Name)
-                              ? (profile[0]?.First_Name.charAt(0) + profile[0]?.Last_Name.charAt(0))
-                              : ((profile[0]?.First_Name || profile[0]?.Last_Name) || '').slice(0, 2)
-                          )}
-                        </Text>
-                      </View>
-                      {
-                        profile[0]?.accounts?.length > 0 &&
-                        <View style={[styles.drWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && { marginLeft: -5 }]}>
-                          <Text style={styles.dr}>
-                            {profile[0]?.accounts?.length > 0 && (
-                              (profile[0]?.accounts[0]?.First_Name && profile[0]?.accounts[0]?.Last_Name)
-                                ? (profile[0]?.accounts[0]?.First_Name.charAt(0) + profile[0]?.accounts[0]?.Last_Name.charAt(0))
-                                : ((profile[0]?.accounts[0]?.First_Name || profile[0]?.accounts[0]?.Last_Name) || '').slice(0, 2)
-                            )}
-                          </Text>
-                        </View>
-                      }
-                    </View>
-                    <Text
-                      style={[
-                        styles.danFleur,
-                        styles.mt26,
-                        styles.mTypo,
-                        styles.danFleurClr,
-                      ]}
-                    >{profile[0]?.Account_Name?.name}</Text>
-                  </View>
-                </View>
-                <View style={[styles.balance]}>
-                  <Text style={[styles.balanceText]}>${totalCurrentBalance?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
-                  <Text>{Object.keys(balanceByOwner)[0]} : ${balanceByOwner[Object.keys(balanceByOwner)[0]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
-                  {Object.keys(balanceByOwner)[1] && <Text>{Object.keys(balanceByOwner)[1]} : ${balanceByOwner[Object.keys(balanceByOwner)[1]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>}
-                  
+                {(ina) && (!ina?.length) && <>
+                  <AccordionSkeleton title="Loading INA" />
+                </>}
+                {ina && (ina?.length > 0) &&
+                  <>
+                    <ChapterTab
+                      tabs={dashboardUsers}
+                      activeTab={activeDashboardUser}
+                      onTabPress={handleDashboardUserTabPress}
+                      type="tab"
+                    />
+                    {dashboardUsers && (dashboardUsers?.length > 0) &&
+                      <>
+                        {dashboardUsers.map((user: any, index: number) => {
+                          if (activeDashboardUser == index) {
+                            return (
+                              <View key={user.id}>
 
-                  <Text style={[styles.balanceNextLine]}>Balance</Text>
-                </View>
-                <View>
-                  {charData && <LineChart
-                    data={charData}
-                    width={screenWidth - 10}
-                    height={220}
-                    chartConfig={chartConfig}
-                    bezier
-                    yAxisLabel="$"
-                    style={{
-                      marginLeft: 10,
-                      marginRight: 10,
-                      borderRadius: 16
-                    }}
-                  />}
-                </View>
-                <View>
-                  <Text style={styles.performance}>Performance</Text>
-                  <PerformanceTable performanceData={performanceData} />
-                </View>
-                <View>
-                  <Text style={styles.performance}>Asset Allocation</Text>
-                  <AssetAllocation assetData={assetData} />
-                </View> */}
+                                {(!ina[index]) && (ina?.length != index) && <>
+                                  <AccordionSkeleton title="Loading INA" />
+                                </>}
+                                {(ina?.length == 0) && <>
+                                  <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20 }}>
+                                    <AccordionHeading title="No Data Available" value="No Household is assigned to the contact"></AccordionHeading>
+                                  </View>
+                                </>}
+                                {(ina?.length > 0) && <>
+                                  <AccordionContainer accordions={accordionINA[index]} />
+                                </>}
+                              </View>
+                            );
+                          }
+                        })}
+                      </>
+                    }
+                    {(ina?.length > 0) && <>
+                      <AccordionContainer accordions={accordionInsurance} />
+                    </>}
+                  </>
+                }
               </>
             }
             {activeTab == 2 &&
@@ -639,8 +712,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     marginTop: 20,
-    marginLeft:10,
-    marginBottom:10
+    marginLeft: 10,
+    marginBottom: 10
   },
   balanceNextLine: {
     fontSize: 12,
@@ -1051,7 +1124,12 @@ const styles = StyleSheet.create({
     color: Color.warning_red,
     marginTop: 50,
     fontSize: 20,
-  }
+  },
+  vuesaxlinearprofileCircle: {
+    width: 20,
+    height: 20,
+    marginRight: 9
+  },
 });
 
 export default PlanBInsurance;

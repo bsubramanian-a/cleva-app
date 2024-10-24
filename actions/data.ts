@@ -42,7 +42,9 @@ import {
   ROLLING_ACCOUNT_BALANCE,
   NOTES,
   COACHNOTES,
-  GET_MEETING
+  GET_MEETING,
+  GET_INA,
+  GET_FINANCIAL_ACCOUNTS
 } from '../urls';
 import store from '../store';
 import types from '../types';
@@ -163,9 +165,10 @@ export const getPlanBInsurance = () => {
   return new Promise((resolve, reject) => {
     return apiGet(PLAN_B_INSURANCE)
       .then(res => {
+        console.log("Response from PlanB Insurance GET :", res);
         dispatch({
           type: types.PLAN_B_INSURANCE,
-          payload: res.data,
+          payload: res.contactData.data,
         });
         resolve(res);
       })
@@ -261,6 +264,43 @@ export const getCoachNotes = () => {
       });
   });
 };
+
+export const getINA = () => {
+  return new Promise((resolve, reject) => {
+    return apiGet(GET_INA)
+      .then(res => {
+        console.log("GET_INA",res.data)
+        dispatch({
+          type: types.INA,
+          payload: res.data,
+        });
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const getFinancialAccounts = () => {
+  return new Promise((resolve, reject) => {
+    return apiGet(GET_FINANCIAL_ACCOUNTS)
+      .then(res => {
+        console.log("GET_FINANCIAL_ACCOUNTS",res.data)
+        dispatch({
+          type: types.FINANCIALACCOUNTS,
+          payload: res.data,
+        });
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+
+
 
 export const getSummary = () => {
   return new Promise((resolve, reject) => {

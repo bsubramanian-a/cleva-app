@@ -20,7 +20,9 @@ const initialState = {
     householdExpenses: {},
     rollingAccountBalance: {},
     notes:{},
-    coachnotes:{}
+    coachnotes:{},
+    ina:{},
+    financialAccounts:{}
 };
 
 const data = (state = initialState, action:any) => {
@@ -51,6 +53,10 @@ const data = (state = initialState, action:any) => {
         return {...state, notes: data};
     case types.COACHNOTES:
         return {...state, coachnotes: data};
+    case types.INA:
+        return {...state, ina: data};
+    case types.FINANCIALACCOUNTS:
+        return {...state, financialAccounts: data};
     case types.SUMMARY:
         return {...state, summary: data};
     case types.ADVICE:

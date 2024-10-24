@@ -41,16 +41,16 @@ const Home = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const backHandler = BackHandler.addEventListener(
-  //     'hardwareBackPress',
-  //     handleBackButton
-  //   );
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackButton
+    );
 
-  //   return () => {
-  //     backHandler.remove();
-  //   };
-  // }, []);
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
 
   const handleBackButton = () => {
     if (navigation.isFocused()) {
