@@ -45,6 +45,8 @@ import PlanBInsurance from '../screens/SwiperScreens/PlanBInsurance';
 import DebtonateDebt from '../screens/SwiperScreens/DebtonateDebt';
 import EditPlanBEstatePlanWill from '../screens/SwiperScreens/EditPlanBEstatePlanWill';
 import EditMoneyAutoDrive from '../screens/SwiperScreens/EditMoneyAutoDrive';
+import EditPlanBInsurance from '../screens/SwiperScreens/EditPlanBInsurance';
+import EditFinancialAccount from '../screens/SwiperScreens/EditFinancialAccount';
 
 const Tab = createBottomTabNavigator();
 
@@ -220,6 +222,8 @@ const Mainstack = (Drawer, userData) => {
       <Drawer.Screen name="EditRetirement" component={EditRetirement} />
       <Drawer.Screen name="EditPlanBEstatePlanWill" component={EditPlanBEstatePlanWill} />
       <Drawer.Screen name="EditMoneyAutoDrive" component={EditMoneyAutoDrive} />
+      <Drawer.Screen name="EditPlanBInsurance" component={EditPlanBInsurance} />
+      <Drawer.Screen name="EditFinancialAccount" component={EditFinancialAccount} />
       <Drawer.Screen
         name="AddANewGoalGoalDate"
         component={AddANewGoalGoalDate}

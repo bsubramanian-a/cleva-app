@@ -50,15 +50,15 @@ export async function apiReq(
 			}
 		}
 
-		console.log("api data",data)
-		console.log("api headers",headers)
-		console.log("api method",method)
-		console.log("api endPoint",endPoint)
+		// console.log("api data",data)
+		// console.log("api headers",headers)
+		// console.log("api method",method)
+		// console.log("api endPoint",endPoint)
 		
 
 		axios[method](endPoint, data)
 			.then(result => {
-				console.log("api success", result);
+				//console.log("api success", result);
 				const { data } = result;
 
 				if (data.status === false) {
@@ -123,7 +123,7 @@ export async function apiReqFormData(
 
 		try {
 			const result = await axios[method](endPoint, data, { headers }); // Use await here
-			console.log("api success", result);
+			//console.log("api success", result);
 	  
 			if (result.data.status === false) {
 			  return reject(result.data);

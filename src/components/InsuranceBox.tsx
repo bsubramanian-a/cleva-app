@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     wrapItemContainer: {   
         flexDirection: 'column',        
         // marginBottom: 5,             
-        marginTop: 10,
+        marginTop: 0,
         width: '100%',
         borderWidth:0,
         backgroundColor:'#fcfcfc'

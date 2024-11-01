@@ -44,7 +44,7 @@ import {
   COACHNOTES,
   GET_MEETING,
   GET_INA,
-  GET_FINANCIAL_ACCOUNTS
+  FINANCIAL_ACCOUNTS
 } from '../urls';
 import store from '../store';
 import types from '../types';
@@ -284,9 +284,9 @@ export const getINA = () => {
 
 export const getFinancialAccounts = () => {
   return new Promise((resolve, reject) => {
-    return apiGet(GET_FINANCIAL_ACCOUNTS)
+    return apiGet(FINANCIAL_ACCOUNTS)
       .then(res => {
-        console.log("GET_FINANCIAL_ACCOUNTS",res.data)
+        console.log("FINANCIAL_ACCOUNTS Response Get",res.data)
         dispatch({
           type: types.FINANCIALACCOUNTS,
           payload: res.data,
@@ -527,6 +527,32 @@ export const updatePlanBEstatePlanWill = (data: any) => {
   });
 };
 
+export const updateFinancialAccounts = (data: any) => {
+  console.log("updateFinancialAccounts data coming in action", data);
+  return new Promise((resolve, reject) => {
+    return apiPut(FINANCIAL_ACCOUNTS, data)
+      .then(res => {
+        console.log("response from updateFinancialAccounts",res)
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const updatePlanBInsurance = (data: any) => {
+  console.log("updatePlanBInsurance data coming in action", data);
+  return new Promise((resolve, reject) => {
+    return apiPut(PLAN_B_INSURANCE, data)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
 
 export const updateHouseHoldExpenses = (data: any) => {
   console.log("updateHouseHoldExpenses data coming in action", data);

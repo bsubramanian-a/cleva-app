@@ -3,7 +3,7 @@ import { View, TextInput, StyleSheet, Text, Image } from 'react-native';
 import { FontFamily } from '../GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
 
-const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, icon="", isMobile = false, isTextArea=false, placeholder="", inputStyle={}, ...props }: any) => {
+const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, icon = "", isMobile = false, isTextArea = false, placeholder = "", isFinance = false, recordID = "", inputStyle = {}, ...props }: any) => {
   // console.log("defaultValue.......", defaultValue, id)
   const navigation = useNavigation();
   const [inputValue, setInputValue] = useState(defaultValue);
@@ -12,12 +12,12 @@ const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, ic
     setInputValue(defaultValue);
   }, [defaultValue])
 
-  const formatMobileNumber = (mobileNumber:any) => {
-    if(mobileNumber){
+  const formatMobileNumber = (mobileNumber: any) => {
+    if (mobileNumber) {
       // Remove all non-digit characters from the mobile number except for the plus sign
       const digitsOnly = mobileNumber.replace(/[^+\d]/g, '');
-    
-     // Check if the mobile number has a valid length
+
+      // Check if the mobile number has a valid length
       if (digitsOnly.length > 3) {
         // Format the mobile number in the Australian format
         let formattedNumber = digitsOnly.replace(/^(\+\d{1,2})/, '$1 ');
@@ -27,15 +27,15 @@ const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, ic
         return formattedNumber;
       }
     }
-    
+
     // Return the original mobile number if it doesn't match the expected format
     return mobileNumber;
   };
 
   return (
     <View style={styles.container}>
-      <View style={{flexDirection: 'row', gap: 3, alignItems: 'center', justifyContent: 'flex-start'}}>
-        {icon && 
+      <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center', justifyContent: 'flex-start' }}>
+        {icon &&
           <Image
             style={styles.vuesaxlinearprofileCircleIcon}
             resizeMode="cover"
@@ -47,7 +47,7 @@ const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, ic
       <TextInput
         multiline={isTextArea}
         keyboardType={isNumOnly ? "numeric" : "default"}
-        style={[styles.input, inputStyle]}
+        style={[styles.input, inputStyle, isTextArea ? styles.textArea : ""]}
         defaultValue={isNumOnly ? inputValue?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : isMobile ? formatMobileNumber(inputValue) : inputValue}
         placeholder={placeholder}
         placeholderTextColor={"#AAA9A8"}
@@ -55,20 +55,36 @@ const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, ic
         // autoCorrect={false}
         {...props}
         onChangeText={(text) => {
+          console.log("grabbing the text", text, recordID)
           if (isNumOnly) {
-            // Remove non-numeric characters
-            const newText = text.replace(/[^0-9]/g, '');
-            const formattedText = newText.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            setInputValue(formattedText);
-            updateState(newText, id);
+            if (isFinance) {
+              const newText = text.replace(/[^0-9]/g, '');
+              const formattedText = newText.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+              setInputValue(formattedText);
+              updateState(newText, id, recordID);
+            } else {
+              // Remove non-numeric characters
+              const newText = text.replace(/[^0-9]/g, '');
+              const formattedText = newText.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+              setInputValue(formattedText);
+              updateState(newText, id);
+            }
           } else {
-            if(isMobile){
+            if (isMobile) {
               const newNum = formatMobileNumber(text);
 
               setInputValue(newNum);
               updateState(text ? text?.replace(/-/g, '') : "", id);
-            }else{
-              updateState(text, id);
+            } else {
+              if (isFinance) {
+                console.log("coming inside finance")
+                console.log("text", text)
+                console.log("id", id)
+                console.log("recordID", recordID)
+                updateState(text, id, recordID);
+              } else {
+                updateState(text, id);
+              }
             }
           }
         }}
@@ -107,6 +123,11 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: '600'
   },
+  textArea: {
+    height: 100,
+    paddingTop: 0,
+    paddingVertical: 0,
+  }
 });
 
 export default CTextInput;

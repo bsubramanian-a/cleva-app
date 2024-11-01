@@ -5,8 +5,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import { FontFamily } from '../GlobalStyles';
 import { wrapTitle } from '../utils/wrapTitle';
 
-const AccordionHeading = ({ title, value, editable, toggleAccordion, icon }: any) => {
+const AccordionHeading = ({ title, value, editable, toggleAccordion, icon, link, element, navigation, showEdit }: any) => {
     const wrappedTitle = wrapTitle(title, 24);
+    const goEdit = (link: string, editData: any) => {
+        console.log("editlink", link)
+        console.log("editData", editData)
+        navigation.navigate(link, { editData });
+    };
+
     return (
         <>
             <TouchableOpacity
@@ -24,9 +30,19 @@ const AccordionHeading = ({ title, value, editable, toggleAccordion, icon }: any
 
 
                     {editable && <View style={styles.listContent}>
-                        <Text style={styles.listName}>{wrappedTitle}</Text>
+                        <View style={[styles.listTitle]}>
+                            <Text style={styles.listName}>{wrappedTitle}</Text>
+                            {showEdit && <Pressable onPress={() => goEdit(link, element)} style={{ marginTop: 2, marginLeft:7 }}>
+                                <Image
+                                    style={styles.vuesaxlinearedit}
+                                    resizeMode="cover"
+                                    source={require('../assets/edit.png')}
+                                />
+                            </Pressable>}                            
+                        </View>
                         <Text style={styles.listValue}>{value}</Text>
                     </View>}
+
 
                     {!editable && <View>
                         <Text
@@ -41,6 +57,7 @@ const AccordionHeading = ({ title, value, editable, toggleAccordion, icon }: any
                     </View>}
 
                 </View>
+
                 <Image
                     style={styles.vuesaxlinearsmsIcon}
                     resizeMode="cover"
@@ -58,6 +75,11 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'space-between',
         marginLeft: 10
+    },
+    listTitle:{
+        flexDirection:"row",
+        alignItems: 'flex-start',
+        justifyContent: 'space-between'
     },
     listName: {
         fontSize: 16,
@@ -123,6 +145,10 @@ const styles = StyleSheet.create({
     vuesaxlinearsmsIcon: {
         width: 18,
         height: 18,
+    },
+    vuesaxlinearedit: {
+        width: 20,
+        height: 20,
     },
 });
 

@@ -49,7 +49,7 @@ const PlanBInsurance = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
   const data = route.params?.item;
-  console.log("data", data)
+  //console.log("data", data)
   const [loading, setLoading] = useState(false);
   const planBInsurance = useSelector((state: any) => state.data.planBInsurance);
   const notes = useSelector((state: any) => state.data.notes);
@@ -58,18 +58,16 @@ const PlanBInsurance = () => {
   const ina = useSelector((state: any) => state.data.ina);
   const financialAccounts = useSelector((state: any) => state.data.financialAccounts);
 
-  console.log("profile", profile);
+  //console.log("profile", profile);
   // console.log("notes", notes);
   // console.log("coachnotes", coachnotes);
   // console.log("planBInsurance", planBInsurance);
-  console.log("ina", ina);
-  console.log("financialAccounts", financialAccounts)
+  //console.log("ina", ina);
+  //console.log("financialAccounts", financialAccounts)
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
   const [activeDashboardUser, setActiveDashboardUser] = useState(0);
   const [accordionINA, setINAAccordion] = useState<any>([]);
-  const [accordionInsurance, setInsurance] = useState<any>([]);
-  const [finAccounts, setFinAccounts] = useState<any>([]);
   const [dashboardUsers, setDashboardUsers] = useState<any>([]);
 
   const [lifeInsuranceAccounts, setLifeInsuranceAccounts] = useState<any>([]);
@@ -86,7 +84,7 @@ const PlanBInsurance = () => {
   };
 
   const handleDashboardUserTabPress = (tabNumber: number) => {
-    setActiveDashboardUser(tabNumber);
+    setActiveDashboardUser(tabNumber);    
   };
 
   useEffect(() => {
@@ -103,18 +101,10 @@ const PlanBInsurance = () => {
 
   useEffect(() => {
     let dUsers: any = [];
-    if (ina && ina?.length > 0) {
+    if (ina && ina?.length > 0 && financialAccounts && financialAccounts?.length > 0) {
       ina?.forEach((element: any) => {
         dUsers.push(element?.Household?.name)
       });
-      //console.log("dashboard users : ", dUsers);
-      setAccordions();
-      setDashboardUsers(dUsers);
-    }
-  }, [ina])
-
-  useEffect(() => {
-    if (financialAccounts?.length > 0) {
       const insFAccounts = financialAccounts.filter((account: any) => account?.Is_Insurance_Financial_Account === true);
       let lifeInsuranceItems: any = [];
       let tpdArray: any = [];
@@ -130,7 +120,7 @@ const PlanBInsurance = () => {
             />,
             name: element?.Plan_Name,
             value: element?.Life_Cover ? "$" + (element?.Life_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A",
-            element:element
+            element: element
           });
 
           tpdArray.push({
@@ -141,7 +131,7 @@ const PlanBInsurance = () => {
             />,
             name: element?.Plan_Name,
             value: element?.TPD_Cover ? "$" + (element?.TPD_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A",
-            element:element
+            element: element
           });
 
           iparray.push({
@@ -152,131 +142,49 @@ const PlanBInsurance = () => {
             />,
             name: element?.Plan_Name,
             value: element?.Salary_Continuance ? "$" + (element?.Salary_Continuance).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A",
-            element:element
+            element: element
           });
 
         });
       }
-      console.log("lifeInsuranceItems", lifeInsuranceItems)
-      setLifeInsuranceAccounts(lifeInsuranceItems)
-      setTPDAccounts(tpdArray)
-      setIncomeProtectionAccounts(iparray);
-    }
-  }, [financialAccounts])
+      //console.log("lifeInsuranceItems", lifeInsuranceItems)
+      // setLifeInsuranceAccounts(lifeInsuranceItems)
+      // setTPDAccounts(tpdArray)
+      // setIncomeProtectionAccounts(iparray);
+      //console.log("dashboard users : ", dUsers);  
+      setDashboardUsers(dUsers);
+      setAccordions(lifeInsuranceItems,tpdArray,iparray);     
+    }         
+  }, [ina,financialAccounts])
 
-  useEffect(() => {
-    console.log("lifeInsuranceAccounts inside useEffect", lifeInsuranceAccounts);
-    if (lifeInsuranceAccounts.length > 0) {
-      setFinAccordions();
-    }
-  }, [lifeInsuranceAccounts, tPDAccounts, incomeProtectionAccounts]);
-
-
-
-  const getDatas = async () => {
-    setLoading(true);
-    try {
-      await actions.getPlanBInsurance();
-      await actions.getNotes();
-      await actions.getCoachNotes();
-      await actions.getINA();
-      await actions.getFinancialAccounts();
-    } catch (err) {
-      console.log("err", err);
-    }
-    setLoading(false);
-  }
-
-  const imageMap: any = {
-    'Yes': require('../../assets/yes.png'),
-    'Maybe/Work to Do': require('../../assets/maybe.png'),
-    'No/Not Sure': require('../../assets/no.png'),
-    'No': require('../../assets/no.png'),
-  };
-
-  const screenWidth = Dimensions.get("window").width;
-
-  const setFinAccordions = () => {
-    console.log("lifeInsuranceAccounts", lifeInsuranceAccounts)
-    setInsurance(
-      [{
-        title: "Life Insurance",
-        icon: require("../../assets/shield-tick.png"),
-        link: 'EditProfile',
-        editable: true,
-        finAccount:true,
-        value: <View>
-          <Text>Need : {(profile && profile[0] && profile[0].Life_Insurance_Need) ? "$" + (profile[0].Life_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-          <Text>Have : {(profile && profile[0] && profile[0].Life_Insurance_Have) ? "$" + (profile[0].Life_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-        </View>,
-        items: [
-          {
-            subHeading: "Life Insurance",
-            item: lifeInsuranceAccounts
-          }
-        ].filter(obj => obj),
-      }, {
-        title: "Total and Permanent Disability (TPD)",
-        icon: require("../../assets/shield-tick.png"),
-        link: 'EditProfile',
-        editable: true,
-        finAccount:true,
-        value: <View>
-          <Text>Need : {(profile && profile[0] && profile[0].TPD_Insurance_Need) ? "$" + (profile[0].TPD_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-          <Text>Have : {(profile && profile[0] && profile[0].TPD_Insurance_Have) ? "$" + (profile[0].TPD_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-        </View>,
-        items: [
-          {
-            subHeading: "Total and Permanent Disability (TPD)",
-            item: tPDAccounts
-          }
-        ].filter(obj => obj),
-      }, {
-        title: "Income Protection",
-        icon: require("../../assets/shield-tick.png"),
-        link: 'EditProfile',
-        editable: true,
-        finAccount:true,
-        value: <View>
-          <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-          <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-        </View>,
-        items: [
-          {
-            subHeading: "Insurance Need Analysis",
-            item: incomeProtectionAccounts
-          }
-        ].filter(obj => obj),
-      }
-      // , {
-      //   title: "Trauma/Critical Illness",
-      //   icon: require("../../assets/shield-tick.png"),
-      //   link: 'EditProfile',
-      //   editable: true,
-      //   finAccount:true,
-      //   value: <View>
-      //     <Text>Need : N/A</Text>
-      //     <Text>Have : N/A</Text>
-      //   </View>,
-      //   items: [
-      //     {
-      //       subHeading: "Insurance Need Analysis",
-      //       item: []
-      //     }
-      //   ].filter(obj => obj),
-      // }
-    ]);
-  }
-
-
-
-  const setAccordions = () => {
+  const setAccordions = (lifeInsuranceItems:any,tpdArray:any,iparray:any) => {
     setINAAccordion([]);
     ina?.map((inaObject: any, index: number) => {
+      //console.log("inaObject",inaObject)
+
+      //console.log("lifeInsuranceItems", lifeInsuranceItems)
+
+      
+
+      const lIAccount = lifeInsuranceItems.filter((account:any) => account?.element?.Household?.id == inaObject?.Household?.id)
+
+      //console.log("lIAccount",lIAccount)
+
+      const tPDAccount = tpdArray.filter((account:any) => account?.element?.Household?.id == inaObject?.Household?.id)
+
+      //console.log("tPDAccount",tPDAccount)
+
+      const incomeProtectionAccount = iparray.filter((account:any) => account?.element?.Household?.id == inaObject?.Household?.id)
+
+      //console.log("incomeProtectionAccount",incomeProtectionAccount)
+
+      
+
       pushAccordionData([{
         title: "Insurance Need Analysis - " + inaObject?.Name,
         icon: require("../../assets/shield-tick.png"),
-        link: 'EditProfile',
+        link: 'EditPlanBInsurance',
+        element:inaObject,
         items: [
           {
             subHeading: "Insurance Need Analysis",
@@ -324,7 +232,7 @@ const PlanBInsurance = () => {
                   source={require("../../assets/dollar-square.png")}
                 />,
                 name: 'Allowance for Medical',
-                value: inaObject?.Allowance_Home_Mods ? "$" + (inaObject?.Allowance_Home_Mods).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+                value: inaObject?.Allowance_Medical ? "$" + (inaObject?.Allowance_Medical).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
               },
               {
                 icon: <Image
@@ -362,13 +270,99 @@ const PlanBInsurance = () => {
                 name: 'Other Income',
                 value: inaObject?.Other_Allowances_Consideration ? "$" + (inaObject?.Other_Allowances_Consideration).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
               },
-
+              {
+                icon: "",
+                name: 'INA Notes And Comments',
+                value: (inaObject?.Multi_Line_1)?(inaObject?.Multi_Line_1):"N/A",
+                comments: "yes"
+              },
             ]
           }
         ].filter(obj => obj),
-      }]);
+      },
+      {
+        title: "Life Insurance",
+        icon: require("../../assets/shield-tick.png"),
+        link: 'EditFinancialAccount',
+        editable: true,
+        finAccount: true,
+        element:lIAccount,
+        showEdit:(lIAccount?.length > 0)?true:false,
+        value: <View>
+          <Text>Need : {(profile && profile[0] && profile[0].Life_Insurance_Need) ? "$" + (profile[0].Life_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+          <Text>Have : {(profile && profile[0] && profile[0].Life_Insurance_Have) ? "$" + (profile[0].Life_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+        </View>,
+        items: [
+          {
+            subHeading: "Life Insurance",
+            item: lIAccount
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: "Total and Permanent Disability (TPD)",
+        icon: require("../../assets/shield-tick.png"),
+        link: 'EditProfile',
+        editable: true,
+        finAccount: true,
+        value: <View>
+          <Text>Need : {(profile && profile[0] && profile[0].TPD_Insurance_Need) ? "$" + (profile[0].TPD_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+          <Text>Have : {(profile && profile[0] && profile[0].TPD_Insurance_Have) ? "$" + (profile[0].TPD_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+        </View>,
+        items: [
+          {
+            subHeading: "Total and Permanent Disability (TPD)",
+            item: tPDAccount
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: "Income Protection",
+        icon: require("../../assets/shield-tick.png"),
+        link: 'EditProfile',
+        editable: true,
+        finAccount: true,
+        value: <View>
+          <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+          <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+        </View>,
+        items: [
+          {
+            subHeading: "Insurance Need Analysis",
+            item: incomeProtectionAccount
+          }
+        ].filter(obj => obj),
+      }
+    ]);
     });
   }
+
+  
+
+  const getDatas = async () => {
+    setLoading(true);
+    try {
+      await actions.getPlanBInsurance();
+      await actions.getNotes();
+      await actions.getCoachNotes();
+      await actions.getINA();
+      await actions.getFinancialAccounts();
+    } catch (err) {
+      console.log("err", err);
+    }
+    setLoading(false);
+  }
+
+  const imageMap: any = {
+    'Yes': require('../../assets/yes.png'),
+    'Maybe/Work to Do': require('../../assets/maybe.png'),
+    'No/Not Sure': require('../../assets/no.png'),
+    'No': require('../../assets/no.png'),
+  };
+
+  const screenWidth = Dimensions.get("window").width;
+
+  
 
   const pushAccordionData = (newObject: any) => {
     setINAAccordion((prevAccordionINA: any) => {
@@ -576,8 +570,7 @@ const PlanBInsurance = () => {
                         {dashboardUsers.map((user: any, index: number) => {
                           if (activeDashboardUser == index) {
                             return (
-                              <View key={user.id}>
-
+                              <View key={index}>
                                 {(!ina[index]) && (ina?.length != index) && <>
                                   <AccordionSkeleton title="Loading INA" />
                                 </>}
@@ -588,16 +581,14 @@ const PlanBInsurance = () => {
                                 </>}
                                 {(ina?.length > 0) && <>
                                   <AccordionContainer accordions={accordionINA[index]} />
-                                </>}
+                                </>}                                
                               </View>
                             );
                           }
                         })}
                       </>
                     }
-                    {(ina?.length > 0) && <>
-                      <AccordionContainer accordions={accordionInsurance} />
-                    </>}
+
                   </>
                 }
               </>

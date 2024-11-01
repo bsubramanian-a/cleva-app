@@ -8,11 +8,15 @@ import AccordionHeading from './AccordionHeading';
 import { wrapTitle } from '../utils/wrapTitle';
 import InsuranceBox from './InsuranceBox';
 
-const AccordionItem = ({ icon, name, value, editable, index, finAccount, element }: any) => {
+const AccordionItem = ({ icon, name, value, editable, index, finAccount, element, comments }: any) => {
   const wrappedName = name ? wrapTitle(name, 22) : "N/A";
+  let wrappedValue  = value;
+  if (comments == "yes") {
+    wrappedValue = value ? wrapTitle(value, 40) : "N/A";
+  }
   return (
     <>
-      {!editable && (
+      {!editable && (comments != "yes") && (
         <View style={styles.itemContainer}>
           <View style={styles.itemContent}>
             {/* <Image
@@ -28,16 +32,22 @@ const AccordionItem = ({ icon, name, value, editable, index, finAccount, element
       )}
       {editable && finAccount && (
         <>
-          <InsuranceBox element={element} name={wrappedName} value={value}/>          
+          <InsuranceBox element={element} name={wrappedName} value={value} />
         </>
       )}
-      {editable && !finAccount && (index % 2 === 1) && (
+      {!editable && (comments == "yes") && (
+        <View style={[styles.commentscontainer]}>
+          <Text style={[styles.commentName]}>{wrappedName}</Text>
+          <Text style={styles.commentValue}>{wrappedValue}</Text>
+        </View>
+      )}
+      {editable && !finAccount && !comments && (index % 2 === 1) && (
         <View>
           <Text style={[styles.newName, styles.titleRight]}>{wrappedName}</Text>
           <Text style={[styles.newValue, styles.titleRight]}>{value}</Text>
         </View>
       )}
-      {editable && !finAccount && (index % 2 === 0) && (
+      {editable && !finAccount && !comments && (index % 2 === 0) && (
         <View>
           <Text style={[styles.name]}>{wrappedName}</Text>
           <Text style={styles.value}>{value}</Text>
@@ -56,7 +66,10 @@ const Accordion = ({
   navigation,
   editable = false,
   value = "",
-  finAccount
+  finAccount,
+  link,
+  element, 
+  showEdit
 }: any) => {
   const isActive = activeAccordion === title;
 
@@ -72,17 +85,30 @@ const Accordion = ({
     navigation.navigate('EditProfile', { type: type });
   };
 
+  const goEdit = (link: string, editData: any) => {
+    console.log("editlink",link)
+    console.log("editData",editData)
+    navigation.navigate(link, { editData });
+  };
+
+  console.log("edit title", title);
+  console.log("edit link", link);
+  console.log("edit element", element);
+
+  
+
   return (
     //{editable && (
     // <View style={[styles.container, !editable ? styles.aboutCard : styles.normalCard]}>
     <View style={[styles.container, styles.aboutCard]}>
-      <AccordionHeading icon={icon} toggleAccordion={toggleAccordion} title={title} value={value} editable={editable}></AccordionHeading>
+      <AccordionHeading icon={icon} toggleAccordion={toggleAccordion} title={title} value={value} showEdit={showEdit} editable={editable} link={link} element={element} navigation={navigation}></AccordionHeading>
       {isActive && editable && (
         <View>
           {items.map((section: any, index: any) => (
             <View key={index.toString()}>
               {index == 0 && <View style={styles.lineStyle} />}
-              <View style={styles.itemContainerNew}>
+              <View style={styles.itemContainerNew} key={index.toString()}>
+                {section.item.length == 0 && <Text>No Accounts Found</Text>}
                 {section.item.map((item: any, itemIndex: any) => {
                   //const isEven = itemIndex % 2 === 0;
                   const currentIcon = "../assets/profile.png";
@@ -129,7 +155,14 @@ const Accordion = ({
               {index == 0 && <View style={styles.lineStyle} />}
               {!editable && <View style={styles.editRow}>
                 <Text style={styles.subHeading}>{section.subHeading} Editable : {editable}</Text>
-                <Pressable onPress={() => editProfile(index == 0 ? 'user1' : 'user2')} style={{ marginTop: 5 }}>
+                {/* <Pressable onPress={() => editProfile(index == 0 ? 'user1' : 'user2')} style={{ marginTop: 5 }}>
+                  <Image
+                    style={styles.vuesaxlinearedit}
+                    resizeMode="cover"
+                    source={require('../assets/edit.png')}
+                  />
+                </Pressable> */}
+                <Pressable onPress={() => goEdit(link, element)} style={{ marginTop: 5 }}>
                   <Image
                     style={styles.vuesaxlinearedit}
                     resizeMode="cover"
@@ -142,7 +175,7 @@ const Accordion = ({
                 //const currentIcon = "../assets/profile.png";
                 const currentIcon = item.icon;
                 const currentLabel = item.name;
-                return (<React.Fragment key={itemIndex.toString()}>
+                return (<React.Fragment key={itemIndex.toString()}>                  
                   <AccordionItem
                     icon={currentIcon}
                     name={currentLabel}
@@ -150,14 +183,15 @@ const Accordion = ({
                     editable={editable}
                     finAccount={finAccount}
                     element={item.element}
+                    comments={item?.comments}
                   />
-                  <View
+                  {/* <View
                     style={[
                       styles.assetsviewChild,
                       styles.mt15,
                       styles.childBorder,
                     ]}
-                  />
+                  /> */}
                 </React.Fragment>)
               })}
             </View>
@@ -171,6 +205,8 @@ const Accordion = ({
 const AccordionContainer = ({ accordions }: any) => {
   const [activeAccordion, setActiveAccordion] = useState(null);
   const navigation = useNavigation();
+
+  console.log("accordions", accordions)
 
   return (
     <View style={[styles.accordionContainer]}>
@@ -186,6 +222,9 @@ const AccordionContainer = ({ accordions }: any) => {
           editable={accordion.editable}
           value={accordion.value}
           finAccount={accordion.finAccount}
+          link={accordion.link}
+          element={accordion.element}
+          showEdit={accordion.showEdit}
         />
       ))}
     </View>
@@ -322,4 +361,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000'
   },
+  commentName: {
+    marginRight: 10,
+    color: '#4B4B4B'
+  },
+  commentValue: {
+    marginRight: 10,
+    fontWeight: 'bold',
+    color: '#000'
+  },
+  commentscontainer : {
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    paddingLeft:10,
+    paddingRight:10,
+    paddingTop:10,
+    paddingBottom:10
+  }
 });
