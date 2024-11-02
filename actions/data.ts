@@ -286,7 +286,7 @@ export const getFinancialAccounts = () => {
   return new Promise((resolve, reject) => {
     return apiGet(FINANCIAL_ACCOUNTS)
       .then(res => {
-        console.log("FINANCIAL_ACCOUNTS Response Get",res.data)
+        console.log("FINANCIAL_ACCOUNTS Response Get",res.data)        
         dispatch({
           type: types.FINANCIALACCOUNTS,
           payload: res.data,
@@ -294,6 +294,7 @@ export const getFinancialAccounts = () => {
         resolve(res);
       })
       .catch(error => {
+        console.log("coming inside promise", error)
         reject(error);
       });
   });
@@ -528,11 +529,15 @@ export const updatePlanBEstatePlanWill = (data: any) => {
 };
 
 export const updateFinancialAccounts = (data: any) => {
-  console.log("updateFinancialAccounts data coming in action", data);
+  console.log("updateFinancialAccounts data coming in action", data);  
   return new Promise((resolve, reject) => {
     return apiPut(FINANCIAL_ACCOUNTS, data)
       .then(res => {
-        console.log("response from updateFinancialAccounts",res)
+        //console.log("response from updateFinancialAccounts",res, res)        
+        // dispatch({
+        //   type: types.UPDATE_FINANCIAL_ACCOUNTS,
+        //   payload: data,
+        // });
         resolve(res);
       })
       .catch(error => {
@@ -540,6 +545,8 @@ export const updateFinancialAccounts = (data: any) => {
       });
   });
 };
+
+
 
 export const updatePlanBInsurance = (data: any) => {
   console.log("updatePlanBInsurance data coming in action", data);

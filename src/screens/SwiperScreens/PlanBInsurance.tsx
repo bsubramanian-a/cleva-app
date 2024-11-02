@@ -109,9 +109,15 @@ const PlanBInsurance = () => {
       let lifeInsuranceItems: any = [];
       let tpdArray: any = [];
       let iparray: any = [];
+      let traumaArray: any = [];
       if (insFAccounts.length > 0) {
         insFAccounts.forEach((element: any) => {
-
+          console.log("element from insFAccounts", element)
+          console.log("element from insFAccounts Life_Cover", element?.Life_Cover)
+          // const lC = (element?.Life_Cover)? ("$" + (element?.Life_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A"
+          const lC = Number(element?.Life_Cover);
+          console.log("lc", lC)
+          console.log("typeof lC", typeof lC)
           lifeInsuranceItems.push({
             icon: <Image
               style={styles.vuesaxlinearprofileCircle}
@@ -119,7 +125,7 @@ const PlanBInsurance = () => {
               source={require("../../assets/dollar-square.png")}
             />,
             name: element?.Plan_Name,
-            value: element?.Life_Cover ? "$" + (element?.Life_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A",
+            value: lC? ("$" + lC.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
             element: element
           });
 
@@ -130,7 +136,7 @@ const PlanBInsurance = () => {
               source={require("../../assets/dollar-square.png")}
             />,
             name: element?.Plan_Name,
-            value: element?.TPD_Cover ? "$" + (element?.TPD_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A",
+            value: Number(element?.TPD_Cover)?("$" + Number(element?.TPD_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
             element: element
           });
 
@@ -141,7 +147,18 @@ const PlanBInsurance = () => {
               source={require("../../assets/dollar-square.png")}
             />,
             name: element?.Plan_Name,
-            value: element?.Salary_Continuance ? "$" + (element?.Salary_Continuance).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A",
+            value: Number(element?.Salary_Continuance)?("$" + Number(element?.Salary_Continuance).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
+            element: element
+          });
+
+          traumaArray.push({
+            icon: <Image
+              style={styles.vuesaxlinearprofileCircle}
+              resizeMode="contain"
+              source={require("../../assets/dollar-square.png")}
+            />,
+            name: element?.Plan_Name,
+            value: Number(element?.Trauma_Cover)?("$" + Number(element?.Trauma_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
             element: element
           });
 
@@ -153,11 +170,11 @@ const PlanBInsurance = () => {
       // setIncomeProtectionAccounts(iparray);
       //console.log("dashboard users : ", dUsers);  
       setDashboardUsers(dUsers);
-      setAccordions(lifeInsuranceItems,tpdArray,iparray);     
+      setAccordions(lifeInsuranceItems,tpdArray,iparray, traumaArray);     
     }         
   }, [ina,financialAccounts])
 
-  const setAccordions = (lifeInsuranceItems:any,tpdArray:any,iparray:any) => {
+  const setAccordions = (lifeInsuranceItems:any,tpdArray:any,iparray:any, traumaArray:any) => {
     setINAAccordion([]);
     ina?.map((inaObject: any, index: number) => {
       //console.log("inaObject",inaObject)
@@ -177,6 +194,10 @@ const PlanBInsurance = () => {
       const incomeProtectionAccount = iparray.filter((account:any) => account?.element?.Household?.id == inaObject?.Household?.id)
 
       //console.log("incomeProtectionAccount",incomeProtectionAccount)
+
+      const traumaAccount = traumaArray.filter((account:any) => account?.element?.Household?.id == inaObject?.Household?.id)
+
+      
 
       
 
@@ -302,9 +323,11 @@ const PlanBInsurance = () => {
       {
         title: "Total and Permanent Disability (TPD)",
         icon: require("../../assets/shield-tick.png"),
-        link: 'EditProfile',
+        link: 'EditFinancialAccount',
         editable: true,
         finAccount: true,
+        element:tPDAccount,
+        showEdit:(tPDAccount?.length > 0)?true:false,
         value: <View>
           <Text>Need : {(profile && profile[0] && profile[0].TPD_Insurance_Need) ? "$" + (profile[0].TPD_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
           <Text>Have : {(profile && profile[0] && profile[0].TPD_Insurance_Have) ? "$" + (profile[0].TPD_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
@@ -319,9 +342,11 @@ const PlanBInsurance = () => {
       {
         title: "Income Protection",
         icon: require("../../assets/shield-tick.png"),
-        link: 'EditProfile',
+        link: 'EditFinancialAccount',
         editable: true,
         finAccount: true,
+        element:incomeProtectionAccount,
+        showEdit:(incomeProtectionAccount?.length > 0)?true:false,
         value: <View>
           <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
           <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
@@ -330,6 +355,25 @@ const PlanBInsurance = () => {
           {
             subHeading: "Insurance Need Analysis",
             item: incomeProtectionAccount
+          }
+        ].filter(obj => obj),
+      },
+      {
+        title: "Critical Illness/Trauma Cover",
+        icon: require("../../assets/shield-tick.png"),
+        link: 'EditFinancialAccount',
+        editable: true,
+        finAccount: true,
+        element:traumaAccount,
+        showEdit:(traumaAccount?.length > 0)?true:false,
+        value: <View>
+          <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+          <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+        </View>,
+        items: [
+          {
+            subHeading: "Critical Illness/Trauma Cover",
+            item: traumaAccount
           }
         ].filter(obj => obj),
       }
@@ -554,8 +598,8 @@ const PlanBInsurance = () => {
             }
             {activeTab == 1 &&
               <>
-                {(ina) && (!ina?.length) && <>
-                  <AccordionSkeleton title="Loading INA" />
+                {(ina) && (!ina?.length) && (financialAccounts) && (!financialAccounts?.length) && <>
+                  <AccordionSkeleton title="Loading INA and Financial Accounts" />
                 </>}
                 {ina && (ina?.length > 0) &&
                   <>

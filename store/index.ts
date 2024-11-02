@@ -13,7 +13,9 @@ const middlewares:any = [
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(middlewares),
+    getDefaultMiddleware({
+      immutableCheck: false,
+ }).concat(middlewares),
 });
 
 export default store;

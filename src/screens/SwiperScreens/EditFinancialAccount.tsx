@@ -37,9 +37,11 @@ const EditFinancialAccount = () => {
 
     const updateProfile = async () => {
 
+        let updatedData: never[] = [];
+
         //console.log("datas",datas)
-        const updatedData = datas.map((item:any) => item.element);
-        //console.log("updatedData", updatedData);
+        const currentData = datas.map((item: any) => item.element);
+        
 
         // if (Executor_of_the_Will == '' || Location_of_Will == '') {
         //     showFlashMessage("Please fill Location of Will and Executor of the Will", 'failure');
@@ -47,10 +49,25 @@ const EditFinancialAccount = () => {
         //     return false;
         // }
 
+        updatedData = currentData.map((item: any) => {
+            return {
+                id:item?.id,
+                Life_Cover:item?.Life_Cover,
+                TPD_Cover:item?.TPD_Cover,
+                Salary_Continuance:item?.Salary_Continuance,
+                Within_Super1:item?.Within_Super1,
+                Trauma_Cover:item?.Trauma_Cover
+            }
+        });
+
+        console.log("updatedData", updatedData);
+
+
+
         setLoading(true);
         await actions.updateFinancialAccounts(updatedData);
 
-        await actions.getINA();
+        //await actions.getINA();
         await actions.getFinancialAccounts();
 
         console.log("response done");
@@ -70,37 +87,37 @@ const EditFinancialAccount = () => {
     }
 
     const updateState = (value: any, label: string, id: any) => {
-        setDatas((prevDatas:any) => {
+        setDatas((prevDatas: any) => {
             //console.log("prevDatas",prevDatas)
-          // Find the index of the object with matching id in element
-          const foundIndex = prevDatas.findIndex(
-            (data:any) => data.element.id === id
-          );
-      
-          // If the element is found (index is not -1)
-          if (foundIndex !== -1) {
-            // Create a copy of the object to update
-            const updatedObject = { ...prevDatas[foundIndex] };
-      
-            // Update the specific property (label) with the new value
-            updatedObject.element[label] = value;
-      
-            // Create a copy of the `datas` array with the updated object
-            const updatedDatas = [...prevDatas];
-            updatedDatas[foundIndex] = updatedObject;
+            // Find the index of the object with matching id in element
+            const foundIndex = prevDatas.findIndex(
+                (data: any) => data.element.id === id
+            );
 
-            //console.log("updatedDatas",updatedDatas)
-      
-            // Return the updated `datas` array
-            return updatedDatas;
-          } else {
-            // Handle the case where the element with the specified id is not found
-            console.warn(`Element with id "${id}" not found in datas`);
-            // You can optionally return the original `prevDatas` here if needed
-            return prevDatas;
-          }
+            // If the element is found (index is not -1)
+            if (foundIndex !== -1) {
+                // Create a copy of the object to update
+                const updatedObject = { ...prevDatas[foundIndex] };
+
+                // Update the specific property (label) with the new value
+                updatedObject.element[label] = value;
+
+                // Create a copy of the `datas` array with the updated object
+                const updatedDatas = [...prevDatas];
+                updatedDatas[foundIndex] = updatedObject;
+
+                //console.log("updatedDatas",updatedDatas)
+
+                // Return the updated `datas` array
+                return updatedDatas;
+            } else {
+                // Handle the case where the element with the specified id is not found
+                console.warn(`Element with id "${id}" not found in datas`);
+                // You can optionally return the original `prevDatas` here if needed
+                return prevDatas;
+            }
         });
-      };
+    };
 
 
     return (
@@ -120,12 +137,14 @@ const EditFinancialAccount = () => {
                 <View style={styles.advicecontainer}>
                     {editData && editData?.length > 0 && editData.map((data: any) => {
                         //console.log("data", data);
-                        return <>
+                        return <View key={data?.id}>
                             <Text>Element Id : {data?.element?.id}</Text>
                             <Label label={data?.name} icon={require("../../assets/money-send.png")} />
                             <CTextInput icon="" key='Life_Cover' label='Life Cover' defaultValue={data?.element?.Life_Cover?.toString()} id='Life_Cover' updateState={updateState} isNumOnly={true} recordID={data?.element?.id} isFinance={true} />
                             <CTextInput icon="" key='TPD_Cover' label='TPD Cover' defaultValue={data?.element?.TPD_Cover?.toString()} id='TPD_Cover' updateState={updateState} isNumOnly={true} recordID={data?.element?.id} isFinance={true} />
                             <CTextInput icon="" key='Salary_Continuance' label='Income Protection' defaultValue={data?.element?.Salary_Continuance?.toString()} id='Salary_Continuance' updateState={updateState} isNumOnly={true} recordID={data?.element?.id} isFinance={true} />
+                            <CTextInput icon="" key='Trauma_Cover' label='Critical Illness/Trauma Cover' defaultValue={data?.element?.Trauma_Cover?.toString()} id='Trauma_Cover' updateState={updateState} isNumOnly={true} recordID={data?.element?.id} isFinance={true} />
+                            
                             <Label label="Inside Super?" icon="" />
                             <DropdownComponent
                                 values={[
@@ -137,7 +156,7 @@ const EditFinancialAccount = () => {
                                 defaultValue={data?.element?.Within_Super1?.toString()}
                                 onValueChange={(value: any) => updateState(value, 'Within_Super1', data?.element?.id)}
                             />
-                        </>
+                        </View>
                     })}
                 </View>
                 <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={updateProfile}>

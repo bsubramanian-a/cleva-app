@@ -149,7 +149,6 @@ const styles = StyleSheet.create({
   },
   seeAll: {
     fontSize: 14,
-    textDecoration: "underline",
     fontFamily: FontFamily.openSansRegular,
     color: '#EF9F27',
     textAlign: "right",

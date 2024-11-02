@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
   },
   logout: {
     fontSize: 14,
-    textDecoration: "underline",
     fontFamily: FontFamily.openSansRegular,
     color: '#EF9F27',
     fontWeight: "400",
