@@ -70,10 +70,6 @@ const PlanBInsurance = () => {
   const [accordionINA, setINAAccordion] = useState<any>([]);
   const [dashboardUsers, setDashboardUsers] = useState<any>([]);
 
-  const [lifeInsuranceAccounts, setLifeInsuranceAccounts] = useState<any>([]);
-  const [tPDAccounts, setTPDAccounts] = useState<any>([]);
-  const [incomeProtectionAccounts, setIncomeProtectionAccounts] = useState<any>([]);
-
 
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
@@ -601,7 +597,7 @@ const PlanBInsurance = () => {
                 {(ina) && (!ina?.length) && (financialAccounts) && (!financialAccounts?.length) && <>
                   <AccordionSkeleton title="Loading INA and Financial Accounts" />
                 </>}
-                {ina && (ina?.length > 0) &&
+                {ina && (ina?.length > 0) && (financialAccounts) && (financialAccounts?.length > 0) &&
                   <>
                     <ChapterTab
                       tabs={dashboardUsers}

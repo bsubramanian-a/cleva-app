@@ -47,146 +47,24 @@ const DebtonateDebt = () => {
   const data = route.params?.item;
   console.log("data", data)
   const [loading, setLoading] = useState(false);
-  // const exercises = useSelector((state: any) => state.data.exercises);
-  // const summary = useSelector((state: any) => state.data.summary);
-  // const advices = useSelector((state: any) => state.data.advices);
+  
   const debtonateDebt = useSelector((state: any) => state.data.debtonateDebt);
-  // const supersorted = useSelector((state: any) => state.data.supersorted);
-  // const rollingAccountBalance: any = useSelector((state: any) => state.data.rollingAccountBalance);
+  
   const notes = useSelector((state: any) => state.data.notes);
   const coachnotes = useSelector((state: any) => state.data.coachnotes);
-  // const profile = useSelector((state: any) => state.data.profile);
-  // const assets = useSelector((state: any) => state.data.assets);
-  // const liabilities = useSelector((state: any) => state.data.liabilities);
-  // const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
+  const profile = useSelector((state: any) => state.data.profile);
+  //const allAccounts = useSelector((state:any) => state.data.allAccounts);
+  
 
-  // console.log("profile", profile);
-  // // console.log("advices", advices);
-  // console.log("supersorted", supersorted);
-  // console.log("rollingAccountBalance", rollingAccountBalance);
+  console.log("profile", profile);
+  
   console.log("notes", notes);
   console.log("coachnotes", coachnotes);
   console.log("debtonateDebt", debtonateDebt);
+  
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
-
-  const [totalCurrentBalance, setTotalCurrentBalance] = useState<number>(0);
-  const [balanceByOwner, setBalanceByOwner] = useState<any>(null);
-  const [charData, setChartData]  = useState<any>(null);
-  const [performanceData, setPerformanceData] = useState<any>(null);
-  const [assetData, setAssetData] = useState<any>(null);
-
-  // useEffect(() => {
-  //   if (rollingAccountBalance && Object.keys(rollingAccountBalance).length > 0) {
-  //     // Perform calculations here
-  //     console.log('rollingAccountBalance loaded:', rollingAccountBalance);
-  //     setData(rollingAccountBalance)
-  //   }
-  // }, [rollingAccountBalance]);
-
-  // useEffect(() => {
-  //   if (supersorted && supersorted.length > 0) {
-  //     // Perform calculations here
-  //     console.log('supersorted loaded:', supersorted);
-  //     setPData(supersorted)
-  //     setAData(supersorted)
-  //   }
-  // }, [supersorted]);
-
-  // const setPData = (supersorted: any) => {
-  //   const performanceData = [
-  //     ['', '6M', '1Y', '3Y', '5Y'],
-  //     ['Actual', supersorted[0].Month_Actual + "%", supersorted[0].Year_Actual1 + "%",supersorted[0].Year_Actual2 + "%",supersorted[0].Year_Actual + "%"],
-  //     ['Benchmark', supersorted[0].Month_Benchmark + "%", supersorted[0].Year_Benchmark2 + "%",supersorted[0].Year_Benchmark + "%",supersorted[0].Year_Benchmark1 + "%"],
-  //     ['Outperformance', supersorted[0].Month_Outperformance + "%", supersorted[0].Year_Outperformance + "%",supersorted[0].Year_Outperformance2 + "%",supersorted[0].Year_Outperformance1 + "%"],
-  //   ];
-  //   setPerformanceData(performanceData);
-  // }
-
-  // const setAData = (supersorted: any) => {
-  //   const assetData = [
-  //     ['Actual Asset Allocation Total', supersorted[0].Formula_2 ?? 0, 'Target Asset Allocation Total', supersorted[0].Formula_1 ?? 0],
-  //     ['International Equities', (supersorted[0].International_Equities_Actual ?? 0) + "%", (supersorted[0].International_Equities ?? 0) + "%", 'Australian Equities', (supersorted[0].Australian_Equities_Actual ?? 0) + "%", (supersorted[0].Australian_Equities ?? 0) + "%"],
-  //     ['Property', (supersorted[0].Property_Actual ?? 0) + "%", (supersorted[0].Property ?? 0) + "%", 'Infrastructure', (supersorted[0].Infrastructure_Actual ?? 0) + "%", (supersorted[0].Infrastructure ?? 0) + "%"],
-  //     ['International Fixed Income', (supersorted[0].Intnl_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Intnl_Fixed_Income ?? 0) + "%", 'Australian Fixed Income', (supersorted[0].Aust_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Aust_Fixed_Income ?? 0) + "%"],
-  //   ];
-    
-  //   setAssetData(assetData);
-  // }
-
-  // const setData = (rollingAccountBalance: any) => {
-  //   // 1) Find the total of all Current_Balance
-  //   const totalCurrentBalance = rollingAccountBalance.reduce((acc: any, item: { Current_Balance: any; }) => acc + item.Current_Balance, 0);
-  //   console.log("Total Current Balance:", totalCurrentBalance);
-
-  //   setTotalCurrentBalance(totalCurrentBalance);
-
-  //   // 2) Find the total Current_Balance grouped by owner name
-  //   const balanceByOwner = rollingAccountBalance.reduce((acc: { [x: string]: any; }, item: { Owner: { name: any; }; Current_Balance: any; }) => {
-  //     const ownerName = item.Owner.name;
-  //     acc[ownerName] = (acc[ownerName] || 0) + item.Current_Balance;
-  //     return acc;
-  //   }, {});
-  //   console.log("Balance by Owner:", balanceByOwner);
-
-  //   setBalanceByOwner(balanceByOwner);
-
-  //   // 3) Create an array of unique As_At_Date for the current year and month
-  //   const currentYear = new Date().getFullYear();
-  //   const uniqueAsAtDates = rollingAccountBalance
-  //     .filter((item: { As_At_Date: string | number | Date; }) => {
-  //       const asAtDate = new Date(item.As_At_Date);
-  //       return asAtDate.getFullYear() === currentYear;
-  //     })
-  //     .map((item: { As_At_Date: string | number | Date; }) => {
-  //       const date = new Date(item.As_At_Date);
-  //       return `${date.toLocaleString('en-US', { month: 'short' })} ${date.getDate()}`;
-  //     })
-  //     .filter((value: any, index: any, self: string | any[]) => self.indexOf(value) === index);
-  //   console.log("Unique As_At_Dates:", uniqueAsAtDates);
-
-  //   const currentBalanceByOwnerAndDate = rollingAccountBalance.reduce((acc: { [x: string]: { [x: string]: any; }; }, item: { Owner: { name: any; }; As_At_Date: string | number | Date; Current_Balance: any; }) => {
-  //     const ownerName = item.Owner.name;
-  //     const asAtDate = new Date(item.As_At_Date);
-  //     const dateKey = `${asAtDate.toLocaleString('en-US', { month: 'short' })} ${asAtDate.getDate()}`;
-
-  //     if (!acc[dateKey]) {
-  //       acc[dateKey] = {};
-  //     }
-
-  //     if (!acc[dateKey][ownerName]) {
-  //       acc[dateKey][ownerName] = 0;
-  //     }
-
-  //     acc[dateKey][ownerName] += item.Current_Balance;
-  //     return acc;
-  //   }, {});
-
-  //   // Convert the object to an array of objects
-  //   const currentBalanceArray = Object.entries(currentBalanceByOwnerAndDate).map(([date, balances]) => ({
-  //     date,
-  //     balances
-  //   }));
-
-  //   console.log("Current Balance by Owner and Date:", currentBalanceArray);
-
-  //   const colors = ['rgba(151, 85, 182, 1)', 'rgba(239, 159, 39, 1)'];
-
-  //   // Create the desired JSON structure
-  //   const data = {
-  //     labels: uniqueAsAtDates,
-  //     datasets: Object.entries(currentBalanceByOwnerAndDate).map(([date, balances] : any, index) => ({ // Assuming only one owner per date
-  //       data: Object.values(balances),
-  //       color: (opacity = 1) => colors[index % colors.length], // Adjust color as needed
-  //       strokeWidth: 2 // Adjust strokeWidth as needed
-  //     })),
-  //     legend: Object.keys(balanceByOwner)
-  //   };
-
-  //   console.log(data);
-
-  //   setChartData(data);
-  // }
+  const [allAccounts, setallAccounts] = useState<any>();
 
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
@@ -195,21 +73,6 @@ const DebtonateDebt = () => {
   const handleSubTabPress = (tabNumber: number) => {
     setActiveSubTab(tabNumber);
   };
-
-  // useEffect(() => {
-  //   let totalAssets = 0;
-  //   let totalLiabilities = 0;
-
-  //   if (assets?.length > 0) {
-  //     totalAssets = parseFloat(assets.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
-  //   }
-
-  //   if (liabilities?.length > 0) {
-  //     totalLiabilities = parseFloat(liabilities.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
-  //   }
-
-  //   setTotalNetWorth(parseFloat((totalAssets - totalLiabilities)?.toFixed(1)));
-  // }, [assets, liabilities])
 
   useEffect(() => {    
 
@@ -222,6 +85,17 @@ const DebtonateDebt = () => {
     };
 
   }, [navigation])
+
+  useEffect(() => {
+    if (debtonateDebt.length > 0) {
+      getAllAccounts();
+    }
+  }, [debtonateDebt])
+
+  const getAllAccounts = async () => {
+    const acts:any = await actions.getAccount(debtonateDebt[0].Account.id);
+    setallAccounts(acts?.data[0]);
+  }
 
 
   const getDatas = async () => {
@@ -243,36 +117,7 @@ const DebtonateDebt = () => {
     'No': require('../../assets/no.png'),
   };
 
-  const screenWidth = Dimensions.get("window").width;
-
-  const chartConfig = {
-    color: (opacity = 1) => `rgba(0,0, 0, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false,
-    backgroundColor: "#ffffff",
-    backgroundGradientFrom: "#ffffff",
-    backgroundGradientTo: "#ffffff",
-    decimalPlaces: 0,
-  };
-
-  // const lineGraphData = {
-  //   labels: ["Jun 18", "Jun 19"],
-  //   datasets: [
-  //     {
-  //       data: [275032],
-  //       color: (opacity = 1) => `rgba(239, 159, 39, ${opacity})`, // optional
-  //       strokeWidth: 2 // optional
-  //     },
-  //     {
-  //       data: [550081, 275046],
-  //       color: (opacity = 1) => `rgba(151, 85, 182, ${opacity})`, // optional
-  //       strokeWidth: 2 // optional
-  //     }
-  //   ],
-  //   legend: ["Dan Rake", "Daniel Rake"] // optional
-  // };
-
+  console.log("allAccounts", allAccounts)
   
 
   return (
@@ -427,8 +272,7 @@ const DebtonateDebt = () => {
             }
             {activeTab == 1 &&
               <>
-                <Text>DashBoard Tab</Text>
-                {/* <View style={[styles.advice]}>
+                <View style={[styles.advice]}>
                   <View style={styles.users}>
                     <View style={styles.loginuser}>
                       <View
@@ -466,36 +310,9 @@ const DebtonateDebt = () => {
                   </View>
                 </View>
                 <View style={[styles.balance]}>
-                  <Text style={[styles.balanceText]}>${totalCurrentBalance?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
-                  <Text>{Object.keys(balanceByOwner)[0]} : ${balanceByOwner[Object.keys(balanceByOwner)[0]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
-                  {Object.keys(balanceByOwner)[1] && <Text>{Object.keys(balanceByOwner)[1]} : ${balanceByOwner[Object.keys(balanceByOwner)[1]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>}
-                  
-
-                  <Text style={[styles.balanceNextLine]}>Balance</Text>
+                  <Text style={[styles.balanceText]}>${Number(allAccounts?.Total_Value_Current_Liabilities)?Number(allAccounts?.Total_Value_Current_Liabilities).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","):"N/A"}</Text>                  
+                  <Text style={[styles.balanceNextLine]}>Current Total HH Debt</Text>
                 </View>
-                <View>
-                  {charData && <LineChart
-                    data={charData}
-                    width={screenWidth - 10}
-                    height={220}
-                    chartConfig={chartConfig}
-                    bezier
-                    yAxisLabel="$"
-                    style={{
-                      marginLeft: 10,
-                      marginRight: 10,
-                      borderRadius: 16
-                    }}
-                  />}
-                </View>
-                <View>
-                  <Text style={styles.performance}>Performance</Text>
-                  <PerformanceTable performanceData={performanceData} />
-                </View>
-                <View>
-                  <Text style={styles.performance}>Asset Allocation</Text>
-                  <AssetAllocation assetData={assetData} />
-                </View> */}
               </>
             }
             {activeTab == 2 &&

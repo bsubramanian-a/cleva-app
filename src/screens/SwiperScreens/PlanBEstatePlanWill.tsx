@@ -40,6 +40,9 @@ import {
 } from "react-native-chart-kit";
 import PerformanceTable from "../../components/PerformanceTable";
 import AssetAllocation from "../../components/AssetAllocation";
+import AccordionSkeleton from "../../components/skeletons/AccordionSkeleton";
+import AccordionHeading from "../../components/AccordionHeading";
+import AccordionContainer from "../../components/AccordionContainer";
 
 const PlanBEstatePlanWill = () => {
   const navigation: any = useNavigation();
@@ -51,29 +54,17 @@ const PlanBEstatePlanWill = () => {
   const notes = useSelector((state: any) => state.data.notes);
   const coachnotes = useSelector((state: any) => state.data.coachnotes);
   const profile = useSelector((state: any) => state.data.profile);
-  const activeUsers: string[] = [];
-
+ 
   console.log("profile", profile);
   console.log("notes", notes);
   console.log("coachnotes", coachnotes);
   console.log("planBEstatePlanWill", planBEstatePlanWill);
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
-  const [activeUserTab, setActiveUserTab] = useState(0);
-
-
-  useEffect(() => {
-    // if (profile[0]?.Record_Image) {
-    //   setUser1Image("https://www.zohoapis.com/crm/v2/Contacts/"+profile[0]?.Record_Image+"/photo")
-    // }
-    if (profile[0]?.Full_Name) {
-      activeUsers.push(`User 1 : ${profile[0]?.Full_Name}`);
-    }
-    if (profile[1]?.Full_Name) {
-      activeUsers.push(`User 2 : ${profile[1]?.Full_Name}`);
-    }
-  }, [profile]);
-
+  const [activeDashboardUser, setActiveDashboardUser] = useState(0);
+  const [dashboardUsers, setDashboardUsers] = useState<any>([]);
+  const [accordionPlanBEstatePlanWill, setPlanBEstatePlanWillAccordion] = useState<any>([]);
+ 
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
   };
@@ -83,7 +74,7 @@ const PlanBEstatePlanWill = () => {
   };
 
   const handleUserTabPress = (tabNumber: number) => {
-    setActiveUserTab(tabNumber);
+    setActiveDashboardUser(tabNumber);
   };
 
 
@@ -98,6 +89,115 @@ const PlanBEstatePlanWill = () => {
     };
 
   }, [navigation])
+
+  useEffect(() => {
+    let dUsers: any = [];
+    if (planBEstatePlanWill && planBEstatePlanWill?.length > 0) {
+      planBEstatePlanWill?.forEach((element:any) => {
+        dUsers.push(element?.Account?.name)
+      })
+      setDashboardUsers(dUsers)
+      setAccordions();
+    }
+  }, [planBEstatePlanWill])
+
+  const pushAccordionData = (newObject: any) => {
+    setPlanBEstatePlanWillAccordion((prevAccordionPBEPW: any) => {
+      return [...prevAccordionPBEPW, newObject];
+    });
+  };
+
+  const setAccordions = () => {
+    setPlanBEstatePlanWillAccordion([]);
+    planBEstatePlanWill?.map((will:any, index:number) => {
+      console.log("Current Will ", will);
+      console.log("Do_you_have_a_POA :", will?.Do_you_have_a_POA);
+      const DYHAPOA = will?.Do_you_have_a_POA;
+      const EOWILL = will?.Executor_of_your_Will;
+      const LOWILL = will?.Location_of_the_Will;
+      const IICURRENT = will?.Is_it_current;
+      const DYHW = will?.Do_you_have_a_will;
+      const BNAME = will?.Beneficiary_Name;
+      const DYHBOSF = will?.Do_you_have_beneficiary_on_superfund;
+
+      pushAccordionData([{
+        title: "Plan B Estate Plan Will - " + will?.Name,
+        icon: require("../../assets/shield-tick.png"),
+        link: 'EditPlanBEstatePlanWill',
+        element:will,
+        items: [
+          {
+            subHeading: "Plan B Estate Plan Will",
+            item: [
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Do you have a benificiery for your super fund?',
+                value: DYHBOSF ? DYHBOSF : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Beneficiary Name',
+                value: BNAME ? BNAME : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Do you have a Will?',
+                value: DYHW ? DYHW : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'is it current?',
+                value: IICURRENT ? IICURRENT : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Location of Will',
+                value: LOWILL ? LOWILL : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Executor of Will',
+                value: EOWILL ? EOWILL : "N/A"
+              },
+              {
+                icon: <Image
+                  style={styles.vuesaxlinearprofileCircle}
+                  resizeMode="contain"
+                  source={require("../../assets/dollar-square.png")}
+                />,
+                name: 'Do you have a POA?',
+                value: DYHAPOA ? DYHAPOA : "N/A"
+              }
+            ]
+          }
+        ].filter(obj => obj),
+      }]);
+    })
+  }
 
 
   const getDatas = async () => {
@@ -121,21 +221,7 @@ const PlanBEstatePlanWill = () => {
 
   const screenWidth = Dimensions.get("window").width;
 
-  const chartConfig = {
-    color: (opacity = 1) => `rgba(0,0, 0, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false,
-    backgroundColor: "#ffffff",
-    backgroundGradientFrom: "#ffffff",
-    backgroundGradientTo: "#ffffff",
-    decimalPlaces: 0,
-  };
-
-
-  const editProfile = (profile: any) => {
-    navigation.navigate('EditPlanBEstatePlanWill', { profile });
-  };
+  
 
   return (
     <>
@@ -240,118 +326,34 @@ const PlanBEstatePlanWill = () => {
             {activeTab == 1 &&
               <>
                 <ChapterTab
-                  tabs={activeUsers}
-                  activeTab={activeUserTab}
+                  tabs={dashboardUsers}
+                  activeTab={activeDashboardUser}
                   onTabPress={handleUserTabPress}
-                  type="user-tab"
+                  type="tab"
                 />
-                {activeUserTab == 0 && profile[0]?.Full_Name &&
-                  <>
-                    <View style={styles.editRow}>
-                      <Text style={styles.subHeading}>{profile[0]?.Full_Name}</Text>
-                      <Pressable onPress={() => editProfile(profile)} style={{ marginTop: 5 }}>
-                        <Image
-                          style={styles.vuesaxlinearedit}
-                          resizeMode="cover"
-                          source={require('../../assets/edit.png')}
-                        />
-                      </Pressable>
-                    </View>
-                    <View style={styles.itemContainer}>
-                      <View style={styles.itemContent}>
-                        {/* <Image
-                          style={styles.vuesaxlinearprofileCircle}
-                          resizeMode="contain"
-                          source={icon}
-                        /> */}
-                        <Text style={styles.name}>Do you have a benificiery for your super fund?</Text>
-                      </View>
-                      <Text style={styles.value}>{profile[0].Super_Fund_Beneficiary}</Text>
-                    </View>
-                    <View style={styles.itemContainer}>
-                      <View style={styles.itemContent}>
-                        {/* <Image
-                          style={styles.vuesaxlinearprofileCircle}
-                          resizeMode="contain"
-                          source={icon}
-                        /> */}
-                        <Text style={styles.name}>Beneficiary Name </Text>
-                      </View>
-                      <Text style={styles.value}>{profile[0].If_Yes_Beneficiary_Name_s}</Text>
-                    </View>
-                    <View style={styles.itemContainer}>
-                      <View style={styles.itemContent}>
-                        {/* <Image
-                          style={styles.vuesaxlinearprofileCircle}
-                          resizeMode="contain"
-                          source={icon}
-                        /> */}
-                        <Text style={styles.name}>Do you have a Will?</Text>
-                      </View>
-                      <Text style={styles.value}>{profile[0].Do_you_have_a_Will}</Text>
-                    </View>
-                    <View style={styles.itemContainer}>
-                      <View style={styles.itemContent}>
-                        {/* <Image
-                          style={styles.vuesaxlinearprofileCircle}
-                          resizeMode="contain"
-                          source={icon}
-                        /> */}
-                        <Text style={styles.name}>is it current?</Text>
-                      </View>
-                      <Text style={styles.value}>{profile[0].Is_it_up_to_date}</Text>
-                    </View>
-                    <View style={styles.itemContainer}>
-                      <View style={styles.itemContent}>
-                        {/* <Image
-                          style={styles.vuesaxlinearprofileCircle}
-                          resizeMode="contain"
-                          source={icon}
-                        /> */}
-                        <Text style={styles.name}>Location of Will</Text>
-                      </View>
-                      <Text style={styles.value}>{profile[0].Location_of_Will}</Text>
-                    </View>
-                    <View style={styles.itemContainer}>
-                      <View style={styles.itemContent}>
-                        {/* <Image
-                          style={styles.vuesaxlinearprofileCircle}
-                          resizeMode="contain"
-                          source={icon}
-                        /> */}
-                        <Text style={styles.name}>Executor of Will</Text>
-                      </View>
-                      <Text style={styles.value}>{profile[0].Executor_of_the_Will}</Text>
-                    </View>
-                    <View style={styles.itemContainer}>
-                      <View style={styles.itemContent}>
-                        {/* <Image
-                          style={styles.vuesaxlinearprofileCircle}
-                          resizeMode="contain"
-                          source={icon}
-                        /> */}
-                        <Text style={styles.name}>Do you have a POA?</Text>
-                      </View>
-                      <Text style={styles.value}>{profile[0].Do_you_have_a_POA[0]}</Text>
-                    </View>
-                  </>
-                }
-                {activeUserTab == 1 && profile[1]?.Full_Name &&
-                  <>
-                    <View style={[styles.advicecontainer]}>
-                      <Text style={[styles.adviceAssignedBy, styles.summaryTypo]}>
-                        User 2
-                      </Text>
-                      <View
-                        style={[styles.advice2, styles.advice2Layout, styles.adviceBg]}
-                      >
-                        <View style={[styles.advice1Parent, styles.mt10]}>
-                          <Text>User 2</Text>
-                        </View>
-                      </View>
-                    </View>
-                  </>
-                }
+                {dashboardUsers && (dashboardUsers?.length > 0) &&
+                      <>
+                        {dashboardUsers.map((user: any, index: number) => {
+                          if (activeDashboardUser == index) {
+                            return (
+                              <View key={index}>
+                                {(!planBEstatePlanWill[index]) && (planBEstatePlanWill?.length != index) && <>
+                                  <AccordionSkeleton title="Loading INA" />
+                                </>}
+                                {(planBEstatePlanWill?.length == 0) && <>
+                                  <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20 }}>
+                                    <AccordionHeading title="No Data Available" value="No Household is assigned to the contact"></AccordionHeading>
+                                  </View>
+                                </>}
+                                {(planBEstatePlanWill?.length > 0) && <>
+                                  <AccordionContainer accordions={accordionPlanBEstatePlanWill[index]} />
+                                </>}                                
+                              </View>
+                            );
+                          }
+                        })}
+                      </>
+                    }
               </>
             }
             {activeTab == 2 &&

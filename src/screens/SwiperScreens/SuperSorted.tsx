@@ -49,7 +49,7 @@ const SuperSorted = () => {
   const rollingAccountBalance: any = useSelector((state: any) => state.data.rollingAccountBalance);
   const notes = useSelector((state: any) => state.data.notes);
   const coachnotes = useSelector((state: any) => state.data.coachnotes);
-  
+
   const profile = useSelector((state: any) => state.data.profile);
 
   console.log("profile", profile);
@@ -63,7 +63,7 @@ const SuperSorted = () => {
 
   const [totalCurrentBalance, setTotalCurrentBalance] = useState<number>(0);
   const [balanceByOwner, setBalanceByOwner] = useState<any>(null);
-  const [charData, setChartData]  = useState<any>(null);
+  const [charData, setChartData] = useState<any>(null);
   const [performanceData, setPerformanceData] = useState<any>(null);
   const [assetData, setAssetData] = useState<any>(null);
 
@@ -87,9 +87,9 @@ const SuperSorted = () => {
   const setPData = (supersorted: any) => {
     const performanceData = [
       ['', '6M', '1Y', '3Y', '5Y'],
-      ['Actual', supersorted[0].Month_Actual + "%", supersorted[0].Year_Actual1 + "%",supersorted[0].Year_Actual2 + "%",supersorted[0].Year_Actual + "%"],
-      ['Benchmark', supersorted[0].Month_Benchmark + "%", supersorted[0].Year_Benchmark2 + "%",supersorted[0].Year_Benchmark + "%",supersorted[0].Year_Benchmark1 + "%"],
-      ['Outperformance', supersorted[0].Month_Outperformance + "%", supersorted[0].Year_Outperformance + "%",supersorted[0].Year_Outperformance2 + "%",supersorted[0].Year_Outperformance1 + "%"],
+      ['Actual', supersorted[0].Month_Actual + "%", supersorted[0].Year_Actual1 + "%", supersorted[0].Year_Actual2 + "%", supersorted[0].Year_Actual + "%"],
+      ['Benchmark', supersorted[0].Month_Benchmark + "%", supersorted[0].Year_Benchmark2 + "%", supersorted[0].Year_Benchmark + "%", supersorted[0].Year_Benchmark1 + "%"],
+      ['Outperformance', supersorted[0].Month_Outperformance + "%", supersorted[0].Year_Outperformance + "%", supersorted[0].Year_Outperformance2 + "%", supersorted[0].Year_Outperformance1 + "%"],
     ];
     setPerformanceData(performanceData);
   }
@@ -101,7 +101,7 @@ const SuperSorted = () => {
       ['Property', (supersorted[0].Property_Actual ?? 0) + "%", (supersorted[0].Property ?? 0) + "%", 'Infrastructure', (supersorted[0].Infrastructure_Actual ?? 0) + "%", (supersorted[0].Infrastructure ?? 0) + "%"],
       ['International Fixed Income', (supersorted[0].Intnl_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Intnl_Fixed_Income ?? 0) + "%", 'Australian Fixed Income', (supersorted[0].Aust_Fixed_Income_Actual ?? 0) + "%", (supersorted[0].Aust_Fixed_Income ?? 0) + "%"],
     ];
-    
+
     setAssetData(assetData);
   }
 
@@ -166,7 +166,7 @@ const SuperSorted = () => {
     // Create the desired JSON structure
     const data = {
       labels: uniqueAsAtDates,
-      datasets: Object.entries(currentBalanceByOwnerAndDate).map(([date, balances] : any, index) => ({ // Assuming only one owner per date
+      datasets: Object.entries(currentBalanceByOwnerAndDate).map(([date, balances]: any, index) => ({ // Assuming only one owner per date
         data: Object.values(balances),
         color: (opacity = 1) => colors[index % colors.length], // Adjust color as needed
         strokeWidth: 2 // Adjust strokeWidth as needed
@@ -185,9 +185,9 @@ const SuperSorted = () => {
 
   const handleSubTabPress = (tabNumber: number) => {
     setActiveSubTab(tabNumber);
-  };  
+  };
 
-  useEffect(() => {    
+  useEffect(() => {
     // Trigger the fetch when the navigation state changes
     navigation.addListener('focus', getDatas);
 
@@ -206,7 +206,7 @@ const SuperSorted = () => {
       await actions.getNotes();
       await actions.getCoachNotes();
     } catch (err) {
-      console.log("err", err);      
+      console.log("err", err);
     }
     setLoading(false);
   }
@@ -247,16 +247,32 @@ const SuperSorted = () => {
     legend: ["Dan Rake", "Daniel Rake"] // optional
   };
 
-  
+
 
   return (
     <>
+      {!loading && supersorted && (Object.keys(supersorted).length === 0) && <>
+        <View
+          style={styles.superSorted}
+        >
+          <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
+          <CustomHeader name="No SuperSorted Available" type={2} />
+          <ScrollView
+            style={styles.videoSectionParent}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.superSortedScrollViewContent}
+          >
+            <Text style={styles.goaltitle}>No Data Available</Text>
+          </ScrollView>
+        </View>
+      </>}
       {(supersorted.length > 0) ?
         <View
           style={styles.superSorted}
         >
           <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-          <CustomHeader name={supersorted[0].Name} type={2} />         
+          <CustomHeader name={supersorted[0].Name} type={2} />
 
           <ScrollView
             style={styles.videoSectionParent}
@@ -472,7 +488,7 @@ const SuperSorted = () => {
                   <Text style={[styles.balanceText]}>${totalCurrentBalance?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
                   <Text>{Object.keys(balanceByOwner)[0]} : ${balanceByOwner[Object.keys(balanceByOwner)[0]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
                   {Object.keys(balanceByOwner)[1] && <Text>{Object.keys(balanceByOwner)[1]} : ${balanceByOwner[Object.keys(balanceByOwner)[1]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>}
-                  
+
 
                   <Text style={[styles.balanceNextLine]}>Balance</Text>
                 </View>
@@ -611,8 +627,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     marginTop: 20,
-    marginLeft:10,
-    marginBottom:10
+    marginLeft: 10,
+    marginBottom: 10
   },
   balanceNextLine: {
     fontSize: 12,

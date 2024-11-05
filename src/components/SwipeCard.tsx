@@ -12,46 +12,46 @@ const SwipeCard = () => {
   const renderCard = (card:any) => <Card item={card} key={card.id} />;
 
   const [cards, setCards] = React.useState([
-    // {
-    //   Name: "Super Sorted",
-    //   progress: 40,
-    //   id:1,
-    //   Component: "SuperSorted"
-    // },
-    // {
-    //   Name: "Plan B: Estate Plan/Will",
-    //   progress: 47,
-    //   id:2,
-    //   Component: "PlanBEstatePlanWill"
-    // },
-    // {
-    //   Name: "Money on Autodrive",
-    //   progress: 47,
-    //   id:3,
-    //   Component: "MoneyAutoDrive"
-    // },
-    // {
-    //   Name: "Plan B Emergency Fund",
-    //   progress: 47,
-    //   id:4,
-    //   Component: "PlanBEmergencyFund"
-    // },
+    {
+      Name: "Super Sorted",
+      progress: 40,
+      id:1,
+      Component: "SuperSorted"
+    },
+    {
+      Name: "Plan B: Estate Plan/Will",
+      progress: 47,
+      id:2,
+      Component: "PlanBEstatePlanWill"
+    },
+    {
+      Name: "Money on Autodrive",
+      progress: 47,
+      id:3,
+      Component: "MoneyAutoDrive"
+    },
+    {
+      Name: "Plan B Emergency Fund",
+      progress: 47,
+      id:4,
+      Component: "PlanBEmergencyFund"
+    },
     {
       Name: "Plan B Insurance",
       progress: 47,
       id:5,
       Component: "PlanBInsurance"
     },
-    // {
-    //   Name: "Debtonate Debt",
-    //   progress: 47,
-    //   id:6,
-    //   Component: "DebtonateDebt"
-    // }
+    {
+      Name: "Debtonate Debt",
+      progress: 47,
+      id:6,
+      Component: "DebtonateDebt"
+    }
   ]);
 
   const onSwiped = (cardIndex: number) => {
-    console.log('Swiped');
+    // console.log('Swiped');
     // const newCards = [...cards]; // Create a copy of the cards array
     // console.log("cardIndex", cardIndex);
     // console.log("cards", cards);

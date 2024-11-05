@@ -23,6 +23,7 @@ const initialState = {
   coachnotes: {},
   ina: {},
   financialAccounts: [],
+  allAccounts:[]
 };
 
 const data = (state = initialState, action: any) => {
@@ -59,14 +60,8 @@ console.log("coming inside reducer", action.type);
         return {...state, financialAccounts: data};       
     case types.UPDATE_FINANCIAL_ACCOUNTS:
         return {...state, financialAccounts: [...state.financialAccounts, data]};
-    //   console.log('coming inside update financial account', action.payload);
-    //   console.log('state.financialAccounts', state.financialAccounts);
-    //   const updatedState = updateAccounts(
-    //     state.financialAccounts,
-    //     action.payload,
-    //   );
-    //   console.log("updatedState",updatedState)
-    //   return {...state, financialAccounts: updatedState};
+    case types.GET_ACCOUNT:
+          return {...state, allAccounts: [...state.allAccounts, data]};    
     case types.SUMMARY:
       return {...state, summary: data};
     case types.ADVICE:

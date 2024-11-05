@@ -22,48 +22,44 @@ import { useCustomFlashMessage } from "../../components/CustomFlashMessage";
 
 const EditPlanBEstatePlanWill = () => {
     const route: any = useRoute();
-    const { profile } = route.params;
+    const { editData } = route.params;
     const { showFlashMessage } = useCustomFlashMessage();
-    const navigation = useNavigation();    
-    const { type } = route.params;
+    const navigation = useNavigation();
     const [loading, setLoading] = useState(false);
-    //const profile = useSelector((state: any) => state.data.profile);
-    const [datas, setDatas] = useState<any>(profile);
+    const [datas, setDatas] = useState<any>(editData);
 
     useEffect(() => {
-        console.log("profile in useEffect in EditPlanBEmergencyFund", profile);
-        setDatas(profile);
-    }, [profile])
+        console.log("editData in useEffect in EditPlanBEmergencyFund", editData);
+        setDatas(editData);
+    }, [editData])
 
     const updateProfile = async () => {
         const {
-            Super_Fund_Beneficiary,
-            If_Yes_Beneficiary_Name_s,
-            Do_you_have_a_Will,
-            Is_it_up_to_date,
-            Location_of_Will,
-            Executor_of_the_Will,
+            Do_you_have_beneficiary_on_superfund,
+            Beneficiary_Name,
+            Do_you_have_a_will,
+            Is_it_current,
+            Location_of_the_Will,
+            Executor_of_your_Will,
             Do_you_have_a_POA,
-            Last_Name,
-            id       
-        } = datas[0];
-        
+            id
+        } = datas;
+
 
         const updatedData = {
-            Super_Fund_Beneficiary,
-            If_Yes_Beneficiary_Name_s,
-            Do_you_have_a_Will,
-            Is_it_up_to_date,
-            Location_of_Will,
-            Executor_of_the_Will,
-            Do_you_have_a_POA: [Do_you_have_a_POA],
-            Last_Name,
-            id 
+            Do_you_have_beneficiary_on_superfund,
+            Beneficiary_Name,
+            Do_you_have_a_will,
+            Is_it_current,
+            Location_of_the_Will,
+            Executor_of_your_Will,
+            Do_you_have_a_POA,
+            id
         };
 
         console.log("updatedData", updatedData);
 
-        if(Executor_of_the_Will == '' || Location_of_Will == ''){            
+        if (Executor_of_your_Will == '' || Location_of_the_Will == '') {
             showFlashMessage("Please fill Location of Will and Executor of the Will", 'failure');
 
             return false;
@@ -72,7 +68,7 @@ const EditPlanBEstatePlanWill = () => {
         setLoading(true);
         await actions.updatePlanBEstatePlanWill([updatedData]);
 
-        await actions.getProfile();
+        await actions.getPlanBEstatePlanWill();
 
         navigation.goBack();
 
@@ -90,28 +86,33 @@ const EditPlanBEstatePlanWill = () => {
         // console.log("label1233", label, value);
         setDatas((prevDatas: any) => {
             console.log("prevDatas", prevDatas);
-            const updatedDatas = prevDatas.map((data: any) => {
-                console.log("data[label]", data[label]);
-                console.log("label", label);
-                console.log("value", value);
-                if (label in data) {
-                    return { ...data, [label]: value };
-                }
-                return data;
-            });
-            console.log("updatedDatas", updatedDatas);
-            return updatedDatas;
+            if (label in prevDatas) {
+                return { ...prevDatas, [label]: value };
+            }
+            return prevDatas;
+            // console.log("prevDatas", prevDatas);
+            // const updatedDatas = prevDatas.map((data: any) => {
+            //     console.log("data[label]", data[label]);
+            //     console.log("label", label);
+            //     console.log("value", value);
+            //     if (label in data) {
+            //         return { ...data, [label]: value };
+            //     }
+            //     return data;
+            // });
+            // console.log("updatedDatas", updatedDatas);
+            // return updatedDatas;
         });
     };
 
-    
+
 
     return (
         <View
             style={styles.wealthAssets}
         >
             <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-            <CustomHeader name="Edit Details" type={3} />
+            <CustomHeader name="Edit PlanB Estate Plan Will" type={3} />
             <Loader visible={loading} />
 
             <ScrollView
@@ -120,53 +121,87 @@ const EditPlanBEstatePlanWill = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.frameScrollViewContent}
             >
+                <View style={[styles.advice]}>
+                    <View style={styles.users}>
+                        <View style={styles.loginuser}>
+                            <View
+                                style={[styles.frWrapper, styles.wrapperLayout, editData?.accounts?.length > 0 && { marginRight: -5 }]}
+                            >
+                                <Text style={styles.dr}>
+                                    {
+                                        (editData?.Account?.name)
+                                            ? (editData?.Account?.name.charAt(0))
+                                            : ((editData?.Account?.name) || '').slice(0, 2)
+                                    }
+
+                                </Text>
+                            </View>
+                        </View>
+                        <Text
+                            style={[
+                                styles.danFleur,
+                                styles.mt26,
+                                styles.mTypo,
+                                styles.danFleurClr,
+                            ]}
+                        >{editData?.Account?.name}</Text>
+                        <Text style={[styles.balanceNextLine]}>HouseHold</Text>
+                    </View>
+                </View>                
                 <View style={styles.advicecontainer}>
                     <Label label="Do you have a benificiery for your super fund?" icon={require("../../assets/money-send.png")} />
                     <DropdownComponent
                         values={[
-                            { label: '-None-', value: '-None-' }, 
-                            { label: 'Not Sure', value: 'Not Sure' },
+                            { label: '-None-', value: '-None-' },
+                            { label: 'Yes', value: 'Yes' },
                             { label: 'No', value: 'No' },
-                            { label: 'Yes Binding', value: 'Yes Binding' }, 
-                            { label: 'Yes - Non-Binding', value: 'Yes - Non-Binding' }
+                            { label: 'Not Sure', value: 'Not Sure' },
+                            { label: 'Not Applicable', value: 'Not Applicable' }
                         ]}
-                        defaultValue={datas[0]?.Super_Fund_Beneficiary?.toString()}
-                        onValueChange={(value: any) => updateState(value, 'Super_Fund_Beneficiary')}
-                    />                    
-                    <CTextInput icon={require("../../assets/money-send.png")} key='If_Yes_Beneficiary_Name_s' label='If Yes, Beneficiary Name' defaultValue={datas[0]?.If_Yes_Beneficiary_Name_s?.toString()} id='If_Yes_Beneficiary_Name_s' updateState={updateState} isNumOnly={false} />
+                        defaultValue={datas?.Do_you_have_beneficiary_on_superfund?.toString()}
+                        onValueChange={(value: any) => updateState(value, 'Do_you_have_beneficiary_on_superfund')}
+                    />
+                    <CTextInput icon={require("../../assets/money-send.png")} key='Beneficiary_Name' label='If Yes, Beneficiary Name' defaultValue={datas?.Beneficiary_Name?.toString()} id='Beneficiary_Name' updateState={updateState} isNumOnly={false} />
                     <Label label="Do you have a Will?" icon={require("../../assets/money-send.png")} />
                     <DropdownComponent
                         values={[
-                            { label: '-None-', value: '' }, 
+                            { label: '-None-', value: '' },
                             { label: 'No', value: 'No' },
-                            { label: 'Yes', value: 'Yes' }
+                            { label: 'Yes', value: 'Yes' },
+                            { label: 'Not Sure', value: 'Not Sure' },
+                            { label: 'Not Applicable', value: 'Not Applicable' },
                         ]}
-                        defaultValue={datas[0]?.Do_you_have_a_Will?.toString()}
-                        onValueChange={(value: any) => updateState(value, 'Do_you_have_a_Will')}
-                    /> 
+                        defaultValue={datas?.Do_you_have_a_will?.toString()}
+                        onValueChange={(value: any) => updateState(value, 'Do_you_have_a_will')}
+                    />
                     <Label label="is it current?" />
                     <DropdownComponent
                         values={[
-                            { label: '-None-', value: '' }, 
+                            { label: '-None-', value: '' },
                             { label: 'No', value: 'No' },
-                            { label: 'Yes', value: 'Yes' }
+                            { label: 'Yes', value: 'Yes' },
+                            { label: 'Not Sure', value: 'Not Sure' },
+                            { label: 'Not Applicable', value: 'Not Applicable' },
                         ]}
-                        defaultValue={datas[0]?.Is_it_up_to_date?.toString()}
-                        onValueChange={(value: any) => updateState(value, 'Is_it_up_to_date')}
-                    /> 
-                    <CTextInput icon={require("../../assets/money-send.png")} key='Location_of_Will' label='Location of Will' defaultValue={datas[0]?.Location_of_Will?.toString()} id='Location_of_Will' updateState={updateState} isNumOnly={false} />
-                    <CTextInput icon={require("../../assets/money-send.png")} key='Location_of_Will' label='Executor of Will' defaultValue={datas[0]?.Executor_of_the_Will?.toString()} id='Executor_of_the_Will' updateState={updateState} isNumOnly={false} />
+                        defaultValue={datas?.Is_it_current?.toString()}
+                        onValueChange={(value: any) => updateState(value, 'Is_it_current')}
+                    />
+                    <CTextInput icon={require("../../assets/money-send.png")} key='Location_of_the_Will' label='Location of Will' defaultValue={datas?.Location_of_the_Will?.toString()} id='Location_of_the_Will' updateState={updateState} isNumOnly={false} />
+
+                    <CTextInput icon={require("../../assets/money-send.png")} key='Executor_of_your_Will' label='Executor of Will' defaultValue={datas?.Executor_of_your_Will?.toString()} id='Executor_of_your_Will' updateState={updateState} isNumOnly={false} />
+
                     <Label label="Do you have a POA?" icon={require("../../assets/money-send.png")} />
                     <DropdownComponent
                         values={[
                             { label: 'No', value: 'No' },
+                            { label: 'Yes - Medical', value: 'Yes - Medical' },
                             { label: 'Yes - Enduring', value: 'Yes - Enduring' },
                             { label: 'Yes - Guardianship', value: 'Yes - Guardianship' },
                             { label: 'Yes - Other', value: 'Yes - Other' },
                         ]}
-                        defaultValue={datas[0]?.Do_you_have_a_POA?.toString()}
+                        defaultValue={datas?.Do_you_have_a_POA?.toString()}
                         onValueChange={(value: any) => updateState(value, 'Do_you_have_a_POA')}
-                    />                    
+                    />
                 </View>
                 <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={updateProfile}>
                     <LinearGradient
@@ -270,6 +305,60 @@ const styles = StyleSheet.create({
     wealthTabParent: {
         alignSelf: "stretch",
         flex: 1,
+    },
+    advice: {
+        borderWidth: 0,
+        borderColor: "#eaeaea",
+        paddingTop: 28,
+        paddingBottom: Padding.p_lg,
+        alignItems: "center",
+    },
+    users: {
+        alignItems: "center",
+        alignSelf: "stretch",
+    },
+    loginuser: {
+        flexDirection: "row",
+    },
+    danFleurClr: {
+        color: Color.black,
+        textAlign: "left",
+    },
+    danFleur: {
+        fontSize: 18,
+        fontFamily: FontFamily.sourceSerifPro
+    },
+    mt26: {
+        marginTop: 26,
+    },
+    mTypo: {
+        textAlign: "left",
+        fontFamily: FontFamily.sourceSerifPro,
+        fontWeight: "500",
+        color: '#FBB142',
+    },
+    balanceNextLine: {
+        fontSize: 14,
+        color: '#EF9F27',
+        fontWeight: "bold"
+    },
+    balanceText: {
+        fontSize: 26,
+        color: Color.black
+    },
+    balance: {
+        backgroundColor: "#FFF9F1",
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        paddingHorizontal: Padding.p_md,
+        paddingVertical: Padding.p_sm,
+        borderRadius: 8,
+        marginLeft: 30,
+        marginRight: 30,
+        alignItems: "center",
+        
     },
 });
 

@@ -51,6 +51,7 @@ export const COACHNOTES = getApiURL('coachnotes');
 export const GET_MEETING = getApiURL('getmeeting');
 export const GET_INA = getApiURL('insuranceneedanalysis');
 export const FINANCIAL_ACCOUNTS = getApiURL('financialaccounts');
+export const GET_ACCOUNT = getApiURL('get_account');
 
 
 

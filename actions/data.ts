@@ -44,7 +44,8 @@ import {
   COACHNOTES,
   GET_MEETING,
   GET_INA,
-  FINANCIAL_ACCOUNTS
+  FINANCIAL_ACCOUNTS,
+  GET_ACCOUNT
 } from '../urls';
 import store from '../store';
 import types from '../types';
@@ -52,6 +53,17 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const {dispatch} = store;
 
+export const getAccount = (accountId: string) => {
+  return new Promise((resolve, reject) => {
+    return apiGet(`${GET_ACCOUNT}/${accountId}`)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
 
 export const getMeetings = (type: string) => {
   return new Promise((resolve, reject) => {
