@@ -5,7 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { FontFamily } from '../GlobalStyles';
 import { wrapTitle } from '../utils/wrapTitle';
 
-const AccordionHeading = ({ title, value, editable, toggleAccordion, icon, link, element, navigation, showEdit }: any) => {
+const AccordionHeading = ({ title="", value, editable, toggleAccordion, icon, link, element, navigation, showEdit }: any) => {
     const wrappedTitle = wrapTitle(title, 24);
     const goEdit = (link: string, editData: any) => {
         console.log("editlink", link)

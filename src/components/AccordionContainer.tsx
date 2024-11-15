@@ -8,7 +8,7 @@ import AccordionHeading from './AccordionHeading';
 import { wrapTitle } from '../utils/wrapTitle';
 import InsuranceBox from './InsuranceBox';
 
-const AccordionItem = ({ icon, name, value, editable, index, finAccount, element, comments }: any) => {
+const AccordionItem = ({ icon, name, value="", editable, index, finAccount, element, comments }: any) => {
   const wrappedName = name ? wrapTitle(name, 22) : "N/A";
   let wrappedValue  = value;
   if (comments == "yes") {

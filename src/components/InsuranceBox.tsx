@@ -6,6 +6,7 @@ import { FontFamily } from '../GlobalStyles';
 import { wrapTitle } from '../utils/wrapTitle';
 
 const InsuranceBox = ({ element, name, value }: any) => {
+    
     return (
         <>
             <View style={[styles.wrapItemContainer]}>

@@ -72,7 +72,7 @@ const PlanBEmergencyFund = () => {
     setActiveSubTab(tabNumber);
   };
 
-  useEffect(() => {    
+  useEffect(() => {
 
     // Trigger the fetch when the navigation state changes
     navigation.addListener('focus', getDatas);
@@ -93,24 +93,26 @@ const PlanBEmergencyFund = () => {
       await actions.getCoachNotes();
       await actions.getFinancialAccounts();
     } catch (err) {
-      console.log("err", err);      
+      console.log("err", err);
     }
     setLoading(false);
   }
 
   useEffect(() => {
-    if (planBEmergencyFund && planBEmergencyFund.length > 0 && financialAccounts && financialAccounts?.length > 0) {
+    console.log("planBEmergencyFund?.length", planBEmergencyFund?.length);
+    console.log("financialAccounts?.length", financialAccounts?.length);
+    if (planBEmergencyFund && planBEmergencyFund?.length > 0 && financialAccounts && financialAccounts?.length > 0) {
+      console.log("coming inside useEffect")
       getAllAccounts();
       const emerFAccounts = financialAccounts.filter((account: any) => account?.Is_Emergency_Fund === "Yes");
-
+      console.log("emerFAccounts", emerFAccounts)
       let emerItems: any = [];
-     
       if (emerFAccounts.length > 0) {
         emerFAccounts.forEach((element: any) => {
           console.log("element from emerFAccounts", element)
-                   
+
           const lC = Number(element?.Life_Cover);
-          
+
           emerItems.push({
             icon: <Image
               style={styles.vuesaxlinearprofileCircle}
@@ -118,15 +120,15 @@ const PlanBEmergencyFund = () => {
               source={require("../../assets/dollar-square.png")}
             />,
             name: element?.Plan_Name,
-            value: lC? ("$" + lC.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
+            value: lC ? ("$" + lC.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
             element: element
           });
 
         });
       }
-      setAccordions(emerItems); 
+      setAccordions(emerItems);
     }
-  }, [planBEmergencyFund,financialAccounts])
+  }, [planBEmergencyFund, financialAccounts])
 
   const pushAccordionData = (newObject: any) => {
     setPBEFAccordion((prevAccordionPBEF: any) => {
@@ -134,20 +136,20 @@ const PlanBEmergencyFund = () => {
     });
   };
 
-  const setAccordions = (emerItems:any) => {
+  const setAccordions = (emerItems: any) => {
     setPBEFAccordion([]);
-    planBEmergencyFund?.map((pbefObject: any, index: number) => {    
-      console.log("pbefObject",pbefObject)
-      console.log("emerItems",emerItems)
+    planBEmergencyFund?.map((pbefObject: any, index: number) => {
+      console.log("pbefObject", pbefObject)
+      console.log("emerItems", emerItems)
 
-      const pbefAccount = emerItems.filter((account:any) => account?.element?.Household?.id == pbefObject?.Account?.id)
+      const pbefAccount = emerItems.filter((account: any) => account?.element?.Household?.id == pbefObject?.Account?.id)
 
       pushAccordionData([
         {
           title: "List of Accounts ",
           icon: "",
           link: 'EditPlanBInsurance',
-          element:pbefAccount,
+          element: pbefAccount,
           items: [
             {
               subHeading: "List of Accounts",
@@ -160,7 +162,8 @@ const PlanBEmergencyFund = () => {
   }
 
   const getAllAccounts = async () => {
-    const acts:any = await actions.getAccount(planBEmergencyFund[0].Account.id);
+    const acts: any = await actions.getAccount(planBEmergencyFund[0].Account.id);
+    console.log("acts", acts)
     setallAccounts(acts?.data[0]);
   }
 
@@ -171,11 +174,11 @@ const PlanBEmergencyFund = () => {
     'No': require('../../assets/no.png'),
   };
 
-  const screenWidth = Dimensions.get("window").width;
 
- console.log("All Accounts", allAccounts)
 
-  
+  console.log("All Accounts", allAccounts)
+
+
 
   return (
     <>
@@ -184,7 +187,7 @@ const PlanBEmergencyFund = () => {
           style={styles.planBEmergencyFund}
         >
           <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-          <CustomHeader name={planBEmergencyFund[0].Name} type={2} />         
+          <CustomHeader name={planBEmergencyFund[0].Name} type={2} />
 
           <ScrollView
             style={styles.videoSectionParent}
@@ -218,7 +221,7 @@ const PlanBEmergencyFund = () => {
               type="tab"
             />
             {activeTab == 0 &&
-              <>              
+              <>
                 <View style={[styles.summary1]}>
                   <Text
                     style={[
@@ -257,7 +260,7 @@ const PlanBEmergencyFund = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Have I linked accounts? 
+                    Have I linked accounts?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -272,7 +275,7 @@ const PlanBEmergencyFund = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Do I have enough? 
+                    Do I have enough?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -322,11 +325,11 @@ const PlanBEmergencyFund = () => {
                   </View>
                 </View>
                 <View style={[styles.balance]}>
-                  <Text style={[styles.balanceText]}>${Number(allAccounts?.Target_Emergency_Fund)?Number(allAccounts?.Target_Emergency_Fund).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","):"N/A"}</Text>                  
+                  <Text style={[styles.balanceText]}>${Number(allAccounts?.Target_Emergency_Fund) ? Number(allAccounts?.Target_Emergency_Fund).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
                   <Text style={[styles.balanceNextLine]}>Emergency Funds How Much You Need</Text>
                 </View>
                 <View>
-                <AccordionContainer accordions={accordionPBEF} />
+                  <AccordionContainer accordions={accordionPBEF} />
                 </View>
               </>
             }
@@ -440,8 +443,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     marginTop: 20,
-    marginLeft:10,
-    marginBottom:10
+    marginLeft: 10,
+    marginBottom: 10
   },
   balanceNextLine: {
     fontSize: 12,
