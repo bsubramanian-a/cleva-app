@@ -117,6 +117,7 @@ export const getSuperSorted = () => {
           type: types.SUPERSORTED,
           payload: res.data,
         });
+        console.log("SUPERSORTED DATA FROM APIGET",res.data);
         resolve(res);
       })
       .catch(error => {

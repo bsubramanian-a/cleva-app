@@ -46,7 +46,7 @@ const PlanBEmergencyFund = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
   const data = route.params?.item;
-  console.log("data", data)
+  //console.log("data", data)
   const [loading, setLoading] = useState(false);
   const planBEmergencyFund = useSelector((state: any) => state.data.planBEmergencyFund);
   const notes = useSelector((state: any) => state.data.notes);
@@ -54,15 +54,16 @@ const PlanBEmergencyFund = () => {
   const profile = useSelector((state: any) => state.data.profile);
   const financialAccounts = useSelector((state: any) => state.data.financialAccounts);
 
-  console.log("profile", profile);
-  console.log("notes", notes);
-  console.log("coachnotes", coachnotes);
-  console.log("planBEmergencyFund", planBEmergencyFund);
-  console.log("financialAccounts", financialAccounts)
+  //console.log("profile", profile);
+  //console.log("notes", notes);
+  //console.log("coachnotes", coachnotes);
+  //console.log("planBEmergencyFund", planBEmergencyFund);
+  //console.log("financialAccounts", financialAccounts)
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
   const [allAccounts, setallAccounts] = useState<any>();
   const [accordionPBEF, setPBEFAccordion] = useState<any>([]);
+  const [emerFAccounts, setEmerFAccounts] = useState<any>([]);
 
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
@@ -93,40 +94,42 @@ const PlanBEmergencyFund = () => {
       await actions.getCoachNotes();
       await actions.getFinancialAccounts();
     } catch (err) {
-      console.log("err", err);
+      //console.log("err", err);
     }
     setLoading(false);
   }
 
   useEffect(() => {
-    console.log("planBEmergencyFund?.length", planBEmergencyFund?.length);
-    console.log("financialAccounts?.length", financialAccounts?.length);
+    //console.log("planBEmergencyFund?.length", planBEmergencyFund?.length);
+    //console.log("financialAccounts?.length", financialAccounts?.length);
     if (planBEmergencyFund && planBEmergencyFund?.length > 0 && financialAccounts && financialAccounts?.length > 0) {
-      console.log("coming inside useEffect")
+      //console.log("coming inside useEffect")
       getAllAccounts();
       const emerFAccounts = financialAccounts.filter((account: any) => account?.Is_Emergency_Fund === "Yes");
+      setEmerFAccounts(emerFAccounts);
+
       console.log("emerFAccounts", emerFAccounts)
-      let emerItems: any = [];
-      if (emerFAccounts.length > 0) {
-        emerFAccounts.forEach((element: any) => {
-          console.log("element from emerFAccounts", element)
+      // let emerItems: any = [];
+      // if (emerFAccounts.length > 0) {
+      //   emerFAccounts.forEach((element: any) => {
+      //     //console.log("element from emerFAccounts", element)
 
-          const lC = Number(element?.Life_Cover);
+      //     const lC = Number(element?.Life_Cover);
 
-          emerItems.push({
-            icon: <Image
-              style={styles.vuesaxlinearprofileCircle}
-              resizeMode="contain"
-              source={require("../../assets/dollar-square.png")}
-            />,
-            name: element?.Plan_Name,
-            value: lC ? ("$" + lC.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
-            element: element
-          });
+      //     emerItems.push({
+      //       icon: <Image
+      //         style={styles.vuesaxlinearprofileCircle}
+      //         resizeMode="contain"
+      //         source={require("../../assets/dollar-square.png")}
+      //       />,
+      //       name: element?.Plan_Name,
+      //       value: lC ? ("$" + lC.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
+      //       element: element
+      //     });
 
-        });
-      }
-      setAccordions(emerItems);
+      //   });
+      // }
+      //setAccordions(emerItems);
     }
   }, [planBEmergencyFund, financialAccounts])
 
@@ -139,8 +142,8 @@ const PlanBEmergencyFund = () => {
   const setAccordions = (emerItems: any) => {
     setPBEFAccordion([]);
     planBEmergencyFund?.map((pbefObject: any, index: number) => {
-      console.log("pbefObject", pbefObject)
-      console.log("emerItems", emerItems)
+      //console.log("pbefObject", pbefObject)
+      //console.log("emerItems", emerItems)
 
       const pbefAccount = emerItems.filter((account: any) => account?.element?.Household?.id == pbefObject?.Account?.id)
 
@@ -163,7 +166,7 @@ const PlanBEmergencyFund = () => {
 
   const getAllAccounts = async () => {
     const acts: any = await actions.getAccount(planBEmergencyFund[0].Account.id);
-    console.log("acts", acts)
+    //console.log("acts", acts)
     setallAccounts(acts?.data[0]);
   }
 
@@ -176,7 +179,7 @@ const PlanBEmergencyFund = () => {
 
 
 
-  console.log("All Accounts", allAccounts)
+  //console.log("All Accounts", allAccounts)
 
 
 
@@ -329,7 +332,26 @@ const PlanBEmergencyFund = () => {
                   <Text style={[styles.balanceNextLine]}>Emergency Funds How Much You Need</Text>
                 </View>
                 <View>
-                  <AccordionContainer accordions={accordionPBEF} />
+                  <Text style={[styles.listOfAccounts]}>List of Accounts</Text>
+                  {emerFAccounts?.length > 0 &&
+                    emerFAccounts?.map((account: any) => {
+                      if (account?.Plan_Name != null) {
+                        return (
+                          <View style={[styles.account]}>
+                            <View style={[styles.accountContent]}>
+                              <Text style={[styles.accountName]}>{account?.Plan_Name ? account?.Plan_Name : "N/A"}</Text>                              
+                              <Text style={[styles.accountValue]}>
+                                ${Number(account?.Life_Cover) ? Number(account?.Life_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                              </Text>                              
+                            </View>
+                            <Image
+                                style={{ width: 80, height: 80, resizeMode: "cover" }}
+                                source={require("../../assets/link.png")}
+                              />
+                          </View>
+                        )
+                      }
+                    })}
                 </View>
               </>
             }
@@ -438,6 +460,47 @@ const PlanBEmergencyFund = () => {
 };
 
 const styles = StyleSheet.create({
+  listOfAccounts: {
+    color: Color.black,
+    fontSize: 18,
+    fontWeight: "500",
+    marginLeft: 20,
+    marginTop: 10,
+    marginBottom: 10
+  },
+  accountValue: {
+    color: "#F6A326",
+    marginTop:4,
+    fontWeight: "800",
+    fontSize: 14,
+  },
+  accountName: {
+    color: Color.black,
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  account: {
+    // borderColor: "#F6A326",
+    // borderWidth: 1,
+    backgroundColor: "#FFF9F1",
+    borderRadius: 20,    
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingLeft: 10,
+    height:80
+  },
+  accountContent: {
+    // borderColor: "#F6A326",
+    // borderWidth: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center', // Align content to the end (right)
+    paddingRight: 10, // Add right padding
+  },
   performance: {
     color: Color.black,
     fontSize: 16,

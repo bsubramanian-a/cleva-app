@@ -34,8 +34,8 @@ console.log("coming inside reducer", action.type);
       return {...state, journals: data};
     case types.EXERCISES:
       return {...state, exercises: data};
-    //case types.SUPERSORTED:
-    //   return {...state, supersorted: data};
+    case types.SUPERSORTED:
+      return {...state, supersorted: data};
     case types.PLAN_B_ESTATE_PLAN_WILL:
       return {...state, planBEstatePlanWill: data};
     case types.MONEY_ON_AUTO_DRIVE:

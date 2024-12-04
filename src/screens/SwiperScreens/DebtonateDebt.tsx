@@ -47,24 +47,26 @@ const DebtonateDebt = () => {
   const data = route.params?.item;
   console.log("data", data)
   const [loading, setLoading] = useState(false);
-  
+
   const debtonateDebt = useSelector((state: any) => state.data.debtonateDebt);
-  
+
   const notes = useSelector((state: any) => state.data.notes);
   const coachnotes = useSelector((state: any) => state.data.coachnotes);
   const profile = useSelector((state: any) => state.data.profile);
   //const allAccounts = useSelector((state:any) => state.data.allAccounts);
-  
+  const financialAccounts = useSelector((state: any) => state.data.financialAccounts);
+
 
   console.log("profile", profile);
-  
+
   console.log("notes", notes);
   console.log("coachnotes", coachnotes);
   console.log("debtonateDebt", debtonateDebt);
-  
+
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
   const [allAccounts, setallAccounts] = useState<any>();
+  const [debtFAccounts, setDebtFAccounts] = useState<any>([]);
 
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
@@ -74,7 +76,7 @@ const DebtonateDebt = () => {
     setActiveSubTab(tabNumber);
   };
 
-  useEffect(() => {    
+  useEffect(() => {
 
     // Trigger the fetch when the navigation state changes
     navigation.addListener('focus', getDatas);
@@ -87,13 +89,15 @@ const DebtonateDebt = () => {
   }, [navigation])
 
   useEffect(() => {
-    if (debtonateDebt.length > 0) {
+    if (debtonateDebt && debtonateDebt.length > 0 && financialAccounts && financialAccounts?.length > 0) {
       getAllAccounts();
+      const emerFAccounts = financialAccounts.filter((account: any) => account?.Asset_or_Liability === "Liability");
+      setDebtFAccounts(emerFAccounts);
     }
-  }, [debtonateDebt])
+  }, [debtonateDebt, financialAccounts])
 
   const getAllAccounts = async () => {
-    const acts:any = await actions.getAccount(debtonateDebt[0].Account.id);
+    const acts: any = await actions.getAccount(debtonateDebt[0].Account.id);
     setallAccounts(acts?.data[0]);
   }
 
@@ -104,8 +108,9 @@ const DebtonateDebt = () => {
       await actions.getDebtonateDebt();
       await actions.getNotes();
       await actions.getCoachNotes();
+      await actions.getFinancialAccounts();
     } catch (err) {
-      console.log("err", err);      
+      console.log("err", err);
     }
     setLoading(false);
   }
@@ -118,7 +123,7 @@ const DebtonateDebt = () => {
   };
 
   console.log("allAccounts", allAccounts)
-  
+
 
   return (
     <>
@@ -127,7 +132,7 @@ const DebtonateDebt = () => {
           style={styles.debtonateDebt}
         >
           <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
-          <CustomHeader name={debtonateDebt[0].Name} type={2} />         
+          <CustomHeader name={debtonateDebt[0].Name} type={2} />
 
           <ScrollView
             style={styles.videoSectionParent}
@@ -161,7 +166,7 @@ const DebtonateDebt = () => {
               type="tab"
             />
             {activeTab == 0 &&
-              <>              
+              <>
                 <View style={[styles.summary1]}>
                   <Text
                     style={[
@@ -200,7 +205,7 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    12 Month Goal? 
+                    12 Month Goal?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -215,7 +220,7 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Control CC & PD? 
+                    Control CC & PD?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -230,7 +235,7 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Avoid Buy Now Pay Later? 
+                    Avoid Buy Now Pay Later?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -245,7 +250,7 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Contribute Just a Bit More? 
+                    Contribute Just a Bit More?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -260,7 +265,7 @@ const DebtonateDebt = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Align to Pay Cycle? 
+                    Align to Pay Cycle?
                   </Text>
                   <Image
                     style={styles.frameChild}
@@ -310,8 +315,175 @@ const DebtonateDebt = () => {
                   </View>
                 </View>
                 <View style={[styles.balance]}>
-                  <Text style={[styles.balanceText]}>${Number(allAccounts?.Total_Value_Current_Liabilities)?Number(allAccounts?.Total_Value_Current_Liabilities).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","):"N/A"}</Text>                  
+                  <Text style={[styles.balanceText]}>${Number(allAccounts?.Total_Value_Current_Liabilities) ? Number(allAccounts?.Total_Value_Current_Liabilities).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
                   <Text style={[styles.balanceNextLine]}>Current Total HH Debt</Text>
+                </View>
+                <View>
+                  <View style={[styles.summary1]}>
+                    <Text
+                      style={[
+                        styles.loremIpsumIs,
+                        styles.myExercisesTypo,
+                      ]}
+                    >
+                      Total Debt
+                    </Text>
+                    <Text>
+                      ${Number(allAccounts?.Total_Value_Current_Liabilities) ? Number(allAccounts?.Total_Value_Current_Liabilities).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
+                  </View>
+                  <View style={[styles.summary1]}>
+                    <Text
+                      style={[
+                        styles.loremIpsumIs,
+                        styles.myExercisesTypo,
+                      ]}
+                    >
+                      Good Debt
+                    </Text>
+                    <Text>
+                      ${Number(allAccounts?.HH_Good_Debt) ? Number(allAccounts?.HH_Good_Debt).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
+                  </View>
+                  <View style={[styles.summary1]}>
+                    <Text
+                      style={[
+                        styles.loremIpsumIs,
+                        styles.myExercisesTypo,
+                      ]}
+                    >
+                      Bad Debt
+                    </Text>
+                    <Text>
+                      ${Number(allAccounts?.HH_Bad_Debt) ? Number(allAccounts?.HH_Bad_Debt).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
+                  </View>   
+                  <View style={[styles.summary1]}>
+                    <Text
+                      style={[
+                        styles.loremIpsumIs,
+                        styles.myExercisesTypo,
+                      ]}
+                    >
+                      Deductable
+                    </Text>
+                    <Text>
+                      ${Number(allAccounts?.HH_Deductible_Debt) ? Number(allAccounts?.HH_Deductible_Debt).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
+                  </View>        
+                  <View style={[styles.summary1]}>
+                    <Text
+                      style={[
+                        styles.loremIpsumIs,
+                        styles.myExercisesTypo,
+                      ]}
+                    >
+                      Non-Deductable
+                    </Text>
+                    <Text>
+                      ${Number(allAccounts?.HH_Non_Deductible_Debt) ? Number(allAccounts?.HH_Non_Deductible_Debt).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
+                  </View>  
+                  <View style={[styles.summary1]}>
+                    <Text
+                      style={[
+                        styles.loremIpsumIs,
+                        styles.myExercisesTypo,
+                      ]}
+                    >
+                      HH Income
+                    </Text>
+                    <Text>
+                      ${Number(allAccounts?.HH_Total_Income_p_a) ? Number(allAccounts?.HH_Total_Income_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
+                  </View>     
+                  <View style={[styles.summary1]}>
+                    <Text
+                      style={[
+                        styles.loremIpsumIs,
+                        styles.myExercisesTypo,
+                      ]}
+                    >
+                      Debt to Income
+                    </Text>
+                    <Text>
+                      ${Number(allAccounts?.Debt_to_Income) ? Number(allAccounts?.Debt_to_Income).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
+                  </View>   
+                  <View style={[styles.summary1]}>
+                    <Text
+                      style={[
+                        styles.loremIpsumIs,
+                        styles.myExercisesTypo,
+                      ]}
+                    >
+                      Total Value Current Assets
+                    </Text>
+                    <Text>
+                      ${Number(allAccounts?.Total_Value_Current_Assets) ? Number(allAccounts?.Total_Value_Current_Assets).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
+                  </View> 
+                  <View style={[styles.summary1]}>
+                    <Text
+                      style={[
+                        styles.loremIpsumIs,
+                        styles.myExercisesTypo,
+                      ]}
+                    >
+                      Total Value Fin Assets
+                    </Text>
+                    <Text>
+                      ${Number(allAccounts?.Total_Value_Fin_Account_Assets) ? Number(allAccounts?.Total_Value_Fin_Account_Assets).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
+                  </View>
+                  <View style={[styles.summary1]}>
+                    <Text
+                      style={[
+                        styles.loremIpsumIs,
+                        styles.myExercisesTypo,
+                      ]}
+                    >
+                      LVR
+                    </Text>
+                    <Text>
+                      ${Number(allAccounts?.Formula_4) ? Number(allAccounts?.Formula_4).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
+                  </View>
+                  <View style={[styles.summary1]}>
+                    <Text
+                      style={[
+                        styles.loremIpsumIs,
+                        styles.myExercisesTypo,
+                      ]}
+                    >
+                      Equity
+                    </Text>
+                    <Text>
+                      ${Number(allAccounts?.Equity1) ? Number(allAccounts?.Equity1).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
+                  </View>
+                </View>
+                <View>
+                  <Text style={[styles.listOfAccounts]}>List of Accounts</Text>
+                  {debtFAccounts?.length > 0 &&
+                    debtFAccounts?.map((account: any) => {
+                      if (account?.Plan_Name != null) {
+                        return (
+                          <View style={[styles.account]}>
+                            <View style={[styles.accountContent]}>
+                              <Text style={[styles.accountName]}>{account?.Plan_Name ? account?.Plan_Name : "N/A"}</Text>
+                              <Text style={[styles.accountValue]}>
+                                ${Number(account?.Life_Cover) ? Number(account?.Life_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                              </Text>
+                            </View>
+                            <Image
+                              style={{ width: 80, height: 80, resizeMode: "cover" }}
+                              source={require("../../assets/link.png")}
+                            />
+                          </View>
+                        )
+                      }
+                    })}
                 </View>
               </>
             }
@@ -420,13 +592,54 @@ const DebtonateDebt = () => {
 };
 
 const styles = StyleSheet.create({
+  listOfAccounts: {
+    color: Color.black,
+    fontSize: 18,
+    fontWeight: "500",
+    marginLeft: 20,
+    marginTop: 10,
+    marginBottom: 10
+  },
+  accountValue: {
+    color: "#F6A326",
+    marginTop: 4,
+    fontWeight: "800",
+    fontSize: 14,
+  },
+  accountName: {
+    color: Color.black,
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  account: {
+    // borderColor: "#F6A326",
+    // borderWidth: 1,
+    backgroundColor: "#FFF9F1",
+    borderRadius: 20,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingLeft: 10,
+    height: 80
+  },
+  accountContent: {
+    // borderColor: "#F6A326",
+    // borderWidth: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center', // Align content to the end (right)
+    paddingRight: 10, // Add right padding
+  },
   performance: {
     color: Color.black,
     fontSize: 16,
     fontWeight: "600",
     marginTop: 20,
-    marginLeft:10,
-    marginBottom:10
+    marginLeft: 10,
+    marginBottom: 10
   },
   balanceNextLine: {
     fontSize: 12,
