@@ -29,7 +29,9 @@ const EmailLogin = ({ navigation,route }: any) => {
       });
       console.log('res1==>>>>>', res);
       if (res?.isUserExist === true) {
-        navigation.navigate('OTPScreen', { user_type: route.params.user_type })
+        // navigation.navigate('OTPScreen', { user_type: route.params.user_type })
+        navigation.navigate('PasswordLogin', { user_type: route.params.user_type })
+        
       } else {
         setError("User doesn't exist, please register first");
       }

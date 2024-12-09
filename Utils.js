@@ -54,7 +54,6 @@ export async function apiReq(
 		// console.log("api headers",headers)
 		// console.log("api method",method)
 		// console.log("api endPoint",endPoint)
-		
 
 		axios[method](endPoint, data)
 			.then(result => {

@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const baseUrl = 'https://localhost:3000/';
+//const baseUrl = 'https://localhost:3000/';
+const baseUrl = 'https://app.cleva.co/';
+
 
 export const api = createApi({
   reducerPath: 'api',

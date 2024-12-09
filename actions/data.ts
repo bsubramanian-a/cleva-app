@@ -45,7 +45,8 @@ import {
   GET_MEETING,
   GET_INA,
   FINANCIAL_ACCOUNTS,
-  GET_ACCOUNT
+  GET_ACCOUNT,
+  PUT_ACCOUNT
 } from '../urls';
 import store from '../store';
 import types from '../types';
@@ -578,6 +579,19 @@ export const updateHouseHoldExpenses = (data: any) => {
   console.log("updateHouseHoldExpenses data coming in action", data);
   return new Promise((resolve, reject) => {
     return apiPut(HOUSEHOLD_EXP, data)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const updateEmergencyFund = (data: any) => {
+  console.log("updateEmergencyFund data coming in action", data);
+  return new Promise((resolve, reject) => {
+    return apiPut(PUT_ACCOUNT, data)
       .then(res => {
         resolve(res);
       })

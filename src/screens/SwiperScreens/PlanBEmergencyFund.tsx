@@ -29,18 +29,7 @@ import actions from "../../../actions";
 import Loader from "../../components/Loader";
 import VideoPlayer from "../../components/VideoPlayer";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
-} from "react-native-chart-kit";
-import PerformanceTable from "../../components/PerformanceTable";
-import AssetAllocation from "../../components/AssetAllocation";
-import AccordionContainer from "../../components/AccordionContainer";
+import AccordionSkeleton from "../../components/skeletons/AccordionSkeleton";
 
 const PlanBEmergencyFund = () => {
   const navigation: any = useNavigation();
@@ -53,16 +42,10 @@ const PlanBEmergencyFund = () => {
   const coachnotes = useSelector((state: any) => state.data.coachnotes);
   const profile = useSelector((state: any) => state.data.profile);
   const financialAccounts = useSelector((state: any) => state.data.financialAccounts);
-
-  //console.log("profile", profile);
-  //console.log("notes", notes);
-  //console.log("coachnotes", coachnotes);
-  //console.log("planBEmergencyFund", planBEmergencyFund);
-  //console.log("financialAccounts", financialAccounts)
+ 
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
-  const [allAccounts, setallAccounts] = useState<any>();
-  const [accordionPBEF, setPBEFAccordion] = useState<any>([]);
+  const [allAccounts, setallAccounts] = useState<any>({});
   const [emerFAccounts, setEmerFAccounts] = useState<any>([]);
 
   const handleTabPress = (tabNumber: number) => {
@@ -84,6 +67,11 @@ const PlanBEmergencyFund = () => {
     };
 
   }, [navigation])
+
+  const editEmergencyFund = (allAccounts: any) => {
+    console.log("EditPlanBEmergencyFund", allAccounts);
+    navigation.navigate('EditPlanBEmergencyFund', { allAccounts });
+  };
 
 
   const getDatas = async () => {
@@ -109,64 +97,15 @@ const PlanBEmergencyFund = () => {
       setEmerFAccounts(emerFAccounts);
 
       console.log("emerFAccounts", emerFAccounts)
-      // let emerItems: any = [];
-      // if (emerFAccounts.length > 0) {
-      //   emerFAccounts.forEach((element: any) => {
-      //     //console.log("element from emerFAccounts", element)
-
-      //     const lC = Number(element?.Life_Cover);
-
-      //     emerItems.push({
-      //       icon: <Image
-      //         style={styles.vuesaxlinearprofileCircle}
-      //         resizeMode="contain"
-      //         source={require("../../assets/dollar-square.png")}
-      //       />,
-      //       name: element?.Plan_Name,
-      //       value: lC ? ("$" + lC.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
-      //       element: element
-      //     });
-
-      //   });
-      // }
-      //setAccordions(emerItems);
     }
   }, [planBEmergencyFund, financialAccounts])
 
-  const pushAccordionData = (newObject: any) => {
-    setPBEFAccordion((prevAccordionPBEF: any) => {
-      return [...prevAccordionPBEF, newObject];
-    });
-  };
-
-  const setAccordions = (emerItems: any) => {
-    setPBEFAccordion([]);
-    planBEmergencyFund?.map((pbefObject: any, index: number) => {
-      //console.log("pbefObject", pbefObject)
-      //console.log("emerItems", emerItems)
-
-      const pbefAccount = emerItems.filter((account: any) => account?.element?.Household?.id == pbefObject?.Account?.id)
-
-      pushAccordionData([
-        {
-          title: "List of Accounts ",
-          icon: "",
-          link: 'EditPlanBInsurance',
-          element: pbefAccount,
-          items: [
-            {
-              subHeading: "List of Accounts",
-              item: pbefAccount
-            }
-          ].filter(obj => obj),
-        }
-      ]);
-    });
-  }
+ 
+  
 
   const getAllAccounts = async () => {
     const acts: any = await actions.getAccount(planBEmergencyFund[0].Account.id);
-    //console.log("acts", acts)
+    console.log("acts", acts)
     setallAccounts(acts?.data[0]);
   }
 
@@ -176,12 +115,6 @@ const PlanBEmergencyFund = () => {
     'No/Not Sure': require('../../assets/no.png'),
     'No': require('../../assets/no.png'),
   };
-
-
-
-  //console.log("All Accounts", allAccounts)
-
-
 
   return (
     <>
@@ -289,7 +222,8 @@ const PlanBEmergencyFund = () => {
               </>
             }
             {activeTab == 1 &&
-              <>
+              <>              
+              {allAccounts && emerFAccounts && emerFAccounts?.length > 0 && <>
                 <View style={[styles.advice]}>
                   <View style={styles.users}>
                     <View style={styles.loginuser}>
@@ -329,8 +263,17 @@ const PlanBEmergencyFund = () => {
                 </View>
                 <View style={[styles.balance]}>
                   <Text style={[styles.balanceText]}>${Number(allAccounts?.Target_Emergency_Fund) ? Number(allAccounts?.Target_Emergency_Fund).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-                  <Text style={[styles.balanceNextLine]}>Emergency Funds How Much You Need</Text>
-                </View>
+                  <Text style={[styles.balanceNextLine]}>Emergency Funds How Much You Need </Text>
+                  {allAccounts && <>
+                    <Pressable onPress={() => editEmergencyFund(allAccounts)} style={{ marginTop: 5 }}>
+                      <Image
+                        style={styles.vuesaxlinearedit}
+                        resizeMode="cover"
+                        source={require('../../assets/edit.png')}
+                      />
+                    </Pressable>
+                  </>}                  
+                </View>               
                 <View>
                   <Text style={[styles.listOfAccounts]}>List of Accounts</Text>
                   {emerFAccounts?.length > 0 &&
@@ -353,6 +296,10 @@ const PlanBEmergencyFund = () => {
                       }
                     })}
                 </View>
+              </>}                
+              {Object.keys(allAccounts).length === 0 && emerFAccounts?.length === 0 && <>
+                <AccordionSkeleton title="Loading INA" />
+              </>}              
               </>
             }
             {activeTab == 2 &&
@@ -460,6 +407,23 @@ const PlanBEmergencyFund = () => {
 };
 
 const styles = StyleSheet.create({
+  editRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 40,
+    paddingTop: 5,
+  },
+  subHeading: {
+    color: "#FBB142",
+    fontSize: 14,
+    fontWeight: "600",
+    marginTop: 10
+  },
+  vuesaxlinearedit: {
+    width: 20,
+    height: 20,
+  },
   listOfAccounts: {
     color: Color.black,
     fontSize: 18,

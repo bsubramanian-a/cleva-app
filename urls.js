@@ -5,7 +5,10 @@
 // export const API_BASE_URL = "https://cleva-backend.onrender.com/";
 // export const API_BASE_URL = "http://3.106.56.137:3000/";
 //export const API_BASE_URL = 'http://192.168.1.10:3000/';
-export const API_BASE_URL = 'http://10.0.2.2:3000/';
+//export const API_BASE_URL = 'http://10.0.2.2:3000/';
+export const API_BASE_URL = 'https://app.cleva.co/';
+
+
 
 export const getApiURL = endpoint => API_BASE_URL + endpoint;
 
@@ -52,6 +55,8 @@ export const GET_MEETING = getApiURL('getmeeting');
 export const GET_INA = getApiURL('insuranceneedanalysis');
 export const FINANCIAL_ACCOUNTS = getApiURL('financialaccounts');
 export const GET_ACCOUNT = getApiURL('get_account');
+export const PUT_ACCOUNT = getApiURL('put_account');
+
 
 
 
