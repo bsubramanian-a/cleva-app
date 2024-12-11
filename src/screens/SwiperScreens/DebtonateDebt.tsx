@@ -30,16 +30,6 @@ import Loader from "../../components/Loader";
 import VideoPlayer from "../../components/VideoPlayer";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
-} from "react-native-chart-kit";
-import PerformanceTable from "../../components/PerformanceTable";
-import AssetAllocation from "../../components/AssetAllocation";
 
 const DebtonateDebt = () => {
   const navigation: any = useNavigation();
@@ -47,6 +37,7 @@ const DebtonateDebt = () => {
   const data = route.params?.item;
   console.log("data", data)
   const [loading, setLoading] = useState(false);
+  
 
   const debtonateDebt = useSelector((state: any) => state.data.debtonateDebt);
 
@@ -95,6 +86,8 @@ const DebtonateDebt = () => {
       setDebtFAccounts(emerFAccounts);
     }
   }, [debtonateDebt, financialAccounts])
+
+  
 
   const getAllAccounts = async () => {
     const acts: any = await actions.getAccount(debtonateDebt[0].Account.id);
@@ -313,11 +306,11 @@ const DebtonateDebt = () => {
                       ]}
                     >{profile[0]?.Account_Name?.name}</Text>
                   </View>
-                </View>
+                </View>                
                 <View style={[styles.balance]}>
                   <Text style={[styles.balanceText]}>${Number(allAccounts?.Total_Value_Current_Liabilities) ? Number(allAccounts?.Total_Value_Current_Liabilities).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
                   <Text style={[styles.balanceNextLine]}>Current Total HH Debt</Text>
-                </View>
+                </View>                
                 <View>
                   <View style={[styles.summary1]}>
                     <Text

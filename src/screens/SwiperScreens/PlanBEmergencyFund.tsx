@@ -30,6 +30,8 @@ import Loader from "../../components/Loader";
 import VideoPlayer from "../../components/VideoPlayer";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import AccordionSkeleton from "../../components/skeletons/AccordionSkeleton";
+import SpeedoMeter from "../../components/SpeedoMeter";
+import Animated from "react-native-reanimated";
 
 const PlanBEmergencyFund = () => {
   const navigation: any = useNavigation();
@@ -42,11 +44,17 @@ const PlanBEmergencyFund = () => {
   const coachnotes = useSelector((state: any) => state.data.coachnotes);
   const profile = useSelector((state: any) => state.data.profile);
   const financialAccounts = useSelector((state: any) => state.data.financialAccounts);
- 
+
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
   const [allAccounts, setallAccounts] = useState<any>({});
   const [emerFAccounts, setEmerFAccounts] = useState<any>([]);
+
+  const [speedometerValue, setSpeedometerValue] = useState<number>(80);
+  const [speedoMinimum, setSpeedoMinimum] = useState<number>(0);
+  const [speedoMaximum, setSpeedoMaximum] = useState<number>(0);
+  const [speedoPart, setSpeedoPart] = useState<number>(0);
+  const [speedoOriginalValue, setSpeedoOriginalValue] = useState<number>(0);
 
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
@@ -100,8 +108,21 @@ const PlanBEmergencyFund = () => {
     }
   }, [planBEmergencyFund, financialAccounts])
 
- 
-  
+  useEffect(() => {
+    if (allAccounts) {
+      const partValue = Number(allAccounts?.Target_Emergency_Fund) / 3;
+      setSpeedoMinimum(0);
+      setSpeedoPart(partValue);
+      const maximumValue = partValue * 5;
+      setSpeedoMaximum(maximumValue);
+      setSpeedometerValue(Number(allAccounts?.Current_Total_Emergency_Funds));
+      setSpeedoOriginalValue(Number(allAccounts?.Target_Emergency_Fund));
+    }
+
+  }, [allAccounts])
+
+
+
 
   const getAllAccounts = async () => {
     const acts: any = await actions.getAccount(planBEmergencyFund[0].Account.id);
@@ -222,84 +243,97 @@ const PlanBEmergencyFund = () => {
               </>
             }
             {activeTab == 1 &&
-              <>              
-              {allAccounts && emerFAccounts && emerFAccounts?.length > 0 && <>
-                <View style={[styles.advice]}>
-                  <View style={styles.users}>
-                    <View style={styles.loginuser}>
-                      <View
-                        style={[styles.frWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && { marginRight: -5 }]}
-                      >
-                        <Text style={styles.dr}>
-                          {profile?.length > 0 && (
-                            (profile[0]?.First_Name && profile[0]?.Last_Name)
-                              ? (profile[0]?.First_Name.charAt(0) + profile[0]?.Last_Name.charAt(0))
-                              : ((profile[0]?.First_Name || profile[0]?.Last_Name) || '').slice(0, 2)
-                          )}
-                        </Text>
-                      </View>
-                      {
-                        profile[0]?.accounts?.length > 0 &&
-                        <View style={[styles.drWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && { marginLeft: -5 }]}>
+              <>
+                {allAccounts && emerFAccounts && emerFAccounts?.length > 0 && <>
+                  <View style={[styles.advice]}>
+                    <View style={styles.users}>
+                      <View style={styles.loginuser}>
+                        <View
+                          style={[styles.frWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && { marginRight: -5 }]}
+                        >
                           <Text style={styles.dr}>
-                            {profile[0]?.accounts?.length > 0 && (
-                              (profile[0]?.accounts[0]?.First_Name && profile[0]?.accounts[0]?.Last_Name)
-                                ? (profile[0]?.accounts[0]?.First_Name.charAt(0) + profile[0]?.accounts[0]?.Last_Name.charAt(0))
-                                : ((profile[0]?.accounts[0]?.First_Name || profile[0]?.accounts[0]?.Last_Name) || '').slice(0, 2)
+                            {profile?.length > 0 && (
+                              (profile[0]?.First_Name && profile[0]?.Last_Name)
+                                ? (profile[0]?.First_Name.charAt(0) + profile[0]?.Last_Name.charAt(0))
+                                : ((profile[0]?.First_Name || profile[0]?.Last_Name) || '').slice(0, 2)
                             )}
                           </Text>
                         </View>
-                      }
+                        {
+                          profile[0]?.accounts?.length > 0 &&
+                          <View style={[styles.drWrapper, styles.wrapperLayout, profile[0]?.accounts?.length > 0 && { marginLeft: -5 }]}>
+                            <Text style={styles.dr}>
+                              {profile[0]?.accounts?.length > 0 && (
+                                (profile[0]?.accounts[0]?.First_Name && profile[0]?.accounts[0]?.Last_Name)
+                                  ? (profile[0]?.accounts[0]?.First_Name.charAt(0) + profile[0]?.accounts[0]?.Last_Name.charAt(0))
+                                  : ((profile[0]?.accounts[0]?.First_Name || profile[0]?.accounts[0]?.Last_Name) || '').slice(0, 2)
+                              )}
+                            </Text>
+                          </View>
+                        }
+                      </View>
+                      <Text
+                        style={[
+                          styles.danFleur,
+                          styles.mt26,
+                          styles.mTypo,
+                          styles.danFleurClr,
+                        ]}
+                      >{allAccounts?.Account_Name}</Text>
                     </View>
-                    <Text
-                      style={[
-                        styles.danFleur,
-                        styles.mt26,
-                        styles.mTypo,
-                        styles.danFleurClr,
-                      ]}
-                    >{allAccounts?.Account_Name}</Text>
                   </View>
-                </View>
-                <View style={[styles.balance]}>
-                  <Text style={[styles.balanceText]}>${Number(allAccounts?.Target_Emergency_Fund) ? Number(allAccounts?.Target_Emergency_Fund).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-                  <Text style={[styles.balanceNextLine]}>Emergency Funds How Much You Need </Text>
-                  {allAccounts && <>
-                    <Pressable onPress={() => editEmergencyFund(allAccounts)} style={{ marginTop: 5 }}>
-                      <Image
-                        style={styles.vuesaxlinearedit}
-                        resizeMode="cover"
-                        source={require('../../assets/edit.png')}
-                      />
-                    </Pressable>
-                  </>}                  
-                </View>               
-                <View>
-                  <Text style={[styles.listOfAccounts]}>List of Accounts</Text>
-                  {emerFAccounts?.length > 0 &&
-                    emerFAccounts?.map((account: any) => {
-                      if (account?.Plan_Name != null) {
-                        return (
-                          <View style={[styles.account]}>
-                            <View style={[styles.accountContent]}>
-                              <Text style={[styles.accountName]}>{account?.Plan_Name ? account?.Plan_Name : "N/A"}</Text>                              
-                              <Text style={[styles.accountValue]}>
-                                ${Number(account?.Life_Cover) ? Number(account?.Life_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
-                              </Text>                              
-                            </View>
-                            <Image
+                  <View style={[styles.balance]}>
+                    <Text style={[styles.balanceText]}>${Number(allAccounts?.Target_Emergency_Fund) ? Number(allAccounts?.Target_Emergency_Fund).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+                    <Text style={[styles.balanceNextLine]}>Emergency Funds How Much You Need </Text>
+                    {allAccounts && <>
+                      <Pressable onPress={() => editEmergencyFund(allAccounts)} style={{ marginTop: 5 }}>
+                        <Image
+                          style={styles.vuesaxlinearedit}
+                          resizeMode="cover"
+                          source={require('../../assets/edit.png')}
+                        />
+                      </Pressable>
+                    </>}
+                  </View>
+                  <View style={[styles.balance]}>
+                    <Text style={[styles.balanceText]}>${Number(allAccounts?.Current_Total_Emergency_Funds) ? Number(allAccounts?.Current_Total_Emergency_Funds).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+                    <Text style={[styles.balanceNextLine]}>Current Total Emergency Funds </Text>                    
+                  </View>
+                  <View style={[styles.speedometer]}>
+                    <SpeedoMeter
+                      value={speedometerValue}
+                      size={200}
+                      minValue={speedoMinimum}
+                      maxValue={speedoMaximum}
+                      originalValue={speedoOriginalValue}
+                    />
+                  </View>
+                  <View>
+                    <Text style={[styles.listOfAccounts]}>List of Accounts</Text>
+                    {emerFAccounts?.length > 0 &&
+                      emerFAccounts?.map((account: any) => {
+                        if (account?.Plan_Name != null) {
+                          return (
+                            <View style={[styles.account]}>
+                              <View style={[styles.accountContent]}>
+                                <Text style={[styles.accountName]}>{account?.Plan_Name ? account?.Plan_Name : "N/A"}</Text>
+                                <Text style={[styles.accountValue]}>
+                                  ${Number(account?.Life_Cover) ? Number(account?.Life_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                                </Text>
+                              </View>
+                              <Image
                                 style={{ width: 80, height: 80, resizeMode: "cover" }}
                                 source={require("../../assets/link.png")}
                               />
-                          </View>
-                        )
-                      }
-                    })}
-                </View>
-              </>}                
-              {Object.keys(allAccounts).length === 0 && emerFAccounts?.length === 0 && <>
-                <AccordionSkeleton title="Loading INA" />
-              </>}              
+                            </View>
+                          )
+                        }
+                      })}
+                  </View>
+                </>}
+                {Object.keys(allAccounts).length === 0 && emerFAccounts?.length === 0 && <>
+                  <AccordionSkeleton title="Loading INA" />
+                </>}
               </>
             }
             {activeTab == 2 &&
@@ -407,6 +441,21 @@ const PlanBEmergencyFund = () => {
 };
 
 const styles = StyleSheet.create({
+  speedometer: {
+    marginTop: 10,
+    marginBottom: 10,
+    width: '80%',
+    height: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#FFF9F1",
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    borderRadius: 8,
+    marginLeft: 30,
+    marginRight: 30
+  },
   editRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -434,7 +483,7 @@ const styles = StyleSheet.create({
   },
   accountValue: {
     color: "#F6A326",
-    marginTop:4,
+    marginTop: 4,
     fontWeight: "800",
     fontSize: 14,
   },
@@ -447,7 +496,7 @@ const styles = StyleSheet.create({
     // borderColor: "#F6A326",
     // borderWidth: 1,
     backgroundColor: "#FFF9F1",
-    borderRadius: 20,    
+    borderRadius: 20,
     marginBottom: 10,
     marginLeft: 20,
     marginRight: 20,
@@ -455,7 +504,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingLeft: 10,
-    height:80
+    height: 80
   },
   accountContent: {
     // borderColor: "#F6A326",
