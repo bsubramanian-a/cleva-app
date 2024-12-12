@@ -29,6 +29,9 @@ import actions from "../../../actions";
 import Loader from "../../components/Loader";
 import VideoPlayer from "../../components/VideoPlayer";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import ThreeDotMenu from "../../components/ThreeDotMenu";
+import ViewDebtonateDebt from "./ViewDebtonateDebt";
+import { wrapTitle } from "../../utils/wrapTitle";
 
 
 const DebtonateDebt = () => {
@@ -37,7 +40,9 @@ const DebtonateDebt = () => {
   const data = route.params?.item;
   console.log("data", data)
   const [loading, setLoading] = useState(false);
-  
+
+
+
 
   const debtonateDebt = useSelector((state: any) => state.data.debtonateDebt);
 
@@ -58,6 +63,25 @@ const DebtonateDebt = () => {
   const [activeSubTab, setActiveSubTab] = useState(0);
   const [allAccounts, setallAccounts] = useState<any>();
   const [debtFAccounts, setDebtFAccounts] = useState<any>([]);
+  const [scheduleVisible, setScheduleVisible] = useState(false);
+  const [selectedAccount, setSelectedAccount] = useState(null);
+
+  const editDebtonateDebt = (account: any) => {
+    console.log("EditDebtonateDebt", account);
+    navigation.navigate('EditDebtonateDebt', { account });
+  };
+
+  const viewDebtonateDebt = (account: any, navigation: any) => {
+    console.log("viewDebtonateDebt", account);
+    // navigation.navigate('ViewDebtonateDebt', { account });
+    setScheduleVisible(true);
+    setSelectedAccount(account);
+  };
+
+  const options = [
+    { label: 'View', onClick: viewDebtonateDebt, icon: require("../../assets/eye.png") },
+    { label: 'Edit', onClick: editDebtonateDebt, icon: require("../../assets/editAcc.png") },
+  ];
 
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
@@ -84,10 +108,11 @@ const DebtonateDebt = () => {
       getAllAccounts();
       const emerFAccounts = financialAccounts.filter((account: any) => account?.Asset_or_Liability === "Liability");
       setDebtFAccounts(emerFAccounts);
+      console.log("emerFAccounts", emerFAccounts)
     }
   }, [debtonateDebt, financialAccounts])
 
-  
+
 
   const getAllAccounts = async () => {
     const acts: any = await actions.getAccount(debtonateDebt[0].Account.id);
@@ -126,6 +151,7 @@ const DebtonateDebt = () => {
         >
           <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
           <CustomHeader name={debtonateDebt[0].Name} type={2} />
+          <ViewDebtonateDebt visible={scheduleVisible} onClose={() => setScheduleVisible(false)} setScheduleVisible={setScheduleVisible} account={selectedAccount} navigation={navigation} />
 
           <ScrollView
             style={styles.videoSectionParent}
@@ -306,152 +332,152 @@ const DebtonateDebt = () => {
                       ]}
                     >{profile[0]?.Account_Name?.name}</Text>
                   </View>
-                </View>                
+                </View>
                 <View style={[styles.balance]}>
-                  <Text style={[styles.balanceText]}>${Number(allAccounts?.Total_Value_Current_Liabilities) ? Number(allAccounts?.Total_Value_Current_Liabilities).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+                  <Text style={[styles.balanceText]}>{Number(allAccounts?.Total_Value_Current_Liabilities) ? "$" + Number(allAccounts?.Total_Value_Current_Liabilities).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
                   <Text style={[styles.balanceNextLine]}>Current Total HH Debt</Text>
-                </View>                
-                <View>
-                  <View style={[styles.summary1]}>
+                </View>
+                <View style={[styles.summarynew]}>
+                  <View style={[styles.summary1, styles.borderBottom]}>
                     <Text
                       style={[
-                        styles.loremIpsumIs,
-                        styles.myExercisesTypo,
+                        styles.loremIpsumIsNew,
+                        styles.myExercisesTypo
                       ]}
                     >
                       Total Debt
                     </Text>
-                    <Text>
+                    <Text style={[styles.loremIpsumIsNewValue]}>
                       ${Number(allAccounts?.Total_Value_Current_Liabilities) ? Number(allAccounts?.Total_Value_Current_Liabilities).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
                     </Text>
                   </View>
                   <View style={[styles.summary1]}>
                     <Text
                       style={[
-                        styles.loremIpsumIs,
+                        styles.loremIpsumIsNew,
                         styles.myExercisesTypo,
                       ]}
                     >
                       Good Debt
                     </Text>
-                    <Text>
+                    <Text style={[styles.loremIpsumIsNewValue]}>
                       ${Number(allAccounts?.HH_Good_Debt) ? Number(allAccounts?.HH_Good_Debt).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
                     </Text>
                   </View>
-                  <View style={[styles.summary1]}>
+                  <View style={[styles.summary1, styles.borderBottom]}>
                     <Text
                       style={[
-                        styles.loremIpsumIs,
+                        styles.loremIpsumIsNew,
                         styles.myExercisesTypo,
                       ]}
                     >
                       Bad Debt
                     </Text>
-                    <Text>
+                    <Text style={[styles.loremIpsumIsNewValue]}>
                       ${Number(allAccounts?.HH_Bad_Debt) ? Number(allAccounts?.HH_Bad_Debt).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
                     </Text>
-                  </View>   
+                  </View>
                   <View style={[styles.summary1]}>
                     <Text
                       style={[
-                        styles.loremIpsumIs,
+                        styles.loremIpsumIsNew  ,
                         styles.myExercisesTypo,
                       ]}
                     >
                       Deductable
                     </Text>
-                    <Text>
+                    <Text style={[styles.loremIpsumIsNewValue]}>
                       ${Number(allAccounts?.HH_Deductible_Debt) ? Number(allAccounts?.HH_Deductible_Debt).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
                     </Text>
-                  </View>        
-                  <View style={[styles.summary1]}>
+                  </View>
+                  <View style={[styles.summary1, styles.borderBottom]}>
                     <Text
                       style={[
-                        styles.loremIpsumIs,
+                        styles.loremIpsumIsNew  ,
                         styles.myExercisesTypo,
                       ]}
                     >
                       Non-Deductable
                     </Text>
-                    <Text>
+                    <Text style={[styles.loremIpsumIsNewValue]}>
                       ${Number(allAccounts?.HH_Non_Deductible_Debt) ? Number(allAccounts?.HH_Non_Deductible_Debt).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
                     </Text>
-                  </View>  
+                  </View>
                   <View style={[styles.summary1]}>
                     <Text
                       style={[
-                        styles.loremIpsumIs,
+                        styles.loremIpsumIsNew,
                         styles.myExercisesTypo,
                       ]}
                     >
                       HH Income
                     </Text>
-                    <Text>
+                    <Text style={[styles.loremIpsumIsNewValue]}>
                       ${Number(allAccounts?.HH_Total_Income_p_a) ? Number(allAccounts?.HH_Total_Income_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
                     </Text>
-                  </View>     
-                  <View style={[styles.summary1]}>
+                  </View>
+                  <View style={[styles.summary1, styles.borderBottom]}>
                     <Text
                       style={[
-                        styles.loremIpsumIs,
+                        styles.loremIpsumIsNew,
                         styles.myExercisesTypo,
                       ]}
                     >
                       Debt to Income
                     </Text>
-                    <Text>
+                    <Text style={[styles.loremIpsumIsNewValue]}>
                       ${Number(allAccounts?.Debt_to_Income) ? Number(allAccounts?.Debt_to_Income).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
                     </Text>
-                  </View>   
+                  </View>
                   <View style={[styles.summary1]}>
                     <Text
                       style={[
-                        styles.loremIpsumIs,
+                        styles.loremIpsumIsNew,
                         styles.myExercisesTypo,
                       ]}
                     >
                       Total Value Current Assets
                     </Text>
-                    <Text>
+                    <Text style={[styles.loremIpsumIsNewValue]}>
                       ${Number(allAccounts?.Total_Value_Current_Assets) ? Number(allAccounts?.Total_Value_Current_Assets).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
                     </Text>
-                  </View> 
+                  </View>
                   <View style={[styles.summary1]}>
                     <Text
                       style={[
-                        styles.loremIpsumIs,
+                        styles.loremIpsumIsNew,
                         styles.myExercisesTypo,
                       ]}
                     >
                       Total Value Fin Assets
                     </Text>
-                    <Text>
+                    <Text style={[styles.loremIpsumIsNewValue]}>
                       ${Number(allAccounts?.Total_Value_Fin_Account_Assets) ? Number(allAccounts?.Total_Value_Fin_Account_Assets).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
                     </Text>
                   </View>
                   <View style={[styles.summary1]}>
                     <Text
                       style={[
-                        styles.loremIpsumIs,
+                        styles.loremIpsumIsNew,
                         styles.myExercisesTypo,
                       ]}
                     >
                       LVR
                     </Text>
-                    <Text>
+                    <Text style={[styles.loremIpsumIsNewValue]}>
                       ${Number(allAccounts?.Formula_4) ? Number(allAccounts?.Formula_4).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
                     </Text>
                   </View>
                   <View style={[styles.summary1]}>
                     <Text
                       style={[
-                        styles.loremIpsumIs,
+                        styles.loremIpsumIsNew,
                         styles.myExercisesTypo,
                       ]}
                     >
                       Equity
                     </Text>
-                    <Text>
+                    <Text style={[styles.loremIpsumIsNewValue]}>
                       ${Number(allAccounts?.Equity1) ? Number(allAccounts?.Equity1).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
                     </Text>
                   </View>
@@ -462,18 +488,49 @@ const DebtonateDebt = () => {
                     debtFAccounts?.map((account: any) => {
                       if (account?.Plan_Name != null) {
                         return (
-                          <View style={[styles.account]}>
-                            <View style={[styles.accountContent]}>
-                              <Text style={[styles.accountName]}>{account?.Plan_Name ? account?.Plan_Name : "N/A"}</Text>
-                              <Text style={[styles.accountValue]}>
-                                ${Number(account?.Life_Cover) ? Number(account?.Life_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
-                              </Text>
+                          <>
+                            <View style={[styles.account]}>
+                              <View style={[styles.accountContent]}>
+                                <Text
+                                  style={[styles.accountName]}
+                                >
+                                  {wrapTitle(account?.Plan_Name ? account?.Plan_Name : "No Plan Name", 22)}
+                                </Text>
+                                <Text style={[styles.accountValue]}>
+                                  ${Number(account?.Current_Value) ? Number(account?.Current_Value).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                                </Text>
+                              </View>
+                              <View style={[styles.accountContent, styles.accountContentWithGo]}>
+                                <Text
+                                  style={[styles.accountProductProvider]}
+                                >
+                                  {wrapTitle(account?.Product_Provider ? account?.Product_Provider : "No Product Provider", 22)}
+                                </Text>
+                                <Image
+                                  style={{ width: 35, height: 35, resizeMode: "cover", borderWidth: 0, borderColor: "#F6A326", padding:0, marginTop: -2 }}
+                                  source={require("../../assets/go.png")}
+                                />
+                              </View>
+                              <View style={[styles.accountContent]}>
+                                <Text
+                                  style={[styles.accountProductProvider]}
+                                >
+                                  {wrapTitle(account?.Last_4_Digits ? account?.Last_4_Digits : "No Last 4 Digits", 22)}
+                                </Text>
+                                <Text style={[styles.accountValue, styles.accountValueDate]}>
+                                  {account?.As_At_Date || 'N/A'}
+                                </Text>
+                              </View>
+                              <View style={[styles.accountContentWithBorder]}>
+                                <Text
+                                  style={[styles.accountProductProvider]}
+                                >
+                                  {wrapTitle(account?.Ownership_Type ? account?.Ownership_Type : "No Ownership Type", 22)}
+                                </Text> 
+                                <ThreeDotMenu icon={require('../../assets/more1.png')} options={options} account={account} />                           
+                              </View>                       
                             </View>
-                            <Image
-                              style={{ width: 80, height: 80, resizeMode: "cover" }}
-                              source={require("../../assets/link.png")}
-                            />
-                          </View>
+                          </>
                         )
                       }
                     })}
@@ -585,6 +642,41 @@ const DebtonateDebt = () => {
 };
 
 const styles = StyleSheet.create({
+  borderBottom: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#dedede'
+  },
+  summarynew: {
+    backgroundColor: '#fff', 
+    borderRadius: 5, 
+    marginLeft: 20, 
+    marginRight: 20, 
+    marginTop: 10, 
+    marginBottom: 10,
+    shadowColor: '#202224', 
+    shadowOffset: { width: 0, height: 0 }, 
+    shadowOpacity: 0.14, 
+    shadowRadius: 40, 
+    elevation: 5 // For Android
+  },
+  account: {
+    // borderColor: "#F6A326",
+    // borderWidth: 1,
+    backgroundColor: "#FFF9F1",
+    borderRadius: 20,
+    marginBottom: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 5,
+    flexDirection: "column",
+    justifyContent: "center",
+    paddingLeft: 15,
+    height: "auto",
+    paddingBottom: 15,
+    paddingTop: 15,
+    paddingRight: 15,
+    position: 'relative'
+  },
   listOfAccounts: {
     color: Color.black,
     fontSize: 18,
@@ -595,36 +687,45 @@ const styles = StyleSheet.create({
   },
   accountValue: {
     color: "#F6A326",
-    marginTop: 4,
-    fontWeight: "800",
-    fontSize: 14,
+    fontWeight: "500",
+    fontSize: 16,
+  },
+  accountValueDate: {
+    fontSize: 12,
+    color: Color.grey_text,
+    marginTop: 3
   },
   accountName: {
     color: Color.black,
     fontSize: 16,
     fontWeight: "500",
   },
-  account: {
-    // borderColor: "#F6A326",
-    // borderWidth: 1,
-    backgroundColor: "#FFF9F1",
-    borderRadius: 20,
-    marginBottom: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 5,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingLeft: 10,
-    height: 80
-  },
   accountContent: {
-    // borderColor: "#F6A326",
-    // borderWidth: 1,
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'center', // Align content to the end (right)
-    paddingRight: 10, // Add right padding
+    borderColor: "#F6A326",
+    borderWidth: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    overflow: "hidden",
+    flex: 1
+  },
+  accountContentWithGo: {
+    marginTop: 3,
+    paddingTop:3
+  },
+  accountContentWithBorder: {
+    borderTopWidth: 1,
+    borderColor: "#dedede",
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginTop: 10,
+    position: 'relative',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  accountProductProvider: {
+    color: "#4B4B4B",
+    fontSize: 14,
+    fontWeight: "400",
   },
   performance: {
     color: Color.black,
@@ -737,12 +838,24 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#4B4B4B'
   },
+  loremIpsumIsNew: {
+    lineHeight: 22,
+    fontWeight: "300",
+    fontFamily: FontFamily.openSansRegular,
+    fontSize: 15,
+    color: '#4B4B4B'
+  },
+  loremIpsumIsNewValue: {
+    fontSize: 16,
+    color: Color.black,
+    fontWeight: "600"
+  },
   summary1: {
-    borderTopWidth: 1,
+    borderTopWidth: 0,
     borderColor: "#dedede",
     flexDirection: "row",
     overflow: "hidden",
-    backgroundColor: Color.white1,
+    backgroundColor: 'transparent',
     marginLeft: 15,
     marginRight: 15,
     paddingTop: 10,
@@ -750,7 +863,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between"
   },
-
   goaltitle: {
     padding: 30,
     paddingBottom: 10,

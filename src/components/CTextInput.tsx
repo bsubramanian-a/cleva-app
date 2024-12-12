@@ -3,7 +3,7 @@ import { View, TextInput, StyleSheet, Text, Image } from 'react-native';
 import { FontFamily } from '../GlobalStyles';
 import { useNavigation } from '@react-navigation/native';
 
-const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, icon = "", isMobile = false, isTextArea = false, placeholder = "", isFinance = false, recordID = "", inputStyle = {}, ...props }: any) => {
+const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, icon = "", isMobile = false, isTextArea = false, placeholder = "", isFinance = false, recordID = "", inputStyle = {}, containerStyle = {}, ...props }: any) => {
   // console.log("defaultValue.......", defaultValue, id)
   const navigation = useNavigation();
   const [inputValue, setInputValue] = useState(defaultValue);
@@ -33,7 +33,7 @@ const CTextInput = ({ label, defaultValue, id, updateState, isNumOnly = true, ic
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]}>
       <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center', justifyContent: 'flex-start' }}>
         {icon &&
           <Image

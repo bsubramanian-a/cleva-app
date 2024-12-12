@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { TouchableOpacity, Text, View, Image } from 'react-native';
 import { FontFamily } from '../GlobalStyles';
 
-const ThreeDotMenu = ({ options, icon=null }:any) => {
+const ThreeDotMenu = ({ options, icon=null, account=null }:any) => {
   console.log("icon", icon);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (clickFunction:any) => {
     setIsOpen(false);
-    clickFunction();
+    clickFunction(account);
   };
 
   return (

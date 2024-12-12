@@ -547,7 +547,7 @@ export const updateFinancialAccounts = (data: any) => {
   return new Promise((resolve, reject) => {
     return apiPut(FINANCIAL_ACCOUNTS, data)
       .then(res => {
-        //console.log("response from updateFinancialAccounts",res, res)        
+        console.log("response from updateFinancialAccounts",res)        
         // dispatch({
         //   type: types.UPDATE_FINANCIAL_ACCOUNTS,
         //   payload: data,

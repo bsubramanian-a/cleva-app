@@ -7,18 +7,23 @@ import LinearGradient from "react-native-linear-gradient";
 import TopHeader from "./TopHeader";
 import HeaderBack from "./HeaderBack";
 import ProfileHeader from "./ProfileHeader";
+import { wrapTitle } from "../utils/wrapTitle";
 
 const CustomHeader = ({name, type, back = '', subject="", deleteChat=null}: any) => {
     const navigation = useNavigation();
     // console.log("custom header name", name);
 
+    const wrappedName = wrapTitle(name, 22);
+
     const goBack = () => {
       if (back) {
-        navigation.navigate(back);
+        navigation.dispatch(
+          CommonActions.navigate(back)
+        );
       } else {
         navigation.goBack();
       }
-    } 
+    }
 
     switch (type) {
         case 1:
@@ -35,7 +40,7 @@ const CustomHeader = ({name, type, back = '', subject="", deleteChat=null}: any)
                 resizeMode="cover"
                 source={require("../assets/mainvector-1.png")}
               />
-              <TopHeader title={name} />
+              <TopHeader title={wrappedName} />
             </LinearGradient>
           );
         case 2:
@@ -55,7 +60,7 @@ const CustomHeader = ({name, type, back = '', subject="", deleteChat=null}: any)
                 <HeaderBack
                   goBack={goBack}
                   vuesaxlineararrowLeft={require("../assets/vuesaxlineararrowleft.png")}
-                  getStarted={name}
+                  getStarted={wrappedName}
                   subject={subject}
                   deleteChat={deleteChat}
                 />
@@ -75,7 +80,7 @@ const CustomHeader = ({name, type, back = '', subject="", deleteChat=null}: any)
                 resizeMode="cover"
                 source={require("../assets/mainvector-1.png")}
               />
-              <ProfileHeader name={name} goBack={goBack}/>
+              <ProfileHeader name={wrappedName} goBack={goBack}/>
             </LinearGradient>
           );
         default:
