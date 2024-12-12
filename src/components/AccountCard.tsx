@@ -84,7 +84,7 @@ const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccoun
                     <View style={styles.titleView}>
                         <View style={styles.titleWrap}>
                             <Text style={styles.titleText}>{acc?.Name?.length <= 20 ? acc?.Name : acc?.Name.substring(0, 20) + '...'}</Text>
-                            <Text style={styles.moneyText}>${acc?.Current_Value ? acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : 0}</Text>
+                            <Text style={styles.moneyText}>{acc?.Current_Value ? "$"+acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : "N/A"}</Text>
                         </View>
                         <View>
                             <Text style={styles.dateText}>As at {formatDate(acc?.Modified_Time)}</Text>

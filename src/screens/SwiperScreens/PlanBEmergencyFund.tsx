@@ -283,7 +283,9 @@ const PlanBEmergencyFund = () => {
                     </View>
                   </View>
                   <View style={[styles.balance]}>
-                    <Text style={[styles.balanceText]}>${Number(allAccounts?.Target_Emergency_Fund) ? Number(allAccounts?.Target_Emergency_Fund).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+                    <Text style={[styles.balanceText]}>
+                      {Number(allAccounts?.Target_Emergency_Fund) ? "$"+Number(allAccounts?.Target_Emergency_Fund).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                      </Text>
                     <Text style={[styles.balanceNextLine]}>Emergency Funds How Much You Need </Text>
                     {allAccounts && <>
                       <Pressable onPress={() => editEmergencyFund(allAccounts)} style={{ marginTop: 5 }}>
@@ -296,7 +298,9 @@ const PlanBEmergencyFund = () => {
                     </>}
                   </View>
                   <View style={[styles.balance]}>
-                    <Text style={[styles.balanceText]}>${Number(allAccounts?.Current_Total_Emergency_Funds) ? Number(allAccounts?.Current_Total_Emergency_Funds).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+                    <Text style={[styles.balanceText]}>
+                      {Number(allAccounts?.Current_Total_Emergency_Funds) ? "$"+Number(allAccounts?.Current_Total_Emergency_Funds).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                      </Text>
                     <Text style={[styles.balanceNextLine]}>Current Total Emergency Funds </Text>                    
                   </View>
                   <View style={[styles.speedometer]}>

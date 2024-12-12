@@ -72,12 +72,16 @@ const AddANewGoalGoalSummary = ({ navigation }: any) => {
                   <Text style={styles.toAchieveYour}>
                     To achieve your goal of
                   </Text>
-                  <Text style={styles.textTypo}> ${money_need}</Text>
+                  <Text style={styles.textTypo}> 
+                    {money_need ? "$"+money_need?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : "N/A"}
+                    </Text>
                   <Text style={styles.toAchieveYour}>{` by `}</Text>
                   <Text style={styles.textTypo}>{formattedDate}</Text>
                   <Text
                     style={styles.toAchieveYour}
-                  > you need to pay off <Text style={styles.textTypo}>${money_save}</Text> per </Text>
+                  > you need to pay off <Text style={styles.textTypo}>
+                    {money_save ? "$"+money_save?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : "N/A"}
+                    </Text> per </Text>
                   <Text style={styles.textTypo}>{frequent_money_save}</Text>
                 </Text>
               </View>

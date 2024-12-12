@@ -485,11 +485,13 @@ const SuperSorted = () => {
                   </View>
                 </View>
                 <View style={[styles.balance]}>
-                  <Text style={[styles.balanceText]}>${totalCurrentBalance?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
-                  <Text>{Object.keys(balanceByOwner)[0]} : ${balanceByOwner[Object.keys(balanceByOwner)[0]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
-                  {Object.keys(balanceByOwner)[1] && <Text>{Object.keys(balanceByOwner)[1]} : ${balanceByOwner[Object.keys(balanceByOwner)[1]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>}
-
-
+                  <Text style={[styles.balanceText]}>
+                    {totalCurrentBalance ? "$"+totalCurrentBalance?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : "N/A"}
+                    </Text>
+                  <Text>                    
+                    {Object.keys(balanceByOwner)[0]} : {balanceByOwner[Object.keys(balanceByOwner)[0]] ? "$"+balanceByOwner[Object.keys(balanceByOwner)[0]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
+                    {Object.keys(balanceByOwner)[1] && <Text>{Object.keys(balanceByOwner)[1]} : {balanceByOwner[Object.keys(balanceByOwner)[1]] ? "$"+balanceByOwner[Object.keys(balanceByOwner)[1]]?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>}
                   <Text style={[styles.balanceNextLine]}>Balance</Text>
                 </View>
                 <View>

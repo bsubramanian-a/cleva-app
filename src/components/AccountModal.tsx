@@ -83,7 +83,9 @@ const AccountModal = ({ visible, onClose, acc }: any) => {
                 />
                 <Text style={styles.dateText}>Value</Text>
               </View>
-              <Text style={styles.titleText}>${acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',)}</Text>
+              <Text style={styles.titleText}>
+                {acc?.Current_Value ? "$"+acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : "N/A"}
+              </Text>
             </View>
             <View style={styles.wrapContent}>
               <View style={styles.imgText}>
