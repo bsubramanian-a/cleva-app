@@ -26,7 +26,7 @@ const CircleProgressBar = ({ progress1, total, radius, strokeWidth, color1, colo
           <View style={styles.netWorthContainer}>
             <Text style={styles.netWorthLabel}>Net Worth</Text>
             <Text style={styles.netWorthValue}>
-              {netWorth ? "$"+netWorth?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : "N/A"}
+            ${netWorth}
             </Text>
           </View>
         )}
