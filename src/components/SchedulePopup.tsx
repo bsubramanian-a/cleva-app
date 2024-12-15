@@ -386,7 +386,7 @@ const styles = StyleSheet.create({
     elevation: 40,
     paddingVertical: Padding.p_9xl,
     // alignItems: "flex-end",
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
     shadowOpacity: 1,
     shadowOffset: {
       width: 0,

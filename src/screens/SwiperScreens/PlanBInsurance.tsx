@@ -43,7 +43,7 @@ import AssetAllocation from "../../components/AssetAllocation";
 import PlanBInsuranceSpeedoMeter from "./PlanBInsuranceSpeedoMeter";
 import AccordionSkeleton from "../../components/skeletons/AccordionSkeleton";
 import AccordionHeading from "../../components/AccordionHeading";
-import AccordionContainer from "../../components/AccordionContainer";
+import AccordionContainer from "../../components/accordion/AccordionContainer";
 
 const PlanBInsurance = () => {
   const navigation: any = useNavigation();

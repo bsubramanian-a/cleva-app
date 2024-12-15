@@ -495,8 +495,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   setYourGoalsContainer: {
-    fontSize: FontSize.textMediumBoldText_size,
-    color: Color.white,
+    fontSize: FontSize.textMediumBoldText1_size,
+    color: Color.white1,
     textAlign: "left",
   },
   frameChild: {
@@ -504,13 +504,13 @@ const styles = StyleSheet.create({
     height: 58,
   },
   setYourGoalsToSaveForSomParent: {
-    borderRadius: Border.br_xs,
+    borderRadius: Border.br_md,
     shadowColor: "rgba(251, 177, 66, 0.1)",
     shadowRadius: 30,
     elevation: 30,
-    paddingLeft: Padding.p_base,
+    paddingLeft: Padding.p_2xs,
     paddingTop: Padding.p_xs,
-    paddingRight: Padding.p_3xs,
+    paddingRight: Padding.p_2xs,
     paddingBottom: Padding.p_xs,
     shadowOpacity: 1,
     shadowOffset: {
@@ -536,7 +536,7 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_81xl,
     backgroundColor: Color.orange_200,
     paddingVertical: Padding.p_7xs,
-    paddingHorizontal: Padding.p_base,
+    paddingHorizontal: Padding.p_2xs,
     flexDirection: "row",
     overflow: "hidden",
   },
@@ -581,12 +581,12 @@ const styles = StyleSheet.create({
   },
   frameParentShadowBox: {
     marginTop: 15,
-    paddingVertical: Padding.p_3xs,
+    paddingVertical: Padding.p_2xs,
     elevation: 40,
     shadowRadius: 40,
     shadowColor: "rgba(32, 34, 36, 0.08)",
     borderRadius: Border.br_base,
-    paddingHorizontal: Padding.p_base,
+    paddingHorizontal: Padding.p_2xs,
     shadowOpacity: 1,
     shadowOffset: {
       width: 0,
@@ -596,7 +596,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "stretch",
     overflow: "hidden",
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
   },
   goalsInner: {
     alignSelf: "stretch",
@@ -607,7 +607,7 @@ const styles = StyleSheet.create({
     maxWidth: "100%",
     overflow: "hidden",
     flex: 1,
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
   },
 });
 

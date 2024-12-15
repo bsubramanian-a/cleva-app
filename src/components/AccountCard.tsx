@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import {
     View,
-    Modal,
-    TouchableOpacity, 
     Text,
     StyleSheet,
     Dimensions,
-    Pressable,
-    Image,
+    Pressable
 } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
-import RadioButtonGroup from './RadioButtonGroup';
 import ThreeDotMenu from './ThreeDotMenu';
 import { useNavigation } from '@react-navigation/native';
-import DeletePopup from './DeletePopup';
 import { FontFamily } from '../GlobalStyles';
+import { formatDate } from '../utils/format-date';
 
 const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccount, setIsAccountModalVisible, color, index, count }: any) => {
     const navigation: any = useNavigation();
@@ -33,31 +28,6 @@ const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccoun
         { label: 'Edit', onClick: editAccount, icon: require("../assets/editAcc.png") },
         { label: 'Delete', onClick: deleteAccount, icon: require("../assets/trashAcc.png") },
     ];
-
-    const formatDate = (dateString: any) => {
-        const date = new Date(dateString);
-        const day = date.getDate();
-        const month = date.toLocaleString('en-US', { month: 'long' });
-        const year = date.getFullYear();
-
-        const getOrdinalSuffix = (day: any) => {
-            if (day === 1 || day === 21 || day === 31) {
-                return 'st';
-            } else if (day === 2 || day === 22) {
-                return 'nd';
-            } else if (day === 3 || day === 23) {
-                return 'rd';
-            } else {
-                return 'th';
-            }
-        };
-
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const formattedYear = year === currentYear ? '' : ` ${year}`;
-
-        return `${day}${getOrdinalSuffix(day)} ${month}${formattedYear}`;
-    };
 
     const getInitials = (name: string) => {
         if(name){

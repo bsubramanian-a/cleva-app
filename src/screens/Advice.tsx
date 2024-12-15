@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   polygonWrapper: {
     borderRadius: Border.br_lg,
     backgroundColor: Color.gray_600,
-    padding: Padding.p_3xs,
+    padding: Padding.p_2xs,
     flexDirection: "row",
     overflow: "hidden",
   },
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   adviceAssignedBy: {
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
     textAlign: "left",
   },
   dot1: {

@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   whoAmI: {
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
     color: Color.white1,
     fontWeight: "700",
     textAlign: "left",

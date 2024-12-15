@@ -29,8 +29,8 @@ import actions from "../../../actions";
 import Loader from "../../components/Loader";
 import VideoPlayer from "../../components/VideoPlayer";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import AccordionContainer from "../../components/AccordionContainer";
-import AccordionHeading from "../../components/AccordionHeading";
+import AccordionContainer from "../../components/accordion/AccordionContainer";
+import AccordionHeading from "../../components/accordion/AccordionHeading";
 import AccordionSkeleton from "../../components/skeletons/AccordionSkeleton";
 
 
@@ -689,7 +689,7 @@ const MoneyAutoDrive = () => {
                   <Text style={styles.editRow}>{houseHoldExpenses[0]?.Household_Expenses_Notes_Comments}</Text>
                 </>}                
                 {(!houseHoldExpenses[0]) && (houseHoldExpenses.length != 0) && <>
-                  <AccordionSkeleton title="Loading HouseHold" />
+                  <AccordionSkeleton/>
                 </>}
                 {(houseHoldExpenses.length == 0) && <>
                   <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20  }}>
@@ -707,11 +707,11 @@ const MoneyAutoDrive = () => {
                 Loans, Investments, Credit Cards etc...
                 </Text>
                 {(!houseHoldExpenses[0]) && (houseHoldExpenses.length != 0) && <>
-                  <AccordionSkeleton title="Loading Loan Repayments" />
+                  <AccordionSkeleton />
                 </>}
                 {(houseHoldExpenses.length == 0) && <>
                   <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20 }}>
-                    <AccordionHeading title="No Data Available" value="No Loan Repayments to the contact"></AccordionHeading>
+                    <AccordionHeading title={"No Data Available"} value={"No Loan Repayments to the contact"} />
                   </View>
                 </>}
                 {(houseHoldExpenses.length > 0) && <>

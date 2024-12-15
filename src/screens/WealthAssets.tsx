@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   tabFlexBox1: {
-    paddingVertical: Padding.p_3xs,
-    borderRadius: Border.br_xs,
+    paddingVertical: Padding.p_2xs,
+    borderRadius: Border.br_md,
     justifyContent: "center",
     flex: 1,
   },
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.outfitMedium,
     color: Color.orange_100,
     textAlign: "left",
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
   },
   tab1: {
     backgroundColor: Color.orange_200,
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.outfitRegular,
     color: Color.black,
     textAlign: "center",
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
   },
   tab2: {
     backgroundColor: Color.gray_900,

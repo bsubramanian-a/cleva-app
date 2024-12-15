@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     height: 18,
   },
   edit: {
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
     lineHeight: 20,
     fontWeight: "600",
     fontFamily: FontFamily.outfitSemibold,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     height: "100%",
     flexDirection: "row",
     paddingHorizontal: Padding.p_8xl,
-    paddingVertical: Padding.p_3xs,
+    paddingVertical: Padding.p_2xs,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "transparent",

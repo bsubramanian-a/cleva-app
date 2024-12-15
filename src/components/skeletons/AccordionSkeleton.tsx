@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList, Image, StyleSheet, Pressable, Dimensions } from 'react-native';
-import { Border, Color, FontSize, Margin, Padding } from '../../GlobalStyles';
-import LinearGradient from 'react-native-linear-gradient';
-import { FontFamily } from '../../GlobalStyles';
-import { useNavigation } from '@react-navigation/native';
+import * as React from 'react';
+import { View, Text, Image } from 'react-native';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
-const AccordionSkeleton = ({ title, value }: any) => {
+const AccordionSkeleton = () => {
     return (
         <SkeletonPlaceholder borderRadius={4} >
             <View style={{ flexDirection: 'column', alignItems: 'center', borderWidth: 1,  borderRadius: 16, borderColor: "#eaeaea",marginHorizontal: 30,marginTop: 20,paddingBottom: 20, paddingLeft: 10, paddingRight: 10 }}>
@@ -58,7 +54,3 @@ const AccordionSkeleton = ({ title, value }: any) => {
 };
 
 export default AccordionSkeleton;
-
-const styles = StyleSheet.create({
-    
-});

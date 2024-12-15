@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   goalBg: {
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
     overflow: "hidden",
   },
   topMenuSpaceBlock: {
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "stretch",
     overflow: "hidden",
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
   },
   mainvector1Icon: {
     width: 164,
@@ -217,14 +217,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "stretch",
     overflow: "hidden",
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
   },
   goalType2Wrapper: {
     alignItems: "center",
     flexDirection: "row",
     alignSelf: "stretch",
     overflow: "hidden",
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
   },
   goalType3: {
     color: Color.goldenrod_100,
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   frameChild: {
-    borderRadius: Border.br_xs,
+    borderRadius: Border.br_md,
     borderColor: "#dedede",
     paddingVertical: Padding.p_smi,
     marginTop: 4,
@@ -290,10 +290,10 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   next: {
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
     lineHeight: 20,
     fontFamily: FontFamily.outfitSemibold,
-    color: Color.white,
+    color: Color.white1,
     textAlign: "center",
     fontWeight: "600",
   },
@@ -325,10 +325,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "stretch",
     overflow: "hidden",
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
   },
   advicecontainer: {
-    paddingBottom: Padding.p_base,
+    paddingBottom: Padding.p_2xs,
   },
   advicecontainerWrapper: {
     alignSelf: "stretch",

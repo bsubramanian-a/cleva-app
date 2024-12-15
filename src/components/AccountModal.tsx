@@ -1,45 +1,9 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View, Pressable, Modal, Dimensions, ScrollView } from 'react-native';
-import LinearGradient from "react-native-linear-gradient";
-import { Color, FontFamily, Padding, Border, FontSize } from "../GlobalStyles";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import RadioButtonGroup from "./RadioButtonGroup";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import Label from "./Label";
-import CustomDatePicker from "./CustomDatepicker";
-import actions from "../../actions";
-import Loader from "./Loader";
-import CTextInput from "./CTextInput";
-import RadioButtonGroupOwner from "./RadioButtonGroupOwner";
+import { Image, StyleSheet, Text, View, Pressable, Modal, Dimensions } from 'react-native';
+import { FontFamily } from "../GlobalStyles";
+import { formatDate } from "../utils/format-date";
 
 const AccountModal = ({ visible, onClose, acc }: any) => {
-
-  const formatDate = (dateString: any) => {
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.toLocaleString('en-US', { month: 'long' });
-    const year = date.getFullYear();
-
-    const getOrdinalSuffix = (day: any) => {
-      if (day === 1 || day === 21 || day === 31) {
-        return 'st';
-      } else if (day === 2 || day === 22) {
-        return 'nd';
-      } else if (day === 3 || day === 23) {
-        return 'rd';
-      } else {
-        return 'th';
-      }
-    };
-
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const formattedYear = year === currentYear ? '' : ` ${year}`;
-
-    return `${day}${getOrdinalSuffix(day)} ${month}${formattedYear}`;
-  };
-
   return (
     <Modal visible={visible} onRequestClose={onClose} transparent>
       <View style={styles.modalContainer}>
@@ -84,7 +48,7 @@ const AccountModal = ({ visible, onClose, acc }: any) => {
                 <Text style={styles.dateText}>Value</Text>
               </View>
               <Text style={styles.titleText}>
-                {acc?.Current_Value ? "$"+acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : "N/A"}
+                {acc?.Current_Value ? "$" + acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : "N/A"}
               </Text>
             </View>
             <View style={styles.wrapContent}>
@@ -133,17 +97,6 @@ const styles = StyleSheet.create({
     width: '90%',
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  container: {
-    position: 'relative',
-    backgroundColor: "#fff",
-    width: Dimensions.get('window').width - 30,
-    height: Dimensions.get('window').height - 150,
-    borderRadius: 12,
-    alignSelf: 'center',
-    marginTop: 75,
-    padding: 0,
-    zIndex: 1000
   },
   modalContainer: {
     position: 'relative',

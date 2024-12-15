@@ -41,8 +41,8 @@ import {
 import PerformanceTable from "../../components/PerformanceTable";
 import AssetAllocation from "../../components/AssetAllocation";
 import AccordionSkeleton from "../../components/skeletons/AccordionSkeleton";
-import AccordionHeading from "../../components/AccordionHeading";
-import AccordionContainer from "../../components/AccordionContainer";
+import AccordionContainer from "../../components/accordion/AccordionContainer";
+import AccordionHeading from "../../components/accordion/AccordionHeading";
 
 const PlanBEstatePlanWill = () => {
   const navigation: any = useNavigation();
@@ -338,7 +338,7 @@ const PlanBEstatePlanWill = () => {
                             return (
                               <View key={index}>
                                 {(!planBEstatePlanWill[index]) && (planBEstatePlanWill?.length != index) && <>
-                                  <AccordionSkeleton title="Loading INA" />
+                                  <AccordionSkeleton/>
                                 </>}
                                 {(planBEstatePlanWill?.length == 0) && <>
                                   <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20 }}>

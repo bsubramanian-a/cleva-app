@@ -141,7 +141,7 @@ const GoalImportance = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   addANewGoalGoalDate: {
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
     flex: 1,
     maxWidth: '100%',
     overflow: 'hidden',
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   adviceFlexBox: {
     alignItems: 'center',
     alignSelf: 'stretch',
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
     overflow: 'hidden',
     paddingHorizontal: Padding.p_xs,
   },
@@ -219,9 +219,9 @@ const styles = StyleSheet.create({
   frameChild: {
     alignItems: 'center',
     alignSelf: 'stretch',
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
     borderColor: '#dedede',
-    borderRadius: Border.br_xs,
+    borderRadius: Border.br_md,
     borderStyle: 'solid',
     borderWidth: 1,
     flexDirection: 'row',
@@ -280,9 +280,9 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   next: {
-    color: Color.white,
+    color: Color.white1,
     fontFamily: FontFamily.outfitSemibold,
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
     fontWeight: '600',
     lineHeight: 20,
     textAlign: 'center',

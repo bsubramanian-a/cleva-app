@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   polygonWrapper: {
     borderRadius: Border.br_lg,
     backgroundColor: Color.gray_600,
-    padding: Padding.p_3xs,
+    padding: Padding.p_2xs,
     flexDirection: "row",
     overflow: "hidden",
   },
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   myMemory: {
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
   },
   vuesaxlinearedit2Icon: {
     width: 16,

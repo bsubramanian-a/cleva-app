@@ -16,7 +16,7 @@ const Tab11 = ({ style }: Tab11Type) => {
 
 const styles = StyleSheet.create({
   labelledMoney: {
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
     fontWeight: "500",
     fontFamily: FontFamily.outfitMedium,
     color: Color.orange_100,
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   tab1: {
     flex: 1,
-    borderRadius: Border.br_xs,
+    borderRadius: Border.br_md,
     backgroundColor: Color.orange_200,
     overflow: "hidden",
     padding: Padding.p_xs,

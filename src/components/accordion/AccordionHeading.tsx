@@ -1,15 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList, Image, StyleSheet, Pressable } from 'react-native';
-import { Border, Color, FontSize, Margin, Padding } from '../GlobalStyles';
-import LinearGradient from 'react-native-linear-gradient';
-import { FontFamily } from '../GlobalStyles';
-import { wrapTitle } from '../utils/wrapTitle';
+import * as React from 'react';
+import { View, Text, TouchableOpacity, Image, StyleSheet, Pressable } from 'react-native';
+import { Color, FontFamily } from '../../GlobalStyles';
+import { wrapTitle } from '../../utils/wrapTitle';
 
 const AccordionHeading = ({ title="", value, editable, toggleAccordion, icon, link, element, navigation, showEdit }: any) => {
     const wrappedTitle = wrapTitle(title, 24);
-    const goEdit = (link: string, editData: any) => {
-        console.log("editlink", link)
-        console.log("editData", editData)
+    const goEdit = (link: string, editData: any) => {        
         navigation.navigate(link, { editData });
     };
 
@@ -106,8 +102,7 @@ const styles = StyleSheet.create({
     },
     frameParentFlexBox: {
         justifyContent: "space-between",
-        flexDirection: "row",
-        // width: '100%'
+        flexDirection: "row"
     },
     vuesaxlinearsmsParent: {
         flexDirection: "row",

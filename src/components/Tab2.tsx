@@ -16,14 +16,14 @@ const Tab2 = ({ style }: Tab2Type) => {
 
 const styles = StyleSheet.create({
   labelledMoney: {
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
     fontFamily: FontFamily.outfitRegular,
     color: Color.black,
     textAlign: "center",
   },
   tab2: {
     flex: 1,
-    borderRadius: Border.br_xs,
+    borderRadius: Border.br_md,
     backgroundColor: Color.gray_700,
     overflow: "hidden",
     padding: Padding.p_xs,

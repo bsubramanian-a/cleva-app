@@ -1,7 +1,5 @@
 import * as React from "react";
-import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Pressable, Dimensions } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import ProfileHeader from "../components/ProfileHeader";
+import { ScrollView, Image, StyleSheet, View, Text, StatusBar, Dimensions } from "react-native";
 import {
   Margin,
   Padding,
@@ -15,10 +13,8 @@ import actions from "../../actions";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../components/Loader";
-import AccordionContainer from "../components/AccordionContainer";
-import { wrapTitle } from "../utils/wrapTitle";
-
-const screenWidth = Dimensions.get('window').width;
+import AccordionContainer from "../components/accordion/AccordionContainer";
+import { formatDate } from "src/utils/format-date";
 
 const Profile = () => {
   const [accordion, setAccordion] = useState<any>([]);
@@ -27,9 +23,6 @@ const Profile = () => {
   const assets = useSelector((state: any) => state.data.assets);
   const liabilities = useSelector((state: any) => state.data.liabilities);
   const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
-
-  console.log("profile", profile);
-  console.log("profile[0]?.expenses", profile[0]?.expenses);
 
   const getProfile = async () => {
     setLoading(true);
@@ -75,8 +68,6 @@ const Profile = () => {
     ) : (
       "No Data Available"
     );
-
-    //const wrappedString = hasData ? wrapTitle(completeString.toString(), 50) : completeString;
 
     return (
       <View>
@@ -1084,12 +1075,7 @@ const Profile = () => {
     setTotalNetWorth(parseFloat((totalAssets - totalLiabilities)?.toFixed(1)));
   }, [assets, liabilities])
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const formattedDate = `${date.getDate()}/${month}/${date.getFullYear()}`;
-    return formattedDate;
-  }
+  
 
   return (
     <View
@@ -1103,8 +1089,7 @@ const Profile = () => {
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.frameScrollViewContent}
-      >
-        {/* <Pressable onPress={getProfile}><Text>get profile</Text></Pressable> */}
+      >        
         <View style={[styles.userdetails, styles.optionsSpaceBlock]}>
           <View style={[styles.advice, styles.adviceShadowBox]}>
             <View style={styles.users}>
@@ -1415,7 +1400,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   dr: {
-    fontSize: FontSize.size_6xl,
+    fontSize: FontSize.size_lg,
     color: Color.white1,
     textAlign: "center",
     fontFamily: FontFamily.sourceSerifPro,
@@ -1478,7 +1463,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   m: {
-    color: Color.goldenrod_100,
+    color: Color.gray_200,
     fontSize: 20
   },
   mParent: {
@@ -1510,13 +1495,13 @@ const styles = StyleSheet.create({
   },
   vuesaxlinearprofileCircleWrapper: {
     borderRadius: 10,
-    backgroundColor: Color.floralwhite,
+    backgroundColor: Color.white1,
     borderColor: "#ffeccf",
     borderWidth: 1,
     width: 40,
     height: 40,
-    paddingHorizontal: Padding.p_4xs,
-    paddingVertical: Padding.p_5xs,
+    paddingHorizontal: Padding.p_2xs,
+    paddingVertical: Padding.p_2xs,
     borderStyle: "solid",
     justifyContent: "center",
     alignItems: "center",
@@ -1532,7 +1517,7 @@ const styles = StyleSheet.create({
   excercise1: {
     borderWidth: 1,
     borderColor: "#eaeaea",
-    padding: Padding.p_5xs,
+    padding: Padding.p_2xs,
     justifyContent: "space-between",
     alignItems: "center",
     shadowOpacity: 1,
@@ -1543,7 +1528,7 @@ const styles = StyleSheet.create({
       height: 4,
     },
     shadowColor: "rgba(32, 34, 36, 0.08)",
-    borderRadius: Border.br_sm,
+    borderRadius: Border.br_md,
     alignSelf: "stretch",
     overflow: "hidden",
     backgroundColor: Color.white1,

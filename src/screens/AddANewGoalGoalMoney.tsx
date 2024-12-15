@@ -161,7 +161,7 @@ const AddANewGoalGoalMoney = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   addANewGoalGoalDate: {
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
     flex: 1,
     maxWidth: '100%',
     overflow: 'hidden',

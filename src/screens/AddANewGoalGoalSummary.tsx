@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     color: Color.black,
   },
   addAnotherPropertyTypo: {
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
     textAlign: "center",
   },
   mainvector1Icon: {
@@ -238,9 +238,9 @@ const styles = StyleSheet.create({
   addAnotherProperty: {
     lineHeight: 20,
     fontFamily: FontFamily.outfitSemibold,
-    color: Color.white,
+    color: Color.white1,
     fontWeight: "600",
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
   },
   pressable: {
     height: "100%",
@@ -269,14 +269,14 @@ const styles = StyleSheet.create({
     paddingVertical: 35,
     // alignSelf: "stretch",
     overflow: "hidden",
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
     minHeight: Dimensions.get('window').height - 165
   },
   advicecontainer: {
-    paddingBottom: Padding.p_base,
+    paddingBottom: Padding.p_2xs,
   },
   advicecontainerWrapper: {
     alignSelf: "stretch",
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
   },
   addANewGoalGoalSummary: {
     flex: 1,
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
   },
 });
 

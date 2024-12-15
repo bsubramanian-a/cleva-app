@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     maxWidth: "100%",
     overflow: "hidden",
     flex: 1,
-    backgroundColor: Color.white,
+    backgroundColor: Color.white1,
   },
 });
 

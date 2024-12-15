@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   loginWithFacebook: {
     flex: 1,
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
     lineHeight: 22,
     fontWeight: "600",
     fontFamily: FontFamily.textMediumBoldText,

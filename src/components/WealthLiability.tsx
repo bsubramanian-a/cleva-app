@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   total: {
-    fontSize: FontSize.textMediumBoldText_size,
+    fontSize: FontSize.textMediumBoldText1_size,
     textAlign: "left",
   },
   text3: {
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   totalview: {
-    borderRadius: Border.br_xs,
+    borderRadius: Border.br_md,
     backgroundColor: Color.orange_200,
     paddingHorizontal: Padding.p_xl,
     paddingVertical: Padding.p_2xs,

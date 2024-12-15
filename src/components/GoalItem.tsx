@@ -1,14 +1,9 @@
+import * as React from "react";
 import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { Border, Color, FontFamily, FontSize, Padding } from "../GlobalStyles";
+import { Color, FontFamily, FontSize, Padding } from "../GlobalStyles";
+import { newFormatDate } from "../utils/format-date";
 
 const GoalItem = ({data, onPress, openModal}:any) => {
-    const formatDate = (dateString:string) => {
-        const date = new Date(dateString);
-        const month = (date.getMonth() + 1).toString().padStart(2, "0");
-        const formattedDate = `${date.getDate()}/${month}/${date.getFullYear()}`;
-        return formattedDate;
-    }  
-
     const getInitials = (name="") => {
         const initials = name
             ? name.split(' ').length === 1
@@ -54,7 +49,7 @@ const GoalItem = ({data, onPress, openModal}:any) => {
                     <Text style={styles.goalOwnerDrContainer}>
                         <Text style={styles.goalOwner}>
                             <Text style={styles.goalOwner1}>Due Date:</Text>
-                            <Text style={styles.text}> {formatDate(data?.Target_Date)}</Text>
+                            <Text style={styles.text}> {newFormatDate(data?.Target_Date)}</Text>
                         </Text>
                         <Text style={styles.text}>
                             <Text style={styles.dr1}>{data?.dueDate}</Text>
@@ -136,7 +131,7 @@ const styles = StyleSheet.create({
         color: '#000'
     },
     goalOwner: {
-        color: Color.darkslategray_100,
+        color: Color.textGrey2,
     },
     dr1: {
         color: Color.black,

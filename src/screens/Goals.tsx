@@ -167,8 +167,8 @@ const styles = StyleSheet.create({
     height: 58,
   },
   setYourGoalsContainer: {
-    fontSize: FontSize.textMediumBoldText_size,
-    color: Color.white,
+    fontSize: FontSize.textMediumBoldText1_size,
+    color: Color.white1,
     textAlign: "left",
   },
   mt24: {
@@ -224,13 +224,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   setYourGoalsToSaveForSomParent: {
-    borderRadius: Border.br_xs,
+    borderRadius: Border.br_md,
     shadowColor: "rgba(251, 177, 66, 0.1)",
     shadowRadius: 30,
     elevation: 30,
-    paddingLeft: Padding.p_base,
+    paddingLeft: Padding.p_2xs,
     paddingTop: Padding.p_xs,
-    paddingRight: Padding.p_3xs,
+    paddingRight: Padding.p_2xs,
     paddingBottom: Padding.p_xs,
     shadowOpacity: 1,
     shadowOffset: {
