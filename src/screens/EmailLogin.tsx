@@ -10,6 +10,8 @@ const EmailLogin = ({ navigation,route }: any) => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [user_type, setUserType] = useState(route.params.user_type);
+  console.log("user_type", user_type)
   // useEffect(() => {
   //   setEmail("testawebon1@gmial.com")
   //   console.log("setting email")
@@ -25,12 +27,12 @@ const EmailLogin = ({ navigation,route }: any) => {
     setError("");
     try {
       const res: any = await actions.verifyEmail({
-        email, user_type: route.params.user_type
+        email, user_type: user_type
       });
       console.log('res1==>>>>>', res);
       if (res?.isUserExist === true) {
         // navigation.navigate('OTPScreen', { user_type: route.params.user_type })
-        navigation.navigate('PasswordLogin', { user_type: route.params.user_type })
+        navigation.navigate('PasswordLogin', { user_type: user_type })
         
       } else {
         setError("User doesn't exist, please register first");
@@ -47,10 +49,17 @@ const EmailLogin = ({ navigation,route }: any) => {
       <Loader visible={loading} />
       <CKeyboard>
         <View style={styles.heading}>
+          {user_type == "user" ?
           <Text style={styles.loginWithEmailContainer}>
             <Text style={styles.login}>Login</Text>  {'\n'}
             <Text style={styles.withEmail}>with email</Text>
           </Text>
+          :
+          <Text style={styles.loginWithEmailContainer}>
+            <Text style={styles.login}>Coach Login</Text>  {'\n'}
+            <Text style={styles.withEmail}>with email</Text>
+          </Text>
+          }
           {/* <CKeyboard></CKeyboard> */}
           <EmailInput
             emailInputPlaceholder="Email"
@@ -70,7 +79,7 @@ const EmailLogin = ({ navigation,route }: any) => {
         <View
           style={[styles.nextprevious, styles.emailLoginSpaceBlock]}
         >
-          <Pressable onPress={() => navigation.navigate("LoginSignup", { user_type: route.params.user_type })} style={styles.next}>
+          <Pressable onPress={() => navigation.navigate("LoginSignup", { user_type: user_type })} style={styles.next}>
             <Image
               style={styles.iconleftarrow}
               resizeMode="cover"

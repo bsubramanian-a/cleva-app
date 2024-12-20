@@ -43,6 +43,7 @@ import AssetAllocation from "../../components/AssetAllocation";
 import AccordionSkeleton from "../../components/skeletons/AccordionSkeleton";
 import AccordionContainer from "../../components/accordion/AccordionContainer";
 import AccordionHeading from "../../components/accordion/AccordionHeading";
+import { newFormatDate, formatDate } from "../../utils/format-date";
 
 const PlanBEstatePlanWill = () => {
   const navigation: any = useNavigation();
@@ -91,19 +92,25 @@ const PlanBEstatePlanWill = () => {
   }, [navigation])
 
   useEffect(() => {
-    let dUsers: any = [];
-    if (planBEstatePlanWill && planBEstatePlanWill?.length > 0) {
-      planBEstatePlanWill?.forEach((element:any) => {
-        dUsers.push(element?.Account?.name)
-      })
-      setDashboardUsers(dUsers)
-      setAccordions();
+    if (planBEstatePlanWill && planBEstatePlanWill.length > 0) {
+      const dUsers = Array.from(new Set(planBEstatePlanWill.map((element: any) => element?.Account?.name)));
+      console.log("dUsers", dUsers);
+      setDashboardUsers(dUsers);    
+      setPlanBEstatePlanWillAccordion(dUsers);  
+    } else {
+      //Important to handle the case where planBEstatePlanWill is null or empty
+      setDashboardUsers([]); // or whatever default value is appropriate      
     }
-  }, [planBEstatePlanWill])
+    setAccordions();
+  }, [planBEstatePlanWill]);
 
   const pushAccordionData = (newObject: any) => {
     setPlanBEstatePlanWillAccordion((prevAccordionPBEPW: any) => {
-      return [...prevAccordionPBEPW, newObject];
+      console.log("prevAccordionPBEPW", prevAccordionPBEPW);
+      console.log("newObject", newObject);
+      let addObject = [...prevAccordionPBEPW, newObject];
+      console.log("addObject", addObject);
+      return addObject;
     });
   };
 
@@ -121,13 +128,16 @@ const PlanBEstatePlanWill = () => {
       const DYHBOSF = will?.Do_you_have_beneficiary_on_superfund;
 
       pushAccordionData([{
-        title: "Plan B Estate Plan Will - " + will?.Name,
+        title: will?.Name,
         icon: require("../../assets/shield-tick.png"),
         link: 'EditPlanBEstatePlanWill',
-        element:will,
+        element:will, 
+        isActiveTab: true,       
         items: [
           {
-            subHeading: "Plan B Estate Plan Will",
+            subHeading: will?.Name,
+            enableSubHeading: true,
+            enableEdit: true,
             item: [
               {
                 icon: <Image
@@ -255,8 +265,14 @@ const PlanBEstatePlanWill = () => {
           </ImageBackground> */}
             {/* <View style={styles.videoSection}>
           <VideoPlayer sourceUri={'https://download.samplelib.com/mp4/sample-5s.mp4'} />
-        </View> */}
-
+        </View> */}            
+          </ScrollView>
+          <ScrollView
+            style={[styles.videoSectionParent, styles.secondHalf]}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.planBEstatePlanWillScrollViewContent}
+          >
             <ChapterTab
               tabs={['Summary', 'Dashboard', 'Journal', 'Resources']}
               activeTab={activeTab}
@@ -265,7 +281,7 @@ const PlanBEstatePlanWill = () => {
             />
             {activeTab == 0 &&
               <>
-                <View style={[styles.summary1]}>
+                <View style={[styles.summary1, styles.noBorderTop]}>
                   <Text
                     style={[
                       styles.loremIpsumIs,
@@ -318,7 +334,7 @@ const PlanBEstatePlanWill = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Date last reviewed : {planBEstatePlanWill[0].Date_last_reviewed}
+                    Date last reviewed : {newFormatDate(planBEstatePlanWill[0].Date_last_reviewed)}
                   </Text>
                 </View>
               </>
@@ -329,14 +345,14 @@ const PlanBEstatePlanWill = () => {
                   tabs={dashboardUsers}
                   activeTab={activeDashboardUser}
                   onTabPress={handleUserTabPress}
-                  type="tab"
+                  type="user-tab"
                 />
                 {dashboardUsers && (dashboardUsers?.length > 0) &&
                       <>
                         {dashboardUsers.map((user: any, index: number) => {
                           if (activeDashboardUser == index) {
                             return (
-                              <View key={index}>
+                              <View key={index} style={{ marginBottom: 40 }}>
                                 {(!planBEstatePlanWill[index]) && (planBEstatePlanWill?.length != index) && <>
                                   <AccordionSkeleton/>
                                 </>}
@@ -590,7 +606,10 @@ const styles = StyleSheet.create({
     width: 20,
   },
   myExercisesTypo: {
-    // fontSize: FontSize.size_sm
+    fontSize: 12,
+    paddingLeft:10,
+    fontWeight:"700",
+    fontFamily:FontFamily.openSansRegular
   },
   loremIpsumIs: {
     lineHeight: 22,
@@ -612,13 +631,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between"
   },
-
+  noBorderTop: {
+    borderTopWidth: 0,
+  },
   goaltitle: {
     padding: 30,
     paddingBottom: 10,
     paddingTop: 20,
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "700",
     fontFamily: FontFamily.outfitMedium,
     color: Color.black
   },
@@ -891,6 +912,12 @@ const styles = StyleSheet.create({
   videoSectionParent: {
     alignSelf: "stretch",
     flex: 1,
+  },
+  secondHalf: {
+    flex: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 5
   },
   planBEstatePlanWill: {
     width: "100%",

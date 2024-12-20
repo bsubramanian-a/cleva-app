@@ -1,15 +1,13 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Image,
     Animated,
     Easing,
-    Text,
     StyleSheet,
     Dimensions,
     ImageSourcePropType
 } from 'react-native';
-import PropTypes from 'prop-types';
 
 import calculateDegreeFromLabels from '../utils/calculate-degree-from-labels';
 import calculateLabelFromValue from '../utils/calculate-label-from-value';
@@ -94,6 +92,8 @@ const SpeedoMeter = ({
     const [speedometerValue, setSpeedometerValue] = useState(new Animated.Value(defaultValue as number));
     const [speedometerOriginalValue, setSpeedometerOriginalValue] = useState(new Animated.Value(originalValue as number));
     const degree = 180;
+    console.log('defaultValue', defaultValue);
+    console.log('originalValue', originalValue);
 
     const perLevelDegree = calculateDegreeFromLabels(degree, labels);
     const label = calculateLabelFromValue(
@@ -138,7 +138,7 @@ const SpeedoMeter = ({
                     const circleDegree = 90 + (index * perLevelDegree);
                     return (
                         <View
-                            key={level.name}
+                            key={index}
                             style={[style.halfCircle, {
                                 backgroundColor: level.activeBarColor,
                                 width: currentSize / 2,
@@ -183,17 +183,7 @@ const SpeedoMeter = ({
                             height: currentSize,
                         }, imageStyle]}
                         source={smallNeedleImage}
-                    />
-                    {/* <Text
-                        style={{
-                            position: 'absolute',
-                            top: -currentSize / 10,
-                            textAlign: 'center',
-                            color: 'black'
-                        }}
-                    >
-                        Original
-                    </Text> */}
+                    />                    
                 </Animated.View>
                 
                 <View style={[style.innerCircle, {

@@ -5,8 +5,8 @@
 // export const API_BASE_URL = "https://cleva-backend.onrender.com/";
 // export const API_BASE_URL = "http://3.106.56.137:3000/";
 //export const API_BASE_URL = 'http://192.168.1.10:3000/';
-//export const API_BASE_URL = 'http://10.0.2.2:3000/';
-export const API_BASE_URL = 'https://app.cleva.co/';
+export const API_BASE_URL = 'http://10.0.2.2:3000/';
+//export const API_BASE_URL = 'https://app.cleva.co/';
 
 
 

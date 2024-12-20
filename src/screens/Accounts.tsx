@@ -39,6 +39,7 @@ const Accounts = () => {
 
   useFocusEffect(
     useCallback(() => {
+      console.log("useFocusEffect getAccounts");
       getAccounts();
 
       // Return a cleanup function if needed
@@ -56,7 +57,7 @@ const Accounts = () => {
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
-  
+
     return () => {
       // Cleanup the event listener when the component unmounts
       BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
@@ -76,14 +77,14 @@ const Accounts = () => {
   const handleDelete = async (id: any) => {
     setDeleteModalVisible(false);
     setLoading(true);
-    let deletedRes:any = await actions.deleteLiability(id);
+    let deletedRes: any = await actions.deleteLiability(id);
 
     if (
       deletedRes?.data?.length > 0 &&
       deletedRes?.data[0]?.code == 'SUCCESS'
     ) {
       await actions.getAccounts();
-    
+
       await actions.getLiabilities();
 
       await actions.getAssets();
@@ -127,24 +128,24 @@ const Accounts = () => {
       />
 
       <Pressable style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginRight: 12 }} onPress={() => navigation.navigate('AddAccount')}>
-          <LinearGradient
-              style={[styles.bottom, styles.bottomFlexBox]}
-              locations={[0, 1]}
-              colors={["#fbb142", "#f6a326"]}
-              useAngle={true}
-              angle={180}
-          >
-            <Image
-                    style={{width: 20, height: 20}}
-                    resizeMode="cover"
-                    source={require("../assets/add.png")}
-                />
-          </LinearGradient>
+        <LinearGradient
+          style={[styles.bottom, styles.bottomFlexBox]}
+          locations={[0, 1]}
+          colors={["#fbb142", "#f6a326"]}
+          useAngle={true}
+          angle={180}
+        >
+          <Image
+            style={{ width: 20, height: 20 }}
+            resizeMode="cover"
+            source={require("../assets/add.png")}
+          />
+        </LinearGradient>
       </Pressable>
 
       {accounts?.length > 0 ? <ScrollView>
         <View style={styles.cardWrapper}>
-          {accounts?.map((acc:any, index:number) =>  <AccountCard index={index} count={accounts?.length} setIsAccountModalVisible={setIsAccountModalVisible} setCurrentAccount={setCurrentAccount} color={index % 2 === 0 ? 'red' : 'green'} setDeleteModalVisible={setDeleteModalVisible} setDeleteId={setDeleteId} key={acc?.id} acc={acc} />)}
+          {accounts?.map((acc: any, index: number) => <AccountCard index={index} count={accounts?.length} setIsAccountModalVisible={setIsAccountModalVisible} setCurrentAccount={setCurrentAccount} color={index % 2 === 0 ? 'red' : 'green'} setDeleteModalVisible={setDeleteModalVisible} setDeleteId={setDeleteId} key={acc?.id} acc={acc} />)}
         </View>
       </ScrollView> : <Text style={styles.textStyle}>No accounts found</Text>}
     </View>
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     overflow: 'hidden',
   },
-  container:{
+  container: {
     flex: 1,
   },
   textStyle: {

@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   save5000For: {
-    fontSize: FontSize.size_mini,
+    fontSize: FontSize.size_sm,
     fontWeight: "600",
     fontFamily: FontFamily.sourceSerifPro,
     color: Color.black,

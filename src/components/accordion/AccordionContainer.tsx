@@ -1,11 +1,17 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Accordion from './Accordion';
 
 const AccordionContainer = ({ accordions }: any) => {
-  const [activeAccordion, setActiveAccordion] = React.useState(null);
+  const [activeAccordion, setActiveAccordion] = useState(null);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const initialActive = accordions.find((acc: { isActiveTab: any; }) => acc.isActiveTab);
+    setActiveAccordion(initialActive?.title || null); // Set initial active based on isActiveTab
+  }, [accordions]); // Only run when accordions change
+
   return (
     <View style={[styles.accordionContainer]}>
       {accordions.map((accordion: any, index: any) => (

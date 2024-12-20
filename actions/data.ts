@@ -118,7 +118,7 @@ export const getSuperSorted = () => {
           type: types.SUPERSORTED,
           payload: res.data,
         });
-        console.log("SUPERSORTED DATA FROM APIGET",res.data);
+        //console.log("SUPERSORTED DATA FROM APIGET",res.data);
         resolve(res);
       })
       .catch(error => {
@@ -179,7 +179,7 @@ export const getPlanBInsurance = () => {
   return new Promise((resolve, reject) => {
     return apiGet(PLAN_B_INSURANCE)
       .then(res => {
-        console.log("Response from PlanB Insurance GET :", res);
+        //console.log("Response from PlanB Insurance GET :", res);
         dispatch({
           type: types.PLAN_B_INSURANCE,
           payload: res.contactData.data,
@@ -212,7 +212,7 @@ export const getHouseHoldExpenses = () => {
   return new Promise((resolve, reject) => {
     return apiGet(HOUSEHOLD_EXP)
       .then(res => {
-        console.log("getHouseHoldExpenses res data",res.data);
+        //console.log("getHouseHoldExpenses res data",res.data);
         dispatch({
           type: types.HOUSEHOLD_EXP,
           payload: res.data,
@@ -227,10 +227,10 @@ export const getHouseHoldExpenses = () => {
 
 export const getRollingAccountBalance = () => {
   return new Promise((resolve, reject) => {
-    console.log("ROLLING_ACCOUNT_BALANCE",ROLLING_ACCOUNT_BALANCE);
+    //console.log("ROLLING_ACCOUNT_BALANCE",ROLLING_ACCOUNT_BALANCE);
     return apiGet(ROLLING_ACCOUNT_BALANCE)
       .then(res => {
-        console.log("getRollingAccountBalance res data",res.data);
+        //console.log("getRollingAccountBalance res data",res.data);
         dispatch({
           type: types.ROLLING_ACCOUNT_BALANCE,
           payload: res.data,
@@ -249,7 +249,7 @@ export const getNotes = () => {
   return new Promise((resolve, reject) => {
     return apiGet(NOTES)
       .then(res => {
-        console.log("notes",res.data)
+        //console.log("notes",res.data)
         dispatch({
           type: types.NOTES,
           payload: res.data,
@@ -266,7 +266,7 @@ export const getCoachNotes = () => {
   return new Promise((resolve, reject) => {
     return apiGet(COACHNOTES)
       .then(res => {
-        console.log("COACHNOTES",res.data)
+        //console.log("COACHNOTES",res.data)
         dispatch({
           type: types.COACHNOTES,
           payload: res.data,
@@ -283,7 +283,7 @@ export const getINA = () => {
   return new Promise((resolve, reject) => {
     return apiGet(GET_INA)
       .then(res => {
-        console.log("GET_INA",res.data)
+        //console.log("GET_INA",res.data)
         dispatch({
           type: types.INA,
           payload: res.data,
@@ -300,7 +300,7 @@ export const getFinancialAccounts = () => {
   return new Promise((resolve, reject) => {
     return apiGet(FINANCIAL_ACCOUNTS)
       .then(res => {
-        console.log("FINANCIAL_ACCOUNTS Response Get",res.data)        
+        //console.log("FINANCIAL_ACCOUNTS Response Get",res.data)        
         dispatch({
           type: types.FINANCIALACCOUNTS,
           payload: res.data,
@@ -370,7 +370,7 @@ export const getChartData = (interval: string, zohoGoalId: string, todayValue: a
     const apiUrl = `${CHARTDATA}?interval=${interval}&zohoGoalId=${zohoGoalId}&todayValue=${todayValue}`;
     return apiGet(apiUrl)
       .then(res => {
-        console.log("res......", res)
+        //console.log("res......", res)
         resolve(res);
       })
       .catch(error => {
@@ -396,9 +396,25 @@ export const getLiabilities = () => {
 };
 
 export const getAccounts = () => {
+  //console.log("getAccounts");
   return new Promise((resolve, reject) => {
     return apiGet(ACCOUNTS)
       .then(res => {
+        // console.log("getAccounts res", res);
+        // if (res.data?.length > 0) {
+        //   for (let i = 0; i < res.data.length; i++) {
+        //     console.log("===");
+        //     console.log("res.data[i].Name", res.data[i].Name);
+        //     console.log("res.data[i].accounts", res.data[i].accounts);
+        //     console.log("res.data[i].Household", res.data[i].Household);
+        //     console.log("res.data[i].Owner", res.data[i].Owner);
+        //     console.log("res.data[i].Primary_Owner", res.data[i].Primary_Owner);
+        //     console.log("res.data[i].Secondary_Owner", res.data[i].Secondary_Owner);
+        //     console.log("res.data[i].Modified_By", res.data[i].Modified_By);
+        //     console.log("res.data[i].Modified_Time", res.data[i].Modified_Time);
+        //     console.log("===");
+        //   }
+        // }
         dispatch({
           type: types.ACCOUNTS,
           payload: res.data,
@@ -415,7 +431,7 @@ export const getProfile = () => {
   return new Promise((resolve, reject) => {
     return apiGet(PROFILE)
       .then(res => {
-        console.log('response from action1', res);
+        //console.log('response from action1', res);
         dispatch({
           type: types.PROFILE,
           payload: res.data,
@@ -493,7 +509,7 @@ export const deleteAsset = (id: any) => {
 };
 
 export const addLiability = (data: any) => {
-  console.log("addLiability", data);
+  //console.log("addLiability", data);
   return new Promise((resolve, reject) => {
     return apiPost(ADD_LIABILITY, data)
       .then(res => {
@@ -530,7 +546,7 @@ export const updateProfile = (data: any) => {
 };
 
 export const updatePlanBEstatePlanWill = (data: any) => {
-  console.log("updatePlanBEstatePlanWill data coming in action", data);
+  //console.log("updatePlanBEstatePlanWill data coming in action", data);
   return new Promise((resolve, reject) => {
     return apiPut(PLAN_B_ESTATE_PLAN_WILL, data)
       .then(res => {
@@ -543,11 +559,11 @@ export const updatePlanBEstatePlanWill = (data: any) => {
 };
 
 export const updateFinancialAccounts = (data: any) => {
-  console.log("updateFinancialAccounts data coming in action", data);  
+  //console.log("updateFinancialAccounts data coming in action", data);  
   return new Promise((resolve, reject) => {
     return apiPut(FINANCIAL_ACCOUNTS, data)
       .then(res => {
-        console.log("response from updateFinancialAccounts",res)        
+        //console.log("response from updateFinancialAccounts",res)        
         // dispatch({
         //   type: types.UPDATE_FINANCIAL_ACCOUNTS,
         //   payload: data,
@@ -563,7 +579,7 @@ export const updateFinancialAccounts = (data: any) => {
 
 
 export const updatePlanBInsurance = (data: any) => {
-  console.log("updatePlanBInsurance data coming in action", data);
+  //console.log("updatePlanBInsurance data coming in action", data);
   return new Promise((resolve, reject) => {
     return apiPut(PLAN_B_INSURANCE, data)
       .then(res => {
@@ -576,7 +592,7 @@ export const updatePlanBInsurance = (data: any) => {
 };
 
 export const updateHouseHoldExpenses = (data: any) => {
-  console.log("updateHouseHoldExpenses data coming in action", data);
+  //console.log("updateHouseHoldExpenses data coming in action", data);
   return new Promise((resolve, reject) => {
     return apiPut(HOUSEHOLD_EXP, data)
       .then(res => {
@@ -589,7 +605,7 @@ export const updateHouseHoldExpenses = (data: any) => {
 };
 
 export const updateEmergencyFund = (data: any) => {
-  console.log("updateEmergencyFund data coming in action", data);
+  //console.log("updateEmergencyFund data coming in action", data);
   return new Promise((resolve, reject) => {
     return apiPut(PUT_ACCOUNT, data)
       .then(res => {
@@ -629,7 +645,7 @@ export const updateGoal = (data: any) => {
   return new Promise((resolve, reject) => {
     return apiPut(UPDATEGOALS, data)
       .then(res => {
-        console.log("action", data);
+        //console.log("action", data);
         dispatch({
           type: types.UPDATE_GOAL_DETAILS,
           payload: {

@@ -22,11 +22,9 @@ const ChapterTab = ({ tabs, activeTab, onTabPress, type }:any) => {
           >
             {tab}
           </Text>
-          {(activeTab === index && type == "tab") && <View style={[styles.activeTabItemLine, {left: index == 0 ? 16 : (index == 1 ? 12 : (index == 2)? 22 : 12) } ]} />}
-          {(activeTab === index && type == "subtab") && <View style={[styles.activeTabItemLine, {left: index == 0 ? 30 : (index == 1 ? 20 : (index == 2)? 43 : 12) } ]} />}
-          {(activeTab === index && type == "user-tab") && <View style={[styles.activeTabItemLine, {left: index == 0 ? 30 : (index == 1 ? 20 : (index == 2)? 43 : 12) } ]} />}
-
-          
+          {(activeTab === index && type == "tab") && <View style={[styles.activeTabItemLine, {left: index == 0 ? 20 : (index == 1 ? 15 : (index == 2)? 26 : 17) } ]} />}
+          {(activeTab === index && type == "subtab") && <View style={[styles.activeTabItemLine, {left: index == 0 ? 35 : (index == 1 ? 25 : (index == 2)? 48 : 12) } ]} />}
+          {(activeTab === index && type == "user-tab") && <View style={[styles.activeTabItemLine, {left: index == 0 ? 40 : (index == 1 ? 43 : (index == 2)? 43 : 12) } ]} />}
         </TouchableOpacity>
       ))}
     </View>
@@ -39,7 +37,7 @@ const styles = StyleSheet.create({
   },
   tabsContainer: {
     flexDirection: 'row',
-    marginBottom:5
+    marginBottom:15
   },
   tabItem: {
     flex: 1,

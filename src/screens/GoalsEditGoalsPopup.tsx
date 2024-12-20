@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   nSeeveeLane: {
-    fontSize: FontSize.size_mini,
+    fontSize: FontSize.size_sm,
     fontFamily: FontFamily.sourceSerifPro,
     color: Color.gray_800,
     textAlign: "left",

@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import HeroSection from './HeroSection';
 
 const Card = ({ item }:any) => (
-    <HeroSection item={item}/>
+    <HeroSection item={item} bgImage={item.bgImage}/>
 );
 
 const SwipeCard = () => {
@@ -16,37 +16,43 @@ const SwipeCard = () => {
       Name: "Super Sorted",
       progress: 40,
       id:1,
-      Component: "SuperSorted"
+      Component: "SuperSorted",
+      bgImage: require('../assets/SuperSorted.png')
     },
     {
       Name: "Plan B: Estate Plan/Will",
       progress: 47,
       id:2,
-      Component: "PlanBEstatePlanWill"
+      Component: "PlanBEstatePlanWill",
+      bgImage: require('../assets/PlanBEstatePlanWill.png')
     },
     {
       Name: "Money on Autodrive",
       progress: 47,
       id:3,
-      Component: "MoneyAutoDrive"
+      Component: "MoneyAutoDrive",
+      bgImage: require('../assets/MoneyOnAutoDrive.png')
     },
     {
       Name: "Plan B Emergency Fund",
       progress: 47,
       id:1,
-      Component: "PlanBEmergencyFund"
+      Component: "PlanBEmergencyFund",
+      bgImage: require('../assets/PlanBEmergencyFund.png')
     },
     {
       Name: "Plan B Insurance",
       progress: 47,
       id:5,
-      Component: "PlanBInsurance"
+      Component: "PlanBInsurance",
+      bgImage: require('../assets/PlanBInsurance.png')
     },
     {
       Name: "Debtonate Debt",
       progress: 47,
       id:6,
-      Component: "DebtonateDebt"
+      Component: "DebtonateDebt",
+      bgImage: require('../assets/DebtonateDebt.png')
     }
   ]);
 

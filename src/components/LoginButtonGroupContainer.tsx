@@ -25,7 +25,7 @@ import { useSafeAreaFrame } from "react-native-safe-area-context";
 import SignupButton from "./SignupButton";
 
 type LoginButtonGroupContainerType = {
-  socialLoginImageUrl?: ImageSourcePropType;
+  socialLoginImageUrl?: ImageSourcePropType | undefined | null;
   socialLoginText?: string;
   acceptToContinue?: string;
   navigation:any;
@@ -33,8 +33,7 @@ type LoginButtonGroupContainerType = {
   /** Style props */
   propBackgroundColor?: string;
   showRMessage?:Function,
-  onVerifyAppleEmail?:Function,
-  user_type:string
+  onVerifyAppleEmail?:Function
 };
 
 const getStyleValue = (key: string, value: string | number | undefined) => {
@@ -50,8 +49,7 @@ const LoginButtonGroupContainer = ({
   navigation,
   onVerifyEmail,
   onVerifyAppleEmail,
-  showRMessage,
-  user_type
+  showRMessage
 }: LoginButtonGroupContainerType) => {
   const [loginError, setLoginError] = useState("");
   const appleLoginStyle = useMemo(() => {
@@ -109,7 +107,7 @@ const LoginButtonGroupContainer = ({
   };
 
   return (
-    <View style={[styles.buttonGroup, styles.mt72, styles.appleLoginFlexBox]}>
+    <View style={[styles.buttonGroup, styles.appleLoginFlexBox]}>
       <View style={styles.socialLogin}>
         {loginError && <Text style={{textAlign: 'center', color: 'red', marginBottom: 10}}>Login failed, please try different method</Text>}
         <GoogleLogin onVerifyEmail={onVerifyEmail} setLoginError={setLoginError} />
@@ -122,11 +120,13 @@ const LoginButtonGroupContainer = ({
             appleLoginStyle,
           ]}
         >
+          {socialLoginImageUrl && 
           <Image
             style={styles.iconsocialNetworkfacebook}
             resizeMode="cover"
             source={socialLoginImageUrl}
           />
+          }
           <Text style={[styles.loginWithFacebook, styles.ml66]}>
             {socialLoginText}
           </Text>
@@ -139,7 +139,15 @@ const LoginButtonGroupContainer = ({
         <LoginButton
           loginButtonMarginTop="unset"
           acceptToContinue={acceptToContinue}
-          user_type={user_type}
+          user_type={"user"}
+        />
+        {/* <SignupButton /> */}
+      </View>
+      <View style={[styles.socialLogin, styles.mt40]}>
+        <LoginButton
+          loginButtonMarginTop="unset"
+          acceptToContinue={acceptToContinue}
+          user_type={"advisor_coach"}
         />
         {/* <SignupButton /> */}
       </View>

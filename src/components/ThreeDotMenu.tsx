@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, View, Image } from 'react-native';
+import { TouchableOpacity, Text, View, Image, StyleSheet } from 'react-native';
 import { FontFamily } from '../GlobalStyles';
 
-const ThreeDotMenu = ({ options, icon=null, account=null }:any) => {
-  console.log("icon", icon);
+const ThreeDotMenu = ({ options, icon=null, account=null, style }:any) => {
+  // console.log("icon", icon);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (clickFunction:any) => {
@@ -29,7 +29,7 @@ const ThreeDotMenu = ({ options, icon=null, account=null }:any) => {
         )}
       </TouchableOpacity>
       {isOpen && (
-        <View style={{ position: 'absolute', top: -7, right: 20, backgroundColor: '#FFF', borderWidth: 1, borderColor:  "#DEDEDE", padding: 10, width: 100, borderRadius: 14, zIndex: 1000000 , elevation: 5}}>
+        <View style={[styles.menuWrapper, style]}>
           {options.map((option:any, index:any) => (
             <TouchableOpacity
               key={index}
@@ -51,3 +51,18 @@ const ThreeDotMenu = ({ options, icon=null, account=null }:any) => {
 };
 
 export default ThreeDotMenu;
+
+const styles = StyleSheet.create({  
+  menuWrapper : { 
+    position: 'absolute', 
+    top: -7, 
+    right: 20, 
+    backgroundColor: '#FFF', 
+    borderWidth: 1, 
+    borderColor:  "#DEDEDE", 
+    padding: 10, 
+    width: 100, 
+    borderRadius: 14, 
+    zIndex: 1000000 , 
+    elevation: 5}
+});

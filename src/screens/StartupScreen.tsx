@@ -5,7 +5,7 @@ import { Margin, FontFamily, Color, Padding } from "../GlobalStyles";
 
 const StartupScreen = ({navigation}:any) => {
   const login = () => {
-    navigation.navigate('UserType');
+    navigation.navigate('LoginSignup', { user_type: 'user' });
   }
 
   return (

@@ -75,7 +75,7 @@ const ViewDebtonateDebt = ({
                                 {wrapTitle("Product Provider", 22)}
                             </Text>
                             <Text style={[styles.valueText]}>
-                                {wrapTitle(account?.Product_Provider || "N/A", 15)}
+                                {wrapTitle(account?.Product_Provider.toString() || "N/A", 15)}
                             </Text>
                         </View>
                         <View style={[styles.summary1]}>
@@ -219,7 +219,7 @@ const ViewDebtonateDebt = ({
                                 {wrapTitle("Linked Asset", 22)}
                             </Text>
                             <Text style={[styles.valueText]}>
-                                {wrapTitle(account?.Related_Assets.name || "N/A", 15)}
+                                {wrapTitle(account?.Related_Assets.name.toString() || "N/A", 15)}
                             </Text>
                         </View>
                         <View style={[styles.summary1]}>

@@ -11,7 +11,7 @@ import actions from "../../actions";
 
 const ProfileHeader = ({name, goBack}:any) => {
   return (
-    <View style={[styles.topMenu, styles.mt_12, styles.topMenuFlexBox]}>
+    <View style={[styles.topMenu, styles.topMenuFlexBox]}>
       <Pressable style={styles.menu} onPress={goBack}>
         <Image
           style={styles.vuesaxlineararrowLeftIcon}
@@ -36,7 +36,6 @@ const ProfileHeader = ({name, goBack}:any) => {
 
 const styles = StyleSheet.create({
   ml5: {
-    marginLeft: Margin.m_7xs,
   },
   topMenuFlexBox: {
     flexDirection: "row",
@@ -46,9 +45,7 @@ const styles = StyleSheet.create({
     width: 22,
     height: 22,
   },
-  menu: {
-    borderRadius: Border.br_lg,
-    backgroundColor: Color.snow,
+  menu: {    
     overflow: "hidden",
     padding: Padding.p_6xs,
     justifyContent: "center",
@@ -79,7 +76,6 @@ const styles = StyleSheet.create({
   topMenu: {
     alignSelf: "stretch",
     paddingHorizontal: Padding.p_lg,
-    paddingBottom: Padding.p_5xl,
     justifyContent: "space-between",
     alignItems: "center",
   },

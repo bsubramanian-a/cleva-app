@@ -13,7 +13,7 @@ const CustomHeader = ({name, type, back = '', subject="", deleteChat=null}: any)
     const navigation = useNavigation();
     // console.log("custom header name", name);
 
-    const wrappedName = wrapTitle(name, 22);
+    let wrappedName = wrapTitle(name, 22);
 
     const goBack = () => {
       if (back) {
@@ -44,6 +44,7 @@ const CustomHeader = ({name, type, back = '', subject="", deleteChat=null}: any)
             </LinearGradient>
           );
         case 2:
+          wrappedName = wrapTitle(name, 50);
           return (
             <LinearGradient
                 style={styles.header}
@@ -94,6 +95,8 @@ const styles = StyleSheet.create({
         width: 164,
         height: 63,
         overflow: "hidden",
+        borderWidth: 0,
+        borderColor: "red",
     },
     mainvector1Parent: {
         backgroundColor: "transparent",

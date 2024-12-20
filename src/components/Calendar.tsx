@@ -103,7 +103,7 @@ const CustomCalendar = ({onChange}: any) => {
         onDayPress={handleDayPress}
         renderArrow={renderCustomArrows}
         renderHeader={renderCustomHeader}
-        onMonthChange={(date) => setCurrentMonth(handleMonthChange(date))}
+        onMonthChange={(date: any) => setCurrentMonth(handleMonthChange(date))}
         markedDates={generateDisabledDates()}
         theme={customTheme}
       />

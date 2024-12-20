@@ -298,7 +298,26 @@ const SuperSorted = () => {
             {/* <View style={styles.videoSection}>
           <VideoPlayer sourceUri={'https://download.samplelib.com/mp4/sample-5s.mp4'} />
         </View> */}
-
+          </ScrollView>
+          {/* {(activeTab == 1 || activeTab == 2) &&
+            <LinearGradient
+              style={[styles.bottom, styles.bottomFlexBox]}
+              locations={[0, 1]}
+              colors={["#fbb142", "#f6a326"]}
+              useAngle={true}
+              angle={180}
+            >
+              <Pressable>
+                <Text style={{ color: "#fff" }}>Continue</Text>
+              </Pressable>
+            </LinearGradient>
+          } */}
+          <ScrollView
+            style={[styles.videoSectionParent, styles.secondHalf]}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.superSortedScrollViewContent}
+          >
             <ChapterTab
               tabs={['Summary', 'Dashboard', 'Journal', 'Resources']}
               activeTab={activeTab}
@@ -306,8 +325,8 @@ const SuperSorted = () => {
               type="tab"
             />
             {activeTab == 0 &&
-              <>
-                <View style={[styles.summary1]}>
+              <View style={[styles.summaryContainer]}>
+                <View style={[styles.summary1, styles.noBorderTop]}>
                   <Text
                     style={[
                       styles.loremIpsumIs,
@@ -443,7 +462,7 @@ const SuperSorted = () => {
                     source={imageMap[supersorted[0].Advantage_Rules_Tax_Benefits]}
                   />
                 </View>
-              </>
+              </View>
             }
             {activeTab == 1 &&
               <>
@@ -599,19 +618,6 @@ const SuperSorted = () => {
               </View>
             }
           </ScrollView>
-          {/* {(activeTab == 1 || activeTab == 2) &&
-            <LinearGradient
-              style={[styles.bottom, styles.bottomFlexBox]}
-              locations={[0, 1]}
-              colors={["#fbb142", "#f6a326"]}
-              useAngle={true}
-              angle={180}
-            >
-              <Pressable>
-                <Text style={{ color: "#fff" }}>Continue</Text>
-              </Pressable>
-            </LinearGradient>
-          } */}
         </View>
         : <View style={styles.superSorted}>
           {/* <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
@@ -624,6 +630,10 @@ const SuperSorted = () => {
 };
 
 const styles = StyleSheet.create({
+  summaryContainer: {    
+    marginTop: 10,
+    marginBottom: 50
+  },
   performance: {
     color: Color.black,
     fontSize: 16,
@@ -726,7 +736,10 @@ const styles = StyleSheet.create({
     width: 20,
   },
   myExercisesTypo: {
-    // fontSize: FontSize.size_sm
+    fontSize: 12,
+    paddingLeft:10,
+    fontWeight:"700",
+    fontFamily:FontFamily.openSansRegular
   },
   loremIpsumIs: {
     lineHeight: 22,
@@ -748,13 +761,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between"
   },
-
+  noBorderTop: {
+    borderTopWidth: 0,
+  },
   goaltitle: {
     padding: 30,
     paddingBottom: 10,
     paddingTop: 20,
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "700",
     fontFamily: FontFamily.outfitMedium,
     color: Color.black
   },
@@ -1027,6 +1042,12 @@ const styles = StyleSheet.create({
   videoSectionParent: {
     alignSelf: "stretch",
     flex: 1,
+  },
+  secondHalf: {
+    flex: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 5
   },
   superSorted: {
     width: "100%",

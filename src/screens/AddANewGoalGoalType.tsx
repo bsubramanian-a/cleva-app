@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   goalTypo: {
     lineHeight: 24,
-    fontSize: FontSize.size_mini,
+    fontSize: FontSize.size_sm,
     textAlign: "center",
     fontFamily: FontFamily.sourceSerifPro,
     fontWeight: "600",

@@ -177,7 +177,26 @@ const DebtonateDebt = () => {
             {/* <View style={styles.videoSection}>
           <VideoPlayer sourceUri={'https://download.samplelib.com/mp4/sample-5s.mp4'} />
         </View> */}
-
+          </ScrollView>
+          {/* {(activeTab == 1 || activeTab == 2) &&
+            <LinearGradient
+              style={[styles.bottom, styles.bottomFlexBox]}
+              locations={[0, 1]}
+              colors={["#fbb142", "#f6a326"]}
+              useAngle={true}
+              angle={180}
+            >
+              <Pressable>
+                <Text style={{ color: "#fff" }}>Continue</Text>
+              </Pressable>
+            </LinearGradient>
+          } */}
+          <ScrollView
+            style={[styles.videoSectionParent, styles.secondHalf]}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.debtonateDebtScrollViewContent}
+          >
             <ChapterTab
               tabs={['Summary', 'Dashboard', 'Journal', 'Resources']}
               activeTab={activeTab}
@@ -186,7 +205,7 @@ const DebtonateDebt = () => {
             />
             {activeTab == 0 &&
               <>
-                <View style={[styles.summary1]}>
+                <View style={[styles.summary1, styles.noBorderTop]}>
                   <Text
                     style={[
                       styles.loremIpsumIs,
@@ -277,7 +296,7 @@ const DebtonateDebt = () => {
                     source={imageMap[debtonateDebt[0].Contribute_Just_a_Bit_More]}
                   />
                 </View>
-                <View style={[styles.summary1]}>
+                <View style={[styles.summary1, {marginBottom: 50}]}>
                   <Text
                     style={[
                       styles.loremIpsumIs,
@@ -468,7 +487,7 @@ const DebtonateDebt = () => {
                       ${Number(allAccounts?.Formula_4) ? Number(allAccounts?.Formula_4).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
                     </Text>
                   </View>
-                  <View style={[styles.summary1]}>
+                  <View style={[styles.summary1, {marginBottom: 10}]}>
                     <Text
                       style={[
                         styles.loremIpsumIsNew,
@@ -515,7 +534,7 @@ const DebtonateDebt = () => {
                                 <Text
                                   style={[styles.accountProductProvider]}
                                 >
-                                  {wrapTitle(account?.Last_4_Digits ? account?.Last_4_Digits : "No Last 4 Digits", 22)}
+                                  {wrapTitle(account?.Last_4_Digits.toString() ? account?.Last_4_Digits.toString() : "No Last 4 Digits", 22)}
                                 </Text>
                                 <Text style={[styles.accountValue, styles.accountValueDate]}>
                                   {account?.As_At_Date || 'N/A'}
@@ -617,19 +636,6 @@ const DebtonateDebt = () => {
               </View>
             }
           </ScrollView>
-          {/* {(activeTab == 1 || activeTab == 2) &&
-            <LinearGradient
-              style={[styles.bottom, styles.bottomFlexBox]}
-              locations={[0, 1]}
-              colors={["#fbb142", "#f6a326"]}
-              useAngle={true}
-              angle={180}
-            >
-              <Pressable>
-                <Text style={{ color: "#fff" }}>Continue</Text>
-              </Pressable>
-            </LinearGradient>
-          } */}
         </View>
         : <View style={styles.debtonateDebt}>
           {/* <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
@@ -829,7 +835,10 @@ const styles = StyleSheet.create({
     width: 20,
   },
   myExercisesTypo: {
-    // fontSize: FontSize.size_sm
+    fontSize: 12,
+    paddingLeft:10,
+    fontWeight:"700",
+    fontFamily:FontFamily.openSansRegular
   },
   loremIpsumIs: {
     lineHeight: 22,
@@ -851,7 +860,7 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   summary1: {
-    borderTopWidth: 0,
+    borderTopWidth: 1,
     borderColor: "#dedede",
     flexDirection: "row",
     overflow: "hidden",
@@ -863,12 +872,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between"
   },
+  noBorderTop: {
+    borderTopWidth: 0,
+  },
   goaltitle: {
     padding: 30,
     paddingBottom: 10,
     paddingTop: 20,
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "700",
     fontFamily: FontFamily.outfitMedium,
     color: Color.black
   },
@@ -1141,6 +1153,12 @@ const styles = StyleSheet.create({
   videoSectionParent: {
     alignSelf: "stretch",
     flex: 1,
+  },
+  secondHalf: {
+    flex: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 5
   },
   debtonateDebt: {
     width: "100%",

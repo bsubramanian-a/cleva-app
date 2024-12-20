@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 interface FlashMessageContextProps {
   showFlashMessage: (message: string, type: 'success' | 'failure') => void;
@@ -7,8 +7,8 @@ interface FlashMessageContextProps {
 }
 
 const FlashMessageContext = createContext<FlashMessageContextProps>({
-  showFlashMessage: () => {},
-  hideFlashMessage: () => {},
+  showFlashMessage: () => { },
+  hideFlashMessage: () => { },
 });
 
 export const useCustomFlashMessage = () => useContext(FlashMessageContext);
@@ -40,11 +40,23 @@ const CustomFlashMessageProvider: React.FC<{ children: React.ReactNode }> = ({ c
         <TouchableOpacity
           style={[
             styles.flashMessageContainer,
-            { backgroundColor: messageType === 'success' ? '#00ff00' : '#ff0000' },
+            messageType === 'success' ? styles.successBorder : styles.failureBorder
           ]}
           onPress={hideFlashMessage}
         >
-          <Text style={styles.flashMessageText}>{message}</Text>
+          <View style={styles.flashMessageImageContainer}>
+            {messageType === 'success' && <Image     
+            style={[styles.flashMessageImage]}       
+            source={require("../assets/success-icon.png")}
+            />}
+            {messageType === 'failure' && <Image     
+            style={[styles.flashMessageImage]}       
+            source={require("../assets/error-icon.png")}
+            />}
+          </View>
+          <View style={styles.flashMessageTextContainer}>
+            <Text style={styles.flashMessageText}>{message}</Text>
+          </View>
         </TouchableOpacity>
       )}
     </FlashMessageContext.Provider>
@@ -54,15 +66,43 @@ const CustomFlashMessageProvider: React.FC<{ children: React.ReactNode }> = ({ c
 const styles = StyleSheet.create({
   flashMessageContainer: {
     position: 'absolute',
-    top: 60,
+    top: 70,
     left: 0,
     right: 0,
     padding: 10,
     alignItems: 'center',
+    marginHorizontal: 20,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    borderWidth: 2,
+    flexDirection: "row",
+  },
+  successBorder: {
+    borderColor: '#20C997',
+    backgroundColor: '#C0EDE0'
+  },
+  failureBorder: {
+    borderColor: '#ff0000',
+    backgroundColor:"#FFB7B7"
   },
   flashMessageText: {
-    color: '#ffffff', // Customize the text color
+    color: '#000', 
+    paddingLeft: 10,
+    borderWidth: 0,
+    borderColor: "#000"
   },
+  flashMessageImage: {
+    width: 30,
+    height: 30
+  },
+  flashMessageImageContainer: {
+    alignSelf:"flex-start"
+  },
+  flashMessageTextContainer: {
+    borderWidth: 0,
+    borderColor: "#000",
+    width: "90%"
+  }
 });
 
 export default CustomFlashMessageProvider;

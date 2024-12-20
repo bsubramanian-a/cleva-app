@@ -42,7 +42,7 @@ import PerformanceTable from "../../components/PerformanceTable";
 import AssetAllocation from "../../components/AssetAllocation";
 import PlanBInsuranceSpeedoMeter from "./PlanBInsuranceSpeedoMeter";
 import AccordionSkeleton from "../../components/skeletons/AccordionSkeleton";
-import AccordionHeading from "../../components/AccordionHeading";
+import AccordionHeading from "../../components/accordion/AccordionHeading";
 import AccordionContainer from "../../components/accordion/AccordionContainer";
 
 const PlanBInsurance = () => {
@@ -80,7 +80,7 @@ const PlanBInsurance = () => {
   };
 
   const handleDashboardUserTabPress = (tabNumber: number) => {
-    setActiveDashboardUser(tabNumber);    
+    setActiveDashboardUser(tabNumber);
   };
 
   useEffect(() => {
@@ -108,12 +108,12 @@ const PlanBInsurance = () => {
       let traumaArray: any = [];
       if (insFAccounts.length > 0) {
         insFAccounts.forEach((element: any) => {
-          console.log("element from insFAccounts", element)
-          console.log("element from insFAccounts Life_Cover", element?.Life_Cover)
+          // console.log("element from insFAccounts", element)
+          // console.log("element from insFAccounts Life_Cover", element?.Life_Cover)
           // const lC = (element?.Life_Cover)? ("$" + (element?.Life_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A"
           const lC = Number(element?.Life_Cover);
-          console.log("lc", lC)
-          console.log("typeof lC", typeof lC)
+          // console.log("lc", lC)
+          // console.log("typeof lC", typeof lC)
           lifeInsuranceItems.push({
             icon: <Image
               style={styles.vuesaxlinearprofileCircle}
@@ -121,7 +121,7 @@ const PlanBInsurance = () => {
               source={require("../../assets/dollar-square.png")}
             />,
             name: element?.Plan_Name,
-            value: lC? ("$" + lC.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
+            value: lC ? ("$" + lC.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
             element: element
           });
 
@@ -132,7 +132,7 @@ const PlanBInsurance = () => {
               source={require("../../assets/dollar-square.png")}
             />,
             name: element?.Plan_Name,
-            value: Number(element?.TPD_Cover)?("$" + Number(element?.TPD_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
+            value: Number(element?.TPD_Cover) ? ("$" + Number(element?.TPD_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
             element: element
           });
 
@@ -143,7 +143,7 @@ const PlanBInsurance = () => {
               source={require("../../assets/dollar-square.png")}
             />,
             name: element?.Plan_Name,
-            value: Number(element?.Salary_Continuance)?("$" + Number(element?.Salary_Continuance).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
+            value: Number(element?.Salary_Continuance) ? ("$" + Number(element?.Salary_Continuance).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
             element: element
           });
 
@@ -154,7 +154,7 @@ const PlanBInsurance = () => {
               source={require("../../assets/dollar-square.png")}
             />,
             name: element?.Plan_Name,
-            value: Number(element?.Trauma_Cover)?("$" + Number(element?.Trauma_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
+            value: Number(element?.Trauma_Cover) ? ("$" + Number(element?.Trauma_Cover).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")) : "N/A",
             element: element
           });
 
@@ -166,218 +166,225 @@ const PlanBInsurance = () => {
       // setIncomeProtectionAccounts(iparray);
       //console.log("dashboard users : ", dUsers);  
       setDashboardUsers(dUsers);
-      setAccordions(lifeInsuranceItems,tpdArray,iparray, traumaArray);     
-    }         
-  }, [ina,financialAccounts])
+      setAccordions(lifeInsuranceItems, tpdArray, iparray, traumaArray);
+    }
+  }, [ina, financialAccounts])
 
-  const setAccordions = (lifeInsuranceItems:any,tpdArray:any,iparray:any, traumaArray:any) => {
+  const setAccordions = (lifeInsuranceItems: any, tpdArray: any, iparray: any, traumaArray: any) => {
     setINAAccordion([]);
     ina?.map((inaObject: any, index: number) => {
-      //console.log("inaObject",inaObject)
+      console.log("inaObject",inaObject)
 
       //console.log("lifeInsuranceItems", lifeInsuranceItems)
 
-      
 
-      const lIAccount = lifeInsuranceItems.filter((account:any) => account?.element?.Household?.id == inaObject?.Household?.id)
+
+      const lIAccount = lifeInsuranceItems.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
 
       //console.log("lIAccount",lIAccount)
 
-      const tPDAccount = tpdArray.filter((account:any) => account?.element?.Household?.id == inaObject?.Household?.id)
+      const tPDAccount = tpdArray.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
 
       //console.log("tPDAccount",tPDAccount)
 
-      const incomeProtectionAccount = iparray.filter((account:any) => account?.element?.Household?.id == inaObject?.Household?.id)
+      const incomeProtectionAccount = iparray.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
 
       //console.log("incomeProtectionAccount",incomeProtectionAccount)
 
-      const traumaAccount = traumaArray.filter((account:any) => account?.element?.Household?.id == inaObject?.Household?.id)
+      const traumaAccount = traumaArray.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
 
-      
 
-      
 
-      pushAccordionData([{
-        title: "Insurance Need Analysis - " + inaObject?.Name,
-        icon: require("../../assets/shield-tick.png"),
-        link: 'EditPlanBInsurance',
-        element:inaObject,
-        items: [
+
+
+      pushAccordionData(
+        [
           {
-            subHeading: "Insurance Need Analysis",
-            item: [
+            title: inaObject?.Name,
+            icon: require("../../assets/shield-tick.png"),
+            link: 'EditPlanBInsurance',
+            element: inaObject,
+            isActiveTab: true,
+            items: [
               {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Total Liabilities',
-                value: inaObject?.Total_Liabilities ? "$" + (inaObject?.Total_Liabilities).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Allowance for Children/Education',
-                value: inaObject?.Child_Edu_Allowance ? "$" + (inaObject?.Child_Edu_Allowance).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Replace Income p.a.',
-                value: inaObject?.Replace_Income_p_a ? "$" + (inaObject?.Replace_Income_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Number of years',
-                value: inaObject?.Number_of_Income_Yrs ? inaObject?.Number_of_Income_Yrs : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Allowance for Medical',
-                value: inaObject?.Allowance_Medical ? "$" + (inaObject?.Allowance_Medical).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Allowance for funeral',
-                value: inaObject?.Allowance_Funeral ? "$" + (inaObject?.Allowance_Funeral).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Allowance for Emergency',
-                value: inaObject?.Allowance_Emergency ? "$" + (inaObject?.Allowance_Emergency).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Allowance for House Modifications',
-                value: inaObject?.Allowance_Home_Mods ? "$" + (inaObject?.Allowance_Home_Mods).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Other Income',
-                value: inaObject?.Other_Allowances_Consideration ? "$" + (inaObject?.Other_Allowances_Consideration).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
-              },
-              {
-                icon: "",
-                name: 'INA Notes And Comments',
-                value: (inaObject?.Multi_Line_1)?(inaObject?.Multi_Line_1):"N/A",
-                comments: "yes"
-              },
-            ]
-          }
-        ].filter(obj => obj),
-      },
-      {
-        title: "Life Insurance",
-        icon: require("../../assets/shield-tick.png"),
-        link: 'EditFinancialAccount',
-        editable: true,
-        finAccount: true,
-        element:lIAccount,
-        showEdit:(lIAccount?.length > 0)?true:false,
-        value: <View>
-          <Text>Need : {(profile && profile[0] && profile[0].Life_Insurance_Need) ? "$" + (profile[0].Life_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-          <Text>Have : {(profile && profile[0] && profile[0].Life_Insurance_Have) ? "$" + (profile[0].Life_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-        </View>,
-        items: [
+                subHeading: "Insurance Need Analysis",
+                item: [
+                  {
+                    icon: <Image
+                      style={styles.vuesaxlinearprofileCircle}
+                      resizeMode="contain"
+                      source={require("../../assets/dollar-square.png")}
+                    />,
+                    name: 'Total Liabilities',
+                    value: inaObject?.Total_Liabilities ? "$" + (inaObject?.Total_Liabilities).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+                  },
+                  {
+                    icon: <Image
+                      style={styles.vuesaxlinearprofileCircle}
+                      resizeMode="contain"
+                      source={require("../../assets/dollar-square.png")}
+                    />,
+                    name: 'Allowance for Children/Education',
+                    value: inaObject?.Child_Edu_Allowance ? "$" + (inaObject?.Child_Edu_Allowance).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+                  },
+                  {
+                    icon: <Image
+                      style={styles.vuesaxlinearprofileCircle}
+                      resizeMode="contain"
+                      source={require("../../assets/dollar-square.png")}
+                    />,
+                    name: 'Replace Income p.a.',
+                    value: inaObject?.Replace_Income_p_a ? "$" + (inaObject?.Replace_Income_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+                  },
+                  {
+                    icon: <Image
+                      style={styles.vuesaxlinearprofileCircle}
+                      resizeMode="contain"
+                      source={require("../../assets/dollar-square.png")}
+                    />,
+                    name: 'Number of years',
+                    value: inaObject?.Number_of_Income_Yrs ? inaObject?.Number_of_Income_Yrs : "N/A"
+                  },
+                  {
+                    icon: <Image
+                      style={styles.vuesaxlinearprofileCircle}
+                      resizeMode="contain"
+                      source={require("../../assets/dollar-square.png")}
+                    />,
+                    name: 'Allowance for Medical',
+                    value: inaObject?.Allowance_Medical ? "$" + (inaObject?.Allowance_Medical).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+                  },
+                  {
+                    icon: <Image
+                      style={styles.vuesaxlinearprofileCircle}
+                      resizeMode="contain"
+                      source={require("../../assets/dollar-square.png")}
+                    />,
+                    name: 'Allowance for funeral',
+                    value: inaObject?.Allowance_Funeral ? "$" + (inaObject?.Allowance_Funeral).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+                  },
+                  {
+                    icon: <Image
+                      style={styles.vuesaxlinearprofileCircle}
+                      resizeMode="contain"
+                      source={require("../../assets/dollar-square.png")}
+                    />,
+                    name: 'Allowance for Emergency',
+                    value: inaObject?.Allowance_Emergency ? "$" + (inaObject?.Allowance_Emergency).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+                  },
+                  {
+                    icon: <Image
+                      style={styles.vuesaxlinearprofileCircle}
+                      resizeMode="contain"
+                      source={require("../../assets/dollar-square.png")}
+                    />,
+                    name: 'Allowance for House Modifications',
+                    value: inaObject?.Allowance_Home_Mods ? "$" + (inaObject?.Allowance_Home_Mods).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+                  },
+                  {
+                    icon: <Image
+                      style={styles.vuesaxlinearprofileCircle}
+                      resizeMode="contain"
+                      source={require("../../assets/dollar-square.png")}
+                    />,
+                    name: 'Other Income',
+                    value: inaObject?.Other_Allowances_Consideration ? "$" + (inaObject?.Other_Allowances_Consideration).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+                  },
+                  {
+                    icon: "",
+                    name: 'INA Notes And Comments',
+                    value: (inaObject?.Multi_Line_1) ? (inaObject?.Multi_Line_1) : "N/A",
+                    comments: "yes"
+                  },
+                ]
+              }
+            ].filter(obj => obj),
+          },
           {
-            subHeading: "Life Insurance",
-            item: lIAccount
-          }
-        ].filter(obj => obj),
-      },
-      {
-        title: "Total and Permanent Disability (TPD)",
-        icon: require("../../assets/shield-tick.png"),
-        link: 'EditFinancialAccount',
-        editable: true,
-        finAccount: true,
-        element:tPDAccount,
-        showEdit:(tPDAccount?.length > 0)?true:false,
-        value: <View>
-          <Text>Need : {(profile && profile[0] && profile[0].TPD_Insurance_Need) ? "$" + (profile[0].TPD_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-          <Text>Have : {(profile && profile[0] && profile[0].TPD_Insurance_Have) ? "$" + (profile[0].TPD_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-        </View>,
-        items: [
+            title: "Life Insurance",
+            icon: require("../../assets/shield-tick.png"),
+            link: 'EditFinancialAccount',
+            editable: true,
+            finAccount: true,
+            element: lIAccount,
+            showEdit: (lIAccount?.length > 0) ? true : false,
+            isActiveTab: false,
+            value: <View>
+              <Text>Need : {(profile && profile[0] && profile[0].Life_Insurance_Need) ? "$" + (profile[0].Life_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+              <Text>Have : {(profile && profile[0] && profile[0].Life_Insurance_Have) ? "$" + (profile[0].Life_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+            </View>,
+            items: [
+              {
+                subHeading: "Life Insurance",
+                item: lIAccount
+              }
+            ].filter(obj => obj),
+          },
           {
-            subHeading: "Total and Permanent Disability (TPD)",
-            item: tPDAccount
-          }
-        ].filter(obj => obj),
-      },
-      {
-        title: "Income Protection",
-        icon: require("../../assets/shield-tick.png"),
-        link: 'EditFinancialAccount',
-        editable: true,
-        finAccount: true,
-        element:incomeProtectionAccount,
-        showEdit:(incomeProtectionAccount?.length > 0)?true:false,
-        value: <View>
-          <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-          <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-        </View>,
-        items: [
+            title: "Total and Permanent Disability (TPD)",
+            icon: require("../../assets/shield-tick.png"),
+            link: 'EditFinancialAccount',
+            editable: true,
+            finAccount: true,
+            element: tPDAccount,
+            showEdit: (tPDAccount?.length > 0) ? true : false,
+            isActiveTab: false,
+            value: <View>
+              <Text>Need : {(profile && profile[0] && profile[0].TPD_Insurance_Need) ? "$" + (profile[0].TPD_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+              <Text>Have : {(profile && profile[0] && profile[0].TPD_Insurance_Have) ? "$" + (profile[0].TPD_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+            </View>,
+            items: [
+              {
+                subHeading: "Total and Permanent Disability (TPD)",
+                item: tPDAccount
+              }
+            ].filter(obj => obj),
+          },
           {
-            subHeading: "Insurance Need Analysis",
-            item: incomeProtectionAccount
-          }
-        ].filter(obj => obj),
-      },
-      {
-        title: "Critical Illness/Trauma Cover",
-        icon: require("../../assets/shield-tick.png"),
-        link: 'EditFinancialAccount',
-        editable: true,
-        finAccount: true,
-        element:traumaAccount,
-        showEdit:(traumaAccount?.length > 0)?true:false,
-        value: <View>
-          <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-          <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-        </View>,
-        items: [
+            title: "Income Protection",
+            icon: require("../../assets/shield-tick.png"),
+            link: 'EditFinancialAccount',
+            editable: true,
+            finAccount: true,
+            element: incomeProtectionAccount,
+            showEdit: (incomeProtectionAccount?.length > 0) ? true : false,
+            isActiveTab: false,
+            value: <View>
+              <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+              <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+            </View>,
+            items: [
+              {
+                subHeading: "Insurance Need Analysis",
+                item: incomeProtectionAccount
+              }
+            ].filter(obj => obj),
+          },
           {
-            subHeading: "Critical Illness/Trauma Cover",
-            item: traumaAccount
+            title: "Critical Illness/Trauma Cover",
+            icon: require("../../assets/shield-tick.png"),
+            link: 'EditFinancialAccount',
+            editable: true,
+            finAccount: true,
+            element: traumaAccount,
+            showEdit: (traumaAccount?.length > 0) ? true : false,
+            isActiveTab: false,
+            value: <View>
+              <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+              <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+            </View>,
+            items: [
+              {
+                subHeading: "Critical Illness/Trauma Cover",
+                item: traumaAccount
+              }
+            ].filter(obj => obj),
           }
-        ].filter(obj => obj),
-      }
-    ]);
+        ]);
     });
   }
 
-  
+
 
   const getDatas = async () => {
     setLoading(true);
@@ -402,7 +409,7 @@ const PlanBInsurance = () => {
 
   const screenWidth = Dimensions.get("window").width;
 
-  
+
 
   const pushAccordionData = (newObject: any) => {
     setINAAccordion((prevAccordionINA: any) => {
@@ -444,6 +451,27 @@ const PlanBInsurance = () => {
             {/* <View style={styles.videoSection}>
           <VideoPlayer sourceUri={'https://download.samplelib.com/mp4/sample-5s.mp4'} />
         </View> */}
+          </ScrollView>
+          {/* {(activeTab == 1 || activeTab == 2) &&
+            <LinearGradient
+              style={[styles.bottom, styles.bottomFlexBox]}
+              locations={[0, 1]}
+              colors={["#fbb142", "#f6a326"]}
+              useAngle={true}
+              angle={180}
+            >
+              <Pressable>
+                <Text style={{ color: "#fff" }}>Continue</Text>
+              </Pressable>
+            </LinearGradient>
+          } */}
+          <ScrollView
+            style={[styles.videoSectionParent, styles.secondHalf]}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.planBInsuranceScrollViewContent}
+          >
+
 
             <ChapterTab
               tabs={['Summary', 'Dashboard', 'Journal', 'Resources']}
@@ -453,7 +481,7 @@ const PlanBInsurance = () => {
             />
             {activeTab == 0 &&
               <>
-                <View style={[styles.summary1]}>
+                <View style={[styles.summary1, styles.noBorderTop]}>
                   <Text
                     style={[
                       styles.loremIpsumIs,
@@ -574,7 +602,7 @@ const PlanBInsurance = () => {
                     source={imageMap[planBInsurance[0].Have_Health_Cover]}
                   />
                 </View>
-                <View style={[styles.summary1]}>
+                <View style={[styles.summary1, {marginBottom: 50}]}>
                   <Text
                     style={[
                       styles.loremIpsumIs,
@@ -595,7 +623,7 @@ const PlanBInsurance = () => {
             {activeTab == 1 &&
               <>
                 {(ina) && (!ina?.length) && (financialAccounts) && (!financialAccounts?.length) && <>
-                  <AccordionSkeleton title="Loading INA and Financial Accounts" />
+                  <AccordionSkeleton />
                 </>}
                 {ina && (ina?.length > 0) && (financialAccounts) && (financialAccounts?.length > 0) &&
                   <>
@@ -603,16 +631,16 @@ const PlanBInsurance = () => {
                       tabs={dashboardUsers}
                       activeTab={activeDashboardUser}
                       onTabPress={handleDashboardUserTabPress}
-                      type="tab"
+                      type="user-tab"
                     />
                     {dashboardUsers && (dashboardUsers?.length > 0) &&
                       <>
                         {dashboardUsers.map((user: any, index: number) => {
                           if (activeDashboardUser == index) {
                             return (
-                              <View key={index}>
+                              <View key={index} style={{ marginBottom: 40 }}>
                                 {(!ina[index]) && (ina?.length != index) && <>
-                                  <AccordionSkeleton title="Loading INA" />
+                                  <AccordionSkeleton />
                                 </>}
                                 {(ina?.length == 0) && <>
                                   <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20 }}>
@@ -621,7 +649,7 @@ const PlanBInsurance = () => {
                                 </>}
                                 {(ina?.length > 0) && <>
                                   <AccordionContainer accordions={accordionINA[index]} />
-                                </>}                                
+                                </>}
                               </View>
                             );
                           }
@@ -713,19 +741,6 @@ const PlanBInsurance = () => {
               </View>
             }
           </ScrollView>
-          {/* {(activeTab == 1 || activeTab == 2) &&
-            <LinearGradient
-              style={[styles.bottom, styles.bottomFlexBox]}
-              locations={[0, 1]}
-              colors={["#fbb142", "#f6a326"]}
-              useAngle={true}
-              angle={180}
-            >
-              <Pressable>
-                <Text style={{ color: "#fff" }}>Continue</Text>
-              </Pressable>
-            </LinearGradient>
-          } */}
         </View>
         : <View style={styles.planBInsurance}>
           {/* <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
@@ -840,7 +855,10 @@ const styles = StyleSheet.create({
     width: 20,
   },
   myExercisesTypo: {
-    // fontSize: FontSize.size_sm
+    fontSize: 12,
+    paddingLeft: 10,
+    fontWeight: "700",
+    fontFamily: FontFamily.openSansRegular
   },
   loremIpsumIs: {
     lineHeight: 22,
@@ -862,13 +880,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between"
   },
-
+  noBorderTop: {
+    borderTopWidth: 0,
+  },
   goaltitle: {
     padding: 30,
     paddingBottom: 10,
     paddingTop: 20,
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "700",
     fontFamily: FontFamily.outfitMedium,
     color: Color.black
   },
@@ -1141,6 +1161,12 @@ const styles = StyleSheet.create({
   videoSectionParent: {
     alignSelf: "stretch",
     flex: 1,
+  },
+  secondHalf: {
+    flex: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 5
   },
   planBInsurance: {
     width: "100%",

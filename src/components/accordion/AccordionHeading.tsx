@@ -4,7 +4,7 @@ import { Color, FontFamily } from '../../GlobalStyles';
 import { wrapTitle } from '../../utils/wrapTitle';
 
 const AccordionHeading = ({ title="", value, editable, toggleAccordion, icon, link, element, navigation, showEdit }: any) => {
-    const wrappedTitle = wrapTitle(title, 24);
+    const wrappedTitle = wrapTitle(title.toString(), 24);
     const goEdit = (link: string, editData: any) => {        
         navigation.navigate(link, { editData });
     };
@@ -32,7 +32,7 @@ const AccordionHeading = ({ title="", value, editable, toggleAccordion, icon, li
                                 <Image
                                     style={styles.vuesaxlinearedit}
                                     resizeMode="cover"
-                                    source={require('../assets/edit.png')}
+                                    source={require('../../assets/edit.png')}
                                 />
                             </Pressable>}                            
                         </View>
@@ -57,7 +57,7 @@ const AccordionHeading = ({ title="", value, editable, toggleAccordion, icon, li
                 <Image
                     style={styles.vuesaxlinearsmsIcon}
                     resizeMode="cover"
-                    source={require('../assets/vuesaxlineararrowcircledown.png')}
+                    source={require('../../assets/vuesaxlineararrowcircledown.png')}
                 />
             </TouchableOpacity>
         </>

@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import AccordionContainer from "../components/accordion/AccordionContainer";
-import { formatDate } from "src/utils/format-date";
+import { formatDate } from "../utils/format-date";
 
 const Profile = () => {
   const [accordion, setAccordion] = useState<any>([]);
@@ -23,6 +23,10 @@ const Profile = () => {
   const assets = useSelector((state: any) => state.data.assets);
   const liabilities = useSelector((state: any) => state.data.liabilities);
   const [totalNetWorth, setTotalNetWorth] = useState<number>(0);
+
+  console.log("profile", profile);
+  console.log("assets", assets);
+  console.log("liabilities", liabilities);
 
   const getProfile = async () => {
     setLoading(true);
@@ -626,8 +630,8 @@ const Profile = () => {
                   style={styles.vuesaxlinearprofileCircle}
                   resizeMode="contain"
                   source={require("../assets/money-recieve.png")}
-                />, 
-                name: 'Gas', 
+                />,
+                name: 'Gas',
                 type: 'gas',
                 value: profile[0]?.expenses[0]
               },
@@ -636,8 +640,8 @@ const Profile = () => {
                   style={styles.vuesaxlinearprofileCircle}
                   resizeMode="contain"
                   source={require("../assets/money-recieve.png")}
-                />, 
-                name: 'Electricity', 
+                />,
+                name: 'Electricity',
                 type: 'electricity',
                 value: profile[0]?.expenses[0]
               },
@@ -646,8 +650,8 @@ const Profile = () => {
                   style={styles.vuesaxlinearprofileCircle}
                   resizeMode="contain"
                   source={require("../assets/money-recieve.png")}
-                />, 
-                name: 'Water', 
+                />,
+                name: 'Water',
                 type: 'water',
                 value: profile[0]?.expenses[0]
               },
@@ -656,9 +660,9 @@ const Profile = () => {
                   style={styles.vuesaxlinearprofileCircle}
                   resizeMode="contain"
                   source={require("../assets/money-recieve.png")}
-                />, 
+                />,
                 type: 'insurance',
-                name: 'Home/Contents Insurance', 
+                name: 'Home/Contents Insurance',
                 value: profile[0]?.expenses[0]
               },
               {
@@ -666,9 +670,9 @@ const Profile = () => {
                   style={styles.vuesaxlinearprofileCircle}
                   resizeMode="contain"
                   source={require("../assets/money-recieve.png")}
-                />, 
+                />,
                 type: 'car',
-                name: 'Car Insurance', 
+                name: 'Car Insurance',
                 value: profile[0]?.expenses[0]
               },
               {
@@ -676,9 +680,9 @@ const Profile = () => {
                   style={styles.vuesaxlinearprofileCircle}
                   resizeMode="contain"
                   source={require("../assets/money-recieve.png")}
-                />, 
+                />,
                 type: 'health',
-                name: 'Private Health Insurance', 
+                name: 'Private Health Insurance',
                 value: profile[0]?.expenses[0]
               },
             ]
@@ -696,8 +700,8 @@ const Profile = () => {
                   style={styles.vuesaxlinearprofileCircle}
                   resizeMode="contain"
                   source={require("../assets/money-recieve.png")}
-                />, 
-                name: 'Home', 
+                />,
+                name: 'Home',
                 type: 'home',
                 value: profile[0]?.expenses[0]
               },
@@ -706,8 +710,8 @@ const Profile = () => {
                   style={styles.vuesaxlinearprofileCircle}
                   resizeMode="contain"
                   source={require("../assets/money-recieve.png")}
-                />, 
-                name: 'Investment Property', 
+                />,
+                name: 'Investment Property',
                 type: 'investment',
                 value: profile[0]?.expenses[0]
               },
@@ -716,8 +720,8 @@ const Profile = () => {
                   style={styles.vuesaxlinearprofileCircle}
                   resizeMode="contain"
                   source={require("../assets/money-recieve.png")}
-                />, 
-                name: 'Other Investment', 
+                />,
+                name: 'Other Investment',
                 type: 'otherinvestment',
                 value: profile[0]?.expenses[0]
               },
@@ -726,8 +730,8 @@ const Profile = () => {
                   style={styles.vuesaxlinearprofileCircle}
                   resizeMode="contain"
                   source={require("../assets/money-recieve.png")}
-                />, 
-                name: 'Personal', 
+                />,
+                name: 'Personal',
                 type: 'personal',
                 value: profile[0]?.expenses[0]
               },
@@ -736,8 +740,8 @@ const Profile = () => {
                   style={styles.vuesaxlinearprofileCircle}
                   resizeMode="contain"
                   source={require("../assets/money-recieve.png")}
-                />, 
-                name: 'Credit Cards', 
+                />,
+                name: 'Credit Cards',
                 type: 'credit',
                 value: profile[0]?.expenses[0]
               },
@@ -746,8 +750,8 @@ const Profile = () => {
                   style={styles.vuesaxlinearprofileCircle}
                   resizeMode="contain"
                   source={require("../assets/money-recieve.png")}
-                />, 
-                name: 'Other Expenses', 
+                />,
+                name: 'Other Expenses',
                 type: 'other',
                 value: profile[0]?.expenses[0]
               },
@@ -1072,10 +1076,13 @@ const Profile = () => {
       totalLiabilities = parseFloat(liabilities.reduce((sum: number, item: any) => sum + item.Current_Value, 0)?.toFixed(2));
     }
 
+    console.log("totalAssets", totalAssets);
+    console.log("totalLiabilities", totalLiabilities);
+
     setTotalNetWorth(parseFloat((totalAssets - totalLiabilities)?.toFixed(1)));
   }, [assets, liabilities])
 
-  
+
 
   return (
     <View
@@ -1089,7 +1096,7 @@ const Profile = () => {
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.frameScrollViewContent}
-      >        
+      >
         <View style={[styles.userdetails, styles.optionsSpaceBlock]}>
           <View style={[styles.advice, styles.adviceShadowBox]}>
             <View style={styles.users}>
@@ -1118,14 +1125,20 @@ const Profile = () => {
                   </View>
                 }
               </View>
+              <View style={[styles.titleTextBox]}>
               <Text
-                style={[
-                  styles.danFleur,
-                  styles.mt26,
-                  styles.mTypo,
-                  styles.danFleurClr,
-                ]}
-              >{profile[0]?.Account_Name?.name}</Text>
+                  style={[
+                    styles.titleText
+                  ]}
+                >{profile[0]?.Full_Name}
+                </Text>
+                <Text
+                  style={[
+                    styles.titleText
+                  ]}
+                >{profile[0]?.Account_Name?.name}
+                </Text>
+              </View>
             </View>
             <View style={[styles.assetsview, styles.mt25]}>
               <View style={[styles.assetsviewChild, styles.childBorder]} />
@@ -1358,7 +1371,7 @@ const styles = StyleSheet.create({
     borderRadius: 52,
     padding: 5,
     alignItems: "center",
-    overflow: "hidden",
+    overflow: "hidden"
   },
   mTypo: {
     textAlign: "left",
@@ -1400,12 +1413,13 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   dr: {
-    fontSize: FontSize.size_lg,
     color: Color.white1,
     textAlign: "center",
-    fontFamily: FontFamily.sourceSerifPro,
     fontWeight: "600",
     lineHeight: 22,
+    borderWidth: 0,
+    borderColor: 'red',
+    fontSize: 16
   },
   drWrapper: {
     backgroundColor: '#EF9F27',
@@ -1414,7 +1428,27 @@ const styles = StyleSheet.create({
     backgroundColor: "#9755b6",
   },
   loginuser: {
-    flexDirection: "row",
+    flexDirection: "row"
+  },
+  titleTextBox: {
+    borderWidth: 0,
+    borderColor: 'red',
+    width: "100%",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10
+  },
+  titleText: {
+    fontSize: 18,
+    fontFamily: FontFamily.sourceSerifPro,
+    textAlign: "center",
+    fontWeight: "700",
+    color: "#000",
+    borderWidth: 0,
+    borderColor: 'red',
+    width: "100%",
+    paddingVertical: 5
   },
   danFleur: {
     fontSize: 18,

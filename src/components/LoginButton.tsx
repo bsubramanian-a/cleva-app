@@ -38,11 +38,21 @@ const LoginButton = ({
   const navigation: any = useNavigation();
 
   return (
-    <Pressable onPress={() => navigation.navigate('EmailLogin', { user_type })} style={[styles.loginButton, styles.mt24, loginButtonStyle]}>
+    <>
+    {user_type == 'user' ?
+    <Pressable onPress={() => navigation.navigate('EmailLogin', { user_type: 'user' })} style={[styles.loginButton,  loginButtonStyle]}>
       <Text style={[styles.acceptToContinue, acceptToContinueStyle]}>
         {acceptToContinue}
       </Text>
     </Pressable>
+    :
+    <Pressable onPress={() => navigation.navigate('EmailLogin', { user_type: 'advisor_coach' })} style={[styles.loginCoachButton]}>
+      <Text style={[styles.acceptToContinue, styles.acceptToContinueCoach, acceptToContinueStyle]}>
+        Coach Login
+      </Text>
+    </Pressable>
+    }
+    </>    
   );
 };
 
@@ -55,6 +65,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: Color.dark1,
   },
+  acceptToContinueCoach: {
+    color: Color.white1,
+    fontWeight: "bold"
+  },
   loginButton: {
     alignSelf: "stretch",
     borderRadius: Border.br_md,
@@ -65,6 +79,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     color: Color.dark1,
+    marginBottom: 20
+  },
+  loginCoachButton: {
+    alignSelf: "stretch",
+    borderRadius: Border.br_md,
+    backgroundColor: Color.cadetblue,
+    height: 70,
+    overflow: "hidden",
+    padding: Padding.p_2xs,
+    alignItems: "center",
+    justifyContent: "center",
+    color: Color.white1,
     marginBottom: 20
   },
 });

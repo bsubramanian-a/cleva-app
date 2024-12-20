@@ -9,9 +9,6 @@ import JournalSlider1 from "../components/JournalSlider1";
 
 const Journal = () => {
   //const journals = useSelector((state:any) => state.data.journals);
-
-  
-
   return (
     <ScrollView
       style={styles.journal}

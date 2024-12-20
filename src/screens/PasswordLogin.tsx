@@ -13,7 +13,7 @@ const PasswordLogin = ({ navigation, route }: any) => {
   const [error, setError] = useState("");
   //const email = useSelector((state: any) => state.auth.email);
   const email = "testawebon3@gmail.com";
-  const [user_type, setUserType] = useState("user");
+  const [user_type, setUserType] = useState(route.params.user_type);
 
   const onLogin = async () => {
     setLoading(true);
@@ -59,7 +59,7 @@ const PasswordLogin = ({ navigation, route }: any) => {
             styles.nextpreviousSpaceBlock,
           ]}
         >
-          <Pressable onPress={() => navigation.navigate('EmailLogin')}>
+          <Pressable onPress={() => navigation.navigate('EmailLogin', { user_type: user_type })}>
             <Image
               style={styles.iconarrowLayout}
               resizeMode="cover"

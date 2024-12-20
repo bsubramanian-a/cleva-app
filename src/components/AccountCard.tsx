@@ -10,8 +10,11 @@ import ThreeDotMenu from './ThreeDotMenu';
 import { useNavigation } from '@react-navigation/native';
 import { FontFamily } from '../GlobalStyles';
 import { formatDate } from '../utils/format-date';
+import { wrapTitle } from '../utils/wrapTitle';
 
 const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccount, setIsAccountModalVisible, color, index, count }: any) => {
+    const wrappedAccountName = wrapTitle(acc?.Name ? acc?.Name?.toString() : "N/A", 20);
+
     const navigation: any = useNavigation();
 
     const editAccount = () => {
@@ -30,38 +33,38 @@ const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccoun
     ];
 
     const getInitials = (name: string) => {
-        if(name){
+        if (name) {
             const words = name.split(' ');
             let initials = '';
-    
+
             if (words.length === 1) {
                 initials = words[0].substring(0, 2);
             } else if (words.length >= 2) {
                 initials = words[0][0] + words[1][0];
             }
-    
+
             return initials.toUpperCase();
-        }else{
+        } else {
             return "";
         }
     };
 
     return (
-        <Pressable onPress={() => {setCurrentAccount(acc); setIsAccountModalVisible(true)}} style={[styles.container, count == index + 1 && {marginBottom: 30}]}>
+        <Pressable onPress={() => { setCurrentAccount(acc); setIsAccountModalVisible(true) }} style={[styles.container, count == index + 1 && { marginBottom: 30 }]}>
             <View style={styles.wrapper}>
-                <View style={[styles.leftLine, {borderColor: color}]}></View>
+                <View style={[styles.leftLine, { borderColor: color }]}></View>
                 <View style={styles.contentView}>
                     <View style={styles.titleView}>
                         <View style={styles.titleWrap}>
-                            <Text style={styles.titleText}>{acc?.Name?.length <= 20 ? acc?.Name : acc?.Name.substring(0, 20) + '...'}</Text>
-                            <Text style={styles.moneyText}>{acc?.Current_Value ? "$"+acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : "N/A"}</Text>
+                            <Text style={styles.titleText}>{wrappedAccountName}</Text>
+                            <Text style={styles.moneyText}>{acc?.Current_Value ? "$" + acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : "N/A"}</Text>
                         </View>
                         <View>
                             <Text style={styles.dateText}>As at {formatDate(acc?.Modified_Time)}</Text>
                         </View>
                     </View>
 
-                    <View style={styles.ownerView}>
+                    <View style={styles.ownerView}>                    
                         <View style={styles.ownerWrap}>
                             <Text style={styles.dateText}>{(acc?.Primary_Owner && acc?.Secondary_Owner) ? 'Joint owner' : ((acc?.Primary_Owner || acc?.Secondary_Owner) ? 'Single Owner' : 'No Owner')}</Text>
                             {(acc?.Primary_Owner && acc?.Secondary_Owner) ?
@@ -78,17 +81,18 @@ const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccoun
                                     </View>
                                 </> :
                                 <>
-                                {(acc?.Primary_Owner || acc?.Secondary_Owner) &&
-                                    <View style={styles.frWrapper}>
-                                        <Text style={styles.peopleText}>
-                                            {getInitials(acc?.Primary_Owner?.name || acc?.Secondary_Owner?.name)}
-                                        </Text>
-                                    </View>}
+                                    {(acc?.Primary_Owner || acc?.Secondary_Owner) &&
+                                        <View style={styles.frWrapper}>
+                                            <Text style={styles.peopleText}>
+                                                {getInitials(acc?.Primary_Owner?.name || acc?.Secondary_Owner?.name)}
+                                            </Text>
+                                        </View>}
                                 </>
-                            }
-
+                            }                            
                         </View>
-                        <ThreeDotMenu options={options} />
+                        <View style={{ position: 'relative', right: 0 }}>
+                            <ThreeDotMenu icon={require('../assets/more1.png')} options={options} style={{ top: -35 }} />
+                        </View>
                     </View>
                 </View>
             </View>
@@ -96,9 +100,9 @@ const AccountCard = ({ acc, setDeleteModalVisible, setDeleteId, setCurrentAccoun
     );
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({    
     container: {
-        marginTop: 30,
+        marginTop: 10,
         shadowColor: "rgba(251, 177, 66, 0.1)",
         shadowOffset: {
             width: 0,
@@ -107,10 +111,10 @@ const styles = StyleSheet.create({
         shadowRadius: 15,
         elevation: 40,
         shadowOpacity: 0.04,
-        borderColor: "#ffeccf",
+        borderColor: "#fff",
         borderWidth: 1,
         backgroundColor: "#fff",
-        height: 120,
+        height: "auto",
         borderRadius: 16,
         paddingVertical: 5,
         zIndex: 10
@@ -128,10 +132,11 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 7,
         width: 2,
-        height: '80%',
+        height: '90%',
     },
     titleWrap: {
         marginTop: 6,
+        marginBottom: 5,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -139,13 +144,13 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 18,
         fontFamily: FontFamily.sourceSerifPro,
-        fontWeight: "600",
+        fontWeight: "700",
         color: "#000"
     },
     moneyText: {
         fontSize: 18,
         fontFamily: FontFamily.sourceSerifPro,
-        fontWeight: "600",
+        fontWeight: "700",
         color: "#EF9F27"
     },
     dateText: {
@@ -153,7 +158,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontFamily: FontFamily.outfitLight,
         fontWeight: "300",
-        color: "#4B4B4B"
+        color: "#4B4B4B",
     },
     peopleText: {
         fontSize: 12,
@@ -165,11 +170,13 @@ const styles = StyleSheet.create({
     },
     titleView: {
         borderBottomWidth: 1,
-        borderColor: "#DEDEDE"
+        borderColor: "#DEDEDE",
+        paddingBottom: 8
     },
     ownerWrap: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'relative'
     },
     frWrapper: {
         backgroundColor: "#9755b6",
@@ -197,7 +204,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingVertical: 10
+        paddingVertical: 10,
+        position: 'relative'
     }
 });
 

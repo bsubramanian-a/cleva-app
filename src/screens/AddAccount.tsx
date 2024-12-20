@@ -63,6 +63,33 @@ const AddAccount = ({ route }: any) => {
         setData((prevData: any) => ({ ...prevData, [label]: value }));
     };      
 
+    const generateOptions = (profile:any) => {
+        const options = [{ label: 'None', value: '' }];
+      
+        if (profile && profile.length > 0) {
+          const primaryProfile = profile[0];
+      
+          if (primaryProfile.First_Name || primaryProfile.Last_Name) {
+            options.push({
+              label: (primaryProfile.First_Name ? primaryProfile.First_Name + " " : "") + (primaryProfile.Last_Name ? primaryProfile.Last_Name : ""),
+              value: primaryProfile.id,
+            });
+          }
+      
+          if (primaryProfile.accounts && primaryProfile.accounts.length > 0) {
+            const firstAccount = primaryProfile.accounts[0];
+            if (firstAccount.First_Name || firstAccount.Last_Name) {
+              options.push({
+                label: (firstAccount.First_Name ? firstAccount.First_Name + " " : "") + (firstAccount.Last_Name ? firstAccount.Last_Name : ""),
+                value: firstAccount.id,
+              });
+            }
+          }
+        }
+      
+        return options;
+      }
+
     return (
         <View
             style={styles.wealthAssets}
@@ -86,14 +113,14 @@ const AddAccount = ({ route }: any) => {
                     
                     <Label label="Primary Owner" icon={require("../assets/vuesaxlinearprofilecircle.png")} />
                     <DropdownComponent
-                        values={[{ label: 'None', value: '' }, { label: (profile[0]?.First_Name && (profile[0]?.First_Name + " ")) + profile[0]?.Last_Name && profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: (profile[0]?.accounts[0]?.First_Name && (profile[0]?.accounts[0]?.First_Name + " ")) + profile[0]?.accounts[0]?.Last_Name && profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
+                        values={generateOptions(profile)}
                         defaultValue={data?.Primary_Owner?.id?.toString()}
                         onValueChange={(value: any) => updateState(value, 'Primary_Owner')}
                     />
 
                     <Label label="Secondary Owner" icon={require("../assets/vuesaxlinearprofilecircle.png")} />
                     <DropdownComponent
-                        values={[{ label: 'None', value: '' }, { label: (profile[0]?.First_Name && (profile[0]?.First_Name + " ")) + profile[0]?.Last_Name && profile[0]?.Last_Name, value: profile[0]?.id }, profile[0]?.accounts?.length > 0 && { label: (profile[0]?.accounts[0]?.First_Name && (profile[0]?.accounts[0]?.First_Name + " ")) + profile[0]?.accounts[0]?.Last_Name && profile[0]?.accounts[0]?.Last_Name, value: profile[0]?.accounts[0]?.id }]}
+                        values={generateOptions(profile)}
                         defaultValue={data?.Secondary_Owner?.id?.toString()}
                         onValueChange={(value: any) => updateState(value, 'Secondary_Owner')}
                     />

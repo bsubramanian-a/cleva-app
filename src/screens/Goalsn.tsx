@@ -523,7 +523,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   save5000For: {
-    fontSize: FontSize.size_mini,
+    fontSize: FontSize.size_sm,
     textAlign: "left",
     color: Color.black,
   },

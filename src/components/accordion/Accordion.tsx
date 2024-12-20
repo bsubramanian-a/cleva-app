@@ -44,7 +44,7 @@ const Accordion = ({
                             <View style={styles.itemContainerNew} key={index.toString()}>
                                 {section.item.length == 0 && <Text>No Accounts Found</Text>}
                                 {section.item.map((item: any, itemIndex: any) => {
-                                    const currentIcon = "../assets/profile.png";
+                                    const currentIcon = "../../assets/profile.png";
                                     const currentLabel = item.name;
                                     return ((itemIndex == 0 || itemIndex == 1) && <React.Fragment key={itemIndex.toString()}>
                                         <AccordionItem
@@ -61,7 +61,7 @@ const Accordion = ({
                             </View>
                             <View style={styles.itemContainerNew}>
                                 {section.item.map((item: any, itemIndex: any) => {
-                                    const currentIcon = "../assets/profile.png";
+                                    const currentIcon = "../../assets/profile.png";
                                     const currentLabel = item.name;
                                     return ((itemIndex == 2 || itemIndex == 3) && <React.Fragment key={itemIndex.toString()}>
                                         <AccordionItem
@@ -87,11 +87,12 @@ const Accordion = ({
                             {index == 0 && <View style={styles.lineStyle} />}
                             {!editable && <View style={styles.editRow}>
                                 {section.enableSubHeading && <Text style={styles.subHeading}>{section.subHeading} </Text>}
+                                {!section.enableSubHeading && <Text style={styles.subHeading}> </Text>}
                                 {section.enableEdit && <Pressable onPress={() => goEdit(link, element)} style={{ marginTop: 5 }}>
                                     <Image
                                         style={styles.vuesaxlinearedit}
                                         resizeMode="cover"
-                                        source={require('../assets/edit.png')}
+                                        source={require('../../assets/edit.png')}
                                     />
                                 </Pressable>}
                             </View>}

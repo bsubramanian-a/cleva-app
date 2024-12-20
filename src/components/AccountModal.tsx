@@ -2,8 +2,18 @@ import * as React from "react";
 import { Image, StyleSheet, Text, View, Pressable, Modal, Dimensions } from 'react-native';
 import { FontFamily } from "../GlobalStyles";
 import { formatDate } from "../utils/format-date";
+import { wrapTitle } from "../utils/wrapTitle";
 
 const AccountModal = ({ visible, onClose, acc }: any) => {
+  console.log("acc", acc);
+  const wrappedAccountName = wrapTitle(acc?.Name ? acc?.Name?.toString() : "N/A", 20);
+  const wrappedProvider = wrapTitle(acc?.Product_Provider ? acc?.Product_Provider?.toString() : "N/A", 20);
+  const wrappedValue = wrapTitle((acc?.Current_Value.toString() ? "$" + acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : "N/A").toString(), 20);
+  const wrappedPrimaryOwner = wrapTitle(acc?.Primary_Owner ? acc?.Primary_Owner?.name?.toString() : "N/A", 20);
+  const wrappedSecondaryOwner = wrapTitle(acc?.Secondary_Owner ? acc?.Secondary_Owner?.name?.toString() : "N/A", 20);
+  const wrappedLastModified = wrapTitle((formatDate(acc?.Modified_Time)).toString(), 20);
+  console.log("wrappedAccountName", wrappedAccountName);
+  console.log("acc?.Name", acc?.Name);
   return (
     <Modal visible={visible} onRequestClose={onClose} transparent>
       <View style={styles.modalContainer}>
@@ -23,9 +33,9 @@ const AccountModal = ({ visible, onClose, acc }: any) => {
                   resizeMode="cover"
                   source={require("../assets/profile.png")}
                 />
-                <Text style={styles.dateText}>Name</Text>
+                <Text style={styles.dateText}> {wrapTitle("Name".toString(), 20)}</Text>
               </View>
-              <Text style={styles.titleText}>{acc?.Name}</Text>
+              <Text style={styles.titleText}>{wrappedAccountName}</Text>
             </View>
             <View style={styles.wrapContent}>
               <View style={styles.imgText}>
@@ -34,9 +44,9 @@ const AccountModal = ({ visible, onClose, acc }: any) => {
                   resizeMode="cover"
                   source={require("../assets/profile.png")}
                 />
-                <Text style={styles.dateText}>Provider</Text>
+                <Text style={styles.dateText}>{wrapTitle("Provider".toString(), 20)}</Text>
               </View>
-              <Text style={styles.titleText}>{acc?.Product_Provider}</Text>
+              <Text style={styles.titleText}>{wrappedProvider}</Text>
             </View>
             <View style={styles.wrapContent}>
               <View style={styles.imgText}>
@@ -45,10 +55,10 @@ const AccountModal = ({ visible, onClose, acc }: any) => {
                   resizeMode="cover"
                   source={require("../assets/dollar-square.png")}
                 />
-                <Text style={styles.dateText}>Value</Text>
+                <Text style={styles.dateText}>{wrapTitle("Value".toString(), 20)}</Text>
               </View>
               <Text style={styles.titleText}>
-                {acc?.Current_Value ? "$" + acc?.Current_Value?.toFixed(0)?.replace(/\B(?=(\d{3})+(?!\d))/g, ',',) : "N/A"}
+                {wrappedValue}
               </Text>
             </View>
             <View style={styles.wrapContent}>
@@ -58,9 +68,9 @@ const AccountModal = ({ visible, onClose, acc }: any) => {
                   resizeMode="cover"
                   source={require("../assets/vuesaxlinearprofilecircle.png")}
                 />
-                <Text style={styles.dateText}>Primary Owner</Text>
+                <Text style={styles.dateText}>{wrapTitle("Primary Owner".toString(), 20)}</Text>
               </View>
-              <Text style={styles.titleText}>{acc?.Primary_Owner?.name}</Text>
+              <Text style={styles.titleText}>{wrappedPrimaryOwner}</Text>
             </View>
             <View style={styles.wrapContent}>
               <View style={styles.imgText}>
@@ -69,9 +79,9 @@ const AccountModal = ({ visible, onClose, acc }: any) => {
                   resizeMode="cover"
                   source={require("../assets/vuesaxlinearprofilecircle.png")}
                 />
-                <Text style={styles.dateText}>Secondary Owner</Text>
+                <Text style={styles.dateText}>{wrapTitle("Secondary Owner".toString(), 20)}</Text>
               </View>
-              <Text style={styles.titleText}>{acc?.Secondary_Owner?.name}</Text>
+              <Text style={styles.titleText}>{wrappedSecondaryOwner}</Text>
             </View>
             <View style={styles.wrapContent}>
               <View style={styles.imgText}>
@@ -80,9 +90,9 @@ const AccountModal = ({ visible, onClose, acc }: any) => {
                   resizeMode="cover"
                   source={require("../assets/calendar.png")}
                 />
-                <Text style={styles.dateText}>Last Modified</Text>
+                <Text style={styles.dateText}>{wrapTitle("Last Modified".toString(), 20)}</Text>
               </View>
-              <Text style={styles.titleText}>{formatDate(acc?.Modified_Time)}</Text>
+              <Text style={styles.titleText}>{wrappedLastModified}</Text>
             </View>
           </View>
         </View>
@@ -148,7 +158,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 15,
     fontFamily: FontFamily.outfitRegular,
-    fontWeight: "400",
+    fontWeight: "700",
     color: "#000"
   },
   frameChild: {

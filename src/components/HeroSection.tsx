@@ -11,15 +11,16 @@ import {
 } from "../GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
 
-const HeroSection = ({item}:any) => {
+const HeroSection = ({item, bgImage}:any) => {
   const navigation:any = useNavigation();
+  //const bgImageSrc = require(bgImage);
 
   return (
     <Pressable style={styles.herosection} onPress={() => navigation.navigate(item.Component,{item:item})}>
       <ImageBackground
         style={styles.sliderIcon}
         resizeMode="cover"
-        source={require("../assets/frame481.png")}
+        source={bgImage}
       >
         <View style={styles.getchapgroupWrapper}>
           <View
@@ -29,7 +30,7 @@ const HeroSection = ({item}:any) => {
               styles.getchapgroupFlexBox,
             ]}
           >
-            <Text style={styles.getStarted}>{item?.Name} - {item?.Component}</Text>
+            <Text style={styles.getStarted}>{item?.Name}</Text>
             <View style={[styles.chaptergroup, styles.getchapgroupFlexBox]}>
               <Text style={styles.chapter1}></Text>
               <Image

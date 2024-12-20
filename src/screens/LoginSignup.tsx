@@ -73,6 +73,10 @@ const LoginSignup = ({navigation, route}:any) => {
   };
 
   return (
+    <>
+    <View style={{backgroundColor: 'white', height: 40}}>
+      <Text>Hello</Text>
+    </View>
     <ScrollView
       style={styles.loginsignup}
       showsHorizontalScrollIndicator={false}
@@ -105,9 +109,9 @@ const LoginSignup = ({navigation, route}:any) => {
         onVerifyEmail={onVerifyEmail}
         onVerifyAppleEmail={onVerifyAppleEmail}
         showRMessage={showRMessage}
-        user_type= {route.params.user_type}
       />
     </ScrollView>
+    </>
   );
 };
 
@@ -156,7 +160,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     overflow: "hidden",
-    maxWidth: "100%",
+    maxWidth: "100%"
   },
 });
 

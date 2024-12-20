@@ -32,6 +32,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import AccordionContainer from "../../components/accordion/AccordionContainer";
 import AccordionHeading from "../../components/accordion/AccordionHeading";
 import AccordionSkeleton from "../../components/skeletons/AccordionSkeleton";
+import { newFormatDate } from "../../utils/format-date";
 
 
 const MoneyAutoDrive = () => {
@@ -585,6 +586,13 @@ const MoneyAutoDrive = () => {
             {/* <View style={styles.videoSection}>
           <VideoPlayer sourceUri={'https://download.samplelib.com/mp4/sample-5s.mp4'} />
         </View> */}
+          </ScrollView>
+          <ScrollView
+            style={[styles.videoSectionParent, styles.secondHalf]}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.moneyOnAutoDriveScrollViewContent}
+          >           
 
             <ChapterTab
               tabs={['Summary', 'Dashboard', 'Journal', 'Resources']}
@@ -594,7 +602,7 @@ const MoneyAutoDrive = () => {
             />
             {activeTab == 0 &&
               <>
-                <View style={[styles.summary1]}>
+                <View style={[styles.summary1, styles.noBorderTop]}>
                   <Text
                     style={[
                       styles.loremIpsumIs,
@@ -662,13 +670,23 @@ const MoneyAutoDrive = () => {
                       styles.myExercisesTypo,
                     ]}
                   >
-                    Date last reviewed : {moneyOnAutoDrive[0].Last_Reviewed}
+                    Date last reviewed : {newFormatDate(moneyOnAutoDrive[0].Last_Reviewed)}
                   </Text>
                 </View>
               </>
             }
             {activeTab == 1 &&
               <>
+                <View style={[styles.expensesHeadingView]}>
+                  <View style={[styles.expensesHeadingIcon]}>
+                    <Image
+                      style={styles.vuesaxlinearprofileCircle}
+                      resizeMode="contain"
+                      source={require("../../assets/receipt-item.png")}
+                    />
+                  </View>
+                  <Text style={styles.expensesHeadingText}>Expenses</Text>
+                </View>
                 <View style={styles.editRow}>
                   <Text style={styles.subHeading}>Household : {houseHoldExpenses[0]?.Name}</Text>
                   {(houseHoldExpenses.length > 0) && <>
@@ -682,17 +700,13 @@ const MoneyAutoDrive = () => {
                   </>}
                 </View>
                 <Text style={styles.editRow}>
-                food, clothing, entertainment, recreation, transport –exclude utilities
-                </Text>
-                {(houseHoldExpenses.length > 0) && <>
-                  <Text style={[styles.editRow, styles.commentsNotes]}>Comments & Notes</Text>
-                  <Text style={styles.editRow}>{houseHoldExpenses[0]?.Household_Expenses_Notes_Comments}</Text>
-                </>}                
+                  food, clothing, entertainment, recreation, transport –exclude utilities
+                </Text>                
                 {(!houseHoldExpenses[0]) && (houseHoldExpenses.length != 0) && <>
-                  <AccordionSkeleton/>
+                  <AccordionSkeleton />
                 </>}
                 {(houseHoldExpenses.length == 0) && <>
-                  <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20  }}>
+                  <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20 }}>
                     <AccordionHeading title="No Data Available" value="No Household is assigned to the contact"></AccordionHeading>
                   </View>
                 </>}
@@ -704,7 +718,7 @@ const MoneyAutoDrive = () => {
                   <Text style={styles.subHeading}>Loan Repayments : {houseHoldExpenses[0]?.Name}</Text>
                 </View>
                 <Text style={styles.editRow}>
-                Loans, Investments, Credit Cards etc...
+                  Loans, Investments, Credit Cards etc...
                 </Text>
                 {(!houseHoldExpenses[0]) && (houseHoldExpenses.length != 0) && <>
                   <AccordionSkeleton />
@@ -717,6 +731,10 @@ const MoneyAutoDrive = () => {
                 {(houseHoldExpenses.length > 0) && <>
                   <AccordionContainer accordions={accordionLoan} />
                 </>}
+                {(houseHoldExpenses.length > 0) && <View style={[styles.commentsNotesView]}>
+                  <Text style={[styles.editRow, styles.commentsNotes]}>Comments & Notes</Text>
+                  <Text style={styles.editRow}>{houseHoldExpenses[0]?.Household_Expenses_Notes_Comments}</Text>
+                </View>}
               </>
             }
             {activeTab == 2 &&
@@ -808,6 +826,52 @@ const MoneyAutoDrive = () => {
 };
 
 const styles = StyleSheet.create({
+  commentsNotesView: {
+    marginTop: 5,
+    marginBottom: 40
+  },
+  expensesHeadingText: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    fontFamily: FontFamily.openSansRegular,
+    color: Color.black,
+    paddingTop: 10,
+    paddingBottom: 10,    
+    width: '100%',
+    textAlign: 'left',
+  },
+  expensesHeadingView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 10,
+    borderBottomWidth: 1,
+    borderColor: "#dedede",
+    marginLeft: 40,
+    marginRight: 40,
+    paddingBottom: 10
+  },
+  expensesHeadingIcon: {
+    borderWidth: 1,
+    borderColor: "#dedede",
+    backgroundColor: "#FEF6F4",
+    borderRadius: 10,
+    padding: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40,
+    height: 40,
+    marginRight: 10
+  },
+  vuesaxlinearprofileCircle: {
+    width: 20,
+    height: 20,
+    marginRight: 9,
+    borderWidth: 0,
+    borderColor: "red",
+    padding: 5,
+    marginLeft: 12
+  },
   subListContainer: {
     display: 'flex'
   },
@@ -863,11 +927,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  vuesaxlinearprofileCircle: {
-    width: 20,
-    height: 20,
-    marginRight: 9
-  },
+
   name: {
     marginRight: 10,
     color: '#4B4B4B'
@@ -995,7 +1055,10 @@ const styles = StyleSheet.create({
     width: 20,
   },
   myExercisesTypo: {
-    // fontSize: FontSize.size_sm
+    fontSize: 12,
+    paddingLeft: 10,
+    fontWeight: "700",
+    fontFamily: FontFamily.openSansRegular
   },
   loremIpsumIs: {
     lineHeight: 22,
@@ -1017,13 +1080,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between"
   },
+  noBorderTop: {
+    borderTopWidth: 0,
+  },
 
   goaltitle: {
     padding: 30,
     paddingBottom: 10,
     paddingTop: 20,
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "700",
     fontFamily: FontFamily.outfitMedium,
     color: Color.black
   },
@@ -1296,6 +1362,12 @@ const styles = StyleSheet.create({
   videoSectionParent: {
     alignSelf: "stretch",
     flex: 1,
+  },
+  secondHalf: {
+    flex: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 5
   },
   moneyOnAutoDrive: {
     width: "100%",

@@ -36,7 +36,7 @@ const TopHeader = ({ title }: TopHeaderType) => {
         </View>}
 
         <Pressable style={[styles.frWrapper, styles.wrapperLayout]} onPress={() => navigation.navigate('Profile')}>
-          <Text style={styles.dr}>
+          <Text style={[]}>
             {profile?.length > 0 && (
               (profile[0]?.First_Name && profile[0]?.Last_Name)
                 ? (profile[0]?.First_Name.charAt(0) + profile[0]?.Last_Name.charAt(0))
@@ -46,7 +46,7 @@ const TopHeader = ({ title }: TopHeaderType) => {
         </Pressable>
 
         {profile[0]?.accounts?.length > 0 && <Pressable style={[styles.drWrapper, styles.wrapperLayout]} onPress={() => navigation.navigate('Profile')}>
-          <Text style={styles.dr}>
+          <Text style={[]}>
             {profile[0]?.accounts?.length > 0 && (
               (profile[0]?.accounts[0]?.First_Name && profile[0]?.accounts[0]?.Last_Name)
                 ? (profile[0]?.accounts[0]?.First_Name.charAt(0) + profile[0]?.accounts[0]?.Last_Name.charAt(0))

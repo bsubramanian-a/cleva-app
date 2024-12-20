@@ -707,7 +707,10 @@ const styles = StyleSheet.create({
     width: 20,
   },
   myExercisesTypo: {
-    // fontSize: FontSize.size_sm
+    fontSize: 12,
+    paddingLeft:10,
+    fontWeight:"700",
+    fontFamily:FontFamily.openSansRegular
   },
   loremIpsumIs: {
     lineHeight: 22,

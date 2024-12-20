@@ -7,10 +7,7 @@ import {
   View,
   ImageSourcePropType,
 } from "react-native";
-import {
-  Margin,
-  Border,
-  FontSize,
+import { 
   FontFamily,
   Color,
   Padding,
@@ -18,8 +15,6 @@ import {
 
 type CardL1Type = {
   frame510?: ImageSourcePropType;
-
-  /** Style props */
   thank1MarginLeft?: number | string;
 };
 
@@ -37,7 +32,25 @@ const CardL1 = ({ thank1MarginLeft, frame510 }: CardL1Type) => {
 
   return (
     <View style={[styles.thank1, thank1Style]}>
-      <Image style={styles.thank1Child} resizeMode="cover" source={frame510} />
+      {frame510 ? (
+        <Image style={styles.thank1Child} resizeMode="cover" source={frame510} />
+      ) : (
+        <View 
+          style={[styles.thank1Child, {
+            backgroundColor: '#f5f5f5',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }]}
+        >
+          <Text style={{
+            color: '#4B4B4B',
+            fontSize: 14,
+            fontFamily: FontFamily.openSansRegular
+          }}>
+            No image available
+          </Text>
+        </View>
+      )}
       <View style={[styles.findingTheBalanceBetweenOvParent, styles.mt13]}>
         <Text style={styles.findingTheBalance}>
           Finding the balance between ove...

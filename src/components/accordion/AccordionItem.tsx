@@ -73,10 +73,13 @@ const AccordionItem = ({
     const wrappedName = name ? wrapTitle(name, 22) : "N/A";
 
     // Wrap the value text if it exceeds the specified length
-    let wrappedValue = value;
-    if (!isRetirement && !isExpense) {
-        wrappedValue = value ? wrapTitle(value, 20) : "N/A";
+    let wrappedValue = "";
+    //console.log("value planb1", value);
+    if (value != "" && !isRetirement && !isExpense) {
+        //console.log("value planb2", value);
+        wrappedValue = value ? wrapTitle(value.toString(), 20) : "N/A";
     }
+    //console.log("wrappedValue", wrappedValue);
 
     return (
         <>

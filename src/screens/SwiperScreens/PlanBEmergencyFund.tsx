@@ -4,14 +4,9 @@ import {
   Image,
   StyleSheet,
   View,
-  ImageBackground,
   Text,
   StatusBar,
-  Dimensions,
 } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import HeaderBack from "../../components/HeaderBack";
-import EditBtn from "../../components/EditBtn";
 import {
   Margin,
   Padding,
@@ -27,17 +22,12 @@ import { Pressable } from "react-native";
 import { useSelector } from "react-redux";
 import actions from "../../../actions";
 import Loader from "../../components/Loader";
-import VideoPlayer from "../../components/VideoPlayer";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import AccordionSkeleton from "../../components/skeletons/AccordionSkeleton";
 import SpeedoMeter from "../../components/SpeedoMeter";
-import Animated from "react-native-reanimated";
 
 const PlanBEmergencyFund = () => {
   const navigation: any = useNavigation();
-  const route: any = useRoute();
-  const data = route.params?.item;
-  //console.log("data", data)
   const [loading, setLoading] = useState(false);
   const planBEmergencyFund = useSelector((state: any) => state.data.planBEmergencyFund);
   const notes = useSelector((state: any) => state.data.notes);
@@ -54,7 +44,7 @@ const PlanBEmergencyFund = () => {
   const [speedoMinimum, setSpeedoMinimum] = useState<number>(0);
   const [speedoMaximum, setSpeedoMaximum] = useState<number>(0);
   const [speedoPart, setSpeedoPart] = useState<number>(0);
-  const [speedoOriginalValue, setSpeedoOriginalValue] = useState<number>(0);
+  const [speedoOriginalValue, setSpeedoOriginalValue] = useState<any>(0);
 
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
@@ -77,7 +67,6 @@ const PlanBEmergencyFund = () => {
   }, [navigation])
 
   const editEmergencyFund = (allAccounts: any) => {
-    console.log("EditPlanBEmergencyFund", allAccounts);
     navigation.navigate('EditPlanBEmergencyFund', { allAccounts });
   };
 
@@ -90,21 +79,16 @@ const PlanBEmergencyFund = () => {
       await actions.getCoachNotes();
       await actions.getFinancialAccounts();
     } catch (err) {
-      //console.log("err", err);
+      console.log("err", err);
     }
     setLoading(false);
   }
 
   useEffect(() => {
-    //console.log("planBEmergencyFund?.length", planBEmergencyFund?.length);
-    //console.log("financialAccounts?.length", financialAccounts?.length);
     if (planBEmergencyFund && planBEmergencyFund?.length > 0 && financialAccounts && financialAccounts?.length > 0) {
-      //console.log("coming inside useEffect")
       getAllAccounts();
       const emerFAccounts = financialAccounts.filter((account: any) => account?.Is_Emergency_Fund === "Yes");
       setEmerFAccounts(emerFAccounts);
-
-      console.log("emerFAccounts", emerFAccounts)
     }
   }, [planBEmergencyFund, financialAccounts])
 
@@ -116,17 +100,13 @@ const PlanBEmergencyFund = () => {
       const maximumValue = partValue * 5;
       setSpeedoMaximum(maximumValue);
       setSpeedometerValue(Number(allAccounts?.Current_Total_Emergency_Funds));
-      setSpeedoOriginalValue(Number(allAccounts?.Target_Emergency_Fund));
+      setSpeedoOriginalValue(allAccounts?.Target_Emergency_Fund);
     }
 
   }, [allAccounts])
 
-
-
-
   const getAllAccounts = async () => {
     const acts: any = await actions.getAccount(planBEmergencyFund[0].Account.id);
-    console.log("acts", acts)
     setallAccounts(acts?.data[0]);
   }
 
@@ -153,24 +133,27 @@ const PlanBEmergencyFund = () => {
             contentContainerStyle={styles.planBEmergencyFundScrollViewContent}
           >
             <Text style={styles.goaltitle}>My Goal</Text>
-            <Text style={styles.goaltext}>{planBEmergencyFund[0].Emergency_Fund_Goal}</Text>
-            {/* <ImageBackground
-            style={[styles.videoSectionInner, styles.bottomFlexBox]}
-            resizeMode="cover"
-            source={require("../../assets/frame526.png")}
+            <Text style={styles.goaltext}>{planBEmergencyFund[0].Emergency_Fund_Goal}</Text>     
+          </ScrollView>
+          {/* {(activeTab == 1 || activeTab == 2) &&
+            <LinearGradient
+              style={[styles.bottom, styles.bottomFlexBox]}
+              locations={[0, 1]}
+              colors={["#fbb142", "#f6a326"]}
+              useAngle={true}
+              angle={180}
+            >
+              <Pressable>
+                <Text style={{ color: "#fff" }}>Continue</Text>
+              </Pressable>
+            </LinearGradient>
+          } */}
+          <ScrollView
+            style={[styles.videoSectionParent, styles.secondHalf]}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.planBEmergencyFundScrollViewContent}
           >
-            <View style={styles.polygonWrapper}>
-              <Image
-                style={styles.frameChild}
-                resizeMode="cover"
-                source={require("../../assets/polygon-2.png")}
-              />
-            </View>
-          </ImageBackground> */}
-            {/* <View style={styles.videoSection}>
-          <VideoPlayer sourceUri={'https://download.samplelib.com/mp4/sample-5s.mp4'} />
-        </View> */}
-
             <ChapterTab
               tabs={['Summary', 'Dashboard', 'Journal', 'Resources']}
               activeTab={activeTab}
@@ -179,7 +162,7 @@ const PlanBEmergencyFund = () => {
             />
             {activeTab == 0 &&
               <>
-                <View style={[styles.summary1]}>
+                <View style={[styles.summary1, styles.noBorderTop]}>
                   <Text
                     style={[
                       styles.loremIpsumIs,
@@ -315,10 +298,10 @@ const PlanBEmergencyFund = () => {
                   <View>
                     <Text style={[styles.listOfAccounts]}>List of Accounts</Text>
                     {emerFAccounts?.length > 0 &&
-                      emerFAccounts?.map((account: any) => {
+                      emerFAccounts?.map((account: any, index: number) => {
                         if (account?.Plan_Name != null) {
                           return (
-                            <View style={[styles.account]}>
+                            <View style={[styles.account]} key={index}>
                               <View style={[styles.accountContent]}>
                                 <Text style={[styles.accountName]}>{account?.Plan_Name ? account?.Plan_Name : "N/A"}</Text>
                                 <Text style={[styles.accountValue]}>
@@ -336,7 +319,7 @@ const PlanBEmergencyFund = () => {
                   </View>
                 </>}
                 {Object.keys(allAccounts).length === 0 && emerFAccounts?.length === 0 && <>
-                  <AccordionSkeleton title="Loading INA" />
+                  <AccordionSkeleton />
                 </>}
               </>
             }
@@ -359,11 +342,11 @@ const PlanBEmergencyFund = () => {
                       >
                         <View style={[styles.advice1Parent, styles.mt10]}>
                           {notes?.length > 0 && <>
-                            {notes?.map((note: any) => {
+                            {notes?.map((note: any, index: number) => {
                               if (note?.Current == "Yes" && note?.Module == "Emergency Fund") {
                                 return (
                                   <>
-                                    <View style={styles.advice11}>
+                                    <View style={styles.advice11} key={index}>
                                       <View style={styles.dot1Wrapper}>
                                         <View style={styles.dot1} />
                                       </View>
@@ -392,11 +375,11 @@ const PlanBEmergencyFund = () => {
                       >
                         <View style={[styles.advice1Parent, styles.mt10]}>
                           {coachnotes?.length > 0 && <>
-                            {coachnotes?.map((note: any) => {
+                            {coachnotes?.map((note: any, index: number) => {
                               if (note?.Current == "Yes" && note?.Module == "Emergency Fund") {
                                 return (
                                   <>
-                                    <View style={styles.advice11}>
+                                    <View style={styles.advice11} key={index}>
                                       <View style={styles.dot1Wrapper}>
                                         <View style={styles.dot1} />
                                       </View>
@@ -420,19 +403,6 @@ const PlanBEmergencyFund = () => {
               </View>
             }
           </ScrollView>
-          {/* {(activeTab == 1 || activeTab == 2) &&
-            <LinearGradient
-              style={[styles.bottom, styles.bottomFlexBox]}
-              locations={[0, 1]}
-              colors={["#fbb142", "#f6a326"]}
-              useAngle={true}
-              angle={180}
-            >
-              <Pressable>
-                <Text style={{ color: "#fff" }}>Continue</Text>
-              </Pressable>
-            </LinearGradient>
-          } */}
         </View>
         : <View style={styles.planBEmergencyFund}>
           {/* <StatusBar translucent={true} backgroundColor="transparent" barStyle="dark-content" />
@@ -620,7 +590,10 @@ const styles = StyleSheet.create({
     width: 20,
   },
   myExercisesTypo: {
-    // fontSize: FontSize.size_sm
+    fontSize: 12,
+    paddingLeft:10,
+    fontWeight:"700",
+    fontFamily:FontFamily.openSansRegular
   },
   loremIpsumIs: {
     lineHeight: 22,
@@ -642,13 +615,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between"
   },
-
+  noBorderTop: {
+    borderTopWidth: 0,
+  },
   goaltitle: {
     padding: 30,
     paddingBottom: 10,
     paddingTop: 20,
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "700",
     fontFamily: FontFamily.outfitMedium,
     color: Color.black
   },
@@ -921,6 +896,12 @@ const styles = StyleSheet.create({
   videoSectionParent: {
     alignSelf: "stretch",
     flex: 1,
+  },
+  secondHalf: {
+    flex: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 5
   },
   planBEmergencyFund: {
     width: "100%",

@@ -19,8 +19,6 @@ import {
 type CardLibType = {
   frame510?: ImageSourcePropType;
   calendar?: ImageSourcePropType;
-
-  /** Style props */
   mojo1MarginLeft?: number | string;
 };
 
@@ -38,15 +36,37 @@ const CardLib = ({ mojo1MarginLeft, frame510, calendar }: CardLibType) => {
 
   return (
     <View style={[styles.mojo1, mojo1Style]}>
-      <Image style={styles.mojo1Child} resizeMode="cover" source={frame510} />
+      {frame510 ? (
+        <Image style={styles.mojo1Child} resizeMode="cover" source={frame510} />
+      ) : (
+        <View 
+          style={[styles.mojo1Child, {
+            backgroundColor: '#f5f5f5',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }]}
+        >
+          <Text style={{
+            color: '#4B4B4B',
+            fontSize: 14,
+            fontFamily: FontFamily.openSansRegular
+          }}>
+            No image available
+          </Text>
+        </View>
+      )}
       <View style={[styles.thePowerOfSelfParent, styles.mt13]}>
         <Text style={styles.thePowerOf}>The power of self-...</Text>
         <View style={[styles.calendarParent, styles.mt7]}>
-          <Image
-            style={styles.calendarIcon}
-            resizeMode="cover"
-            source={calendar}
-          />
+          {calendar ? (
+            <Image
+              style={styles.calendarIcon}
+              resizeMode="cover"
+              source={calendar}
+            />
+          ) : (
+            <Text>No image available</Text>
+          )}
           <Text style={[styles.jan2023, styles.ml4]}>9 Jan 2023</Text>
         </View>
       </View>
