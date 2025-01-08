@@ -9,11 +9,12 @@ import CKeyboard from "../components/CKeyboard";
 
 const PasswordLogin = ({ navigation, route }: any) => {
   const [loading, setLoading] = useState(false);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("Test@123");
   const [error, setError] = useState("");
   //const email = useSelector((state: any) => state.auth.email);
   const email = "testawebon3@gmail.com";
-  const [user_type, setUserType] = useState(route.params.user_type);
+  //const [user_type, setUserType] = useState(route.params.user_type);
+  const [user_type, setUserType] = useState("user");
 
   const onLogin = async () => {
     setLoading(true);

@@ -83,6 +83,10 @@ const PlanBInsurance = () => {
     setActiveDashboardUser(tabNumber);
   };
 
+  const handleUserTabPress = (tabNumber: number) => {
+    setActiveDashboardUser(tabNumber);
+  };
+
   useEffect(() => {
 
     // Trigger the fetch when the navigation state changes
@@ -96,11 +100,17 @@ const PlanBInsurance = () => {
   }, [navigation])
 
   useEffect(() => {
-    let dUsers: any = [];
+    //let dUsers: any = [];
     if (ina && ina?.length > 0 && financialAccounts && financialAccounts?.length > 0) {
-      ina?.forEach((element: any) => {
-        dUsers.push(element?.Household?.name)
-      });
+      console.log("ina", ina)
+      // ina?.forEach((element: any) => {
+      //   dUsers.push(element?.Household?.name)
+      // });
+      const dUsers = Array.from(new Set(ina.map((element: any) => element?.Household?.name)));
+      console.log("dUsers", dUsers)
+
+      const desiredOutput: { [key: string]: { id: string; tempCounter: number; accountName?: string; inas: any[], otherItems: any[] } } = {};
+
       const insFAccounts = financialAccounts.filter((account: any) => account?.Is_Insurance_Financial_Account === true);
       let lifeInsuranceItems: any = [];
       let tpdArray: any = [];
@@ -160,54 +170,48 @@ const PlanBInsurance = () => {
 
         });
       }
-      //console.log("lifeInsuranceItems", lifeInsuranceItems)
-      // setLifeInsuranceAccounts(lifeInsuranceItems)
-      // setTPDAccounts(tpdArray)
-      // setIncomeProtectionAccounts(iparray);
-      //console.log("dashboard users : ", dUsers);  
-      setDashboardUsers(dUsers);
-      setAccordions(lifeInsuranceItems, tpdArray, iparray, traumaArray);
-    }
-  }, [ina, financialAccounts])
 
-  const setAccordions = (lifeInsuranceItems: any, tpdArray: any, iparray: any, traumaArray: any) => {
-    setINAAccordion([]);
-    ina?.map((inaObject: any, index: number) => {
-      console.log("inaObject",inaObject)
+      let tempCounter = 0;
 
-      //console.log("lifeInsuranceItems", lifeInsuranceItems)
+      for (const inaObject of ina) {
 
+        const accountId = inaObject?.Household?.id;
+        const accountName = inaObject?.Household?.name;
+        if (!accountId) continue; // Skip objects without Account.id
 
+        //console.log("lifeInsuranceItems", lifeInsuranceItems)
+        const lIAccount = lifeInsuranceItems.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
+        //console.log("lIAccount",lIAccount)
+        const tPDAccount = tpdArray.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
+        //console.log("tPDAccount",tPDAccount)
+        const incomeProtectionAccount = iparray.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
+        //console.log("incomeProtectionAccount",incomeProtectionAccount)
+        const traumaAccount = traumaArray.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
+        // console.log("traumaAccount",traumaAccount)
+        // console.log("inaObject",inaObject)
 
-      const lIAccount = lifeInsuranceItems.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
+        if (!desiredOutput[accountId]) {
+          desiredOutput[accountId] = {
+            id: accountId,
+            tempCounter: tempCounter++,
+            accountName: accountName,
+            inas: [],
+            otherItems:[]
+          };
+        }
 
-      //console.log("lIAccount",lIAccount)
-
-      const tPDAccount = tpdArray.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
-
-      //console.log("tPDAccount",tPDAccount)
-
-      const incomeProtectionAccount = iparray.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
-
-      //console.log("incomeProtectionAccount",incomeProtectionAccount)
-
-      const traumaAccount = traumaArray.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
-
-
-
-
-
-      pushAccordionData(
-        [
+        const convertedINA = 
           {
             title: inaObject?.Name,
             icon: require("../../assets/shield-tick.png"),
-            link: 'EditPlanBInsurance',
+            link: 'EditPlanBInsurance',            
             element: inaObject,
             isActiveTab: true,
             items: [
               {
                 subHeading: "Insurance Need Analysis",
+                enableSubHeading: false,
+                enableEdit: true,
                 item: [
                   {
                     icon: <Image
@@ -299,90 +303,317 @@ const PlanBInsurance = () => {
                 ]
               }
             ].filter(obj => obj),
-          },
-          {
-            title: "Life Insurance",
-            icon: require("../../assets/shield-tick.png"),
-            link: 'EditFinancialAccount',
-            editable: true,
-            finAccount: true,
-            element: lIAccount,
-            showEdit: (lIAccount?.length > 0) ? true : false,
-            isActiveTab: false,
-            value: <View>
-              <Text>Need : {(profile && profile[0] && profile[0].Life_Insurance_Need) ? "$" + (profile[0].Life_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-              <Text>Have : {(profile && profile[0] && profile[0].Life_Insurance_Have) ? "$" + (profile[0].Life_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-            </View>,
-            items: [
-              {
-                subHeading: "Life Insurance",
-                item: lIAccount
-              }
-            ].filter(obj => obj),
-          },
-          {
-            title: "Total and Permanent Disability (TPD)",
-            icon: require("../../assets/shield-tick.png"),
-            link: 'EditFinancialAccount',
-            editable: true,
-            finAccount: true,
-            element: tPDAccount,
-            showEdit: (tPDAccount?.length > 0) ? true : false,
-            isActiveTab: false,
-            value: <View>
-              <Text>Need : {(profile && profile[0] && profile[0].TPD_Insurance_Need) ? "$" + (profile[0].TPD_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-              <Text>Have : {(profile && profile[0] && profile[0].TPD_Insurance_Have) ? "$" + (profile[0].TPD_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-            </View>,
-            items: [
-              {
-                subHeading: "Total and Permanent Disability (TPD)",
-                item: tPDAccount
-              }
-            ].filter(obj => obj),
-          },
-          {
-            title: "Income Protection",
-            icon: require("../../assets/shield-tick.png"),
-            link: 'EditFinancialAccount',
-            editable: true,
-            finAccount: true,
-            element: incomeProtectionAccount,
-            showEdit: (incomeProtectionAccount?.length > 0) ? true : false,
-            isActiveTab: false,
-            value: <View>
-              <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-              <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-            </View>,
-            items: [
-              {
-                subHeading: "Insurance Need Analysis",
-                item: incomeProtectionAccount
-              }
-            ].filter(obj => obj),
-          },
-          {
-            title: "Critical Illness/Trauma Cover",
-            icon: require("../../assets/shield-tick.png"),
-            link: 'EditFinancialAccount',
-            editable: true,
-            finAccount: true,
-            element: traumaAccount,
-            showEdit: (traumaAccount?.length > 0) ? true : false,
-            isActiveTab: false,
-            value: <View>
-              <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-              <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
-            </View>,
-            items: [
-              {
-                subHeading: "Critical Illness/Trauma Cover",
-                item: traumaAccount
-              }
-            ].filter(obj => obj),
-          }
-        ]);
-    });
-  }
+          };
+
+        const convertedLifeInsurance = {
+          title: inaObject?.Name+" : Life Insurance",
+          icon: require("../../assets/shield-tick.png"),
+          link: 'EditFinancialAccount',
+          editable: true,
+          finAccount: true,
+          element: lIAccount,
+          showEdit: (lIAccount?.length > 0) ? true : false,
+          isActiveTab: false,
+          value: <View>
+            <Text>Need : {(profile && profile[0] && profile[0].Life_Insurance_Need) ? "$" + (profile[0].Life_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+            <Text>Have : {(profile && profile[0] && profile[0].Life_Insurance_Have) ? "$" + (profile[0].Life_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+          </View>,
+          items: [
+            {
+              subHeading: "Life Insurance",
+              item: lIAccount
+            }
+          ].filter(obj => obj),
+        }
+
+        const convertedTPDAccount = {
+          title: inaObject?.Name+" : Total and Permanent Disability (TPD)",
+          icon: require("../../assets/shield-tick.png"),
+          link: 'EditFinancialAccount',
+          editable: true,
+          finAccount: true,
+          element: tPDAccount,
+          showEdit: (tPDAccount?.length > 0) ? true : false,
+          isActiveTab: false,
+          value: <View>
+            <Text>Need : {(profile && profile[0] && profile[0].TPD_Insurance_Need) ? "$" + (profile[0].TPD_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+            <Text>Have : {(profile && profile[0] && profile[0].TPD_Insurance_Have) ? "$" + (profile[0].TPD_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+          </View>,
+          items: [
+            {
+              subHeading: "Total and Permanent Disability (TPD)",
+              item: tPDAccount
+            }
+          ].filter(obj => obj),
+        }
+
+        const convertedIncomeProtection = {
+          title: inaObject?.Name+" : Income Protection",
+          icon: require("../../assets/shield-tick.png"),
+          link: 'EditFinancialAccount',
+          editable: true,
+          finAccount: true,
+          element: incomeProtectionAccount,
+          showEdit: (incomeProtectionAccount?.length > 0) ? true : false,
+          isActiveTab: false,
+          value: <View>
+            <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+            <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+          </View>,
+          items: [
+            {
+              subHeading: "Insurance Need Analysis",
+              item: incomeProtectionAccount
+            }
+          ].filter(obj => obj),
+        }
+
+        const convertedTrauma = {
+          title: inaObject?.Name+" : Critical Illness/Trauma Cover",
+          icon: require("../../assets/shield-tick.png"),
+          link: 'EditFinancialAccount',
+          editable: true,
+          finAccount: true,
+          element: traumaAccount,
+          showEdit: (traumaAccount?.length > 0) ? true : false,
+          isActiveTab: false,
+          value: <View>
+            <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+            <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+          </View>,
+          items: [
+            {
+              subHeading: "Critical Illness/Trauma Cover",
+              item: traumaAccount
+            }
+          ].filter(obj => obj),
+        }
+
+        desiredOutput[accountId].inas.push(convertedINA);
+        desiredOutput[accountId].inas.push(convertedLifeInsurance);
+        desiredOutput[accountId].inas.push(convertedTPDAccount);
+        desiredOutput[accountId].inas.push(convertedIncomeProtection);
+        desiredOutput[accountId].inas.push(convertedTrauma);
+      }
+
+      console.log("desiredOutput", desiredOutput);
+
+      //console.log("lifeInsuranceItems", lifeInsuranceItems)
+      // setLifeInsuranceAccounts(lifeInsuranceItems)
+      // setTPDAccounts(tpdArray)
+      // setIncomeProtectionAccounts(iparray);
+      //console.log("dashboard users : ", dUsers);  
+      setDashboardUsers(dUsers);
+      setINAAccordion(desiredOutput);
+      //setAccordions(lifeInsuranceItems, tpdArray, iparray, traumaArray);
+
+
+
+    } else {
+      setDashboardUsers([]);
+      setINAAccordion([]);
+    }
+  }, [ina, financialAccounts])
+
+  // const setAccordions = (lifeInsuranceItems: any, tpdArray: any, iparray: any, traumaArray: any) => {
+  //   setINAAccordion([]);
+  //   ina?.map((inaObject: any, index: number) => {
+  //     console.log("inaObject",inaObject)
+  //     //console.log("lifeInsuranceItems", lifeInsuranceItems)
+  //     const lIAccount = lifeInsuranceItems.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
+  //     //console.log("lIAccount",lIAccount)
+  //     const tPDAccount = tpdArray.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
+  //     //console.log("tPDAccount",tPDAccount)
+  //     const incomeProtectionAccount = iparray.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
+  //     //console.log("incomeProtectionAccount",incomeProtectionAccount)
+  //     const traumaAccount = traumaArray.filter((account: any) => account?.element?.Household?.id == inaObject?.Household?.id)
+
+  //     pushAccordionData(
+  //       [
+  //         {
+  //           title: inaObject?.Name,
+  //           icon: require("../../assets/shield-tick.png"),
+  //           link: 'EditPlanBInsurance',
+  //           element: inaObject,
+  //           isActiveTab: true,
+  //           items: [
+  //             {
+  //               subHeading: "Insurance Need Analysis",
+  //               item: [
+  //                 {
+  //                   icon: <Image
+  //                     style={styles.vuesaxlinearprofileCircle}
+  //                     resizeMode="contain"
+  //                     source={require("../../assets/dollar-square.png")}
+  //                   />,
+  //                   name: 'Total Liabilities',
+  //                   value: inaObject?.Total_Liabilities ? "$" + (inaObject?.Total_Liabilities).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+  //                 },
+  //                 {
+  //                   icon: <Image
+  //                     style={styles.vuesaxlinearprofileCircle}
+  //                     resizeMode="contain"
+  //                     source={require("../../assets/dollar-square.png")}
+  //                   />,
+  //                   name: 'Allowance for Children/Education',
+  //                   value: inaObject?.Child_Edu_Allowance ? "$" + (inaObject?.Child_Edu_Allowance).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+  //                 },
+  //                 {
+  //                   icon: <Image
+  //                     style={styles.vuesaxlinearprofileCircle}
+  //                     resizeMode="contain"
+  //                     source={require("../../assets/dollar-square.png")}
+  //                   />,
+  //                   name: 'Replace Income p.a.',
+  //                   value: inaObject?.Replace_Income_p_a ? "$" + (inaObject?.Replace_Income_p_a).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+  //                 },
+  //                 {
+  //                   icon: <Image
+  //                     style={styles.vuesaxlinearprofileCircle}
+  //                     resizeMode="contain"
+  //                     source={require("../../assets/dollar-square.png")}
+  //                   />,
+  //                   name: 'Number of years',
+  //                   value: inaObject?.Number_of_Income_Yrs ? inaObject?.Number_of_Income_Yrs : "N/A"
+  //                 },
+  //                 {
+  //                   icon: <Image
+  //                     style={styles.vuesaxlinearprofileCircle}
+  //                     resizeMode="contain"
+  //                     source={require("../../assets/dollar-square.png")}
+  //                   />,
+  //                   name: 'Allowance for Medical',
+  //                   value: inaObject?.Allowance_Medical ? "$" + (inaObject?.Allowance_Medical).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+  //                 },
+  //                 {
+  //                   icon: <Image
+  //                     style={styles.vuesaxlinearprofileCircle}
+  //                     resizeMode="contain"
+  //                     source={require("../../assets/dollar-square.png")}
+  //                   />,
+  //                   name: 'Allowance for funeral',
+  //                   value: inaObject?.Allowance_Funeral ? "$" + (inaObject?.Allowance_Funeral).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+  //                 },
+  //                 {
+  //                   icon: <Image
+  //                     style={styles.vuesaxlinearprofileCircle}
+  //                     resizeMode="contain"
+  //                     source={require("../../assets/dollar-square.png")}
+  //                   />,
+  //                   name: 'Allowance for Emergency',
+  //                   value: inaObject?.Allowance_Emergency ? "$" + (inaObject?.Allowance_Emergency).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+  //                 },
+  //                 {
+  //                   icon: <Image
+  //                     style={styles.vuesaxlinearprofileCircle}
+  //                     resizeMode="contain"
+  //                     source={require("../../assets/dollar-square.png")}
+  //                   />,
+  //                   name: 'Allowance for House Modifications',
+  //                   value: inaObject?.Allowance_Home_Mods ? "$" + (inaObject?.Allowance_Home_Mods).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+  //                 },
+  //                 {
+  //                   icon: <Image
+  //                     style={styles.vuesaxlinearprofileCircle}
+  //                     resizeMode="contain"
+  //                     source={require("../../assets/dollar-square.png")}
+  //                   />,
+  //                   name: 'Other Income',
+  //                   value: inaObject?.Other_Allowances_Consideration ? "$" + (inaObject?.Other_Allowances_Consideration).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " p.a." : "N/A"
+  //                 },
+  //                 {
+  //                   icon: "",
+  //                   name: 'INA Notes And Comments',
+  //                   value: (inaObject?.Multi_Line_1) ? (inaObject?.Multi_Line_1) : "N/A",
+  //                   comments: "yes"
+  //                 },
+  //               ]
+  //             }
+  //           ].filter(obj => obj),
+  //         },
+  //         {
+  //           title: "Life Insurance",
+  //           icon: require("../../assets/shield-tick.png"),
+  //           link: 'EditFinancialAccount',
+  //           editable: true,
+  //           finAccount: true,
+  //           element: lIAccount,
+  //           showEdit: (lIAccount?.length > 0) ? true : false,
+  //           isActiveTab: false,
+  //           value: <View>
+  //             <Text>Need : {(profile && profile[0] && profile[0].Life_Insurance_Need) ? "$" + (profile[0].Life_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+  //             <Text>Have : {(profile && profile[0] && profile[0].Life_Insurance_Have) ? "$" + (profile[0].Life_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+  //           </View>,
+  //           items: [
+  //             {
+  //               subHeading: "Life Insurance",
+  //               item: lIAccount
+  //             }
+  //           ].filter(obj => obj),
+  //         },
+  //         {
+  //           title: "Total and Permanent Disability (TPD)",
+  //           icon: require("../../assets/shield-tick.png"),
+  //           link: 'EditFinancialAccount',
+  //           editable: true,
+  //           finAccount: true,
+  //           element: tPDAccount,
+  //           showEdit: (tPDAccount?.length > 0) ? true : false,
+  //           isActiveTab: false,
+  //           value: <View>
+  //             <Text>Need : {(profile && profile[0] && profile[0].TPD_Insurance_Need) ? "$" + (profile[0].TPD_Insurance_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+  //             <Text>Have : {(profile && profile[0] && profile[0].TPD_Insurance_Have) ? "$" + (profile[0].TPD_Insurance_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+  //           </View>,
+  //           items: [
+  //             {
+  //               subHeading: "Total and Permanent Disability (TPD)",
+  //               item: tPDAccount
+  //             }
+  //           ].filter(obj => obj),
+  //         },
+  //         {
+  //           title: "Income Protection",
+  //           icon: require("../../assets/shield-tick.png"),
+  //           link: 'EditFinancialAccount',
+  //           editable: true,
+  //           finAccount: true,
+  //           element: incomeProtectionAccount,
+  //           showEdit: (incomeProtectionAccount?.length > 0) ? true : false,
+  //           isActiveTab: false,
+  //           value: <View>
+  //             <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+  //             <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+  //           </View>,
+  //           items: [
+  //             {
+  //               subHeading: "Insurance Need Analysis",
+  //               item: incomeProtectionAccount
+  //             }
+  //           ].filter(obj => obj),
+  //         },
+  //         {
+  //           title: "Critical Illness/Trauma Cover",
+  //           icon: require("../../assets/shield-tick.png"),
+  //           link: 'EditFinancialAccount',
+  //           editable: true,
+  //           finAccount: true,
+  //           element: traumaAccount,
+  //           showEdit: (traumaAccount?.length > 0) ? true : false,
+  //           isActiveTab: false,
+  //           value: <View>
+  //             <Text>Need : {(profile && profile[0] && profile[0].Income_Protection_Need) ? "$" + (profile[0].Income_Protection_Need).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+  //             <Text>Have : {(profile && profile[0] && profile[0].Income_Protection_Have) ? "$" + (profile[0].Income_Protection_Have).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</Text>
+  //           </View>,
+  //           items: [
+  //             {
+  //               subHeading: "Critical Illness/Trauma Cover",
+  //               item: traumaAccount
+  //             }
+  //           ].filter(obj => obj),
+  //         }
+  //       ]);
+  //   });
+  // }
 
 
 
@@ -602,7 +833,7 @@ const PlanBInsurance = () => {
                     source={imageMap[planBInsurance[0].Have_Health_Cover]}
                   />
                 </View>
-                <View style={[styles.summary1, {marginBottom: 50}]}>
+                <View style={[styles.summary1, { marginBottom: 50 }]}>
                   <Text
                     style={[
                       styles.loremIpsumIs,
@@ -622,43 +853,41 @@ const PlanBInsurance = () => {
             }
             {activeTab == 1 &&
               <>
-                {(ina) && (!ina?.length) && (financialAccounts) && (!financialAccounts?.length) && <>
-                  <AccordionSkeleton />
-                </>}
-                {ina && (ina?.length > 0) && (financialAccounts) && (financialAccounts?.length > 0) &&
-                  <>
-                    <ChapterTab
-                      tabs={dashboardUsers}
-                      activeTab={activeDashboardUser}
-                      onTabPress={handleDashboardUserTabPress}
-                      type="user-tab"
-                    />
-                    {dashboardUsers && (dashboardUsers?.length > 0) &&
-                      <>
-                        {dashboardUsers.map((user: any, index: number) => {
-                          if (activeDashboardUser == index) {
-                            return (
-                              <View key={index} style={{ marginBottom: 40 }}>
-                                {(!ina[index]) && (ina?.length != index) && <>
-                                  <AccordionSkeleton />
-                                </>}
-                                {(ina?.length == 0) && <>
-                                  <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20 }}>
-                                    <AccordionHeading title="No Data Available" value="No Household is assigned to the contact"></AccordionHeading>
-                                  </View>
-                                </>}
-                                {(ina?.length > 0) && <>
-                                  <AccordionContainer accordions={accordionINA[index]} />
-                                </>}
-                              </View>
-                            );
-                          }
-                        })}
-                      </>
-                    }
 
-                  </>
+
+                <ChapterTab
+                  tabs={dashboardUsers}
+                  activeTab={activeDashboardUser}
+                  onTabPress={handleUserTabPress}
+                  type="user-tab"
+                />
+
+                {accordionINA && (Object.keys(accordionINA).length > 0) && Object.keys(accordionINA).map((key) => {
+                  if (activeDashboardUser == accordionINA[key].tempCounter) {
+                    return (
+                      <>
+                        <View key={accordionINA[key].tempCounter} style={{ marginBottom: 40 }}>
+                          {(!accordionINA[key]) && (accordionINA[key].inas.length != activeDashboardUser) && <>
+                            <AccordionSkeleton />
+                          </>}
+                          {(accordionINA[key].inas.length == 0) && <>
+                            <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20 }}>
+                              <AccordionHeading title="No Data Available" value="No Household is assigned to the contact"></AccordionHeading>
+                            </View>
+                          </>}
+                          {(accordionINA[key].inas.length > 0) && <>
+                            <AccordionContainer accordions={accordionINA[key].inas} />
+                            <AccordionContainer accordions={accordionINA[key].otherItems} />
+                          </>}
+                        </View>
+                      </>
+                    );
+                  }
                 }
+                )}
+
+
+
               </>
             }
             {activeTab == 2 &&

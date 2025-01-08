@@ -37,10 +37,10 @@ const PlanBEmergencyFund = () => {
 
   const [activeTab, setActiveTab] = useState(0);
   const [activeSubTab, setActiveSubTab] = useState(0);
-  const [allAccounts, setallAccounts] = useState<any>({});
+  const [allAccounts, setallAccounts] = useState<any>();
   const [emerFAccounts, setEmerFAccounts] = useState<any>([]);
 
-  const [speedometerValue, setSpeedometerValue] = useState<number>(80);
+  const [speedometerValue, setSpeedometerValue] = useState<number>(0);
   const [speedoMinimum, setSpeedoMinimum] = useState<number>(0);
   const [speedoMaximum, setSpeedoMaximum] = useState<number>(0);
   const [speedoPart, setSpeedoPart] = useState<number>(0);
@@ -94,13 +94,18 @@ const PlanBEmergencyFund = () => {
 
   useEffect(() => {
     if (allAccounts) {
+      console.log("allAccounts : ", allAccounts)
       const partValue = Number(allAccounts?.Target_Emergency_Fund) / 3;
       setSpeedoMinimum(0);
       setSpeedoPart(partValue);
       const maximumValue = partValue * 5;
+      let oValue = allAccounts?.Target_Emergency_Fund;
+      if (oValue > maximumValue) {
+        oValue = maximumValue + 10;
+      }
       setSpeedoMaximum(maximumValue);
       setSpeedometerValue(Number(allAccounts?.Current_Total_Emergency_Funds));
-      setSpeedoOriginalValue(allAccounts?.Target_Emergency_Fund);
+      setSpeedoOriginalValue(oValue);
     }
 
   }, [allAccounts])
@@ -133,7 +138,7 @@ const PlanBEmergencyFund = () => {
             contentContainerStyle={styles.planBEmergencyFundScrollViewContent}
           >
             <Text style={styles.goaltitle}>My Goal</Text>
-            <Text style={styles.goaltext}>{planBEmergencyFund[0].Emergency_Fund_Goal}</Text>     
+            <Text style={styles.goaltext}>{planBEmergencyFund[0].Emergency_Fund_Goal}</Text>
           </ScrollView>
           {/* {(activeTab == 1 || activeTab == 2) &&
             <LinearGradient
@@ -267,8 +272,8 @@ const PlanBEmergencyFund = () => {
                   </View>
                   <View style={[styles.balance]}>
                     <Text style={[styles.balanceText]}>
-                      {Number(allAccounts?.Target_Emergency_Fund) ? "$"+Number(allAccounts?.Target_Emergency_Fund).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
-                      </Text>
+                      {Number(allAccounts?.Target_Emergency_Fund) ? "$" + Number(allAccounts?.Target_Emergency_Fund).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
                     <Text style={[styles.balanceNextLine]}>Emergency Funds How Much You Need </Text>
                     {allAccounts && <>
                       <Pressable onPress={() => editEmergencyFund(allAccounts)} style={{ marginTop: 5 }}>
@@ -282,11 +287,15 @@ const PlanBEmergencyFund = () => {
                   </View>
                   <View style={[styles.balance]}>
                     <Text style={[styles.balanceText]}>
-                      {Number(allAccounts?.Current_Total_Emergency_Funds) ? "$"+Number(allAccounts?.Current_Total_Emergency_Funds).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
-                      </Text>
-                    <Text style={[styles.balanceNextLine]}>Current Total Emergency Funds </Text>                    
+                      {Number(allAccounts?.Current_Total_Emergency_Funds) ? "$" + Number(allAccounts?.Current_Total_Emergency_Funds).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}
+                    </Text>
+                    <Text style={[styles.balanceNextLine]}>Current Total Emergency Funds </Text>
                   </View>
-                  <View style={[styles.speedometer]}>
+                  {/* <View>
+                    <Text>speedoOriginalValue : {speedoOriginalValue}, speedometerValue : {speedometerValue}</Text>
+                  </View> */}
+
+                  {speedoOriginalValue && speedometerValue && <><View style={[styles.speedometer]}>
                     <SpeedoMeter
                       value={speedometerValue}
                       size={200}
@@ -295,6 +304,8 @@ const PlanBEmergencyFund = () => {
                       originalValue={speedoOriginalValue}
                     />
                   </View>
+                  </>}
+
                   <View>
                     <Text style={[styles.listOfAccounts]}>List of Accounts</Text>
                     {emerFAccounts?.length > 0 &&
@@ -591,9 +602,9 @@ const styles = StyleSheet.create({
   },
   myExercisesTypo: {
     fontSize: 12,
-    paddingLeft:10,
-    fontWeight:"700",
-    fontFamily:FontFamily.openSansRegular
+    paddingLeft: 10,
+    fontWeight: "700",
+    fontFamily: FontFamily.openSansRegular
   },
   loremIpsumIs: {
     lineHeight: 22,

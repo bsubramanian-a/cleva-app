@@ -41,7 +41,7 @@ type SpeedoMeterProps = {
 };
 
 const SpeedoMeter = ({
-    value,
+    value = 0,
     originalValue,
     minValue = 0,
     maxValue = 100,
@@ -89,11 +89,14 @@ const SpeedoMeter = ({
     labelNoteStyle = {},
     useNativeDriver = true
 }: SpeedoMeterProps) => {
-    const [speedometerValue, setSpeedometerValue] = useState(new Animated.Value(defaultValue as number));
+    // console.log('before defaultValue', defaultValue);
+    // console.log('before originalValue', originalValue);
+    const [speedometerValue, setSpeedometerValue] = useState(new Animated.Value((value == 0)?defaultValue:value as number));
     const [speedometerOriginalValue, setSpeedometerOriginalValue] = useState(new Animated.Value(originalValue as number));
     const degree = 180;
-    console.log('defaultValue', defaultValue);
-    console.log('originalValue', originalValue);
+    // console.log('after defaultValue', defaultValue);
+    // console.log('after originalValue', originalValue);
+   
 
     const perLevelDegree = calculateDegreeFromLabels(degree, labels);
     const label = calculateLabelFromValue(

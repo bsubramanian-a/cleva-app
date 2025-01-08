@@ -55,7 +55,7 @@ const PlanBEstatePlanWill = () => {
   const notes = useSelector((state: any) => state.data.notes);
   const coachnotes = useSelector((state: any) => state.data.coachnotes);
   const profile = useSelector((state: any) => state.data.profile);
- 
+
   console.log("profile", profile);
   console.log("notes", notes);
   console.log("coachnotes", coachnotes);
@@ -65,7 +65,7 @@ const PlanBEstatePlanWill = () => {
   const [activeDashboardUser, setActiveDashboardUser] = useState(0);
   const [dashboardUsers, setDashboardUsers] = useState<any>([]);
   const [accordionPlanBEstatePlanWill, setPlanBEstatePlanWillAccordion] = useState<any>([]);
- 
+
   const handleTabPress = (tabNumber: number) => {
     setActiveTab(tabNumber);
   };
@@ -93,121 +93,130 @@ const PlanBEstatePlanWill = () => {
 
   useEffect(() => {
     if (planBEstatePlanWill && planBEstatePlanWill.length > 0) {
+      //console.log("planBEstatePlanWill", planBEstatePlanWill)
       const dUsers = Array.from(new Set(planBEstatePlanWill.map((element: any) => element?.Account?.name)));
-      console.log("dUsers", dUsers);
-      setDashboardUsers(dUsers);    
-      setPlanBEstatePlanWillAccordion(dUsers);  
+
+      const desiredOutput: { [key: string]: { id: string; tempCounter: number, accountName?: string; wills: any[] } } = {};
+
+      let tempCounter = 0;
+      for (const will of planBEstatePlanWill) {
+        const accountId = will.Account?.id;
+        const accountName = will.Account?.name;
+        if (!accountId) continue; // Skip objects without Account.id
+
+        if (!desiredOutput[accountId]) {
+          desiredOutput[accountId] = {
+            id: accountId,
+            tempCounter: tempCounter++,
+            accountName: accountName,
+            wills: [],
+          };
+        }
+
+        const DYHAPOA = will?.Do_you_have_a_POA;
+        const EOWILL = will?.Executor_of_your_Will;
+        const LOWILL = will?.Location_of_the_Will;
+        const IICURRENT = will?.Is_it_current;
+        const DYHW = will?.Do_you_have_a_will;
+        const BNAME = will?.Beneficiary_Name;
+        const DYHBOSF = will?.Do_you_have_beneficiary_on_superfund;
+
+        const convertedWill = {
+          title: will?.Name,
+          icon: require("../../assets/shield-tick.png"),
+          link: 'EditPlanBEstatePlanWill',
+          element: will,
+          isActiveTab: true,
+          items: [
+            {
+              subHeading: will?.Name,
+              enableSubHeading: false,
+              enableEdit: true,
+              item: [
+                {
+                  icon: <Image
+                    style={styles.vuesaxlinearprofileCircle}
+                    resizeMode="contain"
+                    source={require("../../assets/dollar-square.png")}
+                  />,
+                  name: 'Do you have a benificiery for your super fund?',
+                  value: DYHBOSF ? DYHBOSF : "N/A"
+                },
+                {
+                  icon: <Image
+                    style={styles.vuesaxlinearprofileCircle}
+                    resizeMode="contain"
+                    source={require("../../assets/dollar-square.png")}
+                  />,
+                  name: 'Beneficiary Name',
+                  value: BNAME ? BNAME : "N/A"
+                },
+                {
+                  icon: <Image
+                    style={styles.vuesaxlinearprofileCircle}
+                    resizeMode="contain"
+                    source={require("../../assets/dollar-square.png")}
+                  />,
+                  name: 'Do you have a Will?',
+                  value: DYHW ? DYHW : "N/A"
+                },
+                {
+                  icon: <Image
+                    style={styles.vuesaxlinearprofileCircle}
+                    resizeMode="contain"
+                    source={require("../../assets/dollar-square.png")}
+                  />,
+                  name: 'is it current?',
+                  value: IICURRENT ? IICURRENT : "N/A"
+                },
+                {
+                  icon: <Image
+                    style={styles.vuesaxlinearprofileCircle}
+                    resizeMode="contain"
+                    source={require("../../assets/dollar-square.png")}
+                  />,
+                  name: 'Location of Will',
+                  value: LOWILL ? LOWILL : "N/A"
+                },
+                {
+                  icon: <Image
+                    style={styles.vuesaxlinearprofileCircle}
+                    resizeMode="contain"
+                    source={require("../../assets/dollar-square.png")}
+                  />,
+                  name: 'Executor of Will',
+                  value: EOWILL ? EOWILL : "N/A"
+                },
+                {
+                  icon: <Image
+                    style={styles.vuesaxlinearprofileCircle}
+                    resizeMode="contain"
+                    source={require("../../assets/dollar-square.png")}
+                  />,
+                  name: 'Do you have a POA?',
+                  value: DYHAPOA ? DYHAPOA : "N/A"
+                }
+              ]
+            }
+          ].filter(obj => obj),
+        };
+
+        desiredOutput[accountId].wills.push(convertedWill);
+      }
+
+      console.log("desiredOutput", desiredOutput);
+      
+      setDashboardUsers(dUsers);
+      setPlanBEstatePlanWillAccordion(desiredOutput);
     } else {
       //Important to handle the case where planBEstatePlanWill is null or empty
-      setDashboardUsers([]); // or whatever default value is appropriate      
+      setDashboardUsers([]); // or whatever default value is appropriate  
+      setPlanBEstatePlanWillAccordion({}); // or whatever default value is appropriate
     }
-    setAccordions();
+
   }, [planBEstatePlanWill]);
 
-  const pushAccordionData = (newObject: any) => {
-    setPlanBEstatePlanWillAccordion((prevAccordionPBEPW: any) => {
-      console.log("prevAccordionPBEPW", prevAccordionPBEPW);
-      console.log("newObject", newObject);
-      let addObject = [...prevAccordionPBEPW, newObject];
-      console.log("addObject", addObject);
-      return addObject;
-    });
-  };
-
-  const setAccordions = () => {
-    setPlanBEstatePlanWillAccordion([]);
-    planBEstatePlanWill?.map((will:any, index:number) => {
-      console.log("Current Will ", will);
-      console.log("Do_you_have_a_POA :", will?.Do_you_have_a_POA);
-      const DYHAPOA = will?.Do_you_have_a_POA;
-      const EOWILL = will?.Executor_of_your_Will;
-      const LOWILL = will?.Location_of_the_Will;
-      const IICURRENT = will?.Is_it_current;
-      const DYHW = will?.Do_you_have_a_will;
-      const BNAME = will?.Beneficiary_Name;
-      const DYHBOSF = will?.Do_you_have_beneficiary_on_superfund;
-
-      pushAccordionData([{
-        title: will?.Name,
-        icon: require("../../assets/shield-tick.png"),
-        link: 'EditPlanBEstatePlanWill',
-        element:will, 
-        isActiveTab: true,       
-        items: [
-          {
-            subHeading: will?.Name,
-            enableSubHeading: true,
-            enableEdit: true,
-            item: [
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Do you have a benificiery for your super fund?',
-                value: DYHBOSF ? DYHBOSF : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Beneficiary Name',
-                value: BNAME ? BNAME : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Do you have a Will?',
-                value: DYHW ? DYHW : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'is it current?',
-                value: IICURRENT ? IICURRENT : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Location of Will',
-                value: LOWILL ? LOWILL : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Executor of Will',
-                value: EOWILL ? EOWILL : "N/A"
-              },
-              {
-                icon: <Image
-                  style={styles.vuesaxlinearprofileCircle}
-                  resizeMode="contain"
-                  source={require("../../assets/dollar-square.png")}
-                />,
-                name: 'Do you have a POA?',
-                value: DYHAPOA ? DYHAPOA : "N/A"
-              }
-            ]
-          }
-        ].filter(obj => obj),
-      }]);
-    })
-  }
+  
 
 
   const getDatas = async () => {
@@ -228,10 +237,6 @@ const PlanBEstatePlanWill = () => {
     'No/Not Sure': require('../../assets/no.png'),
     'No': require('../../assets/no.png'),
   };
-
-  const screenWidth = Dimensions.get("window").width;
-
-  
 
   return (
     <>
@@ -265,7 +270,7 @@ const PlanBEstatePlanWill = () => {
           </ImageBackground> */}
             {/* <View style={styles.videoSection}>
           <VideoPlayer sourceUri={'https://download.samplelib.com/mp4/sample-5s.mp4'} />
-        </View> */}            
+        </View> */}
           </ScrollView>
           <ScrollView
             style={[styles.videoSectionParent, styles.secondHalf]}
@@ -347,29 +352,29 @@ const PlanBEstatePlanWill = () => {
                   onTabPress={handleUserTabPress}
                   type="user-tab"
                 />
-                {dashboardUsers && (dashboardUsers?.length > 0) &&
-                      <>
-                        {dashboardUsers.map((user: any, index: number) => {
-                          if (activeDashboardUser == index) {
-                            return (
-                              <View key={index} style={{ marginBottom: 40 }}>
-                                {(!planBEstatePlanWill[index]) && (planBEstatePlanWill?.length != index) && <>
-                                  <AccordionSkeleton/>
-                                </>}
-                                {(planBEstatePlanWill?.length == 0) && <>
-                                  <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20 }}>
-                                    <AccordionHeading title="No Data Available" value="No Household is assigned to the contact"></AccordionHeading>
-                                  </View>
-                                </>}
-                                {(planBEstatePlanWill?.length > 0) && <>
-                                  <AccordionContainer accordions={accordionPlanBEstatePlanWill[index]} />
-                                </>}                                
-                              </View>
-                            );
-                          }
-                        })}
+
+                {accordionPlanBEstatePlanWill && (Object.keys(accordionPlanBEstatePlanWill).length > 0) && Object.keys(accordionPlanBEstatePlanWill).map((key) => {
+                  if (activeDashboardUser == accordionPlanBEstatePlanWill[key].tempCounter) {
+                    return (
+                      <>                        
+                        <View key={accordionPlanBEstatePlanWill[key].tempCounter} style={{ marginBottom: 40 }}>
+                         {(!accordionPlanBEstatePlanWill[key]) && (accordionPlanBEstatePlanWill[key].wills.length != activeDashboardUser) && <>
+                           <AccordionSkeleton />
+                         </>}
+                         {(accordionPlanBEstatePlanWill[key].wills.length == 0) && <>
+                           <View style={{ marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20 }}>
+                             <AccordionHeading title="No Data Available" value="No Household is assigned to the contact"></AccordionHeading>
+                           </View>
+                         </>}
+                         {(accordionPlanBEstatePlanWill[key].wills.length > 0) &&  <>
+                           <AccordionContainer accordions={accordionPlanBEstatePlanWill[key].wills} />
+                         </>}
+                       </View>
                       </>
-                    }
+                    );
+                  }
+                }
+                )}                
               </>
             }
             {activeTab == 2 &&
@@ -607,9 +612,9 @@ const styles = StyleSheet.create({
   },
   myExercisesTypo: {
     fontSize: 12,
-    paddingLeft:10,
-    fontWeight:"700",
-    fontFamily:FontFamily.openSansRegular
+    paddingLeft: 10,
+    fontWeight: "700",
+    fontFamily: FontFamily.openSansRegular
   },
   loremIpsumIs: {
     lineHeight: 22,

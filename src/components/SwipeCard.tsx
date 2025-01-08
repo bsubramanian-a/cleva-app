@@ -36,7 +36,7 @@ const SwipeCard = () => {
     {
       Name: "Plan B Emergency Fund",
       progress: 47,
-      id:1,
+      id:4,
       Component: "PlanBEmergencyFund",
       bgImage: require('../assets/PlanBEmergencyFund.png')
     },
